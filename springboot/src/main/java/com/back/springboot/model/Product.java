@@ -1,6 +1,7 @@
 package com.back.springboot.model;
 
-import javax.annotation.Generated;
+
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -12,12 +13,14 @@ public class Product {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
+
+    @Column(name = "name")
     private String name;
+    @Column(name = "type")
     private String type;
 
     public Product()
     {
-
     }
 
     public Product(String name, String type) {
@@ -49,5 +52,11 @@ public class Product {
         this.type = type;
     }
 
+    @Override
+    public String toString() {
+        return "Product [id=" + id + ", name=" + name + ", type=" + type + "]";
+    }
+
+    
     
 }
