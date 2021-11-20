@@ -18,4 +18,19 @@ export class ProductService {
    
     return this.HttpClient.get<Product[]>(`${this.baseURL}`);
   }
+
+  createProduct(product: Product): Observable<Object>
+  {
+    return this.HttpClient.post(`${this.baseURL}`, product);
+  }
+
+  getProductById(id:number):Observable<Product>
+  {
+    return this.HttpClient.get<Product>(`${this.baseURL}/${id}` );
+  }
+
+  updateProduct(id:number, product: Product):Observable<Object>
+  {
+    return this.HttpClient.put(`${this.baseURL}/${id}`, product );
+  }
 }

@@ -5,12 +5,18 @@
         <tr>
             <th>Name</th>
             <th>Type</th>
+            <th>Actions</th>
         </tr>
     </thead>
     <tbody>
         <tr *ngFor= "let product of products" > 
             <td> {{product.name}}</td>
             <td> {{product.type}}</td>
+            <td>
+                <button (click)="updateProduct(product.id)" class="btn btn-info"> Update
+
+                </button>
+            </td>
         </tr>
     </tbody>
 
