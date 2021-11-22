@@ -33,4 +33,8 @@ export class ProductService {
   {
     return this.HttpClient.put(`${this.baseURL}/${id}`, product );
   }
+
+  deleteProduct(id: number) :Observable<Object> {
+    return this.HttpClient.delete(`${this.baseURL}/${id}`);
+  }
 }

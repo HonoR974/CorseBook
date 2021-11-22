@@ -13,9 +13,8 @@
             <td> {{product.name}}</td>
             <td> {{product.type}}</td>
             <td>
-                <button (click)="updateProduct(product.id)" class="btn btn-info"> Update
-
-                </button>
+                <button (click)="updateProduct(product.id)" class="btn btn-info"> Update </button>
+                <button (click)="deleteProduct(product.id)" class="btn btn-danger" style="margin-left:10px;">Delete</button>
             </td>
         </tr>
     </tbody>
