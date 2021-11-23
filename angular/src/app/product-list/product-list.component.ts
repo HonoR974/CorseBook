@@ -31,6 +31,14 @@ export class ProductListComponent implements OnInit {
     });
   }
 
+
+  
+  productDetails(id:number)
+  {
+    this.router.navigate(['product-details', id]);
+  }
+
+
   updateProduct(id:number)
   {
     this.router.navigate(['update-product', id]);

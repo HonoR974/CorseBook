@@ -9,6 +9,7 @@ import { ProductListComponent } from './product-list/product-list.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CreateProductComponent } from './create-product/create-product.component';
 import { UpdateProductComponent } from './update-product/update-product.component';
+import { ProductDetailsComponent } from './product-details/product-details.component';
 
 
 @NgModule({
@@ -16,7 +17,8 @@ import { UpdateProductComponent } from './update-product/update-product.componen
     AppComponent,
     ProductListComponent,
     CreateProductComponent,
-    UpdateProductComponent
+    UpdateProductComponent,
+    ProductDetailsComponent
   ],
   imports: [
     BrowserModule,
