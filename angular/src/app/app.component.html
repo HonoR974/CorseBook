@@ -1,16 +1,20 @@
 <div>
     <nav class="navbar navbar-expand-sm bg-primary navbar-dark">
         <ul class="navbar-nav" routerLinkActive="active">
+
             <li class="nav-item">
-                <a routerLink="products" routerLinkActive="active" class="nav-link">Product List</a>
+                <a routerLink="products" routerLinkActive="active" 
+                class="nav-link">Product List</a>
             </li>
     
             <li class="nav-item">
-                <a routerLink="create-product" routerLinkActive="active" class="nav-link">Add Product</a>
+                <a routerLink="create-product" routerLinkActive="active"
+                 class="nav-link">Add Product</a>
             </li>
     
             <li class="nav-item">
-                <a href="/home" class="nav-link" routerLink="home" routerLinkActive="active" >Home </a>
+                <a href="/home" class="nav-link" routerLink="home"
+                 routerLinkActive="active" >Home </a>
             </li>
     
             <li class="nav-item" *ngIf="showAdminBoard">
@@ -22,7 +26,8 @@
             </li>
     
             <li class="nav-item">
-                 <a href="/user" class="nav-link" *ngIf="isLoggedIn" routerLink="user">User</a>
+                 <a href="/user" class="nav-link" *ngIf="isLoggedIn"
+                  routerLink="user">User</a>
             </li>
         </ul>
 

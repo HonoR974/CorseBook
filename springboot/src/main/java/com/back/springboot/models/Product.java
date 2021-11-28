@@ -1,4 +1,4 @@
-package com.back.springboot.model;
+package com.back.springboot.models;
 
 
 import javax.persistence.Column;
