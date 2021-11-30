@@ -1,7 +1,5 @@
 package com.back.springboot.playload.request;
 
-import java.util.Set;
-
 import javax.validation.constraints.*;
  
 public class SignupRequest  {
@@ -14,7 +12,6 @@ public class SignupRequest  {
     @Email
     private String email;
     
-    private Set<String> role;
     
     @NotBlank
     @Size(min = 6, max = 40)
@@ -43,18 +40,9 @@ public class SignupRequest  {
     public void setPassword(String password) {
         this.password = password;
     }
-    
-    public Set<String> getRole() {
-      return this.role;
-    }
-    
-    public void setRole(Set<String> role) {
-      this.role = role;
-    }
-
     @Override
     public String toString() {
-        return "SignupRequest [email=" + email + ", password=" + password + ", role=" + role + ", username=" + username
+        return "SignupRequest [email=" + email + ", password=" + password + ", username=" + username
                 + "]";
     }
 

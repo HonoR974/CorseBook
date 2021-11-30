@@ -1,4 +1,8 @@
-<div class="col-md-12">
+<div class="col-md-6">
+
+  <div  *ngIf="isLoggedIn">
+    salut a toi {{ user.username }}
+  </div>
     <div class="card card-container">
       <img
         id="profile-img"
@@ -68,8 +72,5 @@
         </div>
       </form>
   
-      <div class="alert alert-success" *ngIf="isLoggedIn">
-        Logged in as {{ roles }}.
-      </div>
     </div>
   </div>
