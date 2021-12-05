@@ -1,9 +1,14 @@
 <div class="container">
   home page 
-  <div>
-    username {{ username }}
+ 
   </div>
-  <div>
-    content {{ content }}
+
+  <div  *ngIf="isLoggedIn">
+    salut a toi {{ user.username }}
+    <br>
+    ton email  : {{ user.email}}
+
+    <br>
+    jwt {{ jwt }}
   </div>
-  </div>
+  

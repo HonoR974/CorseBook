@@ -17,12 +17,16 @@ export class LoginComponent implements OnInit {
   isLoginFailed = false;
   errorMessage = '';
   user: User = new User;
+  jwt:any;
+  msg:any;
   constructor(private authService: AuthService, private tokenStorage: TokenStorageService) { }
 
   ngOnInit(): void {
     if (this.tokenStorage.getToken()) {
       this.isLoggedIn = true;
       this.user = this.tokenStorage.getUser();
+      this.jwt =  this.tokenStorage.getToken();
+      console.log("jwt " + this.jwt);
     }
   }
 
@@ -31,14 +35,12 @@ export class LoginComponent implements OnInit {
 
     this.authService.login(username, password).subscribe(
       data => {
-        this.tokenStorage.saveToken(data);
+        this.tokenStorage.saveToken(data.jwt);
+      
         this.tokenStorage.saveUser(data);
-        this.user = data;
 
         this.isLoginFailed = false;
         this.isLoggedIn = true;
-
-
       
         this.reloadPage();
       },

@@ -10,17 +10,18 @@ import { TokenStorageService } from '../_services/token-storage.service';
 export class HomeComponent implements OnInit {
   content?: string;
   username?:string;
-  user: User;
+  isLoggedIn = false;
+  user: User = new User;
+  jwt :any;
 
   constructor(private tokenStorage: TokenStorageService) { }
 
   ngOnInit(): void {
-    var user = this.tokenStorage.getUser();
-    console.log("user " + user);
 
-    this.username = user.username;
-    console.log("username "+  this.username);
-
-    this.content = user;
+    if (this.tokenStorage.getToken()) {
+      this.user = this.tokenStorage.getUser();
+      this.isLoggedIn = true;
+      this.jwt = this.tokenStorage.getToken();
+    }
   }
 }

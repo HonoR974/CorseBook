@@ -33,9 +33,7 @@ export class AuthService {
 
   getUserByJwt():Observable<any>
   {
-     var token =  this.tokenStorage.getToken(); 
-
-    console.log("le token de l'user " + token);
+     var token =  this.tokenStorage.getToken();
 
     return this.http.get(AUTH_API + "token/"+ token, httpOptions);
   }
