@@ -22,13 +22,7 @@ export class LoginComponent implements OnInit {
   ngOnInit(): void {
     if (this.tokenStorage.getToken()) {
       this.isLoggedIn = true;
-      console.log("user loggé " + this.user);
-
-      console.log("user " + this.tokenStorage.getUser());
       this.user = this.tokenStorage.getUser();
-
-      console.log("username " + this.user.username)
-    
     }
   }
 

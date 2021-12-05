@@ -42,7 +42,7 @@ public class AuthController {
 	UserService userService;
 
     @Autowired
-    private JwtUserDetailsService userDetailsService;
+    private JwtUserDetailsService jwtUserDetail;
 
     @Autowired
     private JwtTokenUtil jwtTokenUtil;
@@ -79,13 +79,16 @@ public class AuthController {
 
         authenticate(authenticationRequest.getUsername(), authenticationRequest.getPassword());
 
-        final UserDetails userDetails = userDetailsService
+        final UserDetails userDetails = jwtUserDetail
                 .loadUserByUsername(authenticationRequest.getUsername());
 
+        
         final String token = jwtTokenUtil.generateToken(userDetails);
 
+        User user = userService.findByUsername(userDetails.getUsername());
+        JwtResponse jwtResponse = new JwtResponse(token, user.getUsername(), user.getEmail());
      
-        return ResponseEntity.ok(new JwtResponse(token));
+        return ResponseEntity.ok(jwtResponse);
     }
 
 
@@ -119,7 +122,7 @@ public class AuthController {
 
         String username= jwtTokenUtil.getUsernameFromToken(jwt);
 
-        final UserDetails userDetails = userDetailsService.loadUserByUsername(username);
+        final UserDetails userDetails = jwtUserDetail.loadUserByUsername(username);
 
         User user = userService.findByUsername(userDetails.getUsername());
 

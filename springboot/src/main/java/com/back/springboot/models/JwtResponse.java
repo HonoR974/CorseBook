@@ -10,6 +10,9 @@ public class JwtResponse {
     private Status status;
     private String exceptionType;
     private String jwt;
+    private Long id;
+	private String username;
+	private String email;
     private Jws<Claims> jws;
 
     public enum Status {
@@ -23,6 +26,12 @@ public class JwtResponse {
         this.jwt = jwt;
         this.status = Status.SUCCESS;
     }
+
+    public JwtResponse(String accessToken, String username, String email) {
+		this.jwt = accessToken;
+		this.username = username;
+		this.email = email;
+	}
 
     public JwtResponse(Jws<Claims> jws) {
         this.jws = jws;
@@ -68,4 +77,30 @@ public class JwtResponse {
     public void setJws(Jws<Claims> jws) {
         this.jws = jws;
     }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    
 }

@@ -18,6 +18,10 @@ import java.util.ArrayList;
 public class JwtUserDetailsService implements UserDetailsService {
 
 
+    private Long id;
+	private String username;
+	private String email;
+    
     @Autowired
     private UserRepository userRepository;
 
@@ -35,6 +39,48 @@ public class JwtUserDetailsService implements UserDetailsService {
                 new ArrayList<>());
     }
 
+
+    public Long getId() {
+        return id;
+    }
+
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+
+    public String getUsername() {
+        return username;
+    }
+
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+
+    public String getEmail() {
+        return email;
+    }
+
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+
+    public UserRepository getUserRepository() {
+        return userRepository;
+    }
+
+
+    public void setUserRepository(UserRepository userRepository) {
+        this.userRepository = userRepository;
+    }
+
+
+    
 
 
 }
