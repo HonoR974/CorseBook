@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { User } from './_class/user';
 import { TokenStorageService } from './_services/token-storage.service';
 
 @Component({
@@ -10,17 +11,15 @@ export class AppComponent {
   title = 'Angular & Spring Boot ';
   
   isLoggedIn = false;
-  username?: string;
+  user:User;
 
   constructor(private tokenStorageService: TokenStorageService) { }
 
   ngOnInit(): void {
-    this.isLoggedIn = !!this.tokenStorageService.getToken();
 
-    if (this.isLoggedIn) {
-      const user = this.tokenStorageService.getUser();
-
-      this.username = user.username;
+    if (this.tokenStorageService.getToken()) {
+      this.isLoggedIn = true;
+      this.user = this.tokenStorageService.getUser();
     }
   }
 

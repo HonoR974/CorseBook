@@ -26,7 +26,6 @@ export class LoginComponent implements OnInit {
       this.isLoggedIn = true;
       this.user = this.tokenStorage.getUser();
       this.jwt =  this.tokenStorage.getToken();
-      console.log("jwt " + this.jwt);
     }
   }
 

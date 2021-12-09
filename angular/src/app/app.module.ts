@@ -15,6 +15,7 @@ import { RegisterComponent } from './register/register.component';
 import { HomeComponent } from './home/home.component';
 import { ProfileComponent } from './profile/profile.component';
 import { authInterceptorProviders } from './_helpers/auth.interceptor';
+import { CreatePublicationComponent } from './create-publication/create-publication.component';
 
 
 @NgModule({
@@ -28,6 +29,7 @@ import { authInterceptorProviders } from './_helpers/auth.interceptor';
     RegisterComponent,
     HomeComponent,
     ProfileComponent,
+    CreatePublicationComponent,
   ],
   imports: [
     BrowserModule,

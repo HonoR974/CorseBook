@@ -53,7 +53,7 @@ export class RegisterComponent implements OnInit {
 
     this.authService.login(username, password).subscribe( 
       data => {
-        this.tokenStorage.saveToken(data.accessToken);
+        this.tokenStorage.saveToken(data.jwt);
         this.tokenStorage.saveUser(data);
 
         this.goToUserPage();
