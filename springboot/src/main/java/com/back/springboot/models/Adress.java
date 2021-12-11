@@ -21,7 +21,8 @@ public class Adress {
 
     private String ville; 
 
-    private String adresseComplet;
+    private String infoAdress;
+
 
     @OneToOne(mappedBy = "adress")
     private Company company;
@@ -34,7 +35,7 @@ public class Adress {
     public Adress(@Size(min = 5, max = 5) String codePostal, String ville, String adresseComplet) {
         this.codePostal = codePostal;
         this.ville = ville;
-        this.adresseComplet = adresseComplet;
+        this.infoAdress = adresseComplet;
     }
 
     public long getId() {
@@ -61,13 +62,6 @@ public class Adress {
         this.ville = ville;
     }
 
-    public String getAdresseComplet() {
-        return adresseComplet;
-    }
-
-    public void setAdresseComplet(String adresseComplet) {
-        this.adresseComplet = adresseComplet;
-    }
 
     public Company getCompany() {
         return company;
@@ -75,6 +69,20 @@ public class Adress {
 
     public void setCompany(Company company) {
         this.company = company;
+    }
+
+    public String getInfoAdress() {
+        return infoAdress;
+    }
+
+    public void setInfoAdress(String infoAdress) {
+        this.infoAdress = infoAdress;
+    }
+
+    @Override
+    public String toString() {
+        return "Adress [codePostal=" + codePostal + ", company=" + company + ", id=" + id + ", infoAdress=" + infoAdress
+                + ", ville=" + ville + "]";
     }
 
     

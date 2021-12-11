@@ -1,11 +1,13 @@
 package com.back.springboot.dto;
 
+import com.back.springboot.models.Adress;
+
 import lombok.Data;
 
 @Data
 public class CompanyDTO {
     
-    private Long id;
+    private long id;
 
     private String name;
 
@@ -13,7 +15,7 @@ public class CompanyDTO {
 
     private String ville;
 
-    private String adressComplet;
+   private String infoAdress;
 
 
     //la definition de l'addresse 
@@ -22,17 +24,22 @@ public class CompanyDTO {
     {
         this.codePostal = postalCode;
         this.ville = city;
-        this.adressComplet = completeAdresse;
+        this.infoAdress = completeAdresse;
+    }
+
+ 
+
+    public CompanyDTO() {
     }
 
 
 
     //get & set 
-    public Long getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(long id) {
         this.id = id;
     }
 
@@ -60,21 +67,22 @@ public class CompanyDTO {
         this.ville = ville;
     }
 
-    public String getAdresseComplete() {
-        return adressComplet;
+    public String getInfoAdress() {
+        return infoAdress;
     }
 
-    public void setAdresseComplete(String adresseComplete) {
-        this.adressComplet = adresseComplete;
+    public void setInfoAdress(String infoAdress) {
+        this.infoAdress = infoAdress;
     }
-
-
 
     @Override
     public String toString() {
-        return "CompanyDTO [adresseComplete=" + adressComplet + ", codePostal=" + codePostal + ", id=" + id
-                + ", name=" + name + ", ville=" + ville + "]";
+        return "CompanyDTO [codePostal=" + codePostal + ", id=" + id + ", infoAdress=" + infoAdress + ", name=" + name
+                + ", ville=" + ville + "]";
     }
+
+
+
 
     
     

@@ -9,9 +9,15 @@ import org.springframework.expression.ParseException;
 
 public interface CompanyService {
 
+    //crud 
     List<Company> getAll();
 
     Company createCompany(Company company);
+
+    Company getCompanyById(long id);
+
+
+    //convert
 
     CompanyDTO convertTodDto(Company company);
     

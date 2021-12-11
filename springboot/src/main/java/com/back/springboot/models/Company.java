@@ -2,12 +2,14 @@ package com.back.springboot.models;
 
 
 
-import javax.persistence.Column;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
+
 
 @Entity
 public class Company {
@@ -18,10 +20,10 @@ public class Company {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    @Column(name = "name")
     private String name;
 
-    @OneToOne()
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "adress_id", referencedColumnName = "id")
     private Adress adress;
 
     public Company() {
@@ -49,6 +51,13 @@ public class Company {
 
     public void setAdress(Adress adress) {
         this.adress = adress;
+    }
+
+    @Override
+    public String toString() {
+        return "Company [adress=" + adress +
+         ", id=" + id
+          + ", name=" + name + "]";
     }
 
 

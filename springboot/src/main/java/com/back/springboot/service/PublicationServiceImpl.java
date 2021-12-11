@@ -31,6 +31,7 @@ public class PublicationServiceImpl implements PublicationService {
     private ModelMapper modelMapper;
 
 
+    //----------- CRUD -------------//
 
     @Override
     public Publication createPublication(Publication publication) {
@@ -47,12 +48,36 @@ public class PublicationServiceImpl implements PublicationService {
     @Override
     public Publication getById(long id) {
         
-        Publication publication = publicationRepository.findById(id);
-
-      
+    Publication publication = publicationRepository.findById(id) 
+                         .orElseThrow(() -> new ResourceNotFoundException("Product not extist with id : "+ id) ) ;
+ 
 
         return publication;
     }
+
+ 
+    @Override
+    public Publication updatePublication(long id, Publication publicationRequest) {
+       
+        Publication publication = publicationRepository.findById(id) 
+                                    .orElseThrow(() -> new ResourceNotFoundException("Product not extist with id : "+ id) ) ;
+ 
+         publication.setContenu(publicationRequest.getContenu());
+         publication.setCountLike(publicationRequest.getCountLike());
+                                    
+        return publicationRepository.save(publication);
+    }
+
+    @Override
+    public void deletePublication(long id)
+    {
+        Publication publication = publicationRepository.findById(id)
+                            .orElseThrow(() -> new ResourceNotFoundException("Product not extist with id : "+ id) ) ;
+ 
+        publicationRepository.delete(publication);
+    }
+
+   //------------- Convert DTO -----------//
 
     // from publication to publicationDTO 
     @Override
@@ -64,7 +89,7 @@ public class PublicationServiceImpl implements PublicationService {
 
         return publicationDTO;
     }
-
+   
     @Override
     public List<PublicationDTO> convertToDtoList(List<Publication> publications) {
     
@@ -88,6 +113,5 @@ public class PublicationServiceImpl implements PublicationService {
         return publication;
     }
 
-    
     
 }

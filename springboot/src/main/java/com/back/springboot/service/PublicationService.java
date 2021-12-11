@@ -14,7 +14,9 @@ public interface PublicationService {
 
     Publication getById(long id);
 
+    Publication updatePublication(long id, Publication Publication);
 
+    void deletePublication(long id);
     //convert DTO 
 
     PublicationDTO convertToDto(Publication publication);
@@ -23,4 +25,5 @@ public interface PublicationService {
 
     Publication convertToEntity(PublicationDTO publicationDTO);
     
+
 }

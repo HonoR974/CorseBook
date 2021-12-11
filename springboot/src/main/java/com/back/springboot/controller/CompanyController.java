@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -42,14 +43,20 @@ public class CompanyController {
     @PostMapping()
     public ResponseEntity<?> createCompany(@RequestBody CompanyDTO companyDTO)
     {
+ 
         //lors de la conversion creer une adresse a la company 
         Company companyConverted = companyService.convertToEntity(companyDTO);
-        Company company = companyService.createCompany(companyConverted);
 
-       return new ResponseEntity<Company>(company, HttpStatus.CREATED);
+        Company company = companyService.createCompany(companyConverted);
+        
+
+        CompanyDTO companyDTOSend = companyService.convertTodDto(company);
+
+        System.out.println("\n companyDTO " + companyDTOSend.toString());
+       return new ResponseEntity<CompanyDTO>(companyDTOSend, HttpStatus.CREATED);
     }
 
-/*
+
     @GetMapping("{id}")
     public ResponseEntity<?> getCompanyByID(@PathVariable long id)
     {
@@ -63,6 +70,7 @@ public class CompanyController {
         return ResponseEntity.ok(company);
     }
 
+    /*
     @PutMapping("{id}")
     public ResponseEntity<?> updateCompanyByID(@PathVariable long id)
     {
