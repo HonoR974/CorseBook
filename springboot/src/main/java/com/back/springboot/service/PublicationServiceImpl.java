@@ -1,26 +1,40 @@
 package com.back.springboot.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
+import com.back.springboot.dto.PublicationDTO;
 import com.back.springboot.exception.ResourceNotFoundException;
 import com.back.springboot.models.Publication;
+import com.back.springboot.models.User;
 import com.back.springboot.repository.PublicationRepository;
+import com.back.springboot.repository.UserRepository;
 
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 @Service
 public class PublicationServiceImpl implements PublicationService {
 
+
     @Autowired
     private PublicationRepository publicationRepository;
+
+    @Autowired
+    private SecurityService securityService;
+
+    @Autowired
+    private UserRepository userRepository;
+
+    @Autowired
+    private ModelMapper modelMapper;
+
+
 
     @Override
     public Publication createPublication(Publication publication) {
         
-      
         return publicationRepository.save(publication);
     }
 
@@ -36,6 +50,40 @@ public class PublicationServiceImpl implements PublicationService {
         Publication publication = publicationRepository.findById(id);
 
       
+
+        return publication;
+    }
+
+    // from publication to publicationDTO 
+    @Override
+    public PublicationDTO convertToDto(Publication publication) {
+
+        PublicationDTO publicationDTO = modelMapper.map(publication, PublicationDTO.class);
+        
+        publicationDTO.setUsername(securityService.getUsername());
+
+        return publicationDTO;
+    }
+
+    @Override
+    public List<PublicationDTO> convertToDtoList(List<Publication> publications) {
+    
+        List<PublicationDTO> lDtos = new ArrayList<>();
+
+        for (Publication publication : publications) {
+
+            lDtos.add(convertToDto(publication));
+        }
+        return lDtos;
+    }
+    
+    @Override
+    public Publication convertToEntity(PublicationDTO publicationDTO) {
+
+        Publication publication = modelMapper.map(publicationDTO, Publication.class);
+
+        User user = securityService.getUser();
+        publication.setUser(user);
 
         return publication;
     }

@@ -4,6 +4,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 
 
 @Entity
@@ -16,6 +17,9 @@ public class Publication {
     private long countLike;
 
     private String contenu;
+
+    @ManyToOne
+    private User user;
 
     public Publication() {
     }
@@ -49,6 +53,15 @@ public class Publication {
         this.contenu = contenu;
     }
 
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    
     
     
     

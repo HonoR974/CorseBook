@@ -46,7 +46,7 @@ public class CompanyServiceImpl implements CompanyService  {
     public CompanyDTO convertTodDto(Company company)
     {
         CompanyDTO companyDTO =  modelMapper.map(company, CompanyDTO.class);
-      
+        
         //la classe adresse devient les attribut de companyDTO 
         companyDTO.setAdresse(company.getAdress().getCodePostal(),
                              company.getAdress().getVille(), 

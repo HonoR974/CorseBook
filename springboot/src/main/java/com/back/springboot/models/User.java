@@ -1,6 +1,8 @@
 package com.back.springboot.models;
 
 
+import java.util.List;
+
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
@@ -26,6 +28,9 @@ public class User {
 	private String password;
 
 	private String matchingPassword;
+
+	@OneToMany(mappedBy = "user")
+    private List<Publication> publication;
 
 
 	public User() {

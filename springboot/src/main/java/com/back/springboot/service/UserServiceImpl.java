@@ -52,4 +52,6 @@ public class UserServiceImpl implements UserService{
         return userRepository.findByUsername(username)
                         .orElseThrow( () -> new ResourceNotFoundException("cette usernerame ne correspond a aucun user "));
     }
+
+    
 }

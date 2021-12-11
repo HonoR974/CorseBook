@@ -27,20 +27,25 @@ public class PublicationController {
 
     //create 
     @PostMapping()
-   public ResponseEntity<?> createPublication(@RequestBody PublicationDTO publicationDTO )
+   public ResponseEntity<?> createPublication(@RequestBody PublicationDTO publicationDTORequest )
    {
-
-        Publication publication  = publicationService.createPublication(new Publication(publicationDTO.getContenu()));
-
-        return new ResponseEntity<Publication>(publication, HttpStatus.ACCEPTED);
+      Publication publication  = publicationService.createPublication( 
+                                publicationService.convertToEntity(publicationDTORequest));
+      
+      PublicationDTO publicationDTO = publicationService.convertToDto(publication);
+      return new ResponseEntity<PublicationDTO>(publicationDTO, HttpStatus.ACCEPTED);
    }
 
    //get all 
    @GetMapping()
    public ResponseEntity<?> getAllPublication()
    {
+     List<Publication> list = publicationService.getAll();
+     List<PublicationDTO> listDto = publicationService.convertToDtoList(list);
 
-     return new ResponseEntity<List<Publication>>(publicationService.getAll(), HttpStatus.ACCEPTED);
+    
+
+     return new ResponseEntity<List<PublicationDTO>>(listDto, HttpStatus.ACCEPTED);
 
    }
 
@@ -57,7 +62,9 @@ public class PublicationController {
           new ResourceNotFoundException("la publication : "+ id + " n'existe pas ");
      }
 
-     return new ResponseEntity<Publication>(publication, HttpStatus.ACCEPTED);
+     PublicationDTO publicationDTO = publicationService.convertToDto(publication);
+
+     return new ResponseEntity<PublicationDTO>(publicationDTO, HttpStatus.ACCEPTED);
 
    }
     
