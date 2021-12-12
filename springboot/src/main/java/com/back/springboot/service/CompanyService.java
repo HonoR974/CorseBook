@@ -16,6 +16,9 @@ public interface CompanyService {
 
     Company getCompanyById(long id);
 
+    Company updateCompany(long id, Company company);
+
+    void deleteCompany(long id);
 
     //convert
 

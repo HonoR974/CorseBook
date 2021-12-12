@@ -29,6 +29,24 @@ import org.springframework.web.bind.annotation.RestController;
     @Autowired
     private PublicationService publicationService;
 
+
+
+    @GetMapping("public")
+    public ResponseEntity<?> getPublicationPublic()
+    {
+        List<Publication> list = publicationService.getPublicationPublic();
+
+        if(list == null)
+        {
+          new ResourceNotFoundException("la liste est null ");
+
+        }
+
+        List<PublicationDTO> lDtos = publicationService.convertToDtoList(list);
+
+        return ResponseEntity.ok(lDtos);
+    }
+
   //-------- CRUD Operations -----------------//
 
   //create 

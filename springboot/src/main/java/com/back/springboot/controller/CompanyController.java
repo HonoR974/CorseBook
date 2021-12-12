@@ -10,9 +10,11 @@ import com.back.springboot.service.CompanyService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -21,11 +23,13 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/api/company/")
 public class CompanyController {
     
-//une company est constitué d'un nom et une adresse ainsi que d'un user 
     @Autowired
     private CompanyService companyService;
 
 
+
+
+    //---------------- CRUD Operations ---------//
 
     @GetMapping()
     public ResponseEntity<?> getCompanys()
@@ -62,42 +66,48 @@ public class CompanyController {
     {
         Company company = companyService.getCompanyById(id);
 
+  
+        
         if (company== null)
         {
             new ResourceNotFoundException("l'entreprise  : "+ id + " n'existe pas ");
         }
 
-        return ResponseEntity.ok(company);
+       
+        CompanyDTO companyDTO = companyService.convertTodDto(company);
+        
+        return ResponseEntity.ok(companyDTO);
     }
 
-    /*
+
     @PutMapping("{id}")
-    public ResponseEntity<?> updateCompanyByID(@PathVariable long id)
+    public ResponseEntity<?> updateCompanyByID(@PathVariable long id, @RequestBody CompanyDTO companyDTO)
     {
-        Company company = companyService.updateCompany( id);
+      Company companyRequest = companyService.convertToEntity(companyDTO);
+
+      Company company = companyService.updateCompany(id, companyRequest);
+
 
         if (company== null)
         {
             new ResourceNotFoundException("l'entreprise  : "+ id + " n'existe pas ");
         }
 
-        return ResponseEntity.ok(company);
+        CompanyDTO compSendDTO = companyService.convertTodDto(company);
+
+        return ResponseEntity.ok(compSendDTO);
     }
+
 
     @DeleteMapping("{id}")
     public HttpStatus deleteCompany(@PathVariable long id )
     {
-        Company company = companyService.getCompanyById(id);
-
-        if (company== null)
-        {
-            new ResourceNotFoundException("l'entreprise  : "+ id + " n'existe pas ");
-        }
-
         companyService.deleteCompany(id);
+
 
         return HttpStatus.ACCEPTED;
     }
 
-    */
+
+
 }

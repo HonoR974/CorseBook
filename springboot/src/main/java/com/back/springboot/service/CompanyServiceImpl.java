@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.back.springboot.dto.CompanyDTO;
+import com.back.springboot.exception.ResourceNotFoundException;
 import com.back.springboot.models.Adress;
 import com.back.springboot.models.Company;
 import com.back.springboot.repository.AdressRepository;
@@ -42,7 +43,41 @@ public class CompanyServiceImpl implements CompanyService  {
     
 
     
+    @Override
+    public Company getCompanyById(long id) {
 
+
+        Company company = companyRepository.findById(id)
+                                 .orElseThrow(() -> new ResourceNotFoundException("Company not extist with id : "+ id) ) ;
+ 
+        return company ;
+    }
+
+
+
+    @Override
+    public Company updateCompany(long id, Company companyRequest)
+    {
+
+        Company company = companyRepository.findById(id)
+                                            .orElseThrow( () ->  new ResourceNotFoundException("Company not extist with id : "+ id));
+
+
+        company.setAdress(companyRequest.getAdress());
+        company.setName(companyRequest.getName());
+
+
+        return companyRepository.save(company);
+    }
+
+    @Override
+    public void deleteCompany(long id)
+    {
+        Company company = companyRepository.findById(id)
+        .orElseThrow(() -> new ResourceNotFoundException("Company not extist with id : "+ id) ) ;
+
+        companyRepository.delete(company);
+    }
 
     //----------------- Covnert DTO ------------------//
 
@@ -56,6 +91,7 @@ public class CompanyServiceImpl implements CompanyService  {
         companyDTO.setCodePostal(company.getAdress().getCodePostal());
         companyDTO.setVille(company.getAdress().getVille());
         companyDTO.setInfoAdress(company.getAdress().getInfoAdress());
+
 
 
         return companyDTO;
@@ -94,12 +130,6 @@ public class CompanyServiceImpl implements CompanyService  {
         return company;
     }
 
-    @Override
-    public Company getCompanyById(long id) {
-        // TODO Auto-generated method stub
-
-        return null;
-    }
 
 
   

@@ -8,8 +8,8 @@ import { TokenStorageService } from '../_services/token-storage.service';
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit {
-  content?: string;
-  username?:string;
+
+  
   isLoggedIn = false;
   user: User = new User;
   jwt :any;

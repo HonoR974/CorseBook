@@ -16,6 +16,7 @@ import { HomeComponent } from './home/home.component';
 import { ProfileComponent } from './profile/profile.component';
 import { authInterceptorProviders } from './_helpers/auth.interceptor';
 import { CreatePublicationComponent } from './create-publication/create-publication.component';
+import { PublicationComponent } from './publication/publication.component';
 
 
 @NgModule({
@@ -30,6 +31,7 @@ import { CreatePublicationComponent } from './create-publication/create-publicat
     HomeComponent,
     ProfileComponent,
     CreatePublicationComponent,
+    PublicationComponent,
   ],
   imports: [
     BrowserModule,

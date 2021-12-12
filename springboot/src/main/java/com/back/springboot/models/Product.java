@@ -6,6 +6,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 
 @Entity
 public class Product {
@@ -18,6 +19,9 @@ public class Product {
     private String name;
     @Column(name = "type")
     private String type;
+
+
+
 
     public Product()
     {
@@ -56,6 +60,7 @@ public class Product {
     public String toString() {
         return "Product [id=" + id + ", name=" + name + ", type=" + type + "]";
     }
+
 
     
     

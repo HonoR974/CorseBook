@@ -6,8 +6,10 @@ import java.util.List;
 import com.back.springboot.dto.PublicationDTO;
 import com.back.springboot.exception.ResourceNotFoundException;
 import com.back.springboot.models.Publication;
+import com.back.springboot.models.Statut;
 import com.back.springboot.models.User;
 import com.back.springboot.repository.PublicationRepository;
+import com.back.springboot.repository.StatutRepository;
 import com.back.springboot.repository.UserRepository;
 
 import org.modelmapper.ModelMapper;
@@ -25,10 +27,23 @@ public class PublicationServiceImpl implements PublicationService {
     private SecurityService securityService;
 
     @Autowired
-    private UserRepository userRepository;
+    private StatutRepository statutRepository;
 
     @Autowired
     private ModelMapper modelMapper;
+
+
+
+    @Override
+    public List<Publication> getPublicationPublic() {
+        
+        Statut statut = statutRepository.findByName("public")
+        .orElseThrow( () -> new ResourceNotFoundException("Le statut : public n'existe pas " ));
+
+        return publicationRepository.findByStatut(statut);
+    }
+
+
 
 
     //----------- CRUD -------------//
@@ -36,6 +51,11 @@ public class PublicationServiceImpl implements PublicationService {
     @Override
     public Publication createPublication(Publication publication) {
         
+        Statut statut = statutRepository.findByName("public")
+                                        .orElseThrow( () -> new ResourceNotFoundException("Le statut : public n'existe pas " ));
+
+
+        publication.setStatut(statut);
         return publicationRepository.save(publication);
     }
 
@@ -73,7 +93,7 @@ public class PublicationServiceImpl implements PublicationService {
     {
         Publication publication = publicationRepository.findById(id)
                             .orElseThrow(() -> new ResourceNotFoundException("Product not extist with id : "+ id) ) ;
- 
+                            
         publicationRepository.delete(publication);
     }
 

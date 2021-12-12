@@ -21,6 +21,10 @@ public class Publication {
     @ManyToOne
     private User user;
 
+    @ManyToOne
+    private Statut statut;
+
+
     public Publication() {
     }
 
@@ -59,6 +63,20 @@ public class Publication {
 
     public void setUser(User user) {
         this.user = user;
+    }
+
+    public Statut getStatut() {
+        return statut;
+    }
+
+    public void setStatut(Statut statut) {
+        this.statut = statut;
+    }
+
+    @Override
+    public String toString() {
+        return "Publication [contenu=" + contenu + ", countLike=" + countLike + ", id=" + id + ", statut=" + statut
+                + ", user=" + user + "]";
     }
 
     

@@ -7,6 +7,9 @@ import com.back.springboot.models.Publication;
 
 public interface PublicationService {
 
+
+    List<Publication> getPublicationPublic();
+
     //CRUD 
     Publication createPublication(Publication publication);
 
