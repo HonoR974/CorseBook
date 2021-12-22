@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
+import { FileAPI } from '../_class/file-api';
 import { User } from '../_class/user';
 import { TokenStorageService } from '../_services/token-storage.service';
 import { UploadS3Service } from '../_services/upload-s3.service';
@@ -14,8 +15,11 @@ export class HomeComponent implements OnInit {
   title = 's3-img-upload';
   files: File[] = [];
 
+  fileAPi : FileAPI = new FileAPI;
+ 
   renderImages: any = [];
 
+  cheminImage:any = "https://testp12.s3.eu-west-3.amazonaws.com/images/aws.png";
 
   isLoggedIn = false;
   user: User = new User;
@@ -45,7 +49,7 @@ export class HomeComponent implements OnInit {
   }
 
   async onImageUpdate() {
-    console.log(this.files);
+
     if (this.files.length < 1) {
       this.toaster.error('Please Select Drop your Image first');
       return;
@@ -55,15 +59,26 @@ export class HomeComponent implements OnInit {
       let file = this.files[i];
 
       let filePath =
-        'images/' + Math.random() * 10000000000000000 + '_' + file.name; // to create unique name for avoiding being replaced
+        'images/' + file.name; // to create unique name for avoiding being replaced
+
+        let name:string = file.name;
+
+        this.fileAPi.name = name;
+        this.fileAPi.url = filePath;
       try {
-        console.log("chemin de l'image " + filePath);
-        let response = await this.uploadS3Service.uploadFile(file, filePath);
+   
+        //api
+        this.uploadS3Service.uploadFileAPI(this.fileAPi);
+
+        //s3
+        let response = await this.uploadS3Service.uploadFileS3(file, filePath);
         console.log(response);
 
         this.toaster.success(file.name + 'uploaded Successfully :)');
         const url = (response as any).Location;
         this.renderImages.push(url);
+
+
       } catch (error) {
         this.toaster.error('Something went wrong! ');
       }

@@ -1,15 +1,27 @@
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import * as S3 from 'aws-sdk/clients/s3';
+import { Observable } from 'rxjs';
+import { FileAPI } from '../_class/file-api';
+
+const File_API = 'http://localhost:8080/api/file/';
+
+
+const httpOptions = {
+  headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+};
 
 @Injectable({
   providedIn: 'root',
 })
 export class UploadS3Service {
 
-  constructor() {}
 
 
-  uploadFile(file: any, filePath: any) {
+  constructor(private http: HttpClient) {}
+
+
+  uploadFileS3(file: any, filePath: any) {
 
     return new Promise((resolve, reject) => {
 
@@ -36,5 +48,14 @@ export class UploadS3Service {
       });
 
     });
+  }
+
+  uploadFileAPI(file: FileAPI) : Observable<any> 
+  {
+    console.log("methode api" + file.name+ " / " + file.url + " / " + File_API);
+
+    return this.http.post(File_API, {
+      file
+    }, httpOptions );
   }
 }
