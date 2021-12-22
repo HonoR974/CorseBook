@@ -17,7 +17,10 @@ import { ProfileComponent } from './profile/profile.component';
 import { authInterceptorProviders } from './_helpers/auth.interceptor';
 import { CreatePublicationComponent } from './create-publication/create-publication.component';
 import { PublicationComponent } from './publication/publication.component';
+import { NgxDropzoneModule } from 'ngx-dropzone';
+import { CommonModule } from '@angular/common';
 
+import { ToastrModule } from 'ngx-toastr';
 
 @NgModule({
   declarations: [
@@ -38,7 +41,10 @@ import { PublicationComponent } from './publication/publication.component';
     AppRoutingModule,
     BrowserAnimationsModule,
     HttpClientModule,
-    FormsModule
+    FormsModule,
+    NgxDropzoneModule,
+    CommonModule,
+    ToastrModule.forRoot(),
   ],
   providers: [authInterceptorProviders],
   bootstrap: [AppComponent]

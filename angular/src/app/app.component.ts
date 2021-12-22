@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
+
 import { User } from './_class/user';
 import { TokenStorageService } from './_services/token-storage.service';
+
 
 @Component({
   selector: 'app-root',
@@ -8,8 +10,10 @@ import { TokenStorageService } from './_services/token-storage.service';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
+
   title = 'Angular & Spring Boot ';
-  
+
+
   isLoggedIn = false;
   user:User;
 
