@@ -20,4 +20,6 @@ export class PublicationService {
   {
     return this.HttpClient.get<Publication[]>(baseURL +"public" , httpOptions);
   }
+
+  
 }

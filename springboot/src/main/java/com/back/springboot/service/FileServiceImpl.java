@@ -16,7 +16,12 @@ public class FileServiceImpl implements FileService{
 
     public File createFile(File file)
     {
-        return fileRepository.save(file);
+
+        File fileCreated = new File();
+        fileCreated.setName(file.getName());
+        fileCreated.setUrl(file.getUrl());
+        System.out.println("\n file created " +  fileCreated.toString());
+        return fileRepository.save(fileCreated);
     }
 
     public List<File> getAll()

@@ -14,9 +14,11 @@ public class File {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
+
     private String url;
 
     private String name;
+
 
     public File()
     {}
@@ -43,6 +45,11 @@ public class File {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    @Override
+    public String toString() {
+        return "File [id=" + id + ", name=" + name + ", url=" + url + "]";
     }
     
     

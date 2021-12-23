@@ -37,7 +37,11 @@
   <button class="purple" (click)="onImageUpdate()">Upload</button>
 </section>
 
-<img [src]="cheminImage" />
+<div *ngFor="let file of filesAPi">
+  <img [src]="file.url" alt={{file.name}} />
+</div>
+
+
 
 
 

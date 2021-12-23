@@ -11,12 +11,12 @@ const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' })
 };
 
+
+
 @Injectable({
   providedIn: 'root',
 })
 export class UploadS3Service {
-
-
 
   constructor(private http: HttpClient) {}
 
@@ -40,22 +40,34 @@ export class UploadS3Service {
         ContentType: contentType,
       };
 
-      bucket.upload(params, function (err: any, data: any) {
+      bucket.upload(params,  (err: any, data: any) => {
         if (err) {
           reject(err);
         }
-        resolve(data);
+       this.uploadFileAPI({ name:file.name, url:data.Location}).subscribe (
+         retour => {
+          console.log("retour " , retour);
+          resolve(data);
+         }
+       )
+  
       });
 
     });
   }
 
-  uploadFileAPI(file: FileAPI) : Observable<any> 
+  uploadFileAPI(file: FileAPI): Observable<any> 
   {
-    console.log("methode api" + file.name+ " / " + file.url + " / " + File_API);
+    console.log("methode api  " , file.name+ " // " , file.url + "   chemin d'acces "  + File_API);
 
-    return this.http.post(File_API, {
-      file
-    }, httpOptions );
+    return this.http.post(File_API, file);
+  
+  
+  }
+
+
+  getAllFileAPI(): Observable<FileAPI[]>
+  {
+    return this.http.get<FileAPI[]>(File_API);
   }
 }

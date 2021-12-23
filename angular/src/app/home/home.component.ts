@@ -15,7 +15,7 @@ export class HomeComponent implements OnInit {
   title = 's3-img-upload';
   files: File[] = [];
 
-  fileAPi : FileAPI = new FileAPI;
+  filesAPi: FileAPI[] = [];
  
   renderImages: any = [];
 
@@ -31,13 +31,27 @@ export class HomeComponent implements OnInit {
 
   ngOnInit(): void {
 
+    //verification du jwt 
+    //get info user 
     if (this.tokenStorage.getToken()) {
       this.user = this.tokenStorage.getUser();
       this.isLoggedIn = true;
       this.jwt = this.tokenStorage.getToken();
+      
     }
+
+    //get liste fileAPI 
+    this.getAllFileAPI();
+
   }
 
+  private getAllFileAPI()
+  {
+    this.uploadS3Service.getAllFileAPI().subscribe(data => 
+      {
+        this.filesAPi = data;
+      })
+  }
 
   
   onSelect(event: any) {
@@ -62,13 +76,10 @@ export class HomeComponent implements OnInit {
         'images/' + file.name; // to create unique name for avoiding being replaced
 
         let name:string = file.name;
-
-        this.fileAPi.name = name;
-        this.fileAPi.url = filePath;
       try {
    
         //api
-        this.uploadS3Service.uploadFileAPI(this.fileAPi);
+      //  this.uploadS3Service.uploadFileAPI(this.fileAPi);
 
         //s3
         let response = await this.uploadS3Service.uploadFileS3(file, filePath);
