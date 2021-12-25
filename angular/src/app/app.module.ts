@@ -5,23 +5,24 @@ import { FormsModule } from '@angular/forms';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { ProductListComponent } from './product-list/product-list.component';
+import { ProductListComponent } from './_components/product-list/product-list.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { CreateProductComponent } from './create-product/create-product.component';
-import { UpdateProductComponent } from './update-product/update-product.component';
-import { ProductDetailsComponent } from './product-details/product-details.component';
-import { LoginComponent } from './login/login.component';
-import { RegisterComponent } from './register/register.component';
-import { HomeComponent } from './home/home.component';
-import { ProfileComponent } from './profile/profile.component';
 import { authInterceptorProviders } from './_helpers/auth.interceptor';
-import { CreatePublicationComponent } from './create-publication/create-publication.component';
-import { PublicationComponent } from './publication/publication.component';
+
 import { NgxDropzoneModule } from 'ngx-dropzone';
 import { CommonModule } from '@angular/common';
 
 import { ToastrModule } from 'ngx-toastr';
-
+import { CreateProductComponent } from './_components/create-product/create-product.component';
+import { CreatePublicationComponent } from './_components/create-publication/create-publication.component';
+import { HomeComponent } from './_components/home/home.component';
+import { LoginComponent } from './_components/login/login.component';
+import { ProductDetailsComponent } from './_components/product-details/product-details.component';
+import { ProfileComponent } from './_components/profile/profile.component';
+import { RegisterComponent } from './_components/register/register.component';
+import { UpdateProductComponent } from './_components/update-product/update-product.component';
+import { PublicationPublicComponent } from './_components/publication-public/publication-public.component';
+import { UploadFileComponent } from './_components/upload-file/upload-file.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -34,7 +35,8 @@ import { ToastrModule } from 'ngx-toastr';
     HomeComponent,
     ProfileComponent,
     CreatePublicationComponent,
-    PublicationComponent,
+    PublicationPublicComponent,
+    UploadFileComponent,
   ],
   imports: [
     BrowserModule,

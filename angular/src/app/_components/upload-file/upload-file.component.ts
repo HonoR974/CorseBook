@@ -1,17 +1,16 @@
 import { Component, OnInit } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
-import { FileAPI } from '../_class/file-api';
-import { User } from '../_class/user';
-import { TokenStorageService } from '../_services/token-storage.service';
-import { UploadS3Service } from '../_services/upload-s3.service';
+import { FileAPI } from 'src/app/_class/file-api';
+import { UploadS3Service } from 'src/app/_services/upload-s3.service';
 
 @Component({
-  selector: 'app-home',
-  templateUrl: './home.component.html',
-  styleUrls: ['./home.component.css']
+  selector: 'app-upload-file',
+  templateUrl: './upload-file.component.html',
+  styleUrls: ['./upload-file.component.css']
 })
-export class HomeComponent implements OnInit {
+export class UploadFileComponent implements OnInit {
 
+  
   title = 's3-img-upload';
   files: File[] = [];
 
@@ -21,28 +20,14 @@ export class HomeComponent implements OnInit {
 
   cheminImage:any = "https://testp12.s3.eu-west-3.amazonaws.com/images/aws.png";
 
-  isLoggedIn = false;
-  user: User = new User;
-  jwt :any;
 
-  constructor(private tokenStorage: TokenStorageService,
-              private uploadS3Service: UploadS3Service,
+  constructor(private uploadS3Service: UploadS3Service,
               private toaster: ToastrService) { }
 
   ngOnInit(): void {
 
-    //verification du jwt 
-    //get info user 
-    if (this.tokenStorage.getToken()) {
-      this.user = this.tokenStorage.getUser();
-      this.isLoggedIn = true;
-      this.jwt = this.tokenStorage.getToken();
-      
-    }
-
-    //get liste fileAPI 
-    this.getAllFileAPI();
-
+      //get liste fileAPI 
+      this.getAllFileAPI();
   }
 
   private getAllFileAPI()
@@ -78,9 +63,6 @@ export class HomeComponent implements OnInit {
         let name:string = file.name;
       try {
    
-        //api
-      //  this.uploadS3Service.uploadFileAPI(this.fileAPi);
-
         //s3
         let response = await this.uploadS3Service.uploadFileS3(file, filePath);
         console.log(response);

@@ -1,0 +1,40 @@
+.list
+{
+    display: flex;
+    flex-direction: column;
+    
+
+}
+
+.colonne
+{
+    min-height: 200px;
+    
+}
+
+.cadre
+{
+    border: solid;
+}
+
+.side-title
+{
+    
+}
+
+.side-file
+{
+
+}
+
+
+.side-content
+{
+
+}
+
+.side-buton
+{
+
+}
+

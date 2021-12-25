@@ -18,8 +18,17 @@ export class PublicationService {
 
   getPublicationPublic(): Observable<Publication[]>
   {
-    return this.HttpClient.get<Publication[]>(baseURL +"public" , httpOptions);
+    return this.HttpClient.get<Publication[]>(baseURL +"public", httpOptions);
   }
 
-  
+  getAllPublication(): Observable<Publication[]>
+  {
+    return this.HttpClient.get<Publication[]>(baseURL , httpOptions);
+  }
+
+  createPublication(publication: Publication): Observable<any>
+  {
+    return this.HttpClient.post<Publication>(baseURL, publication);
+  }
+
 }

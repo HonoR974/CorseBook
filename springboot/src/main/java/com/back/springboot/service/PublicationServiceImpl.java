@@ -1,6 +1,8 @@
 package com.back.springboot.service;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import com.back.springboot.dto.PublicationDTO;
@@ -10,8 +12,6 @@ import com.back.springboot.models.Statut;
 import com.back.springboot.models.User;
 import com.back.springboot.repository.PublicationRepository;
 import com.back.springboot.repository.StatutRepository;
-import com.back.springboot.repository.UserRepository;
-
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -54,7 +54,7 @@ public class PublicationServiceImpl implements PublicationService {
         Statut statut = statutRepository.findByName("public")
                                         .orElseThrow( () -> new ResourceNotFoundException("Le statut : public n'existe pas " ));
 
-
+        publication.setDateCreate(new Date() );
         publication.setStatut(statut);
         return publicationRepository.save(publication);
     }
@@ -105,7 +105,7 @@ public class PublicationServiceImpl implements PublicationService {
 
         PublicationDTO publicationDTO = modelMapper.map(publication, PublicationDTO.class);
         
-        publicationDTO.setUsername(securityService.getUsername());
+        publicationDTO.setUsername(publication.getUser().getUsername());
 
         return publicationDTO;
     }

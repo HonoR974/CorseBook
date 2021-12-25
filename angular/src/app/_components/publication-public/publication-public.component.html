@@ -1,0 +1,28 @@
+<div class="list">
+    <div class="colonne">
+    
+    <div class="cadre" *ngFor="let publication of publications" >
+
+        <div class="side-title"></div>
+        <p>{{publication.username}}</p>
+        <div class="side-file">
+            
+        </div>
+
+        <div class="side-content">
+            <p>{{publication.contenu}}</p>
+            
+        </div>
+
+        <div class="side-butons">
+
+         <button type="button" class="btn btn-info">Like : {{publication.countLike}}</button>
+         <button type="button" class="btn btn-info">Comments : {{publication.countLike}}</button>
+        </div>
+       
+    </div>
+
+
+
+    </div>
+</div>

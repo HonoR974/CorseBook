@@ -1,14 +1,14 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { CreateProductComponent } from './create-product/create-product.component';
-import { ProductDetailsComponent } from './product-details/product-details.component';
-import { ProductListComponent } from './product-list/product-list.component';
-import { UpdateProductComponent } from './update-product/update-product.component';
+import { CreateProductComponent } from './_components/create-product/create-product.component';
+import { HomeComponent } from './_components/home/home.component';
+import { LoginComponent } from './_components/login/login.component';
+import { ProductDetailsComponent } from './_components/product-details/product-details.component';
+import { ProductListComponent } from './_components/product-list/product-list.component';
+import { ProfileComponent } from './_components/profile/profile.component';
+import { RegisterComponent } from './_components/register/register.component';
+import { UpdateProductComponent } from './_components/update-product/update-product.component';
 
-import { RegisterComponent } from './register/register.component';
-import { LoginComponent } from './login/login.component';
-import { HomeComponent } from './home/home.component';
-import { ProfileComponent } from './profile/profile.component';
 const routes: Routes = [
 
   { path: 'home', component: HomeComponent },

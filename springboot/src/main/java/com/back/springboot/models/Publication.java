@@ -1,5 +1,9 @@
 package com.back.springboot.models;
 
+import java.time.LocalDate;
+import java.util.Comparator;
+import java.util.Date;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -17,6 +21,8 @@ public class Publication {
     private long countLike;
 
     private String contenu;
+
+    private Date dateCreate;
 
     @ManyToOne
     private User user;
@@ -73,14 +79,14 @@ public class Publication {
         this.statut = statut;
     }
 
-    @Override
-    public String toString() {
-        return "Publication [contenu=" + contenu + ", countLike=" + countLike + ", id=" + id + ", statut=" + statut
-                + ", user=" + user + "]";
+    public Date getDateCreate() {
+        return dateCreate;
     }
 
-    
-    
-    
+    public void setDateCreate(Date dateCreate) {
+        this.dateCreate = dateCreate;
+    }
+
+
     
 }

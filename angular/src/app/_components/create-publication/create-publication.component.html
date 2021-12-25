@@ -1,0 +1,34 @@
+
+
+<body>
+    
+    <div class="cadre">
+        
+        <div>
+            <form (ngSubmit) = "onSubmit()">
+                <div class="form-group">
+                    <label >Contenu : </label>
+                    <textarea class="form-control" 
+                    id="content"
+                 [(ngModel)]="publication.contenu" name="content" >
+                </textarea>
+                </div>
+
+                <div class="btn-side">
+
+                    <button class="btn btn-success" type="submit" >
+                        Publier
+                    </button>
+
+                </div>
+
+
+            </form>
+     
+
+          
+        </div>
+
+    </div>
+
+</body>

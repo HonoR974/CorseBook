@@ -1,0 +1,33 @@
+<header class="text-center"> {{title}}</header>
+
+
+<div>
+
+    <div  *ngIf="isLoggedIn; else disconnected" >
+
+        <app-create-publication></app-create-publication>
+    </div>
+
+        
+    <ng-template  #disconnected>
+
+        <div class="disconnected-side">
+            <button type="button" class="btn btn-info">
+                <a href="/login">Login</a>
+            </button>
+
+            <button type="button" class="btn btn-info">
+                <a href="/register">Sign Up </a>
+            </button>
+        </div>
+    
+    </ng-template>
+</div>
+
+
+
+
+<app-publication-public></app-publication-public>
+
+
+<footer></footer>

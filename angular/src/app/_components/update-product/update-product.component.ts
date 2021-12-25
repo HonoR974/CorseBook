@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { ProductService } from '../_services/product.service';
-import { Product } from '../_class/product';
+import { Product } from 'src/app/_class/product';
+import { ProductService } from 'src/app/_services/product.service';
 
 @Component({
   selector: 'app-update-product',
@@ -30,7 +30,8 @@ export class UpdateProductComponent implements OnInit {
 
   onSubmit()
   {
-    this.productService.updateProduct(this.id, this.product).subscribe( data => {
+    this.productService.updateProduct(this.id, this.product).subscribe(
+       data => {
       console.log("updated");
       this.goToProductList();
     }, 

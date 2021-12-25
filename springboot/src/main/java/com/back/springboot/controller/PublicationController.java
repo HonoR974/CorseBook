@@ -1,9 +1,16 @@
 package com.back.springboot.controller;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
+import java.util.Arrays;
+import java.util.Comparator;
+import java.util.List;
+import java.util.stream.Collectors;
+
+import java.util.Collection;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.*;
 import com.back.springboot.dto.PublicationDTO;
 import com.back.springboot.exception.ResourceNotFoundException;
 import com.back.springboot.models.Publication;
@@ -12,6 +19,7 @@ import com.back.springboot.service.PublicationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -22,6 +30,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 
+  @CrossOrigin
   @RestController
   @RequestMapping("/api/publication/")
   public class PublicationController {
@@ -34,7 +43,9 @@ import org.springframework.web.bind.annotation.RestController;
     @GetMapping("public")
     public ResponseEntity<?> getPublicationPublic()
     {
-        List<Publication> list = publicationService.getPublicationPublic();
+        List<Publication> list = publicationService.getPublicationPublic().stream()
+                                  .sorted(Comparator.comparing(Publication::getDateCreate).reversed())
+                                  .collect(Collectors.toList());
 
         if(list == null)
         {
@@ -42,10 +53,17 @@ import org.springframework.web.bind.annotation.RestController;
 
         }
 
-        List<PublicationDTO> lDtos = publicationService.convertToDtoList(list);
+
+       //classer la liste
+       // de la plus anicenne pub
+       // a la plus recente 
+             
+
+       List<PublicationDTO> lDtos = publicationService.convertToDtoList(list);
 
         return ResponseEntity.ok(lDtos);
     }
+
 
   //-------- CRUD Operations -----------------//
 
