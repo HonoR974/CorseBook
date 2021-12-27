@@ -7,7 +7,9 @@ import { ProductDetailsComponent } from './_components/product-details/product-d
 import { ProductListComponent } from './_components/product-list/product-list.component';
 import { ProfileComponent } from './_components/profile/profile.component';
 import { RegisterComponent } from './_components/register/register.component';
+
 import { UpdateProductComponent } from './_components/update-product/update-product.component';
+
 
 const routes: Routes = [
 
@@ -16,6 +18,7 @@ const routes: Routes = [
   { path: 'register', component: RegisterComponent },
   { path: 'profile', component: ProfileComponent },
   { path: '', redirectTo: 'home', pathMatch: 'full' },
+  
 
   {path: 'products', component: ProductListComponent},
   {path: 'create-product', component: CreateProductComponent},

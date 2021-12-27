@@ -1,7 +1,7 @@
 <header class="text-center"> {{title}}</header>
 
 
-<div>
+<div class="create-side">
 
     <div  *ngIf="isLoggedIn; else disconnected" >
 
@@ -25,9 +25,11 @@
 </div>
 
 
+<div class="publication-side">
 
+    <app-publication-public></app-publication-public>
+</div>
 
-<app-publication-public></app-publication-public>
 
 
 <footer></footer>

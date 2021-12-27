@@ -1,11 +1,10 @@
 body
 {
-    height: 200px;
+   
 }
 
 .cadre
 {
     border: 2px solid red;
     border-radius: 5px;
-    height: 100px;
 }
