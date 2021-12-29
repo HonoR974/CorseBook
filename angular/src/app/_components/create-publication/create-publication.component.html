@@ -1,61 +1,28 @@
-
-
-<body>
-    
-    <div class="cadre">
+ 
+            <form class="cadre" [formGroup]="myForm" (ngSubmit)="submit()">
+  
+            <div class="form-group">
+                <label for="contenu">Exprimez vous : </label>
+                <input 
+                formControlName="contenu"
+                    id="contenu" 
+                    type="text" 
+                    class="form-control content"
+                    placeholder="Partagez vos experiences">
         
-        <div>
-
-
-            <form (ngSubmit) = "onSubmit()">
-
-                <div
-                class="custom-dropzone"
-                ngx-dropzone
-                [accept]="'image/*'"
-                (change)="onSelect($event)" >
-
-                    <ngx-dropzone-label>
-                        <div>
-                        <h2>Try me! Just a Click away :)</h2>
-                        </div>
-                    </ngx-dropzone-label>
-
-                    <ngx-dropzone-image-preview
-                    ngProjectAs="ngx-dropzone-preview"
-                    *ngFor="let f of files"
-                    [file]="f"
-                    [removable]="true"
-                    (removed)="onRemove(f)"
-                    >
-
-                    <ngx-dropzone-label>{{ f.name }} ({{ f.type }})</ngx-dropzone-label>
-                    </ngx-dropzone-image-preview>
-
-
-                <div class="form-group">
-                    <label >Contenu : </label>
-                    <textarea class="form-control" 
-                    id="content"
-                 [(ngModel)]="publication.contenu" name="content" >
-                </textarea>
-                </div>
-
-                <div class="btn-side">
-
-                    <button class="btn btn-success" type="submit" >
-                        Publier
-                    </button>
-
-                </div>
-
-                </div>
-            </form>
-     
-
-          
-        </div>
-
-    </div>
-
-</body>
+            </div>
+              
+            <div class="form-group">
+                <label for="file">Ajoutez des fichiers </label>
+                <input 
+                    formControlName="file"
+                    id="file" 
+                    type="file" 
+                    multiple
+                    class="form-control"
+                    (change)="onFileChange($event)">
+                
+            </div>
+    
+            <button class="btn btn-primary button" type="submit">Partager</button>
+        </form>

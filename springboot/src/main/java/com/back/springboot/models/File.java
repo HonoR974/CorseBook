@@ -4,6 +4,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 
 
 @Entity
@@ -19,9 +20,18 @@ public class File {
 
     private String name;
 
+    @ManyToOne
+    private Publication publication;
+
 
     public File()
     {}
+
+    public File(String urlSend, String nameSend)
+    {
+        this.url = urlSend;
+        this.name = nameSend;
+    }
 
     public long getId() {
         return id;
@@ -46,10 +56,18 @@ public class File {
     public void setName(String name) {
         this.name = name;
     }
+    
+    public Publication getPublication() {
+        return publication;
+    }
+
+    public void setPublication(Publication publication) {
+        this.publication = publication;
+    }
 
     @Override
     public String toString() {
-        return "File [id=" + id + ", name=" + name + ", url=" + url + "]";
+        return "File [id=" + id + ", name=" + name + ", publication=" + publication + ", url=" + url + "]";
     }
     
     

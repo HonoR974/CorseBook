@@ -1,5 +1,7 @@
 package com.back.springboot.dto;
 
+import java.util.List;
+
 import lombok.Data;
 
 @Data
@@ -13,7 +15,7 @@ public class PublicationDTO {
 
     private String username;
 
-
+    private List<FileDTO> FileDTO;
     
     public PublicationDTO() {
     }
@@ -52,13 +54,21 @@ public class PublicationDTO {
         this.countLike = countLike;
     }
 
-    @Override
-    public String toString() {
-        return "PublicationDTO [contenu=" + contenu + ", like=" + countLike + ", username=" + username + "]";
+
+    public List<FileDTO> getFileDTO() {
+        return FileDTO;
     }
 
-    
-   
+    public void setFileDTO(List<FileDTO> fileDTO) {
+        FileDTO = fileDTO;
+    }
+
+    @Override
+    public String toString() {
+        return "PublicationDTO [FileDTO=" + FileDTO + ", contenu=" + contenu + ", countLike=" + countLike + ", id=" + id
+                + ", username=" + username + "]";
+    }
+
 
     
 }

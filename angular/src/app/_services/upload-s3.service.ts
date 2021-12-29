@@ -44,14 +44,19 @@ export class UploadS3Service {
         if (err) {
           reject(err);
         }
+
+
+        /*
        this.uploadFileAPI({ name:file.name, url:data.Location}).subscribe (
          retour => {
           console.log("retour " , retour);
           resolve(data);
          }
-       )
-  
-      });
+          )
+      */
+      
+      
+        });
 
     });
   }

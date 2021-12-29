@@ -11,6 +11,8 @@ export class PublicationPublicComponent implements OnInit {
 
   publications: Publication[] = [];
 
+  publicationUpdate :Publication;
+
   constructor(private publicationService: PublicationService ) { }
 
   ngOnInit(): void {
@@ -25,4 +27,22 @@ export class PublicationPublicComponent implements OnInit {
       this.publications = data;
     });
   }
+
+  
+  publicationLiked(publication: Publication)
+  {
+     let pub  = publication;
+
+      pub.countLike ++;
+
+      console.log("like " + pub.countLike);
+      this.publicationService.updatePublication(pub.id, pub).subscribe(
+        data => {
+          this.publicationUpdate = data;
+        }
+      )
+
+     
+  }
+
 }

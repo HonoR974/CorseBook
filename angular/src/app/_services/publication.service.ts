@@ -31,4 +31,10 @@ export class PublicationService {
     return this.HttpClient.post<Publication>(baseURL, publication);
   }
 
+  updatePublication(id:number, publication:Publication):Observable<any>
+  {
+    return this.HttpClient.put<Publication>(baseURL + id, publication);
+  }
+
+
 }

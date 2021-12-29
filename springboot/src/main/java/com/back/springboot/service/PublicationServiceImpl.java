@@ -5,11 +5,14 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import com.back.springboot.dto.FileDTO;
 import com.back.springboot.dto.PublicationDTO;
 import com.back.springboot.exception.ResourceNotFoundException;
+import com.back.springboot.models.File;
 import com.back.springboot.models.Publication;
 import com.back.springboot.models.Statut;
 import com.back.springboot.models.User;
+import com.back.springboot.repository.FileRepository;
 import com.back.springboot.repository.PublicationRepository;
 import com.back.springboot.repository.StatutRepository;
 import org.modelmapper.ModelMapper;
@@ -32,6 +35,9 @@ public class PublicationServiceImpl implements PublicationService {
     @Autowired
     private ModelMapper modelMapper;
 
+    @Autowired
+    private FileRepository fileRepository;
+
 
 
     @Override
@@ -44,6 +50,17 @@ public class PublicationServiceImpl implements PublicationService {
     }
 
 
+    @Override
+    public Publication publicationLiked(long id)
+    {
+        Publication publication = publicationRepository.findById(id)
+                                   .orElseThrow( () -> new ResourceNotFoundException("La publication n'existe pas " ));
+
+        publication.setCountLike(publication.getCountLike() + 1 );
+
+        return publicationRepository.save(publication);
+
+    }
 
 
     //----------- CRUD -------------//
@@ -51,11 +68,21 @@ public class PublicationServiceImpl implements PublicationService {
     @Override
     public Publication createPublication(Publication publication) {
         
+        //statut public 
         Statut statut = statutRepository.findByName("public")
                                         .orElseThrow( () -> new ResourceNotFoundException("Le statut : public n'existe pas " ));
-
-        publication.setDateCreate(new Date() );
         publication.setStatut(statut);
+
+        //date 
+        publication.setDateCreate(new Date() );
+
+        //files 
+        if(publication.getListFile() != null)
+        {
+            List<File> files = publication.getListFile();
+            fileRepository.saveAll(files);
+        }
+     
         return publicationRepository.save(publication);
     }
 
@@ -129,6 +156,22 @@ public class PublicationServiceImpl implements PublicationService {
 
         User user = securityService.getUser();
         publication.setUser(user);
+
+       
+        //si la publication DTO contient des fichiers 
+        if(publicationDTO.getFileDTO() != null)
+        {
+            List<File> list = new ArrayList<>();
+          
+            for(FileDTO fileDTO : publicationDTO.getFileDTO())
+            {
+                File file = new File(fileDTO.getUrl(), fileDTO.getName());
+                list.add(file);
+
+            }
+            publication.setListFile(list);
+        }
+
 
         return publication;
     }

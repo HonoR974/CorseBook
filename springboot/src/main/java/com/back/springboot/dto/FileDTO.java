@@ -1,5 +1,8 @@
 package com.back.springboot.dto;
 
+import lombok.Data;
+
+@Data
 public class FileDTO {
 
     
@@ -7,7 +10,12 @@ public class FileDTO {
 
     private String name;
 
+    private String type;
 
+public FileDTO()
+{
+    
+}
     
     public String getUrl() {
         return url;
@@ -25,9 +33,19 @@ public class FileDTO {
         this.name = name;
     }
 
+ 
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
     @Override
     public String toString() {
-        return "FileDTO [name=" + name + ", url=" + url + "]";
+        return "FileDTO [name=" + name + ", type=" + type + ", url=" + url + "]";
     }
 
     

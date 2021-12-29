@@ -65,15 +65,36 @@ import org.springframework.web.bind.annotation.RestController;
     }
 
 
+
+
+    @GetMapping("/liked/{id}")
+    public  ResponseEntity<?> publicationLikeById(@PathVariable long id_publication)
+    {
+      
+      Publication publication = publicationService.publicationLiked(id_publication);
+
+      PublicationDTO publicationDTO = publicationService.convertToDto(publication);
+
+      return ResponseEntity.ok(publicationDTO);
+    }
+
+
   //-------- CRUD Operations -----------------//
 
   //create 
   @PostMapping()
   public ResponseEntity<?> createPublication(@RequestBody PublicationDTO publicationDTORequest )
   {
+
+    
+    System.out.println("\n publication DTO " + publicationDTORequest.toString());
+    
+    
     Publication publication  = publicationService.createPublication( 
                               publicationService.convertToEntity(publicationDTORequest));
     
+
+    System.out.println("\n publication " + publication.toString());                          
     PublicationDTO publicationDTO = publicationService.convertToDto(publication);
     return new ResponseEntity<PublicationDTO>(publicationDTO, HttpStatus.ACCEPTED);
   }

@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http';
-import { FormsModule } from '@angular/forms';
+import { FormsModule,ReactiveFormsModule } from '@angular/forms';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -23,6 +23,9 @@ import { RegisterComponent } from './_components/register/register.component';
 import { UpdateProductComponent } from './_components/update-product/update-product.component';
 import { PublicationPublicComponent } from './_components/publication-public/publication-public.component';
 import { UploadFileComponent } from './_components/upload-file/upload-file.component';
+
+
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -47,6 +50,7 @@ import { UploadFileComponent } from './_components/upload-file/upload-file.compo
     NgxDropzoneModule,
     CommonModule,
     ToastrModule.forRoot(),
+    ReactiveFormsModule
   ],
   providers: [authInterceptorProviders],
   bootstrap: [AppComponent]

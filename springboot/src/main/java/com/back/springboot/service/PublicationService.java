@@ -10,6 +10,8 @@ public interface PublicationService {
 
     List<Publication> getPublicationPublic();
 
+    Publication publicationLiked(long id);
+
     //CRUD 
     Publication createPublication(Publication publication);
 
