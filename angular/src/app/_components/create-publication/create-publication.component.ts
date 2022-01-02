@@ -65,7 +65,6 @@ export class CreatePublicationComponent implements OnInit {
   onFileChange(event: any) {
 
     for (var i = 0; i < event.target.files.length; i++) {
-      this.myFiles.push(event.target.files[i]);
       this.files.push(event.target.files[i]);
 
     }
@@ -99,7 +98,7 @@ export class CreatePublicationComponent implements OnInit {
 
       this.publication.listFile.push(this.fileAPI);
     }
-
+     this.files = [];
 
     this.createPubAPI(this.publication);
 
@@ -124,6 +123,11 @@ export class CreatePublicationComponent implements OnInit {
       .createPublication(this.publication)
       .subscribe((data) => {
         console.log("data created " + data);
-      })
+      });
+
+      window.location.reload();
+
   }
+
+
 }
