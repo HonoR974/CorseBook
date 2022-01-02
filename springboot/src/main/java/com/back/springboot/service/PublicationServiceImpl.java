@@ -15,6 +15,8 @@ import com.back.springboot.models.User;
 import com.back.springboot.repository.FileRepository;
 import com.back.springboot.repository.PublicationRepository;
 import com.back.springboot.repository.StatutRepository;
+import com.back.springboot.repository.UserRepository;
+
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -38,7 +40,8 @@ public class PublicationServiceImpl implements PublicationService {
     @Autowired
     private FileRepository fileRepository;
 
-
+    @Autowired
+    private UserRepository userRepository;
 
     @Override
     public List<Publication> getPublicationPublic() {
@@ -76,15 +79,24 @@ public class PublicationServiceImpl implements PublicationService {
         //date 
         publication.setDateCreate(new Date() );
 
-        //files 
+        //repo
+        publicationRepository.save(publication);
+
+        //file
         if(publication.getListFile() != null)
         {
-            List<File> files = publication.getListFile();
-            fileRepository.saveAll(files);
+            fileRepository.saveAll( publication.getListFile() );
         }
-     
-        return publicationRepository.save(publication);
+        
+    
+        return publication;
     }
+
+
+
+    
+
+
 
     @Override
     public List<Publication> getAll() {
@@ -154,7 +166,10 @@ public class PublicationServiceImpl implements PublicationService {
 
         Publication publication = modelMapper.map(publicationDTO, Publication.class);
 
-        User user = securityService.getUser();
+        User user = userRepository.findByUsername(publicationDTO.getUsername())
+                         .orElseThrow(() -> new ResourceNotFoundException(
+                             "User with username "+ publicationDTO.getUsername() + " is null" )) ;
+                            
         publication.setUser(user);
 
        
@@ -166,6 +181,7 @@ public class PublicationServiceImpl implements PublicationService {
             for(FileDTO fileDTO : publicationDTO.getListFile())
             {
                 File file = new File(fileDTO.getUrl(), fileDTO.getName());
+                file.setPublication(publication);
                 list.add(file);
 
             }

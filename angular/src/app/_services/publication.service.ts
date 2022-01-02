@@ -28,7 +28,6 @@ export class PublicationService {
 
   createPublication(publication: Publication): Observable<any>
   {
-
     console.log("create publication " , publication);
     return this.HttpClient.post<Publication>(baseURL, publication);
   }

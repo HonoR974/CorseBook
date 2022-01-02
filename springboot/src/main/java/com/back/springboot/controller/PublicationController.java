@@ -86,7 +86,8 @@ import org.springframework.web.bind.annotation.RestController;
   public ResponseEntity<?> createPublication(@RequestBody PublicationDTO publicationDTORequest )
   {
 
-    System.out.println("\n publication DTO Request  " + publicationDTORequest.toString());
+    System.out.println("\n publication DTO Request  " + publicationDTORequest.toString()
+          +  "\n "+ " \n ");
     
     Publication publication  = publicationService.createPublication( 
                               publicationService.convertToEntity(publicationDTORequest));

@@ -21,6 +21,9 @@ import { UploadS3Service } from 'src/app/_services/upload-s3.service';
   styleUrls: ['./create-publication.component.css'],
 })
 export class CreatePublicationComponent implements OnInit {
+
+
+  currentUser: any;
   isLoggedIn = false;
 
   files: File[] = [];
@@ -46,8 +49,7 @@ export class CreatePublicationComponent implements OnInit {
   constructor(
     private tokenStorage: TokenStorageService,
     private publicationService: PublicationService,
-    private uploadS3Service: UploadS3Service,
-    private toaster: ToastrService
+    private uploadS3Service: UploadS3Service
   ) {}
 
   ngOnInit(): void {
@@ -70,23 +72,8 @@ export class CreatePublicationComponent implements OnInit {
 
   }
 
-  submit() {
-    this.newFileUpdate();
-
-    this.publication.contenu = this.myForm.controls['contenu'].value;
-
-    console.log('publication before created method ', this.publication);
-
-    this.publicationService
-      .createPublication(this.publication)
-      .subscribe((data) => {
-        console.log("data created " + data);
-      });
-
-    window.location.reload();
-  }
-
   async newFileUpdate() {
+
     for (let i = 0; i < this.files.length; i += 1) {
 
       let file = this.files[i];
@@ -97,7 +84,7 @@ export class CreatePublicationComponent implements OnInit {
 
         //s3
         let response = await this.uploadS3Service.uploadFileS3(file, filePath);
-        console.log(response);
+        console.log("response upload file " + response);
 
 
       } catch (error) {
@@ -110,9 +97,33 @@ export class CreatePublicationComponent implements OnInit {
 
       console.log('fileAPI updated ' + this.fileAPI);
 
-      this.publication.file.push(this.fileAPI);
+      this.publication.listFile.push(this.fileAPI);
     }
 
-    this.files = [];
+
+    this.createPubAPI(this.publication);
+
+  }
+
+
+  createPubAPI(publicationRequest : Publication)
+  {
+
+    //le contenu 
+    console.log('publicationRequest', publicationRequest);
+    this.publication.contenu = this.myForm.controls['contenu'].value;
+    
+    //l'user 
+    this.currentUser = this.tokenStorage.getUser();
+    this.publication.username = this.currentUser.username;
+
+    
+    console.log('publication ', this.publication);
+
+    this.publicationService
+      .createPublication(this.publication)
+      .subscribe((data) => {
+        console.log("data created " + data);
+      })
   }
 }

@@ -45,12 +45,11 @@ export class UploadS3Service {
           reject(err);
         }
 
-       this.uploadFileAPI({ name:data.name, url:data.url, }).subscribe (
-         retour => {
-          console.log("retour " , retour);
+        else
+        {
           resolve(data);
-         }
-          );
+        }
+
 
         });
 
@@ -59,8 +58,6 @@ export class UploadS3Service {
 
   uploadFileAPI(file: FileAPI): Observable<any> 
   {
-    console.log("methode api  " , file.name+ " // " , file.url + "   chemin d'acces "  + File_API);
-
     return this.http.post(File_API, file);
   
   }
