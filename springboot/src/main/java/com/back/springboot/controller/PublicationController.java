@@ -86,15 +86,11 @@ import org.springframework.web.bind.annotation.RestController;
   public ResponseEntity<?> createPublication(@RequestBody PublicationDTO publicationDTORequest )
   {
 
-    
-    System.out.println("\n publication DTO " + publicationDTORequest.toString());
-    
+    System.out.println("\n publication DTO Request  " + publicationDTORequest.toString());
     
     Publication publication  = publicationService.createPublication( 
                               publicationService.convertToEntity(publicationDTORequest));
-    
-
-    System.out.println("\n publication " + publication.toString());                          
+                            
     PublicationDTO publicationDTO = publicationService.convertToDto(publication);
     return new ResponseEntity<PublicationDTO>(publicationDTO, HttpStatus.ACCEPTED);
   }
@@ -105,8 +101,6 @@ import org.springframework.web.bind.annotation.RestController;
   {
     List<Publication> list = publicationService.getAll();
     List<PublicationDTO> listDto = publicationService.convertToDtoList(list);
-
-  
 
     return new ResponseEntity<List<PublicationDTO>>(listDto, HttpStatus.ACCEPTED);
 

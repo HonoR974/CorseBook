@@ -5,5 +5,5 @@ export class Publication {
     public countLike!: number;
     public contenu!: string ;
     public username!: string;
-    public file :FileAPI[] = [];
+    public file : FileAPI[] = [];
 }

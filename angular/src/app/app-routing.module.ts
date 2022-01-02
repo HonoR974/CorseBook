@@ -9,6 +9,7 @@ import { ProfileComponent } from './_components/profile/profile.component';
 import { RegisterComponent } from './_components/register/register.component';
 
 import { UpdateProductComponent } from './_components/update-product/update-product.component';
+import { UploadFileComponent } from './_components/upload-file/upload-file.component';
 
 
 const routes: Routes = [
@@ -18,12 +19,15 @@ const routes: Routes = [
   { path: 'register', component: RegisterComponent },
   { path: 'profile', component: ProfileComponent },
   { path: '', redirectTo: 'home', pathMatch: 'full' },
+
   
 
   {path: 'products', component: ProductListComponent},
   {path: 'create-product', component: CreateProductComponent},
   {path: 'update-product/:id', component: UpdateProductComponent},
-  {path: 'product-details/:id', component: ProductDetailsComponent}
+  {path: 'product-details/:id', component: ProductDetailsComponent},
+
+  { path: 'uploadFile', component: UploadFileComponent },
 ];
 
 @NgModule({

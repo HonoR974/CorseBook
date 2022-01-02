@@ -159,11 +159,11 @@ public class PublicationServiceImpl implements PublicationService {
 
        
         //si la publication DTO contient des fichiers 
-        if(publicationDTO.getFileDTO() != null)
+        if(publicationDTO.getListFile() != null)
         {
             List<File> list = new ArrayList<>();
           
-            for(FileDTO fileDTO : publicationDTO.getFileDTO())
+            for(FileDTO fileDTO : publicationDTO.getListFile())
             {
                 File file = new File(fileDTO.getUrl(), fileDTO.getName());
                 list.add(file);

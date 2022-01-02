@@ -15,7 +15,7 @@ public class PublicationDTO {
 
     private String username;
 
-    private List<FileDTO> FileDTO;
+    private List<FileDTO> listFile;
     
     public PublicationDTO() {
     }
@@ -54,20 +54,21 @@ public class PublicationDTO {
         this.countLike = countLike;
     }
 
-
-    public List<FileDTO> getFileDTO() {
-        return FileDTO;
+    public List<FileDTO> getListFile() {
+        return listFile;
     }
 
-    public void setFileDTO(List<FileDTO> fileDTO) {
-        FileDTO = fileDTO;
+    public void setListFile(List<FileDTO> listFile) {
+        this.listFile = listFile;
     }
 
     @Override
     public String toString() {
-        return "PublicationDTO [FileDTO=" + FileDTO + ", contenu=" + contenu + ", countLike=" + countLike + ", id=" + id
-                + ", username=" + username + "]";
+        return "PublicationDTO [contenu=" + contenu + ", countLike=" + countLike + ", id=" + id + ", listFile="
+                + listFile + ", username=" + username + "]";
     }
+
+
 
 
     
