@@ -6,6 +6,7 @@ import { LoginComponent } from './_components/login/login.component';
 import { ProductDetailsComponent } from './_components/product-details/product-details.component';
 import { ProductListComponent } from './_components/product-list/product-list.component';
 import { ProfileComponent } from './_components/profile/profile.component';
+import { PublicationPublicComponent } from './_components/publication-public/publication-public.component';
 import { RegisterComponent } from './_components/register/register.component';
 
 import { UpdateProductComponent } from './_components/update-product/update-product.component';
@@ -28,6 +29,7 @@ const routes: Routes = [
   {path: 'product-details/:id', component: ProductDetailsComponent},
 
   { path: 'uploadFile', component: UploadFileComponent },
+  { path: 'publication-public', component: PublicationPublicComponent },
 ];
 
 @NgModule({

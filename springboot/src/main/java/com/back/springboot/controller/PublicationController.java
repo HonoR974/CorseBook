@@ -67,11 +67,11 @@ import org.springframework.web.bind.annotation.RestController;
 
 
 
-    @GetMapping("/liked/{id}")
-    public  ResponseEntity<?> publicationLikeById(@PathVariable long id_publication)
+    @PutMapping("/liked/{id}")
+    public ResponseEntity<?> publicationLikeById(@PathVariable long id)
     {
-      
-      Publication publication = publicationService.publicationLiked(id_publication);
+
+      Publication publication = publicationService.publicationLiked(id);
 
       PublicationDTO publicationDTO = publicationService.convertToDto(publication);
 

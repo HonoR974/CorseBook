@@ -6,4 +6,5 @@ export class Publication {
     public contenu!: string ;
     public username!: string;
     public listFile : FileAPI[] = [];
+    public liked!:boolean;
 }

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { Publication } from 'src/app/_class/publication';
 import { PublicationService } from 'src/app/_services/publication.service';
 
@@ -11,9 +12,10 @@ export class PublicationPublicComponent implements OnInit {
 
   publications: Publication[] = [];
 
-  publicationUpdate :Publication;
+  publicationUpdate :Publication = new Publication;
 
-  constructor(private publicationService: PublicationService ) { }
+  constructor(private publicationService: PublicationService,
+              private router:Router ) { }
 
   ngOnInit(): void {
 
@@ -36,11 +38,13 @@ export class PublicationPublicComponent implements OnInit {
       pub.countLike ++;
 
       console.log("like " + pub.countLike);
-      this.publicationService.updatePublication(pub.id, pub).subscribe(
+      this.publicationService.likePublication(pub.id).subscribe(
         data => {
+          console.log("data " + data);
           this.publicationUpdate = data;
+          this.getPublicationsPublic();
         }
-      )
+      );
 
      
   }

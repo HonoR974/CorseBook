@@ -37,5 +37,10 @@ export class PublicationService {
     return this.HttpClient.put<Publication>(baseURL + id, publication);
   }
 
-
+  likePublication(id:number):Observable<any>
+  {
+    return this.HttpClient.put<Publication>(baseURL + "liked/"+ id, httpOptions);
+  }
+  
+  
 }

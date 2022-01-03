@@ -16,6 +16,8 @@ public class PublicationDTO {
     private String username;
 
     private List<FileDTO> listFile;
+
+    private boolean liked;
     
     public PublicationDTO() {
     }
@@ -62,11 +64,14 @@ public class PublicationDTO {
         this.listFile = listFile;
     }
 
-    @Override
-    public String toString() {
-        return "PublicationDTO [contenu=" + contenu + ", countLike=" + countLike + ", id=" + id + ", listFile="
-                + listFile + ", username=" + username + "]";
+    public boolean isLiked() {
+        return liked;
     }
+
+    public void setLiked(boolean liked) {
+        this.liked = liked;
+    }
+
 
 
 

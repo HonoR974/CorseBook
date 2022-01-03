@@ -16,8 +16,9 @@
 
         <div class="side-butons">
 
-         <button type="button" class="btn btn-info" (click)="publicationLiked(publication)">Like : {{publication.countLike}}</button>
-         <button type="button" class="btn btn-info">Comments : {{publication.countLike}}</button>
+         <button type="button" class="btn btn-info" (click)="publicationLiked(publication)"
+            [disabled]="publication.liked">Like : {{publication.countLike}}</button>
+         <button type="button" class="btn btn-info">Comments : </button>
         </div>
        
     </div>
