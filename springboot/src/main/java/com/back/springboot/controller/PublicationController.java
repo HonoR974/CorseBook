@@ -53,11 +53,7 @@ import org.springframework.web.bind.annotation.RestController;
 
         }
 
-
-       //classer la liste
-       // de la plus anicenne pub
-       // a la plus recente 
-             
+       //classer la liste de la plus anicenne pub a la plus recente 
 
        List<PublicationDTO> lDtos = publicationService.convertToDtoList(list);
 

@@ -32,6 +32,9 @@ public class User {
 	@OneToMany(mappedBy = "user")
     private List<Publication> publication;
 
+	@OneToMany(mappedBy = "user")
+	private List<Comment> comments;
+
 
 	public User() {
 	}
@@ -80,6 +83,22 @@ public class User {
 
 	public void setMatchingPassword(String matchingPassword) {
 		this.matchingPassword = matchingPassword;
+	}
+
+	public List<Publication> getPublication() {
+		return publication;
+	}
+
+	public void setPublication(List<Publication> publication) {
+		this.publication = publication;
+	}
+
+	public List<Comment> getComments() {
+		return comments;
+	}
+
+	public void setComments(List<Comment> comments) {
+		this.comments = comments;
 	}
 
 	

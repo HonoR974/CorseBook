@@ -36,11 +36,10 @@ export class PublicationPublicComponent implements OnInit {
      let pub  = publication;
 
       pub.countLike ++;
-
-      console.log("like " + pub.countLike);
+     
       this.publicationService.likePublication(pub.id).subscribe(
         data => {
-          console.log("data " + data);
+      
           this.publicationUpdate = data;
           this.getPublicationsPublic();
         }
@@ -49,4 +48,7 @@ export class PublicationPublicComponent implements OnInit {
      
   }
 
+
+  //getCommentsByPublication(id:number)
+  
 }

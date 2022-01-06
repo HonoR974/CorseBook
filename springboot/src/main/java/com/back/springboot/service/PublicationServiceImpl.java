@@ -170,6 +170,8 @@ public class PublicationServiceImpl implements PublicationService {
         publicationRepository.delete(publication);
     }
 
+    
+
     // ------------- Convert DTO -----------//
 
     // from publication to publicationDTO
