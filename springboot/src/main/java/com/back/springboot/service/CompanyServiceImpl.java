@@ -7,12 +7,10 @@ import com.back.springboot.dto.CompanyDTO;
 import com.back.springboot.exception.ResourceNotFoundException;
 import com.back.springboot.models.Adress;
 import com.back.springboot.models.Company;
-import com.back.springboot.repository.AdressRepository;
 import com.back.springboot.repository.CompanyRepository;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.expression.ParseException;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -22,8 +20,6 @@ public class CompanyServiceImpl implements CompanyService  {
     @Autowired
     private CompanyRepository companyRepository;
 
-    @Autowired
-    private AdressRepository adressRepository;
 
     @Autowired
     private ModelMapper modelMapper;

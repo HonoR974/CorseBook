@@ -18,7 +18,6 @@ public class Comment {
     @ManyToOne
     private Publication publication;
 
-
     @ManyToOne
     private User user;
 

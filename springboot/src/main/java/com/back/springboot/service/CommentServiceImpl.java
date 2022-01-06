@@ -1,5 +1,6 @@
 package com.back.springboot.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.back.springboot.dto.CommentDTO;
@@ -33,13 +34,54 @@ public class CommentServiceImpl  implements CommentService{
 
     //-------- CRUD -------// 
 
+    //create 
     @Override
     public Comment createComment(Comment comment) {
-       
+        return commentRepository.save(comment);
+    }
+
+    //get all 
+    @Override
+    public List<Comment> getAll() {
+        return commentRepository.findAll();
+    }
+
+
+    //get by id 
+    @Override
+    public Comment getById(long id)
+    {
+        Comment comment = commentRepository.findById(id)
+             .orElseThrow(() -> new ResourceNotFoundException(
+                    "le commentaire avec l'id " + id + " n'existe pas "));
+
+        return comment;
+    }
+
+    //update 
+    @Override
+    public  Comment updateComment(long id, Comment commentRequest)
+    {
+        Comment comment = commentRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException(
+                    "le commentaire avec l'id " + id + " n'existe pas "));
+         
+        comment.setContenu(commentRequest.getContenu());
+        comment.setUser(commentRequest.getUser());
+        comment.setPublications(commentRequest.getPublication());    
         
         return commentRepository.save(comment);
     }
 
+    //delete 
+    public void deleteById(long id)
+    {
+        Comment comment = commentRepository.findById(id)
+        .orElseThrow(() -> new ResourceNotFoundException(
+            "le commentaire avec l'id " + id + " n'existe pas "));
+
+        commentRepository.delete(comment);
+    }
 
 
     //-------- CONVERT DTO -----//
@@ -80,8 +122,16 @@ public class CommentServiceImpl  implements CommentService{
 
     @Override
     public List<CommentDTO> convertToDtoList(List<Comment> listComment) {
-        // TODO Auto-generated method stub
-        return null;
+  
+        List<CommentDTO> lDtos = new ArrayList<>();
+        
+        for(Comment comment : listComment)
+        {
+            CommentDTO commentDTO = convertToDto(comment);
+            lDtos.add(commentDTO);
+
+        }
+        return lDtos;
     }
 
   

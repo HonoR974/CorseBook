@@ -1,16 +1,12 @@
 package com.back.springboot.service;
 
 
-import com.back.springboot.configuration.JwtUserDetailsService;
 import com.back.springboot.exception.ResourceNotFoundException;
 import com.back.springboot.models.User;
 import com.back.springboot.repository.UserRepository;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
-import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
@@ -21,13 +17,9 @@ import org.springframework.stereotype.Service;
 @Service
 public class SecurityServiceImpl implements SecurityService{
 
-    @Autowired
-    private JwtUserDetailsService userDetailsService;
 
     @Autowired
     private UserRepository userRepository;
-
-    private static final Logger logger = LoggerFactory.getLogger(SecurityServiceImpl.class);
 
     /**
      * Verification de l'authentification

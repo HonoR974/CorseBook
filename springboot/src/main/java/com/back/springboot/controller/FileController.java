@@ -1,7 +1,6 @@
 package com.back.springboot.controller;
 
 
-import com.back.springboot.dto.FileDTO;
 import com.back.springboot.models.File;
 import com.back.springboot.service.FileService;
 
