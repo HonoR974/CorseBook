@@ -4,9 +4,11 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import com.back.springboot.dto.CommentDTO;
 import com.back.springboot.dto.FileDTO;
 import com.back.springboot.dto.PublicationDTO;
 import com.back.springboot.exception.ResourceNotFoundException;
+import com.back.springboot.models.Comment;
 import com.back.springboot.models.File;
 import com.back.springboot.models.PubLike;
 import com.back.springboot.models.Publication;
@@ -45,6 +47,8 @@ public class PublicationServiceImpl implements PublicationService {
 
     @Autowired
     private PubLikeRepository pubLikeRepository;
+
+
 
     //get public publication 
     @Override
@@ -110,7 +114,12 @@ public class PublicationServiceImpl implements PublicationService {
     }
 
 
+
+
     // ----------- CRUD -------------//
+
+
+
 
     @Override
     public Publication createPublication(Publication publication) {
@@ -171,7 +180,33 @@ public class PublicationServiceImpl implements PublicationService {
 
     
 
+
+
     // ------------- Convert DTO -----------//
+
+
+    //from publication to list Comment DTO 
+    public List<CommentDTO> getCommentsDTOByPublication(Publication publication)
+    {
+        List<CommentDTO> list = new ArrayList<>();
+
+        for (Comment comment : publication.getListComments())
+        {
+            CommentDTO commentDTO = modelMapper.map(comment, CommentDTO.class);
+
+            commentDTO.setId_publication(comment.getPublication().getId());
+
+            commentDTO.setUsername(comment.getUser().getUsername());
+
+            list.add(commentDTO);
+        }
+
+
+
+        return list;
+    }
+
+
 
     // from publication to publicationDTO
     @Override
@@ -182,6 +217,8 @@ public class PublicationServiceImpl implements PublicationService {
         publicationDTO.setUsername(publication.getUser().getUsername());
 
         publicationDTO.setLiked(checkLikeByUserAndPub(publication));
+
+        publicationDTO.setListComments(getCommentsDTOByPublication(publication));
 
 
         return publicationDTO;

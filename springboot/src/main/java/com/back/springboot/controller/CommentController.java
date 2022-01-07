@@ -28,11 +28,9 @@ public class CommentController {
     @Autowired
     private CommentService commentService;
 
-    @Autowired
-    private PublicationService publicationService;
 
     //create comment in publication 
-    @PostMapping("publication/{id}")
+    @PostMapping("publication/{id_publication}")
     public ResponseEntity<?> createCommentByPublicationId(@PathVariable long id_publication,
                                                             @RequestBody CommentDTO commentDTORequest)
     {

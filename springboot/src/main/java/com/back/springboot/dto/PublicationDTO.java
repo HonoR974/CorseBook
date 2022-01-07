@@ -17,6 +17,8 @@ public class PublicationDTO {
 
     private List<FileDTO> listFile;
 
+    private List<CommentDTO> listComments;
+
     private boolean liked;
     
     public PublicationDTO() {
@@ -70,6 +72,14 @@ public class PublicationDTO {
 
     public void setLiked(boolean liked) {
         this.liked = liked;
+    }
+
+    public List<CommentDTO> getListComments() {
+        return listComments;
+    }
+
+    public void setListComments(List<CommentDTO> listComments) {
+        this.listComments = listComments;
     }
 
 
