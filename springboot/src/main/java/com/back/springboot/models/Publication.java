@@ -100,10 +100,19 @@ public class Publication {
         this.listFile = listFile;
     }
 
+    public List<Comment> getListComments() {
+        return listComments;
+    }
+
+    public void setListComments(List<Comment> listComments) {
+        this.listComments = listComments;
+    }
+
     @Override
     public String toString() {
         return "Publication [contenu=" + contenu + ", countLike=" + countLike + ", dateCreate=" + dateCreate + ", id="
-                + id + ", listFile=" + listFile + ", statut=" + statut + ", user=" + user + "]";
+                + id + ", listComments=" + listComments + ", listFile=" + listFile + ", statut=" + statut + ", user="
+                + user + "]";
     }
 
 

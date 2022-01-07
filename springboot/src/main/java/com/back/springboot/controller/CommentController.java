@@ -5,8 +5,10 @@ import java.util.List;
 import java.util.Map;
 
 import com.back.springboot.dto.CommentDTO;
+import com.back.springboot.dto.PublicationDTO;
 import com.back.springboot.models.Comment;
 import com.back.springboot.service.CommentService;
+import com.back.springboot.service.PublicationService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -25,6 +27,24 @@ public class CommentController {
 
     @Autowired
     private CommentService commentService;
+
+    @Autowired
+    private PublicationService publicationService;
+
+    //create comment in publication 
+    @PostMapping("publication/{id}")
+    public ResponseEntity<?> createCommentByPublicationId(@PathVariable long id_publication,
+                                                            @RequestBody CommentDTO commentDTORequest)
+    {
+        Comment comment = commentService.convertToEntity(commentDTORequest);
+
+        Comment commentCreated = commentService.createCommentByPublicationID(id_publication, comment);
+
+        CommentDTO commentDTO = commentService.convertToDto(commentCreated);
+  
+
+        return ResponseEntity.ok(commentDTO);
+    }
 
     // ------------------- CRUD ------------------//
 

@@ -7,6 +7,9 @@ import com.back.springboot.models.Comment;
 
 public interface CommentService {
     
+    Comment createCommentByPublicationID(long id,Comment commentRequest);
+
+
     //  CRUD //
     List<Comment> getAll();
 
@@ -24,4 +27,6 @@ public interface CommentService {
     CommentDTO convertToDto(Comment comment);
 
     List<CommentDTO> convertToDtoList(List<Comment> listComment);
+
+
 }

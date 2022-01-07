@@ -31,6 +31,23 @@ public class CommentServiceImpl  implements CommentService{
     @Autowired
     private CommentRepository commentRepository;
 
+    //create comment in publication 
+    @Override
+    public Comment createCommentByPublicationID(long id,Comment commentRequest)
+    {
+        Publication publication = publicationRepository.findById(id)  .orElseThrow(() -> new ResourceNotFoundException(
+            "la publication avec l'id " + id + " n'existe pas "));
+
+        List<Comment> list = new ArrayList<>();
+        list.add(commentRequest);
+        publication.setListComments(list);
+        publicationRepository.save(publication);
+
+        commentRequest.setPublications(publication);
+
+        return  commentRepository.save(commentRequest);
+    }
+
 
     //-------- CRUD -------// 
 
