@@ -100,13 +100,13 @@ public class PublicationServiceImpl implements PublicationService {
     //false = no liked by user 
     public boolean checkLikeByUserAndPub(Publication publicationRequest)
     {
-        User user = securityService.getUser();
-        PubLike pubLike = pubLikeRepository.findByUserAndPublication(user, publicationRequest);
+        
+        PubLike pubLike = pubLikeRepository.findByUserAndPublication(publicationRequest.getUser(), publicationRequest);
 
 
         if(pubLike == null)
         {
-            System.out.println("\n la pub n' a pas été liked par " + user.getUsername());
+            System.out.println("\n la pub n' a pas été liked par " + publicationRequest.getUser().getUsername());
             return false;
         }
         

@@ -35,6 +35,11 @@ public class CommentServiceImpl  implements CommentService{
     @Override
     public Comment createCommentByPublicationID(long id,Comment commentRequest)
     {
+        Comment comment = new Comment();
+        comment.setContenu(commentRequest.getContenu());
+        comment.setUser(commentRequest.getUser());
+
+        //ajout du commentaire a la publication 
         Publication publication = publicationRepository.findById(id)  .orElseThrow(() -> new ResourceNotFoundException(
             "la publication avec l'id " + id + " n'existe pas "));
 
@@ -43,9 +48,12 @@ public class CommentServiceImpl  implements CommentService{
         publication.setListComments(list);
         publicationRepository.save(publication);
 
-        commentRequest.setPublications(publication);
+        //ajout de la publication au commentaire 
+        comment.setPublications(publication);
 
-        return  commentRepository.save(commentRequest);
+        System.out.println("\n comment " + comment.toString());
+
+        return     commentRepository.save(comment);
     }
 
 
@@ -116,12 +124,17 @@ public class CommentServiceImpl  implements CommentService{
 
         comment.setUser(user);        
 
-        Publication publication = publicationRepository.findById(commentDTO.getId_publication())
-                .orElseThrow(() -> new ResourceNotFoundException(
-                    "Publication with id  " + commentDTO.getId_publication() + " doesnt exist "));
+        if (commentDTO.getId_publication() != 0 )
+        {
+            Publication publication = publicationRepository.findById(commentDTO.getId_publication())
+            .orElseThrow(() -> new ResourceNotFoundException(
+                "Publication with id  " + commentDTO.getId_publication() + " doesnt exist "));
 
-        comment.setPublications(publication);            
+          comment.setPublications(publication);            
 
+        }
+
+       
         return comment;
     }
 

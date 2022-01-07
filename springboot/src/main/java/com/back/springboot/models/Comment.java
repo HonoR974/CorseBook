@@ -12,7 +12,7 @@ public class Comment {
 
       
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
 
     @ManyToOne
@@ -55,6 +55,11 @@ public class Comment {
 
     public void setContenu(String contenu) {
         this.contenu = contenu;
+    }
+
+    @Override
+    public String toString() {
+        return "Comment [contenu=" + contenu + ", id=" + id + ", publication=" + publication + ", user=" + user + "]";
     }
 
     

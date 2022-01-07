@@ -5,6 +5,7 @@
 
         <div class="side-title"></div>
         <p>{{publication.username}}</p>
+        <p> ID : {{publication.id}} </p>
         <div class="side-file">
             
         </div>
@@ -16,13 +17,24 @@
 
         <div class="side-butons">
 
-         <button type="button" class="btn btn-info" (click)="publicationLiked(publication)"
-            [disabled]="publication.liked">Like : {{publication.countLike}}</button>
-       
-       
-        <button type="button" class="btn btn-info">
-                Comments :
-             </button>
+            <button type="button" class="btn btn-info" (click)="publicationLiked(publication)"
+                [disabled]="publication.liked">Like : {{publication.countLike}}
+            </button>
+        
+        
+            <button type="button" class="btn btn-info">
+                    Comments :
+            </button>
+
+        </div>
+
+
+
+        <div class="cadreComment" *ngFor="let comment of publication.listComment"> 
+
+            <p>{{comment.username}}</p>
+            <p>{{comment.contenu}}</p>
+
         </div>
        
     </div>
