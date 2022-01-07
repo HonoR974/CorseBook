@@ -8,5 +8,5 @@ export class Publication {
     public username!: string;
     public liked!:boolean;
     public listFile : FileAPI[] = [];
-    public listComment : Comment[] = [];
+    public listComments : Comment[] = [];
 }
