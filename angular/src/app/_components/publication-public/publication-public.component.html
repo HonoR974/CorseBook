@@ -6,8 +6,10 @@
         <div class="side-title"></div>
         <p>{{publication.username}}</p>
         <p> ID : {{publication.id}} </p>
-        <div class="side-file">
-            
+
+
+        <div class="side-file" *ngFor="let file of publication.listFile">
+            <img [src]="file.url" alt={{file.name}} />
         </div>
 
         <div class="side-content">
@@ -17,26 +19,59 @@
 
         <div class="side-butons">
 
-            <button type="button" class="btn btn-info" (click)="publicationLiked(publication)"
+            <button type="button" class="btn btn-info"  mat-raised-button
+            matTooltip="Info about the action" (click)="publicationLiked(publication)"
                 [disabled]="publication.liked">Like : {{publication.countLike}}
             </button>
         
         
-            <button type="button" class="btn btn-info">
-                    Comments :
+            <button type="button" class="btn btn-info"
+             (click)="getCommentsByPublication(publication.id)">
+                    Comments : 
             </button>
 
         </div>
 
+        <!-- Comments -->
+        <div  id="{{publication.id}}"  class="cadreComment" >
 
+            <!-- Affichage -->
+            <div *ngFor="let comment of publication.listComments"> 
 
-        <div class="cadreComment" *ngFor="let comment of publication.listComments"> 
+                <div  class="comment">
+                    <p>{{comment.username}}</p>
+                    <p>{{comment.contenu}}</p>
+                </div>
+              
+    
+            </div>
+     
+            <div class="createComment">
+                <form  [formGroup]="commentForm" (ngSubmit)="createComment(publication.id)">
+                    <!-- Create -->
+                    <div  class="form-group">
+                        <label for="contenu">
+                            Votre Commentaire : 
+                        </label>
+                        <input
+                        formControlName="contenu"
+                        id="contenu" 
+                        type="text" 
+                        class="form-control content"
+                        placeholder="Participez">
+    
+                    </div>
+    
+                   <button class="btn btn-primary button" type="submit">Partager</button>
+               
+                </form>
+            </div>
 
-            <p>{{comment.username}}</p>
-            <p>{{comment.contenu}}</p>
-
-        </div>
+            
+           
        
+        </div>
+
     </div>
 
 

@@ -30,7 +30,7 @@ export class CreatePublicationComponent implements OnInit {
   renderImages: any = [];
 
   cheminImage: any =
-    'https://testp12.s3.eu-west-3.amazonaws.com/images/aws.png';
+    'https://testp12.s3.eu-west-3.amazonaws.com/';
 
   myFiles: string[] = [];
 
@@ -76,14 +76,14 @@ export class CreatePublicationComponent implements OnInit {
     for (let i = 0; i < this.files.length; i += 1) {
 
       let file = this.files[i];
-      let filePath = 'images/' + file.name;
-
+      let filePath = "image/" + file.name;
       //s3
       try {
 
+        console.log("request upload file " + filePath);
         //s3
         let response = await this.uploadS3Service.uploadFileS3(file, filePath);
-        console.log("response upload file " + response);
+     
 
 
       } catch (error) {
@@ -92,7 +92,7 @@ export class CreatePublicationComponent implements OnInit {
 
       //api
       this.fileAPI.name = file.name;
-      this.fileAPI.url = this.cheminImage + '/' + filePath;
+      this.fileAPI.url = this.cheminImage  + filePath;
 
       console.log('fileAPI updated ' + this.fileAPI);
 

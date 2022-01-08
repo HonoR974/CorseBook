@@ -12,6 +12,7 @@ import com.back.springboot.service.PublicationService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -21,6 +22,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+@CrossOrigin
 @RestController
 @RequestMapping("/api/comment/")
 public class CommentController {
@@ -34,6 +36,8 @@ public class CommentController {
     public ResponseEntity<?> createCommentByPublicationId(@PathVariable long id_publication,
                                                             @RequestBody CommentDTO commentDTORequest)
     {
+
+        System.out.println("\n create comment \n ");
         Comment comment = commentService.convertToEntity(commentDTORequest);
 
         Comment commentCreated = commentService.createCommentByPublicationID(id_publication, comment);

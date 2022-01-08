@@ -51,8 +51,6 @@ public class CommentServiceImpl  implements CommentService{
         //ajout de la publication au commentaire 
         comment.setPublications(publication);
 
-        System.out.println("\n comment " + comment.toString());
-
         return     commentRepository.save(comment);
     }
 

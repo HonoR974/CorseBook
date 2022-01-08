@@ -1,5 +1,5 @@
 import { HttpClient, HttpHeaders  } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { Injectable,Component } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Publication } from '../_class/publication';
 
@@ -41,6 +41,8 @@ export class PublicationService {
   {
     return this.HttpClient.put<Publication>(baseURL + "liked/"+ id, httpOptions);
   }
+
+
   
   
 }
