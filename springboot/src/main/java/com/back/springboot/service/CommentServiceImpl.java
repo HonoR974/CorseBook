@@ -1,13 +1,20 @@
 package com.back.springboot.service;
 
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;  
 
 import com.back.springboot.dto.CommentDTO;
 import com.back.springboot.exception.ResourceNotFoundException;
 import com.back.springboot.models.Comment;
+import com.back.springboot.models.CommentLike;
 import com.back.springboot.models.Publication;
 import com.back.springboot.models.User;
+import com.back.springboot.repository.ComLikeRepository;
 import com.back.springboot.repository.CommentRepository;
 import com.back.springboot.repository.PublicationRepository;
 import com.back.springboot.repository.UserRepository;
@@ -31,6 +38,15 @@ public class CommentServiceImpl  implements CommentService{
     @Autowired
     private CommentRepository commentRepository;
 
+    @Autowired
+    private SecurityService securityService;
+
+    @Autowired
+    private ComLikeRepository comLikeRepository;
+
+
+    //
+
     //create comment in publication 
     @Override
     public Comment createCommentByPublicationID(long id,Comment commentRequest)
@@ -51,9 +67,52 @@ public class CommentServiceImpl  implements CommentService{
         //ajout de la publication au commentaire 
         comment.setPublications(publication);
 
+        
+
         return     commentRepository.save(comment);
     }
 
+
+    //comment liked 
+    @Override
+    public Comment commentLiked(long id)
+    {
+        Comment comment = commentRepository.findById(id)
+        .orElseThrow(() -> new ResourceNotFoundException(
+            "le commentaire avec l'id " + id + " n'existe pas "));
+
+            //verifie que l'user n'a pas deja like ce commentaire
+
+        User user = securityService.getUser();
+
+        CommentLike commentLike = comLikeRepository.findByUserAndComment(user, comment);
+       
+        if (commentLike ==  null)
+        {
+            commentLike = new CommentLike();
+            commentLike.setComment(comment);
+            comment.setUser(user);
+
+            comLikeRepository.save(commentLike);
+            
+
+            List<CommentLike> list = new ArrayList<>();
+            list.add(commentLike);
+            comment.setlCommentLike(list);
+
+        }
+        else
+        {
+            System.out.println("\n le commentaire a deja ete aime ");
+             new ResourceNotFoundException(
+                "l'user " + user.getUsername()  + " a deja liké le commentaire " + comment.getId());
+        }
+
+
+
+
+        return commentRepository.save(comment);
+    }
 
     //-------- CRUD -------// 
 
@@ -116,12 +175,14 @@ public class CommentServiceImpl  implements CommentService{
    
         Comment comment = modelMapper.map(commentDTO, Comment.class);
 
+        //user 
         User user = userRepository.findByUsername(commentDTO.getUsername())
         .orElseThrow(() -> new ResourceNotFoundException(
                 "User with username " + commentDTO.getUsername() + " is null"));
 
         comment.setUser(user);        
 
+        //publication 
         if (commentDTO.getId_publication() != 0 )
         {
             Publication publication = publicationRepository.findById(commentDTO.getId_publication())
@@ -132,7 +193,26 @@ public class CommentServiceImpl  implements CommentService{
 
         }
 
-       
+        //date 
+        if(commentDTO.getDateCreated() != null)
+        {
+            //dateCreated 
+            try {
+                Date dateCreated = new SimpleDateFormat("dd/MM/yyyy").parse(commentDTO.getDateCreated());
+                comment.setDateCreated(dateCreated);
+            
+            } catch (ParseException e) {
+
+                System.out.println("\n il n'a pas de date ");
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
+                
+        }
+     
+
+
+
         return comment;
     }
 
@@ -141,9 +221,32 @@ public class CommentServiceImpl  implements CommentService{
         
         CommentDTO commentDTO = modelMapper.map(comment, CommentDTO.class);
 
-        commentDTO.setId_publication(comment.getPublication().getId());
+        //publication 
+        if(comment.getPublication() != null)
+        {
+            commentDTO.setId_publication(comment.getPublication().getId());
 
+        }
+
+        //username 
         commentDTO.setUsername(comment.getUser().getUsername());
+
+        //date 
+        Date date = Calendar.getInstance().getTime();  
+        DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");  
+        commentDTO.setDateCreated(dateFormat.format(date));
+
+
+        //like 
+        if( comment.getlCommentLike().size() < 1 )
+        {
+            commentDTO.setCountLike(0);
+        }
+        else
+        {
+            commentDTO.setCountLike(comment.getlCommentLike().size());
+        }
+
 
         return commentDTO;
     }
@@ -164,5 +267,6 @@ public class CommentServiceImpl  implements CommentService{
 
   
     
+
 
 }

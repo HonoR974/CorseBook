@@ -5,10 +5,10 @@ import java.util.List;
 import java.util.Map;
 
 import com.back.springboot.dto.CommentDTO;
-import com.back.springboot.dto.PublicationDTO;
+
 import com.back.springboot.models.Comment;
 import com.back.springboot.service.CommentService;
-import com.back.springboot.service.PublicationService;
+
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -46,6 +46,20 @@ public class CommentController {
   
 
         return ResponseEntity.ok(commentDTO);
+    }
+
+
+    //like comment in publication 
+    @GetMapping("like/{id}")
+    public ResponseEntity<?> commentLikedByID(@PathVariable long id)
+    {
+
+        Comment comment = commentService.commentLiked(id);
+
+        CommentDTO commentDTO = commentService.convertToDto(comment);
+
+        return ResponseEntity.ok(commentDTO);
+
     }
 
     // ------------------- CRUD ------------------//

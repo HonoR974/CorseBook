@@ -1,54 +1,66 @@
-<div>
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-        
-      <button class="navbar-toggler" type="button"
-       data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" 
-       aria-controls="navbarSupportedContent" 
-       aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
+<head>
+    <meta charset="utf-8">
+    <title>Tutorial</title>
       
-      <div class="collapse navbar-collapse" id="navbarSupportedContent" >
-
-        <ul class="navbar-nav me-auto mb-2 mb-lg-0" routerLinkActive="active">
-
-          <li class="nav-item">
-              <a routerLink="products" routerLinkActive="active" 
-              class="nav-link">Product List</a>
-          </li>
-  
-          <li class="nav-item">
-              <a h class="nav-link" routerLink="home"
-               routerLinkActive="active" >Home </a>
-          </li>
-
-        
-          <li class="nav-item">
-            <a  class="nav-link" routerLink="uploadFile"
-            routerLinkActive="active" >upload File S3  </a>
-          </li>
-  
-          <li class="nav-item"  *ngIf="!isLoggedIn">
-            <a href="/register" class="nav-link" routerLink="register">Sign Up</a>
-          </li>
-          <li class="nav-item"  *ngIf="!isLoggedIn">
-            <a href="/login" class="nav-link" routerLink="login">Login</a>
-          </li>
+    <!--font library is loaded prior to using mat-icons-->
+      
+    <link href=
+  "https://fonts.googleapis.com/icon?family=Material+Icons&display=block" 
+          rel="stylesheet">
+    
+</head>
+  <div>
+    
+      <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
           
+        <button class="navbar-toggler" type="button"
+        data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" 
+        aria-controls="navbarSupportedContent" 
+        aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        
+        <div class="collapse navbar-collapse" id="navbarSupportedContent" >
 
-          <li class="nav-item" *ngIf="isLoggedIn">
-            <a href="/profile" class="nav-link" routerLink="profile">{{ user.username }}</a>
-          </li>
-          <li class="nav-item" *ngIf="isLoggedIn">
-            <a href class="nav-link" (click)="logout()">LogOut</a>
-          </li>
-      </ul>
+          <ul class="navbar-nav me-auto mb-2 mb-lg-0" routerLinkActive="active">
+
+            <li class="nav-item">
+                <a routerLink="products" routerLinkActive="active" 
+                class="nav-link">Product List</a>
+            </li>
+    
+            <li class="nav-item">
+                <a h class="nav-link" routerLink="home"
+                routerLinkActive="active" >Home </a>
+            </li>
+
+          
+            <li class="nav-item">
+              <a  class="nav-link" routerLink="uploadFile"
+              routerLinkActive="active" >upload File S3  </a>
+            </li>
+    
+            <li class="nav-item"  *ngIf="!isLoggedIn">
+              <a href="/register" class="nav-link" routerLink="register">Sign Up</a>
+            </li>
+            <li class="nav-item"  *ngIf="!isLoggedIn">
+              <a href="/login" class="nav-link" routerLink="login">Login</a>
+            </li>
+            
+
+            <li class="nav-item" *ngIf="isLoggedIn">
+              <a href="/profile" class="nav-link" routerLink="profile">{{ user.username }}</a>
+            </li>
+            <li class="nav-item" *ngIf="isLoggedIn">
+              <a href class="nav-link" (click)="logout()">LogOut</a>
+            </li>
+        </ul>
 
 
-      </div>
-     
-    </nav>
-</div>
+        </div>
+      
+      </nav>
+  </div>
 
 
 <div class="container">

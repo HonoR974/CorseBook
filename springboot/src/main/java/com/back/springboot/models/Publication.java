@@ -36,6 +36,9 @@ public class Publication {
     @OneToMany(mappedBy = "publication")
     private List<Comment> listComments;
 
+    @OneToMany (mappedBy = "publication")
+    private List<PubLike> lPubLikes;
+
     public Publication() {
     }
 

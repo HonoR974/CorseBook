@@ -9,6 +9,7 @@ public interface CommentService {
     
     Comment createCommentByPublicationID(long id,Comment commentRequest);
 
+    Comment commentLiked(long id);
 
     //  CRUD //
     List<Comment> getAll();

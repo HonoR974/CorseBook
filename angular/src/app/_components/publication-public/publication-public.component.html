@@ -3,11 +3,26 @@
     
     <div class="cadre" *ngFor="let publication of publications" >
 
-        <div class="side-title"></div>
+        <div class="side-title">
         <p>{{publication.username}}</p>
         <p> ID : {{publication.id}} </p>
+        </div>
 
 
+        <div>
+            <button mat-icon-button  
+            mat-raised-button
+            matTooltip="Modifier"> 
+                <mat-icon>stop</mat-icon>
+              </button>
+
+              <button mat-icon-button 
+              mat-raised-button
+              matTooltip="Supprimer"> 
+                <mat-icon>close</mat-icon>
+              </button>
+        </div>
+  
         <div class="side-file" *ngFor="let file of publication.listFile">
             <img [src]="file.url" alt={{file.name}} />
         </div>
@@ -19,15 +34,23 @@
 
         <div class="side-butons">
 
+
             <button type="button" class="btn btn-info"  mat-raised-button
-            matTooltip="Info about the action" (click)="publicationLiked(publication)"
-                [disabled]="publication.liked">Like : {{publication.countLike}}
+            matTooltip="Like" *ngIf="publication.liked" (click)="publicationLiked(publication)"
+                [disabled]="publication.liked">
+                <mat-icon>favorite</mat-icon>{{publication.countLike}}
+            </button>
+
+            <button type="button" class="btn btn-info"  mat-raised-button
+            matTooltip="Like" *ngIf="!publication.liked" (click)="publicationLiked(publication)"
+                [disabled]="publication.liked">
+                <mat-icon>favorite_border</mat-icon>{{publication.countLike}}
             </button>
         
-        
             <button type="button" class="btn btn-info"
-             (click)="getCommentsByPublication(publication.id)">
-                    Comments : 
+               matTooltip="Comment" 
+                            (click)="getCommentsByPublication(publication.id)">
+                            <mat-icon>comment</mat-icon>
             </button>
 
         </div>

@@ -8,6 +8,8 @@ import { AppComponent } from './app.component';
 import { ProductListComponent } from './_components/product-list/product-list.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { authInterceptorProviders } from './_helpers/auth.interceptor';
+import {MatIconModule} from '@angular/material/icon';
+import {MatTooltipModule} from '@angular/material/tooltip';
 
 import { NgxDropzoneModule } from 'ngx-dropzone';
 import { CommonModule } from '@angular/common';
@@ -50,7 +52,9 @@ import { UploadFileComponent } from './_components/upload-file/upload-file.compo
     NgxDropzoneModule,
     CommonModule,
     ToastrModule.forRoot(),
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    MatIconModule,
+    MatTooltipModule
   ],
   providers: [authInterceptorProviders],
   bootstrap: [AppComponent]

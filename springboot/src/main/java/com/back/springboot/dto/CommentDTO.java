@@ -14,6 +14,10 @@ public class CommentDTO {
 
     private String contenu; 
 
+    private String dateCreated;
+
+    private long countLike;
+
     public CommentDTO(){}
 
     public long getId() {
@@ -49,6 +53,23 @@ public class CommentDTO {
         this.id_publication = id_publication;
     }
 
+    public String getDateCreated() {
+        return dateCreated;
+    }
+
+    public void setDateCreated(String dateCreated) {
+        this.dateCreated = dateCreated;
+    }
+
+    public long getCountLike() {
+        return countLike;
+    }
+
+    public void setCountLike(long countLike) {
+        this.countLike = countLike;
+    }
+
+    
 
     
     

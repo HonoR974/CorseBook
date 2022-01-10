@@ -35,6 +35,12 @@ public class User {
 	@OneToMany(mappedBy = "user")
 	private List<Comment> comments;
 
+	@OneToMany(mappedBy = "user")
+	private List<PubLike> lPubLikes;
+
+	@OneToMany(mappedBy = "user")
+	private List<CommentLike> lCommentLikes;
+
 
 	public User() {
 	}
@@ -101,6 +107,23 @@ public class User {
 		this.comments = comments;
 	}
 
+	public List<PubLike> getlPubLikes() {
+		return lPubLikes;
+	}
+
+	public void setlPubLikes(List<PubLike> lPubLikes) {
+		this.lPubLikes = lPubLikes;
+	}
+
+	public List<CommentLike> getlCommentLikes() {
+		return lCommentLikes;
+	}
+
+	public void setlCommentLikes(List<CommentLike> lCommentLikes) {
+		this.lCommentLikes = lCommentLikes;
+	}
+
+	
 	
 
 }

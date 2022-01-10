@@ -1,11 +1,15 @@
 package com.back.springboot.models;
 
+import java.util.Date;
+import java.util.List;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
 @Entity
 public class Comment {
@@ -18,10 +22,19 @@ public class Comment {
     @ManyToOne
     private Publication publication;
 
+    @OneToMany(mappedBy = "comment")
+    private List<CommentLike> lCommentLike;
+
     @ManyToOne
     private User user;
 
     private String contenu; 
+
+    private Date dateCreated;
+
+
+
+    
 
     public Comment(){}
 
@@ -57,11 +70,28 @@ public class Comment {
         this.contenu = contenu;
     }
 
-    @Override
-    public String toString() {
-        return "Comment [contenu=" + contenu + ", id=" + id + ", publication=" + publication + ", user=" + user + "]";
+    public void setPublication(Publication publication) {
+        this.publication = publication;
     }
 
+    public Date getDateCreated() {
+        return dateCreated;
+    }
+
+    public void setDateCreated(Date dateCreated) {
+        this.dateCreated = dateCreated;
+    }
+
+    public List<CommentLike> getlCommentLike() {
+        return lCommentLike;
+    }
+
+    public void setlCommentLike(List<CommentLike> lCommentLike) {
+        this.lCommentLike = lCommentLike;
+    }
+
+    
+   
     
 
 }

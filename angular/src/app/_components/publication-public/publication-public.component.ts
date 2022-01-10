@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { MatSliderModule } from '@angular/material/slider';
 import { Router } from '@angular/router';
 
 import { Comment } from 'src/app/_class/comment';
@@ -103,5 +104,7 @@ export class PublicationPublicComponent implements OnInit {
        window.location.reload();                    
 
   }
+
+  
   
 }
