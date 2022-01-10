@@ -34,16 +34,14 @@
 
         <div class="side-butons">
 
-
-            <button type="button" class="btn btn-info"  mat-raised-button
+            <button type="button" class="btn btn-info"  
             matTooltip="Like" *ngIf="publication.liked" (click)="publicationLiked(publication)"
                 [disabled]="publication.liked">
                 <mat-icon>favorite</mat-icon>{{publication.countLike}}
             </button>
 
-            <button type="button" class="btn btn-info"  mat-raised-button
-            matTooltip="Like" *ngIf="!publication.liked" (click)="publicationLiked(publication)"
-                [disabled]="publication.liked">
+            <button type="button" class="btn btn-info" 
+            matTooltip="Like" *ngIf="!publication.liked" (click)="publicationLiked(publication)">
                 <mat-icon>favorite_border</mat-icon>{{publication.countLike}}
             </button>
         
@@ -64,6 +62,25 @@
                 <div  class="comment">
                     <p>{{comment.username}}</p>
                     <p>{{comment.contenu}}</p>
+                    <p>{{comment.countLike}}</p>
+                </div>
+
+                <div>
+                    <button type="button" class="btn btn-info"  
+                    matTooltip="Like" *ngIf="publication.liked" 
+                    (click)="commentLiked(comment.id)"
+                        [disabled]="publication.liked">
+
+                        <mat-icon>favorite</mat-icon>
+                    </button>
+        
+                    <button type="button" class="btn btn-info" 
+                    matTooltip="Like" *ngIf="!publication.liked" 
+                    (click)="commentLiked(comment.id)">
+
+                        <mat-icon>favorite_border</mat-icon>
+                    </button>
+
                 </div>
               
     

@@ -18,6 +18,8 @@ public class CommentDTO {
 
     private long countLike;
 
+    private boolean liked;
+
     public CommentDTO(){}
 
     public long getId() {
@@ -67,6 +69,14 @@ public class CommentDTO {
 
     public void setCountLike(long countLike) {
         this.countLike = countLike;
+    }
+
+    public boolean isLiked() {
+        return liked;
+    }
+
+    public void setLiked(boolean liked) {
+        this.liked = liked;
     }
 
     

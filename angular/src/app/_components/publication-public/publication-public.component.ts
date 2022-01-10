@@ -105,6 +105,17 @@ export class PublicationPublicComponent implements OnInit {
 
   }
 
+  commentLiked(id:number)
+  {
+    this.commentService.commentLikedById(id)
+                      .subscribe ( data => 
+                        {
+                          console.log("data created " + data );
+                        });
+
+    this.getPublicationsPublic();
+  }
+
   
   
 }

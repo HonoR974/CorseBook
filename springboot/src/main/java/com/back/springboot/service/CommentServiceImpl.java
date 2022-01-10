@@ -83,7 +83,7 @@ public class CommentServiceImpl  implements CommentService{
 
             //verifie que l'user n'a pas deja like ce commentaire
 
-        User user = securityService.getUser();
+        User user = comment.getUser();
 
         CommentLike commentLike = comLikeRepository.findByUserAndComment(user, comment);
        
@@ -114,6 +114,21 @@ public class CommentServiceImpl  implements CommentService{
         return commentRepository.save(comment);
     }
 
+
+
+    public boolean checkLikeByUserAndCom(Comment commentRequest)
+    {
+        
+        CommentLike commentLike = comLikeRepository.findByUserAndComment(commentRequest.getUser(), commentRequest);
+
+        if(commentLike == null)
+        {
+            System.out.println("\n le commentaire n' a pas été liked par " + commentRequest.getUser().getUsername());
+            return false;
+        }
+        
+        return true;
+    }
     //-------- CRUD -------// 
 
     //create 
@@ -237,7 +252,7 @@ public class CommentServiceImpl  implements CommentService{
         commentDTO.setDateCreated(dateFormat.format(date));
 
 
-        //like 
+        //like count 
         if( comment.getlCommentLike().size() < 1 )
         {
             commentDTO.setCountLike(0);
@@ -246,6 +261,9 @@ public class CommentServiceImpl  implements CommentService{
         {
             commentDTO.setCountLike(comment.getlCommentLike().size());
         }
+
+        //liked by user ? 
+        commentDTO.setLiked(checkLikeByUserAndCom(comment));
 
 
         return commentDTO;

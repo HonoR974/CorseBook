@@ -24,4 +24,9 @@ export class CommentService {
 
     return this.HttpClient.post<Comment>(baseURL + "publication/"+id_publication, comment);
   }
+
+  commentLikedById(id:number):Observable<any> 
+  {
+    return this.HttpClient.get<Comment>(baseURL +"like/" + id, httpOptions);
+  }
 }
