@@ -194,6 +194,9 @@ public class PublicationServiceImpl implements PublicationService {
                 .orElseThrow(() -> new ResourceNotFoundException("Product not extist with id : " + id));
 
         publication.setContenu(publicationRequest.getContenu());
+        
+        publication.setListFile(publicationRequest.getListFile());
+
         publication.setCountLike(publicationRequest.getCountLike());
 
         return publicationRepository.save(publication);
@@ -249,6 +252,17 @@ public class PublicationServiceImpl implements PublicationService {
 
         publicationDTO.setListComments(getCommentsDTOByPublication(publication));
 
+        //createdByUser
+        //si l'user qui l'a créer et celui qui est connecté 
+
+        if(securityService.isAuthenticated() && publication.getUser().getUsername().equals(securityService.getUser().getUsername()))
+        {
+            publicationDTO.setCreatedByUser(true);
+        }
+        else
+        {
+            publicationDTO.setCreatedByUser(false);
+        }
 
         return publicationDTO;
     }

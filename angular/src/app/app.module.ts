@@ -8,8 +8,10 @@ import { AppComponent } from './app.component';
 import { ProductListComponent } from './_components/product-list/product-list.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { authInterceptorProviders } from './_helpers/auth.interceptor';
+
 import {MatIconModule} from '@angular/material/icon';
 import {MatTooltipModule} from '@angular/material/tooltip';
+import {MatBadgeModule} from '@angular/material/badge';
 
 import { NgxDropzoneModule } from 'ngx-dropzone';
 import { CommonModule } from '@angular/common';
@@ -25,6 +27,7 @@ import { RegisterComponent } from './_components/register/register.component';
 import { UpdateProductComponent } from './_components/update-product/update-product.component';
 import { PublicationPublicComponent } from './_components/publication-public/publication-public.component';
 import { UploadFileComponent } from './_components/upload-file/upload-file.component';
+import { UpdatePublicationComponent } from './_components/update-publication/update-publication.component';
 
 
 
@@ -42,6 +45,7 @@ import { UploadFileComponent } from './_components/upload-file/upload-file.compo
     CreatePublicationComponent,
     PublicationPublicComponent,
     UploadFileComponent,
+    UpdatePublicationComponent,
   ],
   imports: [
     BrowserModule,
@@ -54,7 +58,8 @@ import { UploadFileComponent } from './_components/upload-file/upload-file.compo
     ToastrModule.forRoot(),
     ReactiveFormsModule,
     MatIconModule,
-    MatTooltipModule
+    MatTooltipModule,
+    MatBadgeModule
   ],
   providers: [authInterceptorProviders],
   bootstrap: [AppComponent]

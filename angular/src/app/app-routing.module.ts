@@ -10,6 +10,7 @@ import { PublicationPublicComponent } from './_components/publication-public/pub
 import { RegisterComponent } from './_components/register/register.component';
 
 import { UpdateProductComponent } from './_components/update-product/update-product.component';
+import { UpdatePublicationComponent } from './_components/update-publication/update-publication.component';
 import { UploadFileComponent } from './_components/upload-file/upload-file.component';
 
 
@@ -30,6 +31,7 @@ const routes: Routes = [
 
   { path: 'uploadFile', component: UploadFileComponent },
   { path: 'publication-public', component: PublicationPublicComponent },
+  { path: 'update-publication/:id', component: UpdatePublicationComponent }
 ];
 
 @NgModule({

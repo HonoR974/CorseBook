@@ -16,14 +16,34 @@ export class PublicationService {
 
   constructor(private HttpClient: HttpClient) { }
 
+  //publications public 
   getPublicationPublic(): Observable<Publication[]>
   {
     return this.HttpClient.get<Publication[]>(baseURL +"public", httpOptions);
   }
 
+  //like 
+  likePublication(id:number):Observable<any>
+  {
+    return this.HttpClient.put<Publication>(baseURL + "liked/"+ id, httpOptions);
+  }
+
+  //dislike 
+  dislikedPublication(id:number):Observable<any>
+  {
+    return this.HttpClient.put<Publication>(baseURL + "disliked/"+ id, httpOptions);
+  }
+
+
+  //------------- CRUD -------------//
   getAllPublication(): Observable<Publication[]>
   {
     return this.HttpClient.get<Publication[]>(baseURL , httpOptions);
+  }
+
+  getPublicationById(id:number): Observable<any>
+  {
+    return this.HttpClient.get<Publication>(baseURL + id , httpOptions);
   }
 
   createPublication(publication: Publication): Observable<any>
@@ -37,15 +57,8 @@ export class PublicationService {
     return this.HttpClient.put<Publication>(baseURL + id, publication);
   }
 
-  likePublication(id:number):Observable<any>
-  {
-    return this.HttpClient.put<Publication>(baseURL + "liked/"+ id, httpOptions);
-  }
 
-  dislikedPublication(id:number):Observable<any>
-  {
-    return this.HttpClient.put<Publication>(baseURL + "disliked/"+ id, httpOptions);
-  }
+
 
 
   

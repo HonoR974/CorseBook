@@ -3,10 +3,15 @@ import { Comment } from "./comment";
 
 export class Publication {
     public id!: number ;
+
     public countLike!: number;
+    public liked!:boolean;
+
     public contenu!: string ;
     public username!: string;
-    public liked!:boolean;
+ 
     public listFile : FileAPI[] = [];
     public listComments : Comment[] = [];
+
+    public createdByUser!: boolean;
 }

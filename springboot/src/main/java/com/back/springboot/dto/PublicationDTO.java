@@ -10,6 +10,8 @@ public class PublicationDTO {
     private long id;
 
     private long countLike;
+    
+    private boolean liked;
 
     private String contenu;
 
@@ -18,8 +20,9 @@ public class PublicationDTO {
     private List<FileDTO> listFile;
 
     private List<CommentDTO> listComments;
+    
+    private boolean createdByUser;
 
-    private boolean liked;
     
     public PublicationDTO() {
     }
@@ -80,6 +83,14 @@ public class PublicationDTO {
 
     public void setListComments(List<CommentDTO> listComments) {
         this.listComments = listComments;
+    }
+
+    public boolean isCreatedByUser() {
+        return createdByUser;
+    }
+
+    public void setCreatedByUser(boolean createdByUser) {
+        this.createdByUser = createdByUser;
     }
 
 

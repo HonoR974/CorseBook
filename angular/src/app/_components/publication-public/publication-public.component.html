@@ -3,26 +3,38 @@
     
     <div class="cadre" *ngFor="let publication of publications" >
 
-        <div class="side-title">
-        <p>{{publication.username}}</p>
-        <p> ID : {{publication.id}} </p>
-        </div>
-
-
         <!-- Btn publication Update Delete -->
-        <div>
-            <button mat-icon-button  
-            mat-raised-button
-            matTooltip="Modifier"> 
-                <mat-icon>stop</mat-icon>
-              </button>
 
-              <button mat-icon-button 
-              mat-raised-button
-              matTooltip="Supprimer"> 
-                <mat-icon>close</mat-icon>
-              </button>
+        <div class="side-top">
+            <div class="side-title">
+                {{publication.username}}
+            </div>
+        
+
+            <div class="side-btn-pub" *ngIf="publication.createdByUser">
+
+                <button mat-icon-button 
+                mat-raised-button
+                matTooltip="Supprimer"
+                (click)="clickMethod(publication.id)"> 
+                    <mat-icon>close</mat-icon>
+                </button>
+    
+                <button mat-icon-button  
+                mat-raised-button
+                matTooltip="Modifier"
+                (click)="updatePublication(publication.id)"> 
+                        <mat-icon>stop</mat-icon>
+                </button>
+    
+               
+            </div>
         </div>
+        
+
+     
+
+      
   
 
         <div class="side-file" *ngFor="let file of publication.listFile">
@@ -75,7 +87,7 @@
                     <button type="button" class="btn btn-info"  
                     matTooltip="Like" *ngIf="publication.liked" 
                     (click)="commentLiked(comment.id)"
-                        [disabled]="publication.liked">
+                      >
 
                         <mat-icon>favorite</mat-icon>
                     </button>

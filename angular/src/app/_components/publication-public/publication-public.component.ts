@@ -22,6 +22,8 @@ export class PublicationPublicComponent implements OnInit {
   
   publicationUpdate :Publication = new Publication;
 
+  
+
   x : any;
 
   commentForm =  new FormGroup({
@@ -41,6 +43,7 @@ export class PublicationPublicComponent implements OnInit {
     this.getPublicationsPublic();
   }
 
+  //------------------ Publication ----------------//
 
   //get all public 
   private getPublicationsPublic()
@@ -64,6 +67,7 @@ export class PublicationPublicComponent implements OnInit {
       );
   }
 
+  //dislike
   publicationDisliked(id: number)
   {
     this.publicationService.dislikedPublication(id).subscribe(
@@ -76,6 +80,25 @@ export class PublicationPublicComponent implements OnInit {
 
   }
 
+
+  //update 
+  updatePublication(id:number)
+  {
+    this.router.navigate(['update-publication',id]);
+  }
+
+  //delete 
+  clickMethod(id: number) {
+    if(confirm("Are you sure to delete "+id)) {
+      console.log("Implement delete functionality here");
+    }
+    else
+    {
+      console.log("Cancel delete ");
+    }
+  }
+
+  //----------------- Comments  ---------------//
 
   //getCommentsByPublication(id:number)
   getCommentsByPublication(id:number)

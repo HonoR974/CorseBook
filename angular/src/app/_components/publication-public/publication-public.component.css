@@ -21,10 +21,35 @@
     background-color: rgba(31,178,245,0.1);
 }
 
+.side-top
+{
+    display: flex;
+ 
+    justify-content: space-between;
+}
+
 .side-title
 {
     
 }
+
+.side-btn-pub
+{
+    display: flex;
+    flex-direction: row-reverse;
+}
+
+.side-btn-pub button
+{
+   border-radius: 20px;
+}
+
+.side-btn-pub button:hover
+{
+   background-color: rgba(224,172,22,0.5);
+}
+
+
 
 .side-file
 {
