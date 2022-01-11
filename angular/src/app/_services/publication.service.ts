@@ -42,6 +42,11 @@ export class PublicationService {
     return this.HttpClient.put<Publication>(baseURL + "liked/"+ id, httpOptions);
   }
 
+  dislikedPublication(id:number):Observable<any>
+  {
+    return this.HttpClient.put<Publication>(baseURL + "disliked/"+ id, httpOptions);
+  }
+
 
   
   

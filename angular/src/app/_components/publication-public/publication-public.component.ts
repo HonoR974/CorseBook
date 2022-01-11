@@ -51,21 +51,29 @@ export class PublicationPublicComponent implements OnInit {
   }
 
   //like 
-  publicationLiked(publication: Publication)
+  publicationLiked(id: number)
   {
-     let pub  = publication;
 
-      pub.countLike ++;
      
-      this.publicationService.likePublication(pub.id).subscribe(
+      this.publicationService.likePublication(id).subscribe(
         data => {
       
           this.publicationUpdate = data;
           this.getPublicationsPublic();
         }
       );
+  }
 
-     
+  publicationDisliked(id: number)
+  {
+    this.publicationService.dislikedPublication(id).subscribe(
+      data => {
+    
+        this.publicationUpdate = data;
+        this.getPublicationsPublic();
+      }
+    );
+
   }
 
 

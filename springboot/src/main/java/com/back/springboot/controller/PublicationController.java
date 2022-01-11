@@ -72,7 +72,18 @@ import org.springframework.web.bind.annotation.RestController;
       return ResponseEntity.ok(publicationDTO);
     }
 
+    @PutMapping("/disliked/{id}")
 
+    public ResponseEntity<?> publicationDislikedById(@PathVariable long id)
+    {
+
+      Publication publication = publicationService.publicationDisliked(id);
+
+      PublicationDTO publicationDTO = publicationService.convertToDto(publication);
+
+      return ResponseEntity.ok(publicationDTO);
+
+    }
 
 
 

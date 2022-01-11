@@ -12,6 +12,8 @@ public interface PublicationService {
 
     Publication publicationLiked(long id);
 
+    Publication publicationDisliked(long id);
+
     //CRUD 
     Publication createPublication(Publication publication);
 

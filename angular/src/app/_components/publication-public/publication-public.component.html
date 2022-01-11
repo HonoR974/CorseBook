@@ -9,6 +9,7 @@
         </div>
 
 
+        <!-- Btn publication Update Delete -->
         <div>
             <button mat-icon-button  
             mat-raised-button
@@ -23,6 +24,7 @@
               </button>
         </div>
   
+
         <div class="side-file" *ngFor="let file of publication.listFile">
             <img [src]="file.url" alt={{file.name}} />
         </div>
@@ -34,16 +36,20 @@
 
         <div class="side-butons">
 
+            <!-- disliked / btn for liked   -->
+            <button type="button" class="btn btn-info" 
+            matTooltip="Like" *ngIf="!publication.liked" (click)="publicationLiked(publication.id)">
+                <mat-icon>favorite_border</mat-icon>{{publication.countLike}}
+            </button>
+
+            <!-- Liked / btn for disliked  -->
             <button type="button" class="btn btn-info"  
-            matTooltip="Like" *ngIf="publication.liked" (click)="publicationLiked(publication)"
-                [disabled]="publication.liked">
+            matTooltip="Dislike" *ngIf="publication.liked" (click)="publicationDisliked(publication.id)"
+              >
                 <mat-icon>favorite</mat-icon>{{publication.countLike}}
             </button>
 
-            <button type="button" class="btn btn-info" 
-            matTooltip="Like" *ngIf="!publication.liked" (click)="publicationLiked(publication)">
-                <mat-icon>favorite_border</mat-icon>{{publication.countLike}}
-            </button>
+          
         
             <button type="button" class="btn btn-info"
                matTooltip="Comment" 

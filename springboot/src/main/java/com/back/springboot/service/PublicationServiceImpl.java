@@ -94,6 +94,35 @@ public class PublicationServiceImpl implements PublicationService {
 
     }
 
+    //disliked 
+    @Override
+    public Publication publicationDisliked(long id) 
+    {
+        Publication publication = publicationRepository.findById(id)
+        .orElseThrow(() -> new ResourceNotFoundException("La publication n'existe pas "));
+
+        User user = securityService.getUser();
+
+        //si l'user a deja like la pub 
+        //il ne peut pas la liker a nouveau 
+
+        PubLike pubLike = pubLikeRepository.findByUserAndPublication(user, publication);
+        
+        if(pubLike == null)
+        {
+            new ResourceNotFoundException("L'user " + user.getUsername()+ 
+                                "n'a pas liké la publication " + publication.getId() );
+        }
+        else
+        {
+            pubLikeRepository.delete(pubLike);
+            publication.setCountLike(publication.getCountLike() - 1 );
+        }
+
+        return publicationRepository.save(publication);
+    }
+
+
 
     //verifie si l'user n'a pas deja liké la pub 
     //true = liked 
