@@ -16,7 +16,7 @@
                 <button mat-icon-button 
                 mat-raised-button
                 matTooltip="Supprimer"
-                (click)="clickMethod(publication.id)"> 
+                (click)="deletePublication(publication.id)"> 
                     <mat-icon>close</mat-icon>
                 </button>
     
@@ -26,8 +26,6 @@
                 (click)="updatePublication(publication.id)"> 
                         <mat-icon>stop</mat-icon>
                 </button>
-    
-               
             </div>
         </div>
         
@@ -37,8 +35,10 @@
       
   
 
-        <div class="side-file" *ngFor="let file of publication.listFile">
-            <img [src]="file.url" alt={{file.name}} />
+        <div class="side-file" >
+            <img [src]="file.url" alt={{file.name}}
+             *ngFor="let file of publication.listFile">
+             
         </div>
 
         <div class="side-content">
@@ -71,6 +71,7 @@
 
         </div>
 
+
         <!-- Comments -->
         <div  id="{{publication.id}}"  class="cadreComment" >
 
@@ -81,6 +82,7 @@
                     <p>{{comment.username}}</p>
                     <p>{{comment.contenu}}</p>
                     <p>{{comment.countLike}}</p>
+                    <p>{{comment.dateCreated}}</p>Date
                 </div>
 
                 <div>

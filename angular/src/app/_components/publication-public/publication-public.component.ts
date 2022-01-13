@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { MatSliderModule } from '@angular/material/slider';
+
+import 'sweetalert2/src/sweetalert2.scss'
+
+import Swal from 'sweetalert2'
 import { Router } from '@angular/router';
 
 import { Comment } from 'src/app/_class/comment';
@@ -22,7 +25,7 @@ export class PublicationPublicComponent implements OnInit {
   
   publicationUpdate :Publication = new Publication;
 
-  
+  name = 'Angular';
 
   x : any;
 
@@ -87,17 +90,6 @@ export class PublicationPublicComponent implements OnInit {
     this.router.navigate(['update-publication',id]);
   }
 
-  //delete 
-  clickMethod(id: number) {
-    if(confirm("Are you sure to delete "+id)) {
-      console.log("Implement delete functionality here");
-    }
-    else
-    {
-      console.log("Cancel delete ");
-    }
-  }
-
   //----------------- Comments  ---------------//
 
   //getCommentsByPublication(id:number)
@@ -147,6 +139,46 @@ export class PublicationPublicComponent implements OnInit {
     this.getPublicationsPublic();
   }
 
+
+
+
+
+  //------- Alert -------------//
+
+
+  //delete 
+  deletePublication(id : number){
+
+
+    Swal.fire({
+      title: 'Voulez-vous vraiment supprimer votre publication ?',
+      text: 'Vous ne pourrez plus récupér votre publication',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Oui, je la supprime',
+      cancelButtonText: 'Non, je la garde '
+    }).then((result) => {
+      if (result.value) {
+        Swal.fire(
+          'Deleted!',
+          'Votre publication a été supprimée.',
+          'success'
+        );
+
+        this.publicationService.deletePublication(id).subscribe( data => {
+          console.log(data);
+          this.getPublicationsPublic();
+        });
+
+      } else if (result.dismiss === Swal.DismissReason.cancel) {
+        Swal.fire(
+          'Cancelled',
+          'Votre publication est toujours là :D ',
+          'error'
+        );
+      }
+    })
+  }
   
   
 }

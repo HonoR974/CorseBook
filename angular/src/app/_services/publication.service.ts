@@ -57,6 +57,10 @@ export class PublicationService {
     return this.HttpClient.put<Publication>(baseURL + id, publication);
   }
 
+  deletePublication(id:number):Observable<Object> 
+  {
+    return this.HttpClient.delete(baseURL + id);
+  }
 
 
 

@@ -13,6 +13,8 @@ import {MatIconModule} from '@angular/material/icon';
 import {MatTooltipModule} from '@angular/material/tooltip';
 import {MatBadgeModule} from '@angular/material/badge';
 
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+
 import { NgxDropzoneModule } from 'ngx-dropzone';
 import { CommonModule } from '@angular/common';
 
@@ -26,6 +28,7 @@ import { ProfileComponent } from './_components/profile/profile.component';
 import { RegisterComponent } from './_components/register/register.component';
 import { UpdateProductComponent } from './_components/update-product/update-product.component';
 import { PublicationPublicComponent } from './_components/publication-public/publication-public.component';
+
 import { UploadFileComponent } from './_components/upload-file/upload-file.component';
 import { UpdatePublicationComponent } from './_components/update-publication/update-publication.component';
 
@@ -45,7 +48,7 @@ import { UpdatePublicationComponent } from './_components/update-publication/upd
     CreatePublicationComponent,
     PublicationPublicComponent,
     UploadFileComponent,
-    UpdatePublicationComponent,
+    UpdatePublicationComponent
   ],
   imports: [
     BrowserModule,
@@ -59,7 +62,8 @@ import { UpdatePublicationComponent } from './_components/update-publication/upd
     ReactiveFormsModule,
     MatIconModule,
     MatTooltipModule,
-    MatBadgeModule
+    MatBadgeModule,
+  
   ],
   providers: [authInterceptorProviders],
   bootstrap: [AppComponent]

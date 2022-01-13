@@ -19,21 +19,32 @@
         aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
-        
+
+        <!-- logo -->
+        <a class="navbar-brand" routerLink="home"
+        routerLinkActive="active" >
+          <img [src]="icon" alt="" width="50" height="50">
+        </a>
+
         <div class="collapse navbar-collapse" id="navbarSupportedContent" >
 
-          <ul class="navbar-nav me-auto mb-2 mb-lg-0" routerLinkActive="active">
+          <!-- lien -->
+          <ul class="navbar-nav d-flex justify-content-around p-2 " routerLinkActive="active">
 
             <li class="nav-item">
                 <a routerLink="products" routerLinkActive="active" 
-                class="nav-link">Product List</a>
+                class="nav-link">Nature</a>
             </li>
     
             <li class="nav-item">
-                <a h class="nav-link" routerLink="home"
-                routerLinkActive="active" >Home </a>
+                <a h class="nav-link" routerLink=""
+                routerLinkActive="active" >Evenement </a>
             </li>
 
+            <form class="d-flex">
+              <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+              <button class="btn btn-outline-success" type="submit">Search</button>
+            </form>
           
             <li class="nav-item">
               <a  class="nav-link" routerLink="uploadFile"
@@ -63,8 +74,14 @@
   </div>
 
 
-<div class="container">
+
+<div class="corps">
+  <div class="container">
     <router-outlet></router-outlet>
+  </div>
+   
+
+
 </div>
 
 <footer class="footer">

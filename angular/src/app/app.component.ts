@@ -13,6 +13,7 @@ export class AppComponent {
 
   title = 'Angular & Spring Boot ';
 
+  icon ="https://testp12.s3.eu-west-3.amazonaws.com/image/kenny.jpg";
 
   isLoggedIn = false;
   user:User;

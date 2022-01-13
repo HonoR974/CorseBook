@@ -161,6 +161,7 @@ public class PublicationServiceImpl implements PublicationService {
         // date
         publication.setDateCreate(new Date());
 
+
         // repo
         publicationRepository.save(publication);
 
@@ -207,7 +208,11 @@ public class PublicationServiceImpl implements PublicationService {
         Publication publication = publicationRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Product not extist with id : " + id));
 
-        publicationRepository.delete(publication);
+        Statut statut = statutRepository.findByName("deleted")
+                 .orElseThrow(() -> new ResourceNotFoundException("Product not extist with id : " + id));
+
+        publication.setStatut(statut);
+        publicationRepository.save(publication);
     }
 
     
@@ -263,6 +268,8 @@ public class PublicationServiceImpl implements PublicationService {
         {
             publicationDTO.setCreatedByUser(false);
         }
+
+        
 
         return publicationDTO;
     }

@@ -253,7 +253,7 @@ public class CommentServiceImpl  implements CommentService{
 
 
         //like count 
-        if( comment.getlCommentLike().size() < 1 )
+        if( comment.getlCommentLike() == null )
         {
             commentDTO.setCountLike(0);
         }
