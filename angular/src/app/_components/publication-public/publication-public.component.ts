@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 
-import 'sweetalert2/src/sweetalert2.scss'
+import 'sweetalert2/src/sweetalert2.scss';
 
-import Swal from 'sweetalert2'
+import Swal from 'sweetalert2';
 import { Router } from '@angular/router';
 
 import { Comment } from 'src/app/_class/comment';

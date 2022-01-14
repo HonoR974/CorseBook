@@ -67,11 +67,17 @@ export class CreatePublicationComponent implements OnInit {
     for (var i = 0; i < event.target.files.length; i++) {
       this.files.push(event.target.files[i]);
 
+      
     }
+
+   
 
   }
 
   async newFileUpdate() {
+
+  
+
 
     for (let i = 0; i < this.files.length; i += 1) {
 
@@ -90,13 +96,15 @@ export class CreatePublicationComponent implements OnInit {
         console.log("erreur lors de l'envoie de la publication");
       }
 
+      this.fileAPI = new FileAPI();
       //api
       this.fileAPI.name = file.name;
       this.fileAPI.url = this.cheminImage  + filePath;
 
-      console.log('fileAPI updated ' + this.fileAPI);
+      console.log('fileAPI updated ', this.fileAPI);
 
       this.publication.listFile.push(this.fileAPI);
+      
     }
      this.files = [];
 
@@ -109,7 +117,7 @@ export class CreatePublicationComponent implements OnInit {
   {
 
     //le contenu 
-    console.log('publicationRequest', publicationRequest);
+ 
     this.publication.contenu = this.myForm.controls['contenu'].value;
     
     //l'user 
@@ -118,7 +126,11 @@ export class CreatePublicationComponent implements OnInit {
 
     
     console.log('publication ', this.publication);
-
+    
+    for (let i = 0; i < this.publication.listFile.length; i += 1)
+    {
+      console.log('files ', this.publication.listFile[i]);
+    }
     this.publicationService
       .createPublication(this.publication)
       .subscribe((data) => {

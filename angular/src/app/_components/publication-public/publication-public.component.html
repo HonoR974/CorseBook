@@ -36,8 +36,18 @@
   
 
         <div class="side-file" >
-            <img [src]="file.url" alt={{file.name}}
-             *ngFor="let file of publication.listFile">
+         
+
+             <ngb-carousel>
+                <ng-template ngbSlide *ngFor="let image of publication.listFile">
+                  <div class="wrapper">
+                    <img [src]="image.url" alt="Random first slide">
+                  </div>
+                  <div class="carousel-caption">
+                    <p>{{image.name}}</p>
+                  </div>
+                </ng-template>
+              </ngb-carousel>
              
         </div>
 

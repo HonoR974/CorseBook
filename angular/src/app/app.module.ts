@@ -13,7 +13,6 @@ import {MatIconModule} from '@angular/material/icon';
 import {MatTooltipModule} from '@angular/material/tooltip';
 import {MatBadgeModule} from '@angular/material/badge';
 
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 import { NgxDropzoneModule } from 'ngx-dropzone';
 import { CommonModule } from '@angular/common';
@@ -31,6 +30,7 @@ import { PublicationPublicComponent } from './_components/publication-public/pub
 
 import { UploadFileComponent } from './_components/upload-file/upload-file.component';
 import { UpdatePublicationComponent } from './_components/update-publication/update-publication.component';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 
 
@@ -63,6 +63,7 @@ import { UpdatePublicationComponent } from './_components/update-publication/upd
     MatIconModule,
     MatTooltipModule,
     MatBadgeModule,
+    NgbModule,
   
   ],
   providers: [authInterceptorProviders],

@@ -255,7 +255,12 @@ public class PublicationServiceImpl implements PublicationService {
 
         publicationDTO.setLiked(checkLikeByUserAndPub(publication));
 
-        publicationDTO.setListComments(getCommentsDTOByPublication(publication));
+
+        if (publicationDTO.getListComments()!= null)
+        {
+            publicationDTO.setListComments(getCommentsDTOByPublication(publication));
+        }
+    
 
         //createdByUser
         //si l'user qui l'a créer et celui qui est connecté 
