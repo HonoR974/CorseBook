@@ -36,6 +36,8 @@ export class PublicationPublicComponent implements OnInit {
     ])
   });
 
+
+
   constructor(private publicationService: PublicationService,
               private tokenStorage: TokenStorageService,
               private commentService : CommentService,

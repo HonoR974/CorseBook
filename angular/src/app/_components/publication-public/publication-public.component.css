@@ -95,3 +95,30 @@
     
 }
 
+.picsum-img-wrapper
+{
+ background-color: black;
+ display: flex;
+justify-content: center;
+  
+}
+
+.picsum-img-wrapper img
+{
+    width: auto;
+
+}
+
+.carousel-caption
+{
+    background-color:  red;
+
+}
+
+@media (max-width: 767px) {
+    .carousel-indicators,
+    .carousel-indicators li {
+      cursor: default;
+      pointer-events: none;
+    }
+}
