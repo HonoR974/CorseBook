@@ -59,9 +59,12 @@ export class UpdatePublicationComponent implements OnInit {
   {
 
     this.publication.contenu = this.myForm.controls['contenu'].value;
-    this.publicationService.updatePublication(this.id, this.publication).subscribe( 
+
+    console.log("publication updated + " , this.publication );
+    console.log("Files updated + " , this.publication.listFile );
+    this.publicationService.updatePublication( this.publication).subscribe( 
       data => {
-        this.publication = data;
+       console.log("data " + data);
         this.goToPublicationPublic();
       },
       error => console.log(error));

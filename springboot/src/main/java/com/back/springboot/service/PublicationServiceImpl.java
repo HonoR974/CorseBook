@@ -14,6 +14,7 @@ import com.back.springboot.models.PubLike;
 import com.back.springboot.models.Publication;
 import com.back.springboot.models.Statut;
 import com.back.springboot.models.User;
+import com.back.springboot.repository.CommentRepository;
 import com.back.springboot.repository.FileRepository;
 import com.back.springboot.repository.PubLikeRepository;
 import com.back.springboot.repository.PublicationRepository;
@@ -47,6 +48,9 @@ public class PublicationServiceImpl implements PublicationService {
 
     @Autowired
     private PubLikeRepository pubLikeRepository;
+
+    @Autowired
+    private CommentRepository commentRepository;
 
 
 
@@ -196,10 +200,28 @@ public class PublicationServiceImpl implements PublicationService {
 
         publication.setContenu(publicationRequest.getContenu());
         
-        publication.setListFile(publicationRequest.getListFile());
+        if ( publicationRequest.getListFile() != null)
+        {
+            for (File file : publication.getListFile()) 
+            {
+                fileRepository.delete(file);
+            }
+           
+            publication.setListFile(publicationRequest.getListFile());
+
+
+            for (File file :  publicationRequest.getListFile())
+            {
+                file.setPublication(publication);
+                fileRepository.save(file);
+            }
+            
+        }
 
         publication.setCountLike(publicationRequest.getCountLike());
 
+
+        System.out.println("\n count size file " + publication.getListFile().size() );
         return publicationRepository.save(publication);
     }
 
@@ -211,8 +233,14 @@ public class PublicationServiceImpl implements PublicationService {
         Statut statut = statutRepository.findByName("deleted")
                  .orElseThrow(() -> new ResourceNotFoundException("Product not extist with id : " + id));
 
-        publication.setStatut(statut);
-        publicationRepository.save(publication);
+
+  
+
+      publication.setStatut(statut);
+      //   publicationRepository.delete(publication);  
+
+
+    publicationRepository.save(publication);
     }
 
     

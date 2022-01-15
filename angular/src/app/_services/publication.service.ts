@@ -52,9 +52,9 @@ export class PublicationService {
     return this.HttpClient.post<Publication>(baseURL, publication);
   }
 
-  updatePublication(id:number, publication:Publication):Observable<any>
+  updatePublication(publication:Publication):Observable<Object>
   {
-    return this.HttpClient.put<Publication>(baseURL + id, publication);
+    return this.HttpClient.put<Publication>(baseURL + publication.id, publication, httpOptions);
   }
 
   deletePublication(id:number):Observable<Object> 

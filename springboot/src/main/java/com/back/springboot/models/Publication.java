@@ -3,6 +3,7 @@ package com.back.springboot.models;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -24,19 +25,19 @@ public class Publication {
 
     private Date dateCreate;
 
-    @ManyToOne
+    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH})
     private User user;
 
-    @ManyToOne
+    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH})
     private Statut statut;
 
-    @OneToMany(mappedBy = "publication")
+    @OneToMany(mappedBy = "publication",cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH})
     private List<File> listFile;
 
-    @OneToMany(mappedBy = "publication")
+    @OneToMany(mappedBy = "publication" , cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH})
     private List<Comment> listComments;
 
-    @OneToMany (mappedBy = "publication")
+    @OneToMany (mappedBy = "publication", cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH})
     private List<PubLike> lPubLikes;
 
     public Publication() {
@@ -111,14 +112,13 @@ public class Publication {
         this.listComments = listComments;
     }
 
-    @Override
-    public String toString() {
-        return "Publication [contenu=" + contenu + ", countLike=" + countLike + ", dateCreate=" + dateCreate + ", id="
-                + id + ", listComments=" + listComments + ", listFile=" + listFile + ", statut=" + statut + ", user="
-                + user + "]";
+    public List<PubLike> getlPubLikes() {
+        return lPubLikes;
     }
 
+    public void setlPubLikes(List<PubLike> lPubLikes) {
+        this.lPubLikes = lPubLikes;
+    }
 
-    
     
 }

@@ -1,6 +1,7 @@
 package com.back.springboot.models;
 
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -14,10 +15,10 @@ public class PubLike {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    @ManyToOne
+    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH})
     private User user;
 
-    @ManyToOne
+    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH})
     private Publication publication;
 
 
