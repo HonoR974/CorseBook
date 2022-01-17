@@ -25,19 +25,19 @@ public class Publication {
 
     private Date dateCreate;
 
-    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH})
+    @ManyToOne
     private User user;
 
-    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH})
+    @ManyToOne
     private Statut statut;
 
-    @OneToMany(mappedBy = "publication",cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH})
+    @OneToMany(cascade = CascadeType.PERSIST, mappedBy = "publication")
     private List<File> listFile;
 
-    @OneToMany(mappedBy = "publication" , cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH})
+    @OneToMany(cascade = CascadeType.PERSIST, mappedBy = "publication")
     private List<Comment> listComments;
 
-    @OneToMany (mappedBy = "publication", cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH})
+    @OneToMany (cascade = CascadeType.PERSIST, mappedBy = "publication")
     private List<PubLike> lPubLikes;
 
     public Publication() {

@@ -189,6 +189,8 @@ public class PublicationServiceImpl implements PublicationService {
         Publication publication = publicationRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Product not extist with id : " + id));
 
+                System.out.println("\n count size file Test  " + publication.getListFile().size() );
+
         return publication;
     }
 
@@ -202,25 +204,44 @@ public class PublicationServiceImpl implements PublicationService {
         
         if ( publicationRequest.getListFile() != null)
         {
-            for (File file : publication.getListFile()) 
+       
+            int i = 0 ;
+            //delete les anciens fichiers 
+            for (File filedelete : publication.getListFile()) 
             {
-                fileRepository.delete(file);
+
+                fileRepository.delete(filedelete);
+
+                File fileTest = fileRepository.findById(publication.getListFile().get(i).getId())
+                                     .orElseThrow(() -> new ResourceNotFoundException("File not extist"));
+
+                 System.out.println("\n fileTest " + fileTest.getId());
+
+
+                 fileRepository.delete(fileTest);
+                i++;
             }
-           
-            publication.setListFile(publicationRequest.getListFile());
 
-
-            for (File file :  publicationRequest.getListFile())
+        
+            
+            File fileIndex ;
+            List<File> lFiles = new ArrayList<>();
+            for (File fileRequest :  publicationRequest.getListFile())
             {
-                file.setPublication(publication);
-                fileRepository.save(file);
+           
+                fileIndex = new File();
+                fileIndex.setName(fileRequest.getName());
+                fileIndex.setUrl(fileRequest.getUrl());
+                fileIndex.setPublication(publication);
+                fileRepository.save(fileIndex);
+                lFiles.add(fileIndex);
             }
             
+            publication.setListFile(lFiles);
         }
 
+
         publication.setCountLike(publicationRequest.getCountLike());
-
-
         System.out.println("\n count size file " + publication.getListFile().size() );
         return publicationRepository.save(publication);
     }

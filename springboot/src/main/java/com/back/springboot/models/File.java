@@ -4,6 +4,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
 
@@ -21,6 +22,7 @@ public class File {
     private String name;
 
     @ManyToOne
+    @JoinColumn(name = "publication_id")
     private Publication publication;
 
 
