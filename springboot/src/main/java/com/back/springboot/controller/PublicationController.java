@@ -143,6 +143,8 @@ import org.springframework.web.bind.annotation.RestController;
   Publication publication = publicationService.updatePublication
             (id, publicationService.convertToEntity(publicationDTORequest));
 
+  System.out.println("\n update publication " + publication.getListFile().size());
+
   PublicationDTO publicationDTO = publicationService.convertToDto(publication);
   return new ResponseEntity<PublicationDTO>(publicationDTO, HttpStatus.ACCEPTED);
   }

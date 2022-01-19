@@ -48,13 +48,15 @@ export class PublicationService {
 
   createPublication(publication: Publication): Observable<any>
   {
-    console.log("create publication " , publication);
+  
     return this.HttpClient.post<Publication>(baseURL, publication);
   }
 
-  updatePublication(publication:Publication):Observable<Object>
-  {
-    return this.HttpClient.put<Publication>(baseURL + publication.id, publication, httpOptions);
+  updatePublication(id:number , publication:Publication):Observable<Object>
+  {  
+    console.log("publication to API " , publication);
+
+    return this.HttpClient.put<Publication>(baseURL + id, publication, httpOptions);
   }
 
   deletePublication(id:number):Observable<Object> 

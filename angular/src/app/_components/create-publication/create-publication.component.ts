@@ -85,8 +85,6 @@ export class CreatePublicationComponent implements OnInit {
       let filePath = "image/" + file.name;
       //s3
       try {
-
-        console.log("request upload file " + filePath);
         //s3
         let response = await this.uploadS3Service.uploadFileS3(file, filePath);
      
@@ -101,19 +99,17 @@ export class CreatePublicationComponent implements OnInit {
       this.fileAPI.name = file.name;
       this.fileAPI.url = this.cheminImage  + filePath;
 
-      console.log('fileAPI updated ', this.fileAPI);
-
       this.publication.listFile.push(this.fileAPI);
       
     }
      this.files = [];
 
-    this.createPubAPI(this.publication);
+    this.createPubAPI();
 
   }
 
 
-  createPubAPI(publicationRequest : Publication)
+  createPubAPI()
   {
 
     //le contenu 
@@ -124,13 +120,6 @@ export class CreatePublicationComponent implements OnInit {
     this.currentUser = this.tokenStorage.getUser();
     this.publication.username = this.currentUser.username;
 
-    
-    console.log('publication ', this.publication);
-    
-    for (let i = 0; i < this.publication.listFile.length; i += 1)
-    {
-      console.log('files ', this.publication.listFile[i]);
-    }
     this.publicationService
       .createPublication(this.publication)
       .subscribe((data) => {

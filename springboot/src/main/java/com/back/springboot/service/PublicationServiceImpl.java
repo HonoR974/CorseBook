@@ -204,25 +204,13 @@ public class PublicationServiceImpl implements PublicationService {
         
         if ( publicationRequest.getListFile() != null)
         {
-       
-            int i = 0 ;
+
             //delete les anciens fichiers 
             for (File filedelete : publication.getListFile()) 
             {
-
-                fileRepository.delete(filedelete);
-
-                File fileTest = fileRepository.findById(publication.getListFile().get(i).getId())
-                                     .orElseThrow(() -> new ResourceNotFoundException("File not extist"));
-
-                 System.out.println("\n fileTest " + fileTest.getId());
-
-
-                 fileRepository.delete(fileTest);
-                i++;
+           
+                fileRepository.deleteById(filedelete.getId());
             }
-
-        
             
             File fileIndex ;
             List<File> lFiles = new ArrayList<>();
@@ -239,8 +227,7 @@ public class PublicationServiceImpl implements PublicationService {
             
             publication.setListFile(lFiles);
         }
-
-
+        
         publication.setCountLike(publicationRequest.getCountLike());
         System.out.println("\n count size file " + publication.getListFile().size() );
         return publicationRepository.save(publication);
@@ -345,12 +332,17 @@ public class PublicationServiceImpl implements PublicationService {
 
         Publication publication = modelMapper.map(publicationDTO, Publication.class);
 
-        User user = userRepository.findByUsername(publicationDTO.getUsername())
-                .orElseThrow(() -> new ResourceNotFoundException(
-                        "User with username " + publicationDTO.getUsername() + " is null"));
 
-        publication.setUser(user);
+        if ( publicationDTO.getUsername() != null)
+        {
+            User user = userRepository.findByUsername(publicationDTO.getUsername())
+            .orElseThrow(() -> new ResourceNotFoundException(
+                    "User with username " + publicationDTO.getUsername() + " is null"));
 
+            publication.setUser(user);
+
+        }
+     
         // si la publication DTO contient des fichiers
         if (publicationDTO.getListFile() != null) {
             List<File> list = new ArrayList<>();

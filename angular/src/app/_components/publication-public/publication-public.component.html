@@ -51,8 +51,11 @@
                         <img [src]="image.url" alt="Carousel One">
                     </div>
                     <div class="carousel-caption" >
+                        <!-- 
                         <h3>Title</h3>
                         <p>Aenean malesuada nisi ut commodo semper.</p>
+                        -->
+                      
                     </div>
                 </ng-template>
             </ngb-carousel>
@@ -87,6 +90,12 @@
                             (click)="getCommentsByPublication(publication.id)">
                             <mat-icon>comment</mat-icon>
             </button>
+
+
+               <!-- futur bouton partage  -->
+               <button type="button" class="btn btn-info" >
+                   <mat-icon>favorite_border</mat-icon>{{publication.countLike}}
+               </button>
 
         </div>
 

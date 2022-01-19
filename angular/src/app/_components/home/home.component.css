@@ -72,13 +72,14 @@ header {
 
   .create-side
   {
-    height: 300px;
-    background-color: #b8e9e9;
+    height: 100%;
     border-radius: 15px;
     margin: 20px;
     display: flex;
     flex-direction: column;
     justify-content: center;
+    background-color: rgba(234, 255, 254, 1);
+    border-radius: 20px;
   }
 
   .publication-side

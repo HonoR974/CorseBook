@@ -22,7 +22,6 @@ public class File {
     private String name;
 
     @ManyToOne
-    @JoinColumn(name = "publication_id")
     private Publication publication;
 
 

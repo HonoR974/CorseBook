@@ -31,13 +31,13 @@ public class Publication {
     @ManyToOne
     private Statut statut;
 
-    @OneToMany(cascade = CascadeType.PERSIST, mappedBy = "publication")
+    @OneToMany( mappedBy = "publication")
     private List<File> listFile;
 
-    @OneToMany(cascade = CascadeType.PERSIST, mappedBy = "publication")
+    @OneToMany( mappedBy = "publication")
     private List<Comment> listComments;
 
-    @OneToMany (cascade = CascadeType.PERSIST, mappedBy = "publication")
+    @OneToMany (mappedBy = "publication")
     private List<PubLike> lPubLikes;
 
     public Publication() {
@@ -118,6 +118,13 @@ public class Publication {
 
     public void setlPubLikes(List<PubLike> lPubLikes) {
         this.lPubLikes = lPubLikes;
+    }
+
+    @Override
+    public String toString() {
+        return "Publication [contenu=" + contenu + ", countLike=" + countLike + ", dateCreate=" + dateCreate + ", id="
+                + id + ", lPubLikes=" + lPubLikes + ", listComments=" + listComments + ", listFile=" + listFile
+                + ", statut=" + statut + ", user=" + user + "]";
     }
 
     

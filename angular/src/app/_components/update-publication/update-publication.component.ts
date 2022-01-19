@@ -18,8 +18,11 @@ export class UpdatePublicationComponent implements OnInit {
   currentUser: any;
 
   publication:Publication = new Publication();
+  publicationSend:Publication = new Publication();
 
   files: FileAPI[] = [];
+
+  listFilesAPI: FileAPI[] = [];
 
   myForm = new FormGroup({
     contenu: new FormControl('', [
@@ -46,6 +49,7 @@ export class UpdatePublicationComponent implements OnInit {
   ngOnInit(): void {
     this.id = this.route.snapshot.params['id'];
     this.getPublicationById(this.id);
+  
   }
 
   getPublicationById(id:number){
@@ -53,18 +57,22 @@ export class UpdatePublicationComponent implements OnInit {
       {
         this.publication = data;
       });
+
+    
   }
 
-  updatePublication()
+
+  updatePublicationByID()
   {
 
-    this.publication.contenu = this.myForm.controls['contenu'].value;
+    this.publicationSend.contenu = this.myForm.controls['contenu'].value;
+    this.publicationSend.listFile = this.listFilesAPI;
 
-    console.log("publication updated + " , this.publication );
-    console.log("Files updated + " , this.publication.listFile );
-    this.publicationService.updatePublication( this.publication).subscribe( 
+    console.log("  pub  " , this.publicationSend );
+
+    this.publicationService.updatePublication( this.id,this.publicationSend).subscribe( 
       data => {
-       console.log("data " + data);
+       console.log("\n  data " , data);
         this.goToPublicationPublic();
       },
       error => console.log(error));
@@ -111,13 +119,15 @@ export class UpdatePublicationComponent implements OnInit {
       this.fileAPI.name = file.name;
       this.fileAPI.url = this.cheminImage  + filePath;
 
-      console.log('fileAPI updated ' + this.fileAPI);
+      console.log('fileAPI ajouté  ' , this.fileAPI);
 
-      this.publication.listFile.push(this.fileAPI);
+      this.listFilesAPI.push(this.fileAPI);
+
     }
-     this.files = [];
 
-    this.updatePublication();
+  
+
+    this.updatePublicationByID();
 
   }
 
