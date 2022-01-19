@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-
 import { User } from './_class/user';
 import { TokenStorageService } from './_services/token-storage.service';
 
@@ -18,6 +17,9 @@ export class AppComponent {
   isLoggedIn = false;
   user:User;
 
+
+
+
   constructor(private tokenStorageService: TokenStorageService) { }
 
   ngOnInit(): void {
@@ -32,4 +34,8 @@ export class AppComponent {
     this.tokenStorageService.signOut();
     window.location.reload();
   }
+
+
+ 
+
 }

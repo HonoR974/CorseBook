@@ -32,7 +32,7 @@ import { UploadFileComponent } from './_components/upload-file/upload-file.compo
 import { UpdatePublicationComponent } from './_components/update-publication/update-publication.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
-
+import { GoogleMapsModule } from '@angular/google-maps'
 
 @NgModule({
   declarations: [
@@ -64,7 +64,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     MatTooltipModule,
     MatBadgeModule,
     NgbModule,
-  
+    GoogleMapsModule
   ],
   providers: [authInterceptorProviders],
   bootstrap: [AppComponent]
