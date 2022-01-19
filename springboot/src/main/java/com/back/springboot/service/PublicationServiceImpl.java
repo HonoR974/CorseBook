@@ -238,20 +238,24 @@ public class PublicationServiceImpl implements PublicationService {
         Publication publication = publicationRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Product not extist with id : " + id));
 
-        Statut statut = statutRepository.findByName("deleted")
-                 .orElseThrow(() -> new ResourceNotFoundException("Product not extist with id : " + id));
 
+        //delete all file 
+        if(publication.getListFile() != null)
+        {
+            deleteFile(publication);
+        }
 
-  
-
-      publication.setStatut(statut);
-      //   publicationRepository.delete(publication);  
-
-
-    publicationRepository.save(publication);
+        
+        publicationRepository.deleteById(publication.getId());
     }
 
-    
+    public void deleteFile(Publication  publication)
+    {
+        for(File file : publication.getListFile())
+        {
+            fileRepository.deleteById(file.getId());
+        }
+    }
 
 
 
