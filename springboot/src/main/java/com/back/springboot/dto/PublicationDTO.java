@@ -23,6 +23,7 @@ public class PublicationDTO {
     
     private boolean createdByUser;
 
+    private String statut; 
     
     public PublicationDTO() {
     }
@@ -91,6 +92,14 @@ public class PublicationDTO {
 
     public void setCreatedByUser(boolean createdByUser) {
         this.createdByUser = createdByUser;
+    }
+
+    public String getStatut() {
+        return statut;
+    }
+
+    public void setStatut(String statut) {
+        this.statut = statut;
     }
 
 

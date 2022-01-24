@@ -32,7 +32,10 @@ import { UploadFileComponent } from './_components/upload-file/upload-file.compo
 import { UpdatePublicationComponent } from './_components/update-publication/update-publication.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
-import { GoogleMapsModule } from '@angular/google-maps'
+import { GoogleMapsModule } from '@angular/google-maps';
+import { ListComponent } from './_components/evenement/list/list.component';
+import { ListContactComponent } from './_components/contact/list-contact/list-contact.component';
+import { SugestContactComponent } from './_components/contact/sugest-contact/sugest-contact.component';
 
 @NgModule({
   declarations: [
@@ -48,7 +51,10 @@ import { GoogleMapsModule } from '@angular/google-maps'
     CreatePublicationComponent,
     PublicationPublicComponent,
     UploadFileComponent,
-    UpdatePublicationComponent
+    UpdatePublicationComponent,
+    ListComponent,
+    ListContactComponent,
+    SugestContactComponent,
   ],
   imports: [
     BrowserModule,

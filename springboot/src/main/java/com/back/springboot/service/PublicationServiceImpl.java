@@ -238,15 +238,29 @@ public class PublicationServiceImpl implements PublicationService {
         Publication publication = publicationRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Product not extist with id : " + id));
 
-
+/*
         //delete all file 
         if(publication.getListFile() != null)
         {
             deleteFile(publication);
         }
-
         
-        publicationRepository.deleteById(publication.getId());
+        //delete all comments
+        if(publication.getListComments() != null)
+        {
+            deleteComments(publication);
+        }
+*/
+        Statut statut = statutRepository.findByName("deleted")
+        .orElseThrow(() -> new ResourceNotFoundException("Product not extist with id : " + id));
+
+
+
+
+        publication.setStatut(statut);
+
+        publicationRepository.save(publication);
+     //   publicationRepository.deleteById(publication.getId());
     }
 
     public void deleteFile(Publication  publication)
@@ -257,7 +271,13 @@ public class PublicationServiceImpl implements PublicationService {
         }
     }
 
-
+    public void deleteComments(Publication publication)
+    {
+        for (Comment comment : publication.getListComments())
+        {
+            commentRepository.delete(comment);
+        }
+    }
 
     // ------------- Convert DTO -----------//
 
@@ -314,7 +334,8 @@ public class PublicationServiceImpl implements PublicationService {
             publicationDTO.setCreatedByUser(false);
         }
 
-        
+        //statut 
+        publicationDTO.setStatut(publication.getStatut().getNom());
 
         return publicationDTO;
     }

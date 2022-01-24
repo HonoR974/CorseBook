@@ -55,7 +55,9 @@ export class PublicationPublicComponent implements OnInit {
   {
     this.publicationService.getPublicationPublic().subscribe(data => {
       this.publications = data;
-    });
+
+        console.log("publication pûblic " , this.publications);
+      });
   }
 
   //like 
@@ -97,22 +99,20 @@ export class PublicationPublicComponent implements OnInit {
   //getCommentsByPublication(id:number)
   getCommentsByPublication(id:number)
   {
-
-    console.log("getCommentsByPublication " + id);
     this.x = document.getElementById(""+id);
 
-    console.log(this.x.style.display);
-
-    if (this.x.style.display == "none") {
+    if ( this.x.style.display == "none") {
       this.x.style.display = "block";
     } else {
       this.x.style.display = "none";
     }
+
+
   }
 
 
   //create comment by publication  
-  createComment(id_publication:number)
+  createComment( id_publication: number)
   {
     
     this.comment.contenu = this.commentForm.controls['contenu'].value;
@@ -122,7 +122,7 @@ export class PublicationPublicComponent implements OnInit {
 
       this.commentService.createCommentByPublication(this.comment, id_publication)
                           .subscribe( data => {
-                            console.log("data created " + data);
+                            console.log("data created " , data);
                           });
 
                           
@@ -130,12 +130,15 @@ export class PublicationPublicComponent implements OnInit {
 
   }
 
+  //like comment 
   commentLiked(id:number)
   {
+
+    
     this.commentService.commentLikedById(id)
                       .subscribe ( data => 
                         {
-                          console.log("data created " + data );
+                          console.log("data created " , data );
                         });
 
     this.getPublicationsPublic();

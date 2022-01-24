@@ -39,7 +39,7 @@
           </li>
   
           <li class="nav-item">
-              <a h class="nav-link" 
+              <a  class="nav-link" routerLink="evenement-list"
               routerLinkActive="active" >Evenement </a>
           </li>
 
@@ -79,24 +79,37 @@
 <body>
 
 
- 
+  <div class="container2">
 
 
-<div class="corps">
- 
-   
-  <div class="container">
+    <div class="left col-3">
 
-    <google-map 
-    height="500px"
-    width="100%">
-  </google-map>
-    <router-outlet></router-outlet>
+      <div *ngIf="isLoggedIn" class="section">
+        <app-list-contact></app-list-contact>
+      </div>
+
+      <div class="section">
+        <app-sugest-contact></app-sugest-contact>
+      </div>
+
+    </div>
+
+    <div class="corps col-9">
+      <router-outlet></router-outlet>
+    </div>
+
+
+  
+
+
   </div>
 
+ 
+   
 
+  
+    
 
-</div>
 
 <footer class="footer">
     <div class="container">

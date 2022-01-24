@@ -50,7 +50,7 @@ public class CommentController {
 
 
     //like comment in publication 
-    @GetMapping("like/{id}")
+    @PostMapping("like/{id}")
     public ResponseEntity<?> commentLikedByID(@PathVariable long id)
     {
 

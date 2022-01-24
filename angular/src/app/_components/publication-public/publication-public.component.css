@@ -20,6 +20,9 @@
     border-radius: 5px;
     border-color: aliceblue;
     background-color: rgba(31,178,245,0.1);
+    border-style: inset;
+    border-width: 1px;
+
 }
 
 .side-top

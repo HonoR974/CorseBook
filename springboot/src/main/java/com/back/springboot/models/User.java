@@ -41,6 +41,12 @@ public class User {
 	@OneToMany(mappedBy = "user")
 	private List<CommentLike> lCommentLikes;
 
+	@ManyToMany
+	private List<User> listContact;
+
+	
+	@ManyToMany
+	private List<User> lInvitationContact;
 
 	public User() {
 	}
@@ -122,6 +128,24 @@ public class User {
 	public void setlCommentLikes(List<CommentLike> lCommentLikes) {
 		this.lCommentLikes = lCommentLikes;
 	}
+
+	public List<User> getListContact() {
+		return listContact;
+	}
+
+	public void setListContact(List<User> listContact) {
+		this.listContact = listContact;
+	}
+
+	public List<User> getlInvitationContact() {
+		return lInvitationContact;
+	}
+
+	public void setlInvitationContact(List<User> lInvitationContact) {
+		this.lInvitationContact = lInvitationContact;
+	}
+
+
 
 	
 	

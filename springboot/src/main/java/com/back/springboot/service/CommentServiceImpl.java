@@ -45,8 +45,6 @@ public class CommentServiceImpl  implements CommentService{
     private ComLikeRepository comLikeRepository;
 
 
-    //
-
     //create comment in publication 
     @Override
     public Comment createCommentByPublicationID(long id,Comment commentRequest)
@@ -84,11 +82,15 @@ public class CommentServiceImpl  implements CommentService{
             //verifie que l'user n'a pas deja like ce commentaire
 
         User user = comment.getUser();
+        System.out.println("\n user " +  user.toString());
 
-        CommentLike commentLike = comLikeRepository.findByUserAndComment(user, comment);
+        CommentLike commentLike = comLikeRepository.findByComment(comment);
        
+        
         if (commentLike ==  null)
         {
+            System.out.println("\n commentLike null ");
+
             commentLike = new CommentLike();
             commentLike.setComment(comment);
             comment.setUser(user);
@@ -99,15 +101,16 @@ public class CommentServiceImpl  implements CommentService{
             List<CommentLike> list = new ArrayList<>();
             list.add(commentLike);
             comment.setlCommentLike(list);
-
+            
         }
         else
         {
             System.out.println("\n le commentaire a deja ete aime ");
-             new ResourceNotFoundException(
+
+
+            throw new ResourceNotFoundException(
                 "l'user " + user.getUsername()  + " a deja liké le commentaire " + comment.getId());
         }
-
 
 
 
@@ -120,6 +123,7 @@ public class CommentServiceImpl  implements CommentService{
     {
         
         CommentLike commentLike = comLikeRepository.findByUserAndComment(commentRequest.getUser(), commentRequest);
+
 
         if(commentLike == null)
         {
@@ -255,6 +259,7 @@ public class CommentServiceImpl  implements CommentService{
         //like count 
         if( comment.getlCommentLike() == null )
         {
+            System.out.println("\n comment.getlCommentLike() == null  ");
             commentDTO.setCountLike(0);
         }
         else

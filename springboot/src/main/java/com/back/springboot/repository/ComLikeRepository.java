@@ -1,6 +1,8 @@
 package com.back.springboot.repository;
 
 
+import java.util.List;
+
 import com.back.springboot.models.Comment;
 import com.back.springboot.models.CommentLike;
 import com.back.springboot.models.User;
@@ -12,4 +14,7 @@ import org.springframework.stereotype.Repository;
 public interface ComLikeRepository  extends JpaRepository<CommentLike, Long>{
     
     CommentLike findByUserAndComment(User user, Comment comment);
+
+    CommentLike findByComment(Comment comment);
+    
 }
