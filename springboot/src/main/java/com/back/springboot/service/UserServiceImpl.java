@@ -88,6 +88,28 @@ public class UserServiceImpl implements UserService{
         
         UserDTO userDTO = modelMapper.map(user, UserDTO.class);
 
+        //listContact -> String 
+        if(user.getListContact() !=  null)
+        {
+            List<String> listName = new ArrayList<>();
+            for(User userTest : user.getListContact())
+            {
+                listName.add(userTest.getUsername());
+            }
+            userDTO.setListContact(listName);
+        }
+
+        //listeInvitationContact -> String 
+        if(user.getlInvitationContact() !=  null)
+        {
+            List<String> listName = new ArrayList<>();
+            for(User userTest : user.getlInvitationContact())
+            {
+                listName.add(userTest.getUsername());
+            }
+            userDTO.setlInvitationContact(listName);
+        }
+
         return userDTO;
     }
 

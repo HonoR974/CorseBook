@@ -54,6 +54,7 @@ public class ContactController {
     }
     
 
+    //envoie une demande d'ajout a un user par son id 
     //renvoie l'user ayant recu l'invitation 
     @PostMapping("{id}")
     public ResponseEntity<UserDTO> askForAddContactById(@PathVariable long id)
@@ -69,6 +70,26 @@ public class ContactController {
         
     }
 
+
+    //accepte la demande d'ajout recu
+    // l'user connécté avec le jwt accepte l'user a l'id envoyé 
+    //renvoie l'user ayant recu l'invitation donc celui qui accepte 
+    @PostMapping("/accept/{id}")
+    public ResponseEntity<List<UserDTO>> accepteDemande(@PathVariable long id)
+    {
+
+        List<User> list = contactService.accepteDemande(id);
+
+        List<UserDTO> lDtos = userService.convertTolistDto(list);
+
+        return new ResponseEntity<List<UserDTO>>(lDtos, HttpStatus.ACCEPTED);
+
+    }
+
+
+
+
+     //refuse la demande d'ajout recu 
 
     
 }

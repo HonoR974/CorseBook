@@ -1,3 +1,4 @@
+
 package com.back.springboot.dto;
 
 import java.util.List;
@@ -19,9 +20,9 @@ public class UserDTO {
     @NotNull
     private String email;
 
-    List<UserDTO> listContact;
+    List<String> listContact;
 
-    List<UserDTO> lInvitationContact;
+    List<String> listInvitation;
 
     public Long getId() {
         return id;
@@ -63,21 +64,22 @@ public class UserDTO {
         this.email = email;
     }
 
-    public List<UserDTO> getListContact() {
+    public List<String> getListContact() {
         return listContact;
     }
 
-    public void setListContact(List<UserDTO> listContact) {
+    public void setListContact(List<String> listContact) {
         this.listContact = listContact;
     }
 
-    public List<UserDTO> getlInvitationContact() {
-        return lInvitationContact;
+    public List<String> getlInvitationContact() {
+        return listInvitation;
     }
 
-    public void setlInvitationContact(List<UserDTO> lInvitationContact) {
-        this.lInvitationContact = lInvitationContact;
+    public void setlInvitationContact(List<String> lInvitationContact) {
+        this.listInvitation = lInvitationContact;
     }
+
 
     
 }

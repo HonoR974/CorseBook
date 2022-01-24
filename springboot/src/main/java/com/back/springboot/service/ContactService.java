@@ -10,6 +10,6 @@ public interface ContactService {
 
     User setAskContact(long id_user);
 
-
+    List<User> accepteDemande(long id);
    
 }

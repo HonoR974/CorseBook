@@ -46,7 +46,7 @@ public class User {
 
 	
 	@ManyToMany
-	private List<User> lInvitationContact;
+	private List<User> listInvitation;
 
 	public User() {
 	}
@@ -138,11 +138,11 @@ public class User {
 	}
 
 	public List<User> getlInvitationContact() {
-		return lInvitationContact;
+		return listInvitation;
 	}
 
 	public void setlInvitationContact(List<User> lInvitationContact) {
-		this.lInvitationContact = lInvitationContact;
+		this.listInvitation = lInvitationContact;
 	}
 
 
