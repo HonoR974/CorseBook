@@ -121,11 +121,7 @@ public class ContactServiceImpl  implements ContactService{
         List<User> lUsers = new ArrayList<>();
         for (User user : userConnected.getlInvitationContact())
         {
-            if(user.getUsername().equals(userAccepted.getUsername()))
-            {
-                
-            }
-            else
+            if(!user.getUsername().equals(userAccepted.getUsername()))
             {
                 lUsers.add(user);
             }
@@ -134,4 +130,153 @@ public class ContactServiceImpl  implements ContactService{
         userConnected.setlInvitationContact(lUsers);
         userRepository.save(userConnected);
     }
+
+    @Override
+    public List<User> getInvitation() {
+
+        User user = securityService.getUser();
+        if (user.getlInvitationContact() != null)
+        {
+            return user.getlInvitationContact();
+        }
+        else
+        {
+         throw new ResourceNotFoundException("L'user " + user.getUsername() 
+                                + " n'a pas d'invitation de contact ");
+        }
+    }
+
+    @Override
+    public List<User> getInvitationById(long id) {
+   
+        User user = userRepository.findById(id)           
+                     .orElseThrow( () -> new ResourceNotFoundException(
+                         "L'user avec l'id " + id + " n'existe pas "));
+
+        if (!user.getlInvitationContact().isEmpty())
+        {
+            return user.getlInvitationContact();
+        }
+        else
+        {
+            throw new ResourceNotFoundException("L'user " + user.getUsername() 
+            + " n'a pas d'invitation de contact ");
+        }
+    }
+
+    @Override
+    public User refuseDemandeById(long id) {
+    
+        User user = securityService.getUser();
+
+
+        User userHasDeleted = userRepository.findById(id)           
+        .orElseThrow( () -> new ResourceNotFoundException(
+            "L'user avec l'id " + id + " n'existe pas "));
+
+        if( isContains(user, userHasDeleted))
+        {
+            deleteInvit(user, userHasDeleted);
+        }
+        
+        return user;
+    }
+
+    @Override
+    public List<User> getConctactsById(long id) {
+
+        User user = userRepository.findById(id)
+                .orElseThrow( () -> new ResourceNotFoundException(
+                    "L'user avec l'id " + id + " n'existe pas "));
+
+        if(user.getListContact() != null)
+        {
+            return user.getListContact();
+        }
+        else
+        {
+            throw new ResourceNotFoundException("L'user " + user.getUsername() 
+            + " n'a pas de contact ");
+        }
+      
+    }
+
+    @Override
+    public void deleteContactById(long idUser , long idToDelete)
+    {
+        
+        User user = userRepository.findById(idUser)
+                .orElseThrow( () -> new ResourceNotFoundException(
+                    "L'user avec l'id " + idUser + " n'existe pas "));
+
+        List<User> listContacts = new ArrayList<>();            
+        
+        if(user.getListContact() != null)
+        {
+            for(User userTest : user.getListContact())
+            {
+                if(!userTest.getId().equals(idToDelete))
+                {
+                    listContacts.add(user);
+                }
+            }
+            user.setListContact(listContacts);
+
+            userRepository.save(user);
+            
+        }
+        else
+        {
+            throw new ResourceNotFoundException("la liste de contacte est vide ");
+        }
+       
+  
+
+    }
+
+    @Override
+    public void deletedContactByJwt(long id) 
+    {
+        User user = securityService.getUser();
+
+        if(user.getListContact() != null)
+        {
+
+            List<User> listContacts = new ArrayList<>();            
+            for(User userTest : user.getListContact())
+            {
+                if(!userTest.getId().equals(id))
+                {
+                    listContacts.add(user);
+                }
+            }
+
+            user.setListContact(listContacts);
+
+            userRepository.save(user);
+            
+
+        }
+
+        
+    }
+
+    @Override
+    public List<User> getContactsByJwt() {
+    
+        User user = securityService.getUser();
+        if(user.getListContact() != null)
+        {
+            return user.getListContact();
+        }
+        else
+        {
+            throw new ResourceNotFoundException("L'user " + user.getUsername() 
+            + " n'a pas de contact ");
+        }
+    }    
+
+
+
+
 }
