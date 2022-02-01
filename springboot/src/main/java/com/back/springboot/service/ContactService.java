@@ -29,5 +29,8 @@ public interface ContactService {
 
     void deletedContactByJwt(long id);
 
+    //suggest Contact 
+    List<User> getSuggestContact();
+
 
 }

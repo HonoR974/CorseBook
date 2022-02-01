@@ -21,7 +21,13 @@ export class ContactService {
 
   getContactList():Observable<User[]> 
   {
-    
     return this.HttpClient.get<User[]>(baseURL + "list", httpOptions);
   }
+
+  getSuggestContact():Observable<User[]>
+  {
+    return this.HttpClient.get<User[]>(baseURL + "suggest", httpOptions);
+  }
+
+  
 }

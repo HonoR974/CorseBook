@@ -254,11 +254,8 @@ public class ContactServiceImpl  implements ContactService{
             user.setListContact(listContacts);
 
             userRepository.save(user);
-            
 
         }
-
-        
     }
 
     @Override
@@ -274,6 +271,25 @@ public class ContactServiceImpl  implements ContactService{
             throw new ResourceNotFoundException("L'user " + user.getUsername() 
             + " n'a pas de contact ");
         }
+    }
+
+    @Override
+    public List<User> getSuggestContact() {
+ 
+        List<User> list= userRepository.findAll();
+        List<User> lUsers = new ArrayList<>();
+        User user = securityService.getUser();
+
+        System.out.println("\n list " + list.size());
+        for( User userTest : list )
+        {
+            if( !user.getUsername().equals(userTest.getUsername()))
+            {
+               lUsers.add(userTest);
+            }
+        }
+
+        return lUsers;
     }    
 
 

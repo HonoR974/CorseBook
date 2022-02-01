@@ -1,1 +1,30 @@
 <p>sugest-contact works!</p>
+
+<diV *ngFor="let user of listSuggest">
+    {{user.username}}
+    
+    
+</diV>
+
+<p-carousel [value]="listSuggest" [numVisible]="3" 
+[numScroll]="3" [circular]="false" >
+    <ng-template pTemplate="header">
+        <h5>Basic</h5>
+    </ng-template>
+    <ng-template let-user pTemplate="item">
+        <div class="product-item">
+            <div class="product-item-content">
+                <div class="p-mb-3">
+                </div>
+                <div>
+                    <h4 class="p-mb-1">{{user.username}}</h4>
+                    <div class="car-buttons p-mt-5">
+                       <button class=" btn btn-outline">
+                            <a> Helloi</a>
+                       </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </ng-template>
+</p-carousel>

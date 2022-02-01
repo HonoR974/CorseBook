@@ -37,6 +37,9 @@ import { ListComponent } from './_components/evenement/list/list.component';
 import { ListContactComponent } from './_components/contact/list-contact/list-contact.component';
 import { SugestContactComponent } from './_components/contact/sugest-contact/sugest-contact.component';
 
+import {CarouselModule} from 'primeng/carousel';
+
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -70,7 +73,8 @@ import { SugestContactComponent } from './_components/contact/sugest-contact/sug
     MatTooltipModule,
     MatBadgeModule,
     NgbModule,
-    GoogleMapsModule
+    GoogleMapsModule,
+    CarouselModule
   ],
   providers: [authInterceptorProviders],
   bootstrap: [AppComponent]
