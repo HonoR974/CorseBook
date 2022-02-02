@@ -13,19 +13,21 @@
 
             <div class="side-btn-pub" *ngIf="publication.createdByUser">
 
-                <button mat-icon-button 
-                mat-raised-button
-                matTooltip="Supprimer"
+                <p-button 
+                matTooltip="Supprimer" type="button" 
+                styleClass="p-button-rounded p-button-danger"
+                icon="pi pi-times"
                 (click)="deletePublication(publication.id)"> 
-                    <mat-icon>close</mat-icon>
-                </button>
+                  
+                </p-button>
     
-                <button mat-icon-button  
-                mat-raised-button
-                matTooltip="Modifier"
+                <p-button
+                matTooltip="Modifier" type="button" 
+                styleClass="p-button-rounded "
+                icon="pi pi-stop"
                 (click)="updatePublication(publication.id)"> 
-                        <mat-icon>stop</mat-icon>
-                </button>
+                
+                </p-button>
             </div>
         </div>
         
@@ -36,8 +38,6 @@
   
 
         <div class="side-file" >
-         
-        
             <ngb-carousel 
                [showNavigationArrows]="true" 
             [showNavigationIndicators]="true"
@@ -59,8 +59,6 @@
                     </div>
                 </ng-template>
             </ngb-carousel>
-          
-           
         </div>
 
         <div class="side-content">

@@ -7,7 +7,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
@@ -22,9 +22,6 @@ public class Comment {
     @ManyToOne
     private Publication publication;
 
-    @OneToMany(mappedBy = "comment")
-    private List<CommentLike> lCommentLike;
-
     @ManyToOne
     private User user;
 
@@ -32,8 +29,8 @@ public class Comment {
 
     private Date dateCreated;
 
-
-
+    @ManyToMany
+    private List<User> likeUser;
     
 
     public Comment(){}
@@ -42,6 +39,7 @@ public class Comment {
         return id;
     }
 
+  
     public void setId(long id) {
         this.id = id;
     }
@@ -82,15 +80,15 @@ public class Comment {
         this.dateCreated = dateCreated;
     }
 
-    public List<CommentLike> getlCommentLike() {
-        return lCommentLike;
+    public List<User> getLikeUser() {
+        return likeUser;
     }
 
-    public void setlCommentLike(List<CommentLike> lCommentLike) {
-        this.lCommentLike = lCommentLike;
+    public void setLikeUser(List<User> likeUser) {
+        this.likeUser = likeUser;
     }
 
-    
+
    
     
 

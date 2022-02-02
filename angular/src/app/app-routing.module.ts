@@ -18,13 +18,16 @@ import { UploadFileComponent } from './_components/upload-file/upload-file.compo
 
 const routes: Routes = [
 
+  //accueil 
   { path: 'home', component: HomeComponent },
   { path: '', redirectTo: 'home', pathMatch: 'full' },
 
   //log 
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
-  { path: 'profile', component: ProfileComponent },
+
+  //profile 
+  { path: 'profile/:id', component: ProfileComponent },
 
   //product 
   {path: 'products', component: ProductListComponent},

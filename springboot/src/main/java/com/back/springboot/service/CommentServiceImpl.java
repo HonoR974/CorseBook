@@ -80,33 +80,24 @@ public class CommentServiceImpl  implements CommentService{
             "le commentaire avec l'id " + id + " n'existe pas "));
 
             //verifie que l'user n'a pas deja like ce commentaire
-
-        User user = comment.getUser();
+        User user = securityService.getUser();
         System.out.println("\n user " +  user.toString());
 
-        CommentLike commentLike = comLikeRepository.findByComment(comment);
-       
         
-        if (commentLike ==  null)
+        
+        if (!comment.getLikeUser().contains(user))
         {
             System.out.println("\n commentLike null ");
 
-            commentLike = new CommentLike();
-            commentLike.setComment(comment);
-            comment.setUser(user);
 
-            comLikeRepository.save(commentLike);
-            
-
-            List<CommentLike> list = new ArrayList<>();
-            list.add(commentLike);
-            comment.setlCommentLike(list);
+            List<User> list = comment.getLikeUser();
+            list.add(user);
+            comment.setLikeUser(list);
             
         }
         else
         {
             System.out.println("\n le commentaire a deja ete aime ");
-
 
             throw new ResourceNotFoundException(
                 "l'user " + user.getUsername()  + " a deja liké le commentaire " + comment.getId());
@@ -257,14 +248,15 @@ public class CommentServiceImpl  implements CommentService{
 
 
         //like count 
-        if( comment.getlCommentLike() == null )
+        if( comment.getLikeUser() == null )
         {
             System.out.println("\n comment.getlCommentLike() == null  ");
             commentDTO.setCountLike(0);
         }
         else
         {
-            commentDTO.setCountLike(comment.getlCommentLike().size());
+            System.out.println("\n nmb like comment " + comment.getLikeUser().size() );
+            commentDTO.setCountLike(comment.getLikeUser().size());
         }
 
         //liked by user ? 

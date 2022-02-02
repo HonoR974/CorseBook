@@ -24,6 +24,8 @@ public class UserDTO {
 
     List<String> listInvitation;
 
+    private boolean isInvitedForContact;
+
     public Long getId() {
         return id;
     }
@@ -78,6 +80,22 @@ public class UserDTO {
 
     public void setlInvitationContact(List<String> lInvitationContact) {
         this.listInvitation = lInvitationContact;
+    }
+
+    public List<String> getListInvitation() {
+        return listInvitation;
+    }
+
+    public void setListInvitation(List<String> listInvitation) {
+        this.listInvitation = listInvitation;
+    }
+
+    public boolean isInvitedForContact() {
+        return isInvitedForContact;
+    }
+
+    public void setInvitedForContact(boolean isInvitedForContact) {
+        this.isInvitedForContact = isInvitedForContact;
     }
 
 

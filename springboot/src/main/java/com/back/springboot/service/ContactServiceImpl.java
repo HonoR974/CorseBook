@@ -280,11 +280,12 @@ public class ContactServiceImpl  implements ContactService{
         List<User> lUsers = new ArrayList<>();
         User user = securityService.getUser();
 
-        System.out.println("\n list " + list.size());
         for( User userTest : list )
         {
+            System.out.println("\n username " + userTest.getUsername());
             if( !user.getUsername().equals(userTest.getUsername()))
             {
+                System.out.println("\n username enregistré  " + userTest.getUsername());
                lUsers.add(userTest);
             }
         }

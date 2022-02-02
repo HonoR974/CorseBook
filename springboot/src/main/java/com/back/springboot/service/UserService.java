@@ -26,17 +26,21 @@ public interface UserService {
 
 
     // crud 
-
     List<User> getAllUser();
 
     User getUserById(long id);
 
-     //convert 
 
-
+     //convert
      UserDTO convertToDto(User user);
 
      User convertToEntity(UserDTO userDTO);
 
      List<UserDTO> convertTolistDto(List<User> lUsers);
+
+
+
+
+
+
 }

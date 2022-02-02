@@ -89,10 +89,6 @@ public class PublicationServiceImpl implements PublicationService {
 
             publication.setCountLike(publication.getCountLike() + 1);
         }
-        else
-        {
-            System.out.println("\n " + "\n la pub a deja ete liké par " + user.getUsername());
-        }
 
         return publicationRepository.save(publication);
 
@@ -189,7 +185,6 @@ public class PublicationServiceImpl implements PublicationService {
         Publication publication = publicationRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Product not extist with id : " + id));
 
-                System.out.println("\n count size file Test  " + publication.getListFile().size() );
 
         return publication;
     }
@@ -229,7 +224,6 @@ public class PublicationServiceImpl implements PublicationService {
         }
         
         publication.setCountLike(publicationRequest.getCountLike());
-        System.out.println("\n count size file " + publication.getListFile().size() );
         return publicationRepository.save(publication);
     }
 
@@ -238,29 +232,13 @@ public class PublicationServiceImpl implements PublicationService {
         Publication publication = publicationRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Product not extist with id : " + id));
 
-/*
-        //delete all file 
-        if(publication.getListFile() != null)
-        {
-            deleteFile(publication);
-        }
-        
-        //delete all comments
-        if(publication.getListComments() != null)
-        {
-            deleteComments(publication);
-        }
-*/
         Statut statut = statutRepository.findByName("deleted")
         .orElseThrow(() -> new ResourceNotFoundException("Product not extist with id : " + id));
-
-
-
 
         publication.setStatut(statut);
 
         publicationRepository.save(publication);
-     //   publicationRepository.deleteById(publication.getId());
+
     }
 
     public void deleteFile(Publication  publication)

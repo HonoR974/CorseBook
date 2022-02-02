@@ -26,6 +26,9 @@ public class UserServiceImpl implements UserService{
     private ModelMapper modelMapper;
 
     @Autowired
+    private SecurityService securityService;
+
+    @Autowired
     private BCryptPasswordEncoder bCryptPasswordEncoder;
 
 
@@ -110,8 +113,26 @@ public class UserServiceImpl implements UserService{
             userDTO.setlInvitationContact(listName);
         }
 
+        //is invited by current user 
+        User currentUser = securityService.getUser();
+        //si l'user current est connécté 
+        //et que sa liste de contacte ne contient pas l'user a convertire 
+        if(currentUser != null && !currentUser.getListContact().contains(user) )
+        {
+           if( currentUser.getlInvitationContact().contains(user))
+           {
+               userDTO.setInvitedForContact(true);
+           }
+           else
+           {
+                userDTO.setInvitedForContact(false);
+           }
+        }
+
         return userDTO;
     }
+
+
 
     @Override
     public User convertToEntity(UserDTO userDTO) {

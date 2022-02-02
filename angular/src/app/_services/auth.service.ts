@@ -37,4 +37,6 @@ export class AuthService {
 
     return this.http.get(AUTH_API + "token/"+ token, httpOptions);
   }
+
+  
 }

@@ -29,5 +29,8 @@ export class ContactService {
     return this.HttpClient.get<User[]>(baseURL + "suggest", httpOptions);
   }
 
-  
+  addContact(id:number):Observable<any>
+  {
+    return this.HttpClient.post<User>(baseURL + id, httpOptions);
+  }  
 }

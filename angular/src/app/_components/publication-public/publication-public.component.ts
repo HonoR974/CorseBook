@@ -126,7 +126,7 @@ export class PublicationPublicComponent implements OnInit {
                           });
 
                           
-       window.location.reload();                    
+        this.getPublicationsPublic();      
 
   }
 

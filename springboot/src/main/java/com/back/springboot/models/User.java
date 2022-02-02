@@ -2,7 +2,6 @@ package com.back.springboot.models;
 
 
 import java.util.List;
-
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
@@ -29,18 +28,23 @@ public class User {
 
 	private String matchingPassword;
 
+	//publication 
+
 	@OneToMany(mappedBy = "user")
     private List<Publication> publication;
 
 	@OneToMany(mappedBy = "user")
-	private List<Comment> comments;
-
-	@OneToMany(mappedBy = "user")
 	private List<PubLike> lPubLikes;
 
+	//comment 
 	@OneToMany(mappedBy = "user")
-	private List<CommentLike> lCommentLikes;
+	private List<Comment> comments;
 
+
+	@ManyToMany(mappedBy = "likeUser")
+	private List<Comment> lCommentsLiked;
+
+	//contact 
 	@ManyToMany
 	private List<User> listContact;
 
@@ -50,6 +54,32 @@ public class User {
 
 	public User() {
 	}
+
+
+	public List<Comment> getComments() {
+		return comments;
+	}
+
+	public void setComments(List<Comment> comments) {
+		this.comments = comments;
+	}
+
+	public List<Comment> getlCommentsLiked() {
+		return lCommentsLiked;
+	}
+
+	public void setlCommentsLiked(List<Comment> lCommentsLiked) {
+		this.lCommentsLiked = lCommentsLiked;
+	}
+
+	public List<User> getListInvitation() {
+		return listInvitation;
+	}
+
+	public void setListInvitation(List<User> listInvitation) {
+		this.listInvitation = listInvitation;
+	}
+
 
 	public User(String username, String email, String password) {
 		this.username = username;
@@ -105,28 +135,12 @@ public class User {
 		this.publication = publication;
 	}
 
-	public List<Comment> getComments() {
-		return comments;
-	}
-
-	public void setComments(List<Comment> comments) {
-		this.comments = comments;
-	}
-
 	public List<PubLike> getlPubLikes() {
 		return lPubLikes;
 	}
 
 	public void setlPubLikes(List<PubLike> lPubLikes) {
 		this.lPubLikes = lPubLikes;
-	}
-
-	public List<CommentLike> getlCommentLikes() {
-		return lCommentLikes;
-	}
-
-	public void setlCommentLikes(List<CommentLike> lCommentLikes) {
-		this.lCommentLikes = lCommentLikes;
 	}
 
 	public List<User> getListContact() {

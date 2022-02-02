@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { User } from 'src/app/_class/user';
 import { ContactService } from 'src/app/_services/contact.service';
 import { TokenStorageService } from 'src/app/_services/token-storage.service';
@@ -11,9 +12,13 @@ import { TokenStorageService } from 'src/app/_services/token-storage.service';
 export class SugestContactComponent implements OnInit {
 
   listSuggest: User[] = [];
-
+	
+	responsiveOptions : any;
   constructor(private contactService: ContactService,
-              private tokenService : TokenStorageService) { }
+              private tokenService : TokenStorageService,
+              private router: Router) {
+               
+               }
 
   ngOnInit(): void {
 
@@ -25,6 +30,8 @@ export class SugestContactComponent implements OnInit {
 
   }
 
+
+  //Suggest List 
   getSuggestContact()
   {
     this.contactService.getSuggestContact().subscribe( data => 
@@ -32,7 +39,21 @@ export class SugestContactComponent implements OnInit {
         this.listSuggest = data;
         console.log("list de sugggestion ", this.listSuggest);
       });
-
   }
+
+  //Btn Profile 
+  getUserProfil(id:number)
+  {
+    this.router.navigate(['profile/', id]);
+  }
+
+
+  //Btn Add User 
+  addUser(id:number)
+  {
+    
+  }
+
+
 
 }

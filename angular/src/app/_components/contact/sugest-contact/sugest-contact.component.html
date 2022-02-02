@@ -1,30 +1,39 @@
-<p>sugest-contact works!</p>
 
-<diV *ngFor="let user of listSuggest">
-    {{user.username}}
-    
-    
-</diV>
+<div class="cadre">
 
-<p-carousel [value]="listSuggest" [numVisible]="3" 
-[numScroll]="3" [circular]="false" >
-    <ng-template pTemplate="header">
-        <h5>Basic</h5>
-    </ng-template>
-    <ng-template let-user pTemplate="item">
-        <div class="product-item">
-            <div class="product-item-content">
-                <div class="p-mb-3">
-                </div>
-                <div>
-                    <h4 class="p-mb-1">{{user.username}}</h4>
-                    <div class="car-buttons p-mt-5">
-                       <button class=" btn btn-outline">
-                            <a> Helloi</a>
-                       </button>
+    <p-carousel [value]="listSuggest" [numVisible]="3" [numScroll]="3" [circular]="false" [responsiveOptions]="responsiveOptions">
+        <ng-template pTemplate="header">
+            <h5>Contact Suggéré : </h5>
+        </ng-template>
+        <ng-template let-user pTemplate="item">
+            <div class="user-item">
+                <div class="user-item-content">
+                    <div class="p-mb-3">
+                    </div>
+                    <div>
+                        <h4 class="p-mb-1">{{user.username}}</h4>
+                        <h6 class="p-mt-0 p-mb-3">${{user.email}}</h6>
+                   
+                        <div class="car-buttons p-mt-5">
+                            <!-- Bouton detail User -->
+                            <p-button type="button" styleClass="p-button p-button-rounded p-mr-2"
+                             icon="pi pi-user"
+                             matTooltip="Voir le Profile"
+                             (click)="getUserProfil(user.id)"
+                             ></p-button>
+
+                             <!-- Bouton ajout User -->
+                            <p-button type="button" styleClass="p-button-success p-button-rounded p-mr-2"
+                            matTooltip="Ajout User"
+                             icon="pi pi-user-plus"
+                             (click)="addUser(user.id)"></p-button>
+
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </ng-template>
-</p-carousel>
+        </ng-template>
+    </p-carousel>
+
+
+</div>
