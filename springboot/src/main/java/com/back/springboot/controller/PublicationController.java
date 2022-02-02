@@ -2,6 +2,7 @@ package com.back.springboot.controller;
 
 
 
+import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -9,9 +10,12 @@ import java.util.stream.Collectors;
 
 import java.util.HashMap;
 import java.util.Map;
+
+import com.back.springboot.dto.CommentDTO;
 import com.back.springboot.dto.PublicationDTO;
 import com.back.springboot.exception.ResourceNotFoundException;
 import com.back.springboot.models.Publication;
+import com.back.springboot.service.CommentService;
 import com.back.springboot.service.PublicationService;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,6 +40,8 @@ import org.springframework.web.bind.annotation.RestController;
     @Autowired
     private PublicationService publicationService;
 
+    @Autowired
+    private CommentService commentService;
 
 
     @GetMapping("public")
@@ -51,9 +57,30 @@ import org.springframework.web.bind.annotation.RestController;
 
         }
 
-       //classer la liste de la plus anicenne pub a la plus recente 
+        List<PublicationDTO> lDtos = new ArrayList<>();
+        PublicationDTO publicationDTO;
+        List<CommentDTO> commentDTOs;
 
-       List<PublicationDTO> lDtos = publicationService.convertToDtoList(list);
+        for(Publication pub : list)
+        {
+          commentDTOs = new ArrayList<>();
+          publicationDTO = new PublicationDTO();
+
+
+          publicationDTO = publicationService.convertToDto(pub);
+          if(pub.getListComments() !=null)
+          {
+            commentDTOs = commentService.convertToDtoList(pub.getListComments());
+            publicationDTO.setListComments(commentDTOs);
+          }
+      
+         lDtos.add(publicationDTO);
+
+        }
+
+
+      // List<PublicationDTO> lDtos = publicationService.convertToDtoList(list);
+    
 
         return ResponseEntity.ok(lDtos);
     }

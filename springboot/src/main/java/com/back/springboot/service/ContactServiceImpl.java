@@ -44,7 +44,7 @@ public class ContactServiceImpl  implements ContactService{
     //return  les deux user 
     @Override
     public List<User> accepteDemande(long id) {
-        // TODO Auto-generated method stub
+
 
         User userConnected = securityService.getUser();
 
@@ -282,8 +282,10 @@ public class ContactServiceImpl  implements ContactService{
 
         for( User userTest : list )
         {
-            System.out.println("\n username " + userTest.getUsername());
-            if( !user.getUsername().equals(userTest.getUsername()))
+            
+            //si l'userTest n'est pas l'user connécté 
+            //si l'usertest n'est pas deja dans les contacts 
+            if( !user.getUsername().equals(userTest.getUsername()) &&  !user.getListContact().contains(userTest))
             {
                 System.out.println("\n username enregistré  " + userTest.getUsername());
                lUsers.add(userTest);

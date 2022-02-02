@@ -11,10 +11,8 @@ import java.text.SimpleDateFormat;
 import com.back.springboot.dto.CommentDTO;
 import com.back.springboot.exception.ResourceNotFoundException;
 import com.back.springboot.models.Comment;
-import com.back.springboot.models.CommentLike;
 import com.back.springboot.models.Publication;
 import com.back.springboot.models.User;
-import com.back.springboot.repository.ComLikeRepository;
 import com.back.springboot.repository.CommentRepository;
 import com.back.springboot.repository.PublicationRepository;
 import com.back.springboot.repository.UserRepository;
@@ -41,8 +39,6 @@ public class CommentServiceImpl  implements CommentService{
     @Autowired
     private SecurityService securityService;
 
-    @Autowired
-    private ComLikeRepository comLikeRepository;
 
 
     //create comment in publication 
@@ -90,9 +86,38 @@ public class CommentServiceImpl  implements CommentService{
             System.out.println("\n commentLike null ");
 
 
+            // save comment 
             List<User> list = comment.getLikeUser();
             list.add(user);
             comment.setLikeUser(list);
+            commentRepository.save(comment);
+
+
+            //save user 
+            List<Comment> listLiked = user.getCommentsLiked();
+            listLiked.add(comment);
+            user.setCommentsLiked(listLiked);
+            userRepository.save(user);
+
+            //publication 
+            Publication publication = comment.getPublication();
+ 
+            List<Comment> lComments  = new ArrayList<>();
+            for(Comment comm : publication.getListComments())
+            {
+                if(comm.getId() != comment.getId())
+                {
+                    lComments.add(comm);
+                }
+                else
+                {
+                    lComments.add(comment);
+                }
+            }
+            publication.setListComments(lComments);
+
+            publicationRepository.save(publication);
+
             
         }
         else
@@ -105,24 +130,27 @@ public class CommentServiceImpl  implements CommentService{
 
 
 
-        return commentRepository.save(comment);
+        return comment;
     }
+
 
 
 
     public boolean checkLikeByUserAndCom(Comment commentRequest)
     {
         
-        CommentLike commentLike = comLikeRepository.findByUserAndComment(commentRequest.getUser(), commentRequest);
+       boolean condition = false;
 
+       User user = securityService.getUser();
 
-        if(commentLike == null)
-        {
-            System.out.println("\n le commentaire n' a pas été liked par " + commentRequest.getUser().getUsername());
-            return false;
-        }
-        
-        return true;
+       List<User> list = commentRequest.getLikeUser();
+
+       if (list != null && list.contains(user))
+       {
+           condition = true;
+       }
+
+        return condition;
     }
     //-------- CRUD -------// 
 
@@ -214,7 +242,7 @@ public class CommentServiceImpl  implements CommentService{
             } catch (ParseException e) {
 
                 System.out.println("\n il n'a pas de date ");
-                // TODO Auto-generated catch block
+        
                 e.printStackTrace();
             }
                 

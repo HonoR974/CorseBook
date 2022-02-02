@@ -3,11 +3,11 @@ package com.back.springboot.models;
 import java.util.Date;
 import java.util.List;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
@@ -37,8 +37,8 @@ public class Publication {
     @OneToMany( mappedBy = "publication")
     private List<Comment> listComments;
 
-    @OneToMany (mappedBy = "publication")
-    private List<PubLike> lPubLikes;
+    @ManyToMany 
+    private List<User> likeUser;
 
     public Publication() {
     }
@@ -112,20 +112,16 @@ public class Publication {
         this.listComments = listComments;
     }
 
-    public List<PubLike> getlPubLikes() {
-        return lPubLikes;
+    public List<User> getLikeUser() {
+        return likeUser;
     }
 
-    public void setlPubLikes(List<PubLike> lPubLikes) {
-        this.lPubLikes = lPubLikes;
+    public void setLikeUser(List<User> likeUser) {
+        this.likeUser = likeUser;
     }
 
-    @Override
-    public String toString() {
-        return "Publication [contenu=" + contenu + ", countLike=" + countLike + ", dateCreate=" + dateCreate + ", id="
-                + id + ", lPubLikes=" + lPubLikes + ", listComments=" + listComments + ", listFile=" + listFile
-                + ", statut=" + statut + ", user=" + user + "]";
-    }
+
+
 
     
 }

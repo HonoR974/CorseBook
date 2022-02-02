@@ -33,16 +33,17 @@ public class User {
 	@OneToMany(mappedBy = "user")
     private List<Publication> publication;
 
-	@OneToMany(mappedBy = "user")
-	private List<PubLike> lPubLikes;
+	@ManyToMany(mappedBy = "likeUser")
+	private List<Publication> publicationsLiked;
+
 
 	//comment 
 	@OneToMany(mappedBy = "user")
 	private List<Comment> comments;
 
-
+	@Column(name="comment")
 	@ManyToMany(mappedBy = "likeUser")
-	private List<Comment> lCommentsLiked;
+	private List<Comment> commentsLiked;
 
 	//contact 
 	@ManyToMany
@@ -62,14 +63,6 @@ public class User {
 
 	public void setComments(List<Comment> comments) {
 		this.comments = comments;
-	}
-
-	public List<Comment> getlCommentsLiked() {
-		return lCommentsLiked;
-	}
-
-	public void setlCommentsLiked(List<Comment> lCommentsLiked) {
-		this.lCommentsLiked = lCommentsLiked;
 	}
 
 	public List<User> getListInvitation() {
@@ -135,13 +128,15 @@ public class User {
 		this.publication = publication;
 	}
 
-	public List<PubLike> getlPubLikes() {
-		return lPubLikes;
+	public List<Publication> getPublicationsLiked() {
+		return publicationsLiked;
 	}
 
-	public void setlPubLikes(List<PubLike> lPubLikes) {
-		this.lPubLikes = lPubLikes;
+
+	public void setPublicationsLiked(List<Publication> publicationsLiked) {
+		this.publicationsLiked = publicationsLiked;
 	}
+
 
 	public List<User> getListContact() {
 		return listContact;
@@ -157,6 +152,16 @@ public class User {
 
 	public void setlInvitationContact(List<User> lInvitationContact) {
 		this.listInvitation = lInvitationContact;
+	}
+
+
+	public List<Comment> getCommentsLiked() {
+		return commentsLiked;
+	}
+
+
+	public void setCommentsLiked(List<Comment> commentsLiked) {
+		this.commentsLiked = commentsLiked;
 	}
 
 

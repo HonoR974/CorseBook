@@ -112,6 +112,8 @@
                 </div>
 
                 <div>
+                    
+                    <!-- Liked -->
                     <button type="button" class="btn btn-info"  
                     matTooltip="Like" *ngIf="comment.liked" 
                     (click)="commentLiked(comment.id)"
@@ -120,6 +122,9 @@
                         <mat-icon>favorite</mat-icon>{{comment.countLike}}
                     </button>
         
+
+
+                    <!-- Not Liked -->
                     <button type="button" class="btn btn-info" 
                     matTooltip="Like" *ngIf="!comment.liked" 
                     (click)="commentLiked(comment.id)">

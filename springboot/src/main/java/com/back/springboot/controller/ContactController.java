@@ -7,7 +7,6 @@ import com.back.springboot.service.UserService;
 
 import java.util.List;
 
-import com.back.springboot.models.Statut;
 import com.back.springboot.models.User;
 import com.back.springboot.dto.UserDTO;
 
@@ -125,7 +124,7 @@ public class ContactController {
 
      //affiche la list de contacte par l'id 
      @GetMapping("/list/{id}")
-     public ResponseEntity getContactsById(@PathVariable long id)
+     public ResponseEntity<List<UserDTO>> getContactsById(@PathVariable long id)
      {
 
         List<User> lUsers = contactService.getConctactsById(id);
@@ -139,7 +138,7 @@ public class ContactController {
       //affiche la list de contacte par jwt 
 
       @GetMapping("/list")
-      public ResponseEntity getContatcsByJwt()
+      public ResponseEntity<List<UserDTO>> getContatcsByJwt()
       {
           
         List<User> lUsers = contactService.getContactsByJwt();

@@ -10,13 +10,11 @@ import com.back.springboot.dto.PublicationDTO;
 import com.back.springboot.exception.ResourceNotFoundException;
 import com.back.springboot.models.Comment;
 import com.back.springboot.models.File;
-import com.back.springboot.models.PubLike;
 import com.back.springboot.models.Publication;
 import com.back.springboot.models.Statut;
 import com.back.springboot.models.User;
 import com.back.springboot.repository.CommentRepository;
 import com.back.springboot.repository.FileRepository;
-import com.back.springboot.repository.PubLikeRepository;
 import com.back.springboot.repository.PublicationRepository;
 import com.back.springboot.repository.StatutRepository;
 import com.back.springboot.repository.UserRepository;
@@ -46,8 +44,6 @@ public class PublicationServiceImpl implements PublicationService {
     @Autowired
     private UserRepository userRepository;
 
-    @Autowired
-    private PubLikeRepository pubLikeRepository;
 
     @Autowired
     private CommentRepository commentRepository;
@@ -61,6 +57,7 @@ public class PublicationServiceImpl implements PublicationService {
         Statut statut = statutRepository.findByName("public")
                 .orElseThrow(() -> new ResourceNotFoundException("Le statut : public n'existe pas "));
 
+                
         return publicationRepository.findByStatut(statut);
     }
 
@@ -77,15 +74,13 @@ public class PublicationServiceImpl implements PublicationService {
         //si l'user a deja like la pub 
         //il ne peut pas la liker a nouveau 
         
-        PubLike pubLike = pubLikeRepository.findByUserAndPublication(user, publication);
+        List<User> list = publication.getLikeUser();
 
 
-        if (pubLike == null) {
+        if (list != null && !list.contains(user)) {
                 
-            pubLike = new PubLike();
-            pubLike.setUser(user);
-            pubLike.setPublication(publication);
-            pubLikeRepository.save(pubLike);
+            list.add(user);
+            publication.setLikeUser(list);
 
             publication.setCountLike(publication.getCountLike() + 1);
         }
@@ -105,21 +100,30 @@ public class PublicationServiceImpl implements PublicationService {
 
         //si l'user a deja like la pub 
         //il ne peut pas la liker a nouveau 
+        List<User> list = publication.getLikeUser();
 
-        PubLike pubLike = pubLikeRepository.findByUserAndPublication(user, publication);
-        
-        if(pubLike == null)
+        if(list !=null && !list.contains(user))
         {
             new ResourceNotFoundException("L'user " + user.getUsername()+ 
                                 "n'a pas liké la publication " + publication.getId() );
         }
         else
         {
-            pubLikeRepository.delete(pubLike);
-            publication.setCountLike(publication.getCountLike() - 1 );
+
+            //pub 
+            list.remove(user);
+            publication.setLikeUser(list);
+            publicationRepository.save(publication);
+
+            //user 
+            List<Publication> lPublications = user.getPublicationsLiked();
+            lPublications.remove(publication);
+            user.setPublicationsLiked(lPublications);
+         
+           
         }
 
-        return publicationRepository.save(publication);
+        return publication;
     }
 
 
@@ -130,10 +134,11 @@ public class PublicationServiceImpl implements PublicationService {
     public boolean checkLikeByUserAndPub(Publication publicationRequest)
     {
         
-        PubLike pubLike = pubLikeRepository.findByUserAndPublication(publicationRequest.getUser(), publicationRequest);
 
+        List<User> List = publicationRequest.getLikeUser();
 
-        if(pubLike == null)
+        User user = securityService.getUser();  
+        if(!List.contains(user))
         {
             System.out.println("\n la pub n' a pas été liked par " + publicationRequest.getUser().getUsername());
             return false;
@@ -287,6 +292,7 @@ public class PublicationServiceImpl implements PublicationService {
     @Override
     public PublicationDTO convertToDto(Publication publication) {
 
+        
         PublicationDTO publicationDTO = modelMapper.map(publication, PublicationDTO.class);
 
         publicationDTO.setUsername(publication.getUser().getUsername());
