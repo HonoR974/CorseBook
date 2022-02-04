@@ -57,6 +57,8 @@ import org.springframework.web.bind.annotation.RestController;
 
         }
 
+        System.out.println("\n le controller est appelé ");
+        //
         List<PublicationDTO> lDtos = new ArrayList<>();
         PublicationDTO publicationDTO;
         List<CommentDTO> commentDTOs;
@@ -68,9 +70,15 @@ import org.springframework.web.bind.annotation.RestController;
 
 
           publicationDTO = publicationService.convertToDto(pub);
+
+          System.out.println("\n la conversion pub est fini ");
+
+          
           if(pub.getListComments() !=null)
           {
             commentDTOs = commentService.convertToDtoList(pub.getListComments());
+           
+            System.out.println("\n la conversion COMM est fini ");
             publicationDTO.setListComments(commentDTOs);
           }
       
@@ -80,7 +88,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 
       // List<PublicationDTO> lDtos = publicationService.convertToDtoList(list);
-    
+      System.out.println("\n le controller est fini ");
 
         return ResponseEntity.ok(lDtos);
     }

@@ -288,7 +288,11 @@ public class CommentServiceImpl  implements CommentService{
         }
 
         //liked by user ? 
-        commentDTO.setLiked(checkLikeByUserAndCom(comment));
+        if ( securityService.isAuthenticated())
+        {
+            commentDTO.setLiked(checkLikeByUserAndCom(comment));
+        }
+
 
 
         return commentDTO;

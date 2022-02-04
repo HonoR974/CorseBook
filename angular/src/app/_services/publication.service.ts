@@ -19,7 +19,7 @@ export class PublicationService {
   //publications public 
   getPublicationPublic(): Observable<Publication[]>
   {
-    return this.HttpClient.get<Publication[]>(baseURL +"public", httpOptions);
+    return this.HttpClient.get<Publication[]>(baseURL +"public");
   }
 
   //like 

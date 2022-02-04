@@ -133,12 +133,16 @@ public class PublicationServiceImpl implements PublicationService {
     //false = no liked by user 
     public boolean checkLikeByUserAndPub(Publication publicationRequest)
     {
+        if(!securityService.isAuthenticated())
+        {
+            return false;
+        }
         
 
         List<User> List = publicationRequest.getLikeUser();
 
-        User user = securityService.getUser();  
-        if(!List.contains(user))
+         
+        if(  !List.contains(securityService.getUser())  )
         {
             System.out.println("\n la pub n' a pas été liked par " + publicationRequest.getUser().getUsername());
             return false;
@@ -298,6 +302,7 @@ public class PublicationServiceImpl implements PublicationService {
         publicationDTO.setUsername(publication.getUser().getUsername());
 
         publicationDTO.setLiked(checkLikeByUserAndPub(publication));
+
 
 
         if (publicationDTO.getListComments()!= null)
