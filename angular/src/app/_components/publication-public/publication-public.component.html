@@ -107,12 +107,9 @@
                 <div  class="comment">
                     <p>{{comment.username}}</p>
                     <p>{{comment.contenu}}</p>
-                    <p>{{comment.countLike}}</p>
-                    <p>{{comment.dateCreated}}</p>Date
-                </div>
+                     Date : {{comment.dateCreated}}
 
-                <div>
-                    
+
                     <!-- Liked -->
                     <button type="button" class="btn btn-info"  
                     matTooltip="Like" *ngIf="comment.liked" 
@@ -132,7 +129,16 @@
                         <mat-icon>favorite_border</mat-icon>{{comment.countLike}}
                     </button>
 
+                    <button type="button" class="btn btn-info" 
+                    matTooltip="Like" *ngIf="!comment.liked" 
+                    (click)="commentLiked(comment.id)">
+
+                        <mat-icon>favorite_border</mat-icon>{{comment.countLike}}
+                    </button>
+
                 </div>
+
+                
             </div>
      
 
