@@ -9,6 +9,7 @@ import java.util.List;
 
 import com.back.springboot.models.User;
 import com.back.springboot.dto.UserDTO;
+import com.back.springboot.exception.ResourceNotFoundException;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -73,7 +74,7 @@ public class ContactController {
 
     //accepte la demande d'ajout recu 
     // l'user connécté avec le jwt accepte l'user a l'id envoyé 
-    //renvoie l'user ayant recu l'invitation donc celui qui accepte 
+    //renvoie les 2 Users 
     @PostMapping("/accept/{id}")
     public ResponseEntity<List<UserDTO>> accepteDemandeByID(@PathVariable long id)
     {
@@ -154,23 +155,23 @@ public class ContactController {
    // id user qui possede la liste de contact 
    // idToDeleted user de la liste de contact 
     @DeleteMapping("/list/{id}/delete/{idToDelete}")
-    public ResponseEntity<HttpStatus> deleteContactByID(@PathVariable long id,
+    public ResponseEntity<String> deleteContactByID(@PathVariable long id,
                                             @PathVariable long idToDelete)
     {
         contactService.deleteContactById(id, idToDelete);
 
-        return new ResponseEntity<>(HttpStatus.ACCEPTED);
+        return new ResponseEntity<String>("Accepted", HttpStatus.ACCEPTED);
     }
 
 
    // supprime un contact by jwt 
    // id user de la liste de contact 
    @DeleteMapping("list/delete/{id}")
-   public ResponseEntity<HttpStatus> deleteContactByJwt(@PathVariable long id)
+   public ResponseEntity<String> deleteContactByJwt(@PathVariable long id)
    {    
     contactService.deletedContactByJwt(id);
    
-    return new ResponseEntity<>(HttpStatus.ACCEPTED);
+    return new ResponseEntity<String>("Accepted", HttpStatus.ACCEPTED);
     }    
     
 
@@ -184,4 +185,21 @@ public class ContactController {
 
         return new ResponseEntity<List<UserDTO>>(lDtos, HttpStatus.ACCEPTED);
     }
+
+
+
+    //get List des invitation envoyé par l'user 
+    //donc ses demandes 
+    @GetMapping("demandes")
+    public ResponseEntity<List<UserDTO>> getListInvitationByJwt()
+    {
+        List<User> list = contactService.getListDemande();
+
+
+        List<UserDTO> lDtos = userService.convertTolistDto(list);
+   
+
+        return new ResponseEntity<List<UserDTO>>(lDtos, HttpStatus.ACCEPTED);
+    }
+
 }

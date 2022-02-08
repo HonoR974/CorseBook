@@ -1,0 +1,18 @@
+<div>
+    Liste Demande d'invitation  : 
+</div>
+<div>
+    <ul  *ngFor="let user of lUserInvited" >
+        <li>{{user.username}}</li>
+
+      <!-- btn Refus-->
+      <p-button type="button" styleClass="p-button p-button-rounded p-mr-2"
+      icon="pi pi-chevron-circle-down"
+      matTooltip="Decliner l'invitation"
+      (click)="acceptDemand(user.id)"
+      ></p-button>
+
+    </ul>
+</div>
+
+

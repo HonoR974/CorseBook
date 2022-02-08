@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { ListContactComponent } from './_components/contact/list-contact/list-contact.component';
+import { ListDemandeComponent } from './_components/contact/list-demande/list-demande.component';
 import { CreateProductComponent } from './_components/create-product/create-product.component';
 import { ListComponent } from './_components/evenement/list/list.component';
 import { HomeComponent } from './_components/home/home.component';
@@ -46,7 +47,8 @@ const routes: Routes = [
   { path :'evenement-list', component: ListComponent},
 
   //contact 
-  { path :'contact-list', component : ListContactComponent}
+  { path :'contact-list', component : ListContactComponent},
+  { path :'contact-demand', component: ListDemandeComponent}
 
 ];
 

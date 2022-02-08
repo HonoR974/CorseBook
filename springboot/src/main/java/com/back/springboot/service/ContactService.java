@@ -32,4 +32,7 @@ public interface ContactService {
     List<User> getSuggestContact();
 
 
+    //get list user invité par l'user connecté 
+    List<User> getListDemande();
+
 }

@@ -29,8 +29,34 @@ export class ContactService {
     return this.HttpClient.get<User[]>(baseURL + "suggest", httpOptions);
   }
 
+  //ask invitation 
   addContact(id:number):Observable<any>
   {
     return this.HttpClient.post<User>(baseURL + id, httpOptions);
   }  
+
+
+  //demande d'invitation faites par cette user 
+  getUserAskList():Observable<User[]> 
+  {
+    return this.HttpClient.get<User[]>(baseURL + "demandes", httpOptions);
+  }
+
+
+  //demande d'invitation pour cette user 
+  getUserInvited():Observable<User[]> 
+  {
+    return this.HttpClient.get<User[]>(baseURL + "invitations", httpOptions);
+  }
+
+
+  //accepte la demande d'invitation 
+  //de l'user correspondant a l'id 
+  //a l'user connecté jwt 
+
+  acceptDemand(id:number):Observable<any>
+  {
+    return this.HttpClient.post<User>(baseURL+ "accept/" + id, httpOptions);
+  }
+
 }

@@ -109,12 +109,14 @@ public class UserServiceImpl implements UserService{
             {
                 listName.add(userTest.getUsername());
             }
-            userDTO.setlInvitationContact(listName);
+            userDTO.setListInvitation(listName);
         }
 
         //is invited by current user 
         User currentUser = securityService.getUser();
-        //si l'user current est connécté 
+
+
+        //si l'user  est connécté 
         //et que sa liste de contacte ne contient pas l'user a convertire 
         if(currentUser != null && !currentUser.getListContact().contains(user) )
         {
@@ -122,9 +124,9 @@ public class UserServiceImpl implements UserService{
            {
                userDTO.setInvitedForContact(true);
            }
-           else
+           else 
            {
-                userDTO.setInvitedForContact(false);
+            userDTO.setInvitedForContact(false);
            }
         }
 

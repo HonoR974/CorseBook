@@ -22,10 +22,7 @@ export class SugestContactComponent implements OnInit {
 
   ngOnInit(): void {
 
-    if(this.tokenService.getToken())
-    {
       this.getSuggestContact();
-    }
 
 
   }
@@ -51,7 +48,14 @@ export class SugestContactComponent implements OnInit {
   //Btn Add User 
   addUser(id:number)
   {
-    
+     this.contactService.addContact(id).subscribe(
+       data => 
+       {
+         console.log("data ", data);
+       }
+     );
+
+     
   }
 
 

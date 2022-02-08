@@ -39,7 +39,9 @@ import { SugestContactComponent } from './_components/contact/sugest-contact/sug
 
 import {CarouselModule} from 'primeng/carousel';
 import {ButtonModule} from 'primeng/button';
-import {ToastModule} from 'primeng/toast'
+import {ToastModule} from 'primeng/toast';
+import { ListDemandeComponent } from './_components/contact/list-demande/list-demande.component';
+import { ListInvitationComponent } from './_components/contact/list-invitation/list-invitation.component'
 
 @NgModule({
   declarations: [
@@ -59,6 +61,8 @@ import {ToastModule} from 'primeng/toast'
     ListComponent,
     ListContactComponent,
     SugestContactComponent,
+    ListDemandeComponent,
+    ListInvitationComponent,
   ],
   imports: [
     BrowserModule,

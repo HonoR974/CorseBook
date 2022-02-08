@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { TokenStorageService } from 'src/app/_services/token-storage.service';
 import { User } from 'src/app/_class/user';
 import { ContactService } from 'src/app/_services/contact.service';
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-list-contact',
   templateUrl: './list-contact.component.html',
@@ -14,7 +15,8 @@ export class ListContactComponent implements OnInit {
   listContact: User[] = [];
 
   constructor(private tokenStorage:TokenStorageService, 
-                private contactService:ContactService) { }
+                private contactService:ContactService,
+                private router : Router) { }
 
   ngOnInit(): void {
 
@@ -33,9 +35,18 @@ export class ListContactComponent implements OnInit {
         data => 
         {
           this.listContact = data;
-          console.log("contact list ", this.listContact);
         });
       
   }
+
+  getContact(id:any)
+  {
+    this.router.navigateByUrl('/', {skipLocationChange: true}).then(() => {
+        this.router.navigate(['profile/', id]);
+
+    });
+
+  }
+
 
 }

@@ -52,8 +52,8 @@ public class ContactServiceImpl  implements ContactService{
         .orElseThrow( () -> new ResourceNotFoundException("aucun user ne correspond a l'id " + id));
      
 
-        //check if userConnected a userAccepted 
-        if(isContains(userConnected, userAccepted))
+        //check if user1 a demandé user 2 
+        if(isContains(userAccepted, userConnected))
         {
             //ajout du contact 
             addContact(userConnected, userAccepted);
@@ -76,16 +76,17 @@ public class ContactServiceImpl  implements ContactService{
         return list;
     }
 
-      //check if userConnected contains userAccepted 
-    public boolean isContains(User userConnected, User userAccepted)
+      //check if user 1 a demandé user 2 
+    public boolean isContains(User demande, User inviter)
     {
         boolean condition = false;
 
-        if (userConnected.getlInvitationContact() != null)
+
+        if (demande.getlInvitationContact() != null)
         {
-            for ( User user : userConnected.getlInvitationContact())
+            for ( User user : demande.getlInvitationContact())
             {
-                if(user.getUsername().equals(userAccepted.getUsername()))
+                if(user.getUsername().equals(inviter.getUsername()))
                 {
                     condition = true;
                 }
@@ -105,30 +106,39 @@ public class ContactServiceImpl  implements ContactService{
     {
 
             //de l'userJwt a UserId 
-            List<User> listContact = new ArrayList<>();
+            List<User> listContact = userConnected.getListContact();
             listContact.add(userAccepted);
             userConnected.setListContact(listContact);
 
             //de UserId a UserJwt
-            listContact = new ArrayList<>();
+            listContact = userAccepted.getListContact();
             listContact.add(userConnected);
             userAccepted.setListContact(listContact);
     }
     
 
+    //supprime l'invitation de l'user2 pour l'user 1 
+    // puis de l'user 1 a l'user 2 par securité 
     public void deleteInvit(User userConnected, User userAccepted)
     {
-        List<User> lUsers = new ArrayList<>();
-        for (User user : userConnected.getlInvitationContact())
+        List<User> lUsers = userAccepted.getListInvitation();
+        if(lUsers.contains(userConnected))
         {
-            if(!user.getUsername().equals(userAccepted.getUsername()))
-            {
-                lUsers.add(user);
-            }
+            lUsers.remove(userConnected);
+            userAccepted.setListInvitation(lUsers);
+
         }
 
-        userConnected.setlInvitationContact(lUsers);
+        List<User> lUsers2 = userConnected.getListInvitation();
+        if(lUsers.contains(userAccepted))
+        {
+            lUsers.remove(userAccepted);
+            userConnected.setListInvitation(lUsers2);
+        }
+   
+        userRepository.save(userAccepted);
         userRepository.save(userConnected);
+    
     }
 
     @Override
@@ -293,6 +303,31 @@ public class ContactServiceImpl  implements ContactService{
         }
 
         return lUsers;
+    }
+
+    @Override
+    public List<User> getListDemande() {
+
+        User user = securityService.getUser();
+
+        // trouvez les user qui l'ont invité 
+        List<User> lUsers = new ArrayList<>();
+
+        List<User> lUserAll = userRepository.findAll();
+
+        for ( User userIndex : lUserAll)
+        {
+            //si l'userIndex a invité l'user connected 
+            if ( userIndex.getListInvitation().contains(user) )
+            {
+                lUsers.add(userIndex);
+                System.out.println("\n userIndex " + userIndex.getUsername());
+            }
+        }
+
+        return lUsers;
+
+        
     }    
 
 
