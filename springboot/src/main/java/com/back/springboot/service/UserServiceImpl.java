@@ -111,11 +111,11 @@ public class UserServiceImpl implements UserService{
             userDTO.setListContact(listName);
         }
 
-        //listeInvitationContact -> String 
-        if(user.getlInvitationContact() !=  null)
+        //liste Invitation Contact -> String 
+        if(user.getListInvitation() !=  null)
         {
             List<String> listName = new ArrayList<>();
-            for(User userTest : user.getlInvitationContact())
+            for(User userTest : user.getListInvitation())
             {
                 listName.add(userTest.getUsername());
             }
@@ -130,7 +130,7 @@ public class UserServiceImpl implements UserService{
         //et que sa liste de contacte ne contient pas l'user a convertire 
         if(currentUser != null && !currentUser.getListContact().contains(user) )
         {
-           if( currentUser.getlInvitationContact().contains(user))
+           if( currentUser.getListInvitation().contains(user))
            {
                userDTO.setInvitedForContact(true);
            }

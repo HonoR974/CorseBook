@@ -34,14 +34,9 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 import { GoogleMapsModule } from '@angular/google-maps';
 import { ListComponent } from './_components/evenement/list/list.component';
-import { ListContactComponent } from './_components/contact/list-contact/list-contact.component';
-import { SugestContactComponent } from './_components/contact/sugest-contact/sugest-contact.component';
-
 import {CarouselModule} from 'primeng/carousel';
 import {ButtonModule} from 'primeng/button';
 import {ToastModule} from 'primeng/toast';
-import { ListDemandeComponent } from './_components/contact/list-demande/list-demande.component';
-import { ListInvitationComponent } from './_components/contact/list-invitation/list-invitation.component';
 import { ContactComponent } from './_components/contact/contact.component'
 
 @NgModule({
@@ -60,11 +55,7 @@ import { ContactComponent } from './_components/contact/contact.component'
     UploadFileComponent,
     UpdatePublicationComponent,
     ListComponent,
-    ListContactComponent,
-    SugestContactComponent,
-    ListDemandeComponent,
-    ListInvitationComponent,
-    ContactComponent,
+    ContactComponent
   ],
   imports: [
     BrowserModule,

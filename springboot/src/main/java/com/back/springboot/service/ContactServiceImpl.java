@@ -34,7 +34,7 @@ public class ContactServiceImpl  implements ContactService{
         List<User> listInvitation = new ArrayList<>();
 
         listInvitation.add(userDemandant);
-        userRecevant.setlInvitationContact(listInvitation);
+        userRecevant.setListInvitation(listInvitation);
         
         return userRepository.save(userRecevant);
     }
@@ -53,7 +53,7 @@ public class ContactServiceImpl  implements ContactService{
      
 
         //check if user1 a demandé user 2 
-        if(isContains(userAccepted, userConnected))
+        if(isContains(userConnected,userAccepted))
         {
             //ajout du contact 
             addContact(userConnected, userAccepted);
@@ -77,20 +77,16 @@ public class ContactServiceImpl  implements ContactService{
     }
 
       //check if user 1 a demandé user 2 
-    public boolean isContains(User demande, User inviter)
+    public boolean isContains(User user, User userlist)
     {
         boolean condition = false;
 
 
-        if (demande.getlInvitationContact() != null)
+        if (user.getListInvitation() != null)
         {
-            for ( User user : demande.getlInvitationContact())
-            {
-                if(user.getUsername().equals(inviter.getUsername()))
-                {
-                    condition = true;
-                }
-            }
+          
+             condition = user.getListInvitation().contains(userlist);
+    
             
         }
         else
@@ -132,7 +128,7 @@ public class ContactServiceImpl  implements ContactService{
         List<User> lUsers2 = userConnected.getListInvitation();
         if(lUsers.contains(userAccepted))
         {
-            lUsers.remove(userAccepted);
+            lUsers2.remove(userAccepted);
             userConnected.setListInvitation(lUsers2);
         }
    
@@ -145,9 +141,9 @@ public class ContactServiceImpl  implements ContactService{
     public List<User> getInvitation() {
 
         User user = securityService.getUser();
-        if (user.getlInvitationContact() != null)
+        if (user.getListInvitation() != null)
         {
-            return user.getlInvitationContact();
+            return user.getListInvitation();
         }
         else
         {
@@ -163,9 +159,9 @@ public class ContactServiceImpl  implements ContactService{
                      .orElseThrow( () -> new ResourceNotFoundException(
                          "L'user avec l'id " + id + " n'existe pas "));
 
-        if (!user.getlInvitationContact().isEmpty())
+        if (!user.getListInvitation().isEmpty())
         {
-            return user.getlInvitationContact();
+            return user.getListInvitation();
         }
         else
         {

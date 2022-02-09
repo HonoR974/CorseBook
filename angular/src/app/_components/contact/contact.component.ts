@@ -25,6 +25,10 @@ export class ContactComponent implements OnInit {
   lDemandeInvitation: User[] = [];
 
 
+  //suggest  
+  listSuggest: User[] = [];
+
+  responsiveOptions : any;
   constructor(private tokenStorage:TokenStorageService, 
     private contactService:ContactService,
     private router : Router) { }
@@ -37,6 +41,9 @@ export class ContactComponent implements OnInit {
       this.user = this.tokenStorage.getUser();
 
       this.getListContact();
+      this.getListDemandeContact();
+      this.getListDemandeInvitation();
+      this.getSuggestContact();
     }
 
   }
@@ -49,6 +56,7 @@ export class ContactComponent implements OnInit {
           data => 
           {
             this.listContact = data;
+
           });
         
     }
@@ -94,5 +102,41 @@ export class ContactComponent implements OnInit {
 
   }
 
+
+  //-------------- Suggest ------------//
+
+  
+  //Suggest List 
+  getSuggestContact()
+  {
+    this.contactService.getSuggestContact().subscribe( data => 
+      {
+        
+
+        this.listSuggest = data;
+      });
+  }
+
+  //Btn Profile 
+  getUserProfil(id:number)
+  {
+    this.router.navigate(['profile/', id]);
+  }
+
+
+  //Btn Add User 
+  addUser(id:number)
+  {
+     this.contactService.addContact(id).subscribe(
+       data => 
+       {
+      //   this.refreshContactLis();
+         this.ngOnInit();
+
+       }
+     );
+
+     
+  }
 
 }

@@ -146,15 +146,6 @@ public class User {
 		this.listContact = listContact;
 	}
 
-	public List<User> getlInvitationContact() {
-		return listInvitation;
-	}
-
-	public void setlInvitationContact(List<User> lInvitationContact) {
-		this.listInvitation = lInvitationContact;
-	}
-
-
 	public List<Comment> getCommentsLiked() {
 		return commentsLiked;
 	}
