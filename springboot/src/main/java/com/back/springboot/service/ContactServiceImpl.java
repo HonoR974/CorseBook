@@ -294,10 +294,14 @@ public class ContactServiceImpl  implements ContactService{
         {
             
             //si l'userTest n'est pas l'user connécté 
-            //si l'usertest n'est pas deja dans les contacts 
-            if( !user.getUsername().equals(userTest.getUsername()) &&  !user.getListContact().contains(userTest))
+            //si l'usertest n'est pas deja dans les contacts de l'user connecte
+            //si l'userTest n'est pas dans la liste d'invitation de l'user connecte 
+
+            if( !user.getUsername().equals(userTest.getUsername()) &&  
+            !user.getListContact().contains(userTest) && 
+            !userTest.getListInvitation().contains(user)
+            )
             {
-                System.out.println("\n username enregistré  " + userTest.getUsername());
                lUsers.add(userTest);
             }
         }

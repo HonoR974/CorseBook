@@ -9,6 +9,19 @@
     <p>
    
     <p>
-      <strong>Email:</strong>
-      {{ user.email }}
+     Email
+     
+     <strong> {{ user.email }} </strong>
     </p>
+
+    <div *ngIf="isContact">
+      <p>L'user {{user.username}} est ami avec {{currentUser.username}}</p>
+
+      <p-button type="button" styleClass="p-button p-button-rounded p-mr-2"
+      icon="pi pi-trash"
+      matTooltip="Supprimer des contacts "
+      (click)="deleteContact(user.id)"></p-button>
+
+    </div>
+
+

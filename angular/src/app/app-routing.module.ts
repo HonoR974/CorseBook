@@ -48,7 +48,7 @@ const routes: Routes = [
 
   //contact 
   { path :'contact-list', component : ListContactComponent},
-  { path :'contact-demand', component: ListDemandeComponent}
+  { path :'contact-demande', component: ListDemandeComponent}
 
 ];
 

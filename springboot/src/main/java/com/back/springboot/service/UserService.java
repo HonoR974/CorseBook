@@ -30,6 +30,7 @@ public interface UserService {
 
     User getUserById(long id);
 
+    User getUserByUsername(String username);
 
      //convert
      UserDTO convertToDto(User user);

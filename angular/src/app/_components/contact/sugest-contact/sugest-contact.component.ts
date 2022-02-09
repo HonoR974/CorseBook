@@ -34,7 +34,6 @@ export class SugestContactComponent implements OnInit {
     this.contactService.getSuggestContact().subscribe( data => 
       {
         this.listSuggest = data;
-        console.log("list de sugggestion ", this.listSuggest);
       });
   }
 
@@ -51,12 +50,15 @@ export class SugestContactComponent implements OnInit {
      this.contactService.addContact(id).subscribe(
        data => 
        {
-         console.log("data ", data);
+      //   this.refreshContactLis();
+         this.ngOnInit();
+
        }
      );
 
      
   }
+
 
 
 

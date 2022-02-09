@@ -38,4 +38,16 @@ public class UserController {
 
         return new ResponseEntity<UserDTO>(userDTO,HttpStatus.ACCEPTED);
     }
+
+    @GetMapping("/jwt/{username}")
+    public ResponseEntity<UserDTO> getuserByUsername(@PathVariable String username)
+    {
+        User user = userService.getUserByUsername(username);
+
+        UserDTO userDTO = userService.convertToDto(user);
+
+        return new ResponseEntity<UserDTO>(userDTO,HttpStatus.ACCEPTED);
+    }
+
+
 }

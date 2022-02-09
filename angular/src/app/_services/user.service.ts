@@ -19,4 +19,9 @@ export class UserService {
   {
     return this.http.get(API_URL + id , httpOptions);
   }
+
+  getUserByUsername(username:string):Observable<any>
+    {
+      return this.http.get(API_URL +"jwt/" +username, httpOptions);
+    }
 }

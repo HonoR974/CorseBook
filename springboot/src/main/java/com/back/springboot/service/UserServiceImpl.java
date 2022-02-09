@@ -83,6 +83,16 @@ public class UserServiceImpl implements UserService{
         return user;
     }
 
+    
+    @Override
+    public User getUserByUsername(String username) {
+        User user = userRepository.findByUsername(username)
+        .orElseThrow(() -> new ResourceNotFoundException("User with username "
+         + username +  " does'nt exist "));
+
+        return user;
+    }
+
 
     //------------Convert ---------------//
     @Override
@@ -150,6 +160,7 @@ public class UserServiceImpl implements UserService{
        }
         return list;
     }
+
 
     
 }
