@@ -5,19 +5,27 @@ body
     background: none;
 }
 
+label
+{
+
+    text-decoration: underline;
+    font-size: 18px;
+}
+
 
 .cadre
 {
 
-    border-radius: 5px;
-    margin: 20px;
+    border-radius: 15px;
+    margin: 10px;
+    padding: 10px;
     height: 300px;
     display: flex;
     flex-direction: column;
     justify-content: space-around;
     text-align: center;
-
-   
+    border-style: inset outset;
+   border-width: 3px;
 }
 
 
@@ -33,6 +41,13 @@ body
 .content
 {
     height: 70px;
+    width: 75%;
+    border-radius: 20px;
+}
+.content2
+{
+    border-radius: 20px;
+    width: 75%;
 }
 
 .button
@@ -40,4 +55,13 @@ body
     width: 20%;
     display: block;
     margin: 0 auto;
+    border-radius: 20px;
 }
+
+.section
+{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+

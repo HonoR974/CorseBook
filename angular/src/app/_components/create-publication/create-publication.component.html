@@ -1,7 +1,7 @@
 <body>
     <form class="cadre" [formGroup]="myForm" (ngSubmit)="newFileUpdate()">
   
-        <div class="form-group">
+        <div class="form-group section">
             <label for="contenu">Exprimez vous : </label>
             <input 
             formControlName="contenu"
@@ -12,14 +12,14 @@
     
         </div>
           
-        <div class="form-group">
+        <div class="form-group section">
             <label for="file">Ajoutez des fichiers </label>
             <input 
                 formControlName="file"
                 id="file" 
                 type="file" 
                 multiple
-                class="form-control"
+                class="form-control content2"
                 (change)="onFileChange($event)">
             
         </div>

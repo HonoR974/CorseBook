@@ -79,27 +79,21 @@
   </header>
 
 
-<body>
+<body >
 
 
   <div class="container2">
 
 
 
-    <div class="corps col-9">
+    <div class=" col-9">
       <router-outlet></router-outlet>
     </div>
 
-
-    
-    <div class="left col-3">
-
-
-
-    <div *ngIf="isLoggedIn" class="section">
+    <div class="col-3" *ngIf="isLoggedIn" >
       <app-contact></app-contact>
     </div>
-    </div>
+  
   
 
 

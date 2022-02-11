@@ -1,0 +1,72 @@
+body
+{
+    background-color: rgba(233, 236, 239,0.3);
+    background-color: rgba(233, 236, 239,0.5);
+    border-style: inset;
+    margin: 10px;
+    padding: 5px;
+    border-radius: 20px;
+    height: auto;
+}
+
+.section
+{
+    margin: 5px;
+    padding: 5px;
+    display: flex;
+    flex-direction: column;
+    background-color: rgba(173, 181, 189,0.2);
+    border-radius: 10px;
+}
+
+.section-titre
+{
+    font-size: 20px;
+    text-decoration: underline;
+    margin: 5px;
+}
+
+
+.p-button-list
+{
+    height: 30px;
+    width: 30px;
+}
+
+.li-list 
+{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: rgba(108, 117, 125,0.1);
+    border-radius: 10px;
+}
+
+
+ul
+{
+    list-style-type: circle;
+}
+
+.user-item-content
+{
+    background-color: rgba(73, 80, 87,0.1);
+    margin: 5px;
+    padding: 5px;
+    min-height: 120px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.car-buttons
+{
+    display: flex;
+}
+
+.cadre
+{
+    display: flex;
+    flex-direction: column;
+}

@@ -7,21 +7,16 @@ ul
 {
     display: flex;
     flex-direction: row;
+    justify-content: space-between;
 }
 
-.corps
-{
-    margin: 15px;
-}
 
-.left
-{
-    height: 500px;
-}
 
 .section
 {
     margin: 10px;
     border-style: solid;
     border-color: aqua;
+   
 }
+
