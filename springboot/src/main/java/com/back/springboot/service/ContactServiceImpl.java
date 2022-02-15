@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.back.springboot.exception.ResourceNotFoundException;
+import com.back.springboot.models.Chat;
 import com.back.springboot.models.User;
 import com.back.springboot.repository.UserRepository;
 
@@ -58,6 +59,9 @@ public class ContactServiceImpl  implements ContactService{
             //ajout du contact 
             addContact(userConnected, userAccepted);
 
+            //ajout du chat entre les deux users 
+            addChat(userConnected,userAccepted);
+
             //suppression de l'invitation 
             deleteInvit(userConnected, userAccepted);
         }
@@ -97,7 +101,6 @@ public class ContactServiceImpl  implements ContactService{
         return condition;
     }
     
-
     public void addContact(User userConnected, User userAccepted)
     {
 
@@ -112,6 +115,15 @@ public class ContactServiceImpl  implements ContactService{
             userAccepted.setListContact(listContact);
     }
     
+    public void addChat(User userConnected,User userAccepted)
+    {
+        Chat chat = new Chat();
+
+        chat.setUser1_id(userConnected.getId());
+        chat.setUser2_id(userAccepted.getId());
+
+        
+    }
 
     //supprime l'invitation de l'user2 pour l'user 1 
     // puis de l'user 1 a l'user 2 par securité 

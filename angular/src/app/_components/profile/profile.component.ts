@@ -88,19 +88,10 @@ export class ProfileComponent implements OnInit {
     this.contactService.deleteContact(id).subscribe(data => 
       {
         console.log("data ", data);
-        this.refreshContactLis();
-        this.ngOnInit();
+        window.location.reload();
       });
   }
 
-  
-  refreshContactLis()
-  {
-    let currentUrl = this.router.url;
-    this.router.navigateByUrl('contact-list', {skipLocationChange: true}).then(() => {
-        this.router.navigate([currentUrl]);
-    });
-  }
-
+ 
 
 }

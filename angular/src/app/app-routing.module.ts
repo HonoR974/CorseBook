@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { ChatComponent } from './_components/chat/chat.component';
 import { CreateProductComponent } from './_components/create-product/create-product.component';
 import { ListComponent } from './_components/evenement/list/list.component';
 import { HomeComponent } from './_components/home/home.component';
@@ -44,7 +45,8 @@ const routes: Routes = [
   //evenement 
   { path :'evenement-list', component: ListComponent},
 
-
+  //chat 
+  { path: 'chat', component:ChatComponent}
 ];
 
 @NgModule({

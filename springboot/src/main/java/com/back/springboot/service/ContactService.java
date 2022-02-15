@@ -2,13 +2,13 @@ package com.back.springboot.service;
 
 import java.util.List;
 
+
 import com.back.springboot.models.User;
 
 public interface ContactService {
     
 
     //invitation 
-
     User setAskContact(long id_user);
 
     List<User> accepteDemande(long id);
@@ -34,5 +34,7 @@ public interface ContactService {
 
     //get list user invité par l'user connecté 
     List<User> getListDemande();
+
+    
 
 }

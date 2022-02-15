@@ -49,9 +49,14 @@ public class User {
 	@ManyToMany
 	private List<User> listContact;
 
-	
 	@ManyToMany
 	private List<User> listInvitation;
+
+	//file
+	@OneToOne
+	@JoinColumn(name = "file_id", referencedColumnName = "id")
+	private File profilePicture;
+
 
 	public User() {
 	}
@@ -153,6 +158,16 @@ public class User {
 
 	public void setCommentsLiked(List<Comment> commentsLiked) {
 		this.commentsLiked = commentsLiked;
+	}
+
+
+	public File getProfilePicture() {
+		return profilePicture;
+	}
+
+
+	public void setProfilePicture(File profilePicture) {
+		this.profilePicture = profilePicture;
 	}
 
 

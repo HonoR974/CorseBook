@@ -37,7 +37,8 @@ import { ListComponent } from './_components/evenement/list/list.component';
 import {CarouselModule} from 'primeng/carousel';
 import {ButtonModule} from 'primeng/button';
 import {ToastModule} from 'primeng/toast';
-import { ContactComponent } from './_components/contact/contact.component'
+import { ContactComponent } from './_components/contact/contact.component';
+import { ChatComponent } from './_components/chat/chat.component'
 
 @NgModule({
   declarations: [
@@ -55,7 +56,8 @@ import { ContactComponent } from './_components/contact/contact.component'
     UploadFileComponent,
     UpdatePublicationComponent,
     ListComponent,
-    ContactComponent
+    ContactComponent,
+    ChatComponent
   ],
   imports: [
     BrowserModule,

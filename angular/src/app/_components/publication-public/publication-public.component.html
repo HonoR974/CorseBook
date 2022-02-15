@@ -38,27 +38,30 @@
   
 
         <div class="side-file" >
-            <ngb-carousel 
-               [showNavigationArrows]="true" 
-            [showNavigationIndicators]="true"
-            [interval]="20000"
-            [keyboard]="true"
-            [pauseOnHover]="true"
-            [wrap]="true"
-            [activeId]="'sliderThree'">
-                <ng-template ngbSlide *ngFor="let image of publication.listFile"> 
-                    <div class="picsum-img-wrapper">
-                        <img [src]="image.url" alt="Carousel One">
-                    </div>
-                    <div class="carousel-caption" >
-                        <!-- 
-                        <h3>Title</h3>
-                        <p>Aenean malesuada nisi ut commodo semper.</p>
-                        -->
-                      
-                    </div>
-                </ng-template>
-            </ngb-carousel>
+            <div>
+                <ngb-carousel 
+                [showNavigationArrows]="true" 
+             [showNavigationIndicators]="true"
+             [interval]="20000"
+             [keyboard]="true"
+             [pauseOnHover]="true"
+             [wrap]="true"
+             [activeId]="'sliderThree'">
+                 <ng-template ngbSlide *ngFor="let image of publication.listFile"> 
+                     <div class="picsum-img-wrapper">
+                         <img [src]="image.url" alt="Carousel One">
+                     </div>
+                     <div class="carousel-caption" >
+                         <!-- 
+                         <h3>Title</h3>
+                         <p>Aenean malesuada nisi ut commodo semper.</p>
+                         -->
+                       
+                     </div>
+                 </ng-template>
+             </ngb-carousel>
+            </div>
+        
         </div>
 
         <div class="side-content">

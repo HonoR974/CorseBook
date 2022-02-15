@@ -59,6 +59,14 @@ export class ContactService {
     return this.HttpClient.post<User>(baseURL+ "accept/" + id, httpOptions);
   }
 
+  //refuse la demande d'invitation 
+  refuseDemande(id:number):Observable<any>
+  {
+    return this.HttpClient.post<User>(baseURL+ "refuse/" + id, httpOptions);
+  }
+
+
+
   //deleteContact
   //id => user supprimé des contacts de l'user connected 
   deleteContact(id:number):Observable<Object>

@@ -22,7 +22,15 @@
                    matTooltip="Voir le profile"
                    (click)="getContact(user.id)"
                    ></p-button>
-
+          
+        
+                   <!-- btn Chat-->
+                   <p-button  type="button"  styleClass="p-button-secondary
+                   p-button-rounded "
+                   icon="pi pi-telegram"
+                   matTooltip="Discutter"
+                   (click)="contact(user.id)"
+                   ></p-button>
                       </div> 
         
                 </div> 
@@ -48,8 +56,7 @@
                 <div class="user-item">
                     <div class="user-item-content">
                     
-                  
-
+                
                             <div >{{user.username}}</div>
 
                     
@@ -96,13 +103,6 @@
                         </div>
         
                         <div >
-                        <!-- btn Accept-->
-                        <p-button type="button" styleClass="p-button p-button-rounded p-mr-2"
-                        icon="pi pi-chevron-circle-down"
-                        matTooltip="Accepeter l'invitation"
-                        (click)="acceptDemand(user.id)"
-                        ></p-button>
-
                             <!-- btn Refuse demande -->
                             <p-button type="button" styleClass="p-button-danger p-button-rounded p-mr-2"
                             icon="pi pi-times-circle"
@@ -123,14 +123,45 @@
     </div>
 
 
-    <div>
-        Liste Invitation recus: 
+    <!-- Invitation Recu -->
+    <div class="section">
+        <div class="section-titre">
+            Liste Invitation recus: 
+        </div>
+        <div>
+            <ul  *ngFor="let user of lDemandeInvitation" >
+                <li>
+                    <div class="li-list">
+                        <div>
+                         {{user.username}}
+                        </div>
+                       <div>
+ 
+                    <!-- btn Accepte-->
+                    <p-button  type="button"  styleClass="p-button
+                    p-button-rounded "
+                    icon="pi pi-thumbs-up"
+                    matTooltip="Accepter l'invitation"
+                    (click)="acceptDemand(user.id)"
+                    ></p-button>
+           
+         
+                    <!-- btn Decliner-->
+                    <p-button  type="button"  styleClass="p-button-danger
+                    p-button-rounded "
+                    icon="pi pi-trash"
+                    matTooltip="Decliner l'invitation"
+                    (click)="refuseDemande(user.id)"
+                    ></p-button>
+                       </div> 
+         
+                 </div> 
+
+                </li>
+            </ul>
+        </div>
     </div>
-    <div>
-        <ul  *ngFor="let user of lDemandeInvitation" >
-            <li>{{user.username}}</li>
-        </ul>
-    </div>
+ 
 
 
 

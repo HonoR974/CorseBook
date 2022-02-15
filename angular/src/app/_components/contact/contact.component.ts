@@ -61,12 +61,22 @@ export class ContactComponent implements OnInit {
         
     }
 
+    //btn profile 
     getContact(id:any)
     {
       this.router.navigateByUrl('/', {skipLocationChange: true}).then(() => {
           this.router.navigate(['profile/', id]);
 
       });
+    }
+
+    //btn chat 
+    contact(id:any)
+    {
+      this.router.navigateByUrl('/', {skipLocationChange: true}).then(() => {
+        this.router.navigate(['chat']);
+
+    });
     }
 
   //--------------List demande --------------------//
@@ -81,14 +91,6 @@ export class ContactComponent implements OnInit {
 
   }
 
-  acceptDemand(id:any)
-  {
-    this.contactService.acceptDemand(id).subscribe ( data => 
-      {
-        this.ngOnInit();
-      });
-
-  }
 
 
 
@@ -137,6 +139,27 @@ export class ContactComponent implements OnInit {
      );
 
      
+  }
+
+
+
+  //----------------- List Invitation ----------------//
+  acceptDemand(id:any)
+  {
+    this.contactService.acceptDemand(id).subscribe( data => 
+      {
+        console.log("accepete Demande " , data);
+        this.ngOnInit();
+      });
+  }
+
+  refuseDemande(id:any)
+  {
+    this.contactService.refuseDemande(id).subscribe( data => 
+      {
+        console.log("refuse demande ", data);
+        this.ngOnInit();
+      });
   }
 
 }
