@@ -35,6 +35,7 @@ public interface ContactService {
     //get list user invité par l'user connecté 
     List<User> getListDemande();
 
+    void cancelDemande(long id_toCancel);
     
 
 }

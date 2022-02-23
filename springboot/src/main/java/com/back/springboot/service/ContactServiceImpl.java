@@ -6,6 +6,7 @@ import java.util.List;
 import com.back.springboot.exception.ResourceNotFoundException;
 import com.back.springboot.models.Chat;
 import com.back.springboot.models.User;
+import com.back.springboot.repository.ChatRepository;
 import com.back.springboot.repository.UserRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +21,9 @@ public class ContactServiceImpl  implements ContactService{
 
     @Autowired
     private SecurityService securityService;
+
+    @Autowired
+    private ChatRepository chatRepository;
 
     //ajout de l'user avec le jwt a l'user avec l'id 
     //dans la liste des invitations de contact 
@@ -119,22 +123,26 @@ public class ContactServiceImpl  implements ContactService{
     {
         Chat chat = new Chat();
 
-        chat.setUser1_id(userConnected.getId());
-        chat.setUser2_id(userAccepted.getId());
+       List<User> list = new ArrayList<>();
+       list.add(userConnected);
+       list.add(userAccepted);
 
+       chat.setUsers(list);
+
+       chatRepository.save(chat);
         
     }
 
     //supprime l'invitation de l'user2 pour l'user 1 
     // puis de l'user 1 a l'user 2 par securité 
     public void deleteInvit(User userConnected, User userAccepted)
-    {
+    { 
+    
         List<User> lUsers = userAccepted.getListInvitation();
         if(lUsers.contains(userConnected))
         {
             lUsers.remove(userConnected);
             userAccepted.setListInvitation(lUsers);
-
         }
 
         List<User> lUsers2 = userConnected.getListInvitation();
@@ -340,7 +348,23 @@ public class ContactServiceImpl  implements ContactService{
         return lUsers;
 
         
-    }    
+    }
+
+	@Override
+	public void cancelDemande(long id_toCancel) {
+	
+        
+        User userJwt = securityService.getUser();
+
+        User userID = userRepository.findById(id_toCancel)
+        .orElseThrow(() -> new ResourceNotFoundException("User with id " + id_toCancel +  " does'nt exist "));
+
+		List<User> list = userID.getListInvitation();
+        list.remove(userJwt);
+        userID.setListInvitation(list);
+
+        userRepository.save(userID);
+	}    
 
 
 

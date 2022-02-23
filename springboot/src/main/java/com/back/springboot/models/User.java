@@ -57,6 +57,9 @@ public class User {
 	@JoinColumn(name = "file_id", referencedColumnName = "id")
 	private File profilePicture;
 
+	//chat
+	@ManyToMany(mappedBy = "users")
+	private List<Chat> chats;
 
 	public User() {
 	}
@@ -171,8 +174,14 @@ public class User {
 	}
 
 
+	public List<Chat> getChats() {
+		return chats;
+	}
+
+
+	public void setChats(List<Chat> chats) {
+		this.chats = chats;
+	}
 
 	
-	
-
 }

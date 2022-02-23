@@ -62,16 +62,19 @@ export class ContactService {
   //refuse la demande d'invitation 
   refuseDemande(id:number):Observable<any>
   {
-    return this.HttpClient.post<User>(baseURL+ "refuse/" + id, httpOptions);
+    return this.HttpClient.post(baseURL+ "refuse/" + id, httpOptions);
   }
-
-
 
   //deleteContact
   //id => user supprimé des contacts de l'user connected 
   deleteContact(id:number):Observable<Object>
   {
     return this.HttpClient.delete(baseURL + "list/delete/" + id , httpOptions);
+  }
+
+  cancelDemande(id:number):Observable<any>
+  {
+    return this.HttpClient.post(baseURL + "demandes/" + id , httpOptions);
   }
 
 }

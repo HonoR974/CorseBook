@@ -46,7 +46,7 @@ const routes: Routes = [
   { path :'evenement-list', component: ListComponent},
 
   //chat 
-  { path: 'chat', component:ChatComponent}
+  { path: 'chat/:id', component:ChatComponent}
 ];
 
 @NgModule({

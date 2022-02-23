@@ -38,7 +38,7 @@ import {CarouselModule} from 'primeng/carousel';
 import {ButtonModule} from 'primeng/button';
 import {ToastModule} from 'primeng/toast';
 import { ContactComponent } from './_components/contact/contact.component';
-import { ChatComponent } from './_components/chat/chat.component'
+import { ChatComponent } from './_components/chat/chat.component';
 
 @NgModule({
   declarations: [
@@ -57,7 +57,7 @@ import { ChatComponent } from './_components/chat/chat.component'
     UpdatePublicationComponent,
     ListComponent,
     ContactComponent,
-    ChatComponent
+    ChatComponent,
   ],
   imports: [
     BrowserModule,

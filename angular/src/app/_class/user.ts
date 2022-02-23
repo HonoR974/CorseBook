@@ -4,4 +4,5 @@ export class User {
     email?: string ;
     listContact: User[] = [];
     listInvitation: User[] = [];
+    id_chat?:number;
 }

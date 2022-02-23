@@ -55,6 +55,7 @@ export class ContactComponent implements OnInit {
         this.contactService.getContactList().subscribe(
           data => 
           {
+            console.log("list contact ", data);
             this.listContact = data;
 
           });
@@ -74,35 +75,11 @@ export class ContactComponent implements OnInit {
     contact(id:any)
     {
       this.router.navigateByUrl('/', {skipLocationChange: true}).then(() => {
-        this.router.navigate(['chat']);
-
+        this.router.navigate(['chat',id]);
     });
     }
 
-  //--------------List demande --------------------//
-
-
-  getListDemandeContact()
-  {
-    this.contactService.getUserAskList().subscribe ( data => 
-      {
-        this.lUserInvited = data;
-      });
-
-  }
-
-
-
-
-  getListDemandeInvitation()
-  {
-    this.contactService.getUserInvited().subscribe ( data => 
-      {
-        this.lDemandeInvitation = data;
-      });
-
-
-  }
+ 
 
 
   //-------------- Suggest ------------//
@@ -113,8 +90,6 @@ export class ContactComponent implements OnInit {
   {
     this.contactService.getSuggestContact().subscribe( data => 
       {
-        
-
         this.listSuggest = data;
       });
   }
@@ -132,23 +107,57 @@ export class ContactComponent implements OnInit {
      this.contactService.addContact(id).subscribe(
        data => 
        {
-      //   this.refreshContactLis();
          this.ngOnInit();
 
        }
      );
 
-     
+  }
+
+  //-----------List Demande --------------//
+
+  getListDemandeContact()
+  {
+    this.contactService.getUserAskList().subscribe ( data => 
+      {
+        this.lUserInvited = data;
+      });
+
+  }
+
+  
+  //la fonction fonctionne mais genere une 
+  cancelDemande(id:any)
+  {
+    this.contactService.cancelDemande(id).subscribe( 
+      data => 
+      {
+       this.getListDemandeContact();
+      }
+    );
+
   }
 
 
-
   //----------------- List Invitation ----------------//
+
+  
+   getListDemandeInvitation()
+   {
+     this.contactService.getUserInvited().subscribe ( data => 
+       {
+   
+         this.lDemandeInvitation = data;
+       });
+ 
+ 
+   }
+
   acceptDemand(id:any)
   {
     this.contactService.acceptDemand(id).subscribe( data => 
       {
-        console.log("accepete Demande " , data);
+
         this.ngOnInit();
       });
   }
@@ -157,7 +166,7 @@ export class ContactComponent implements OnInit {
   {
     this.contactService.refuseDemande(id).subscribe( data => 
       {
-        console.log("refuse demande ", data);
+
         this.ngOnInit();
       });
   }

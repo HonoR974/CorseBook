@@ -1,12 +1,14 @@
 package com.back.springboot.models;
 
+import java.util.List;
 
-import java.util.HashMap;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 
 @Entity
 public class Chat {
@@ -16,11 +18,12 @@ public class Chat {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
 
-    private long user1_id;
-
-    private long user2_id;
     
-    private HashMap<String,Long> discussion;
+    @OneToMany(mappedBy = "chat")
+    private List<Message> messages;
+   
+    @ManyToMany
+    private List<User> users;
 
     public Chat()
     {}
@@ -33,31 +36,22 @@ public class Chat {
         this.id = id;
     }
 
-    public long getUser1_id() {
-        return user1_id;
+    public List<Message> getMessages() {
+        return messages;
     }
 
-    public void setUser1_id(long user1_id) {
-        this.user1_id = user1_id;
+    public void setMessages(List<Message> messages) {
+        this.messages = messages;
     }
 
-    public long getUser2_id() {
-        return user2_id;
+    public List<User> getUsers() {
+        return users;
     }
 
-    public void setUser2_id(long user2_id) {
-        this.user2_id = user2_id;
-    }
-
-    public HashMap<String, Long> getDiscussion() {
-        return discussion;
-    }
-
-    public void setDiscussion(HashMap<String, Long> discussion) {
-        this.discussion = discussion;
+    public void setUsers(List<User> users) {
+        this.users = users;
     }
 
 
-    
 
 }

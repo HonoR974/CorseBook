@@ -5,7 +5,9 @@ import java.util.List;
 
 import com.back.springboot.dto.UserDTO;
 import com.back.springboot.exception.ResourceNotFoundException;
+import com.back.springboot.models.Chat;
 import com.back.springboot.models.User;
+import com.back.springboot.repository.ChatRepository;
 import com.back.springboot.repository.UserRepository;
 
 import org.modelmapper.ModelMapper;
@@ -30,6 +32,9 @@ public class UserServiceImpl implements UserService{
 
     @Autowired
     private BCryptPasswordEncoder bCryptPasswordEncoder;
+
+    @Autowired
+    private ChatRepository chatRepository;
 
 
     /**
@@ -93,6 +98,8 @@ public class UserServiceImpl implements UserService{
         return user;
     }
 
+   
+
 
     //------------Convert ---------------//
     @Override
@@ -140,6 +147,25 @@ public class UserServiceImpl implements UserService{
            }
         }
 
+        //check if chat existe between user JWT and user (in arg)
+        if(currentUser != null && currentUser.getListContact().contains(user))
+        {
+        
+
+            for(Chat chat : currentUser.getChats())
+            {
+                if(chat.getUsers().size() == 2 && chat.getUsers().contains(user))
+                {
+                    userDTO.setId_chat(chat.getId());
+                    System.out.println("\n id chat : " + chat.getId());
+                }
+            }
+
+
+        }
+      
+      
+      
         return userDTO;
     }
 

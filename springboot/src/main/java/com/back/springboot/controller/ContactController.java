@@ -9,7 +9,6 @@ import java.util.List;
 
 import com.back.springboot.models.User;
 import com.back.springboot.dto.UserDTO;
-import com.back.springboot.exception.ResourceNotFoundException;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -89,7 +88,7 @@ public class ContactController {
 
      //refuse la demande d'ajout recu 
      //refuse la demande de l'user correspondant à l'id envoyé 
-    @DeleteMapping("/refuse/{id}")
+    @PostMapping("/refuse/{id}")
     public ResponseEntity<UserDTO> refuseDemandeById(@PathVariable long id)
     {
         User user = contactService.refuseDemandeById(id);
@@ -202,4 +201,14 @@ public class ContactController {
         return new ResponseEntity<List<UserDTO>>(lDtos, HttpStatus.ACCEPTED);
     }
 
+
+    //supprime une demande envoyé par l'user 
+    @PostMapping("demandes/{id}")
+    public ResponseEntity<String> cancelDemande(@PathVariable long id)
+    {
+
+        contactService.cancelDemande(id);
+
+        return ResponseEntity.ok("Demande Cancel");
+    }
 }

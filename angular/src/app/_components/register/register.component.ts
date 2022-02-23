@@ -25,6 +25,10 @@ export class RegisterComponent implements OnInit {
               private router:Router) { }
 
   ngOnInit(): void {
+    if(this.tokenStorage.getToken())
+    {
+      this.accueil();
+    }
   }
 
   onSubmit(): void {
@@ -56,7 +60,6 @@ export class RegisterComponent implements OnInit {
         this.tokenStorage.saveToken(data.jwt);
         this.tokenStorage.saveUser(data);
 
-        this.goToUserPage();
       }, 
       err => {
         this.errorMessage = err.error.message;
@@ -66,7 +69,10 @@ export class RegisterComponent implements OnInit {
 
   }
 
-  goToUserPage(): void {
-    this.router.navigate(['/user'])
+  
+
+  accueil()
+  {
+    this.router.navigate(['home']);
   }
 }

@@ -26,6 +26,8 @@ public class UserDTO {
 
     private boolean isInvitedForContact;
 
+    private long id_chat;
+
 
     public Long getId() {
         return id;
@@ -90,6 +92,14 @@ public class UserDTO {
 
     public void setInvitedForContact(boolean isInvitedForContact) {
         this.isInvitedForContact = isInvitedForContact;
+    }
+
+    public long getId_chat() {
+        return id_chat;
+    }
+
+    public void setId_chat(long id_chat) {
+        this.id_chat = id_chat;
     }
 
 
