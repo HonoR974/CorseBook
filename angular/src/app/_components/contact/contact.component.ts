@@ -55,7 +55,6 @@ export class ContactComponent implements OnInit {
         this.contactService.getContactList().subscribe(
           data => 
           {
-            console.log("list contact ", data);
             this.listContact = data;
 
           });

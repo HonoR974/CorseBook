@@ -26,7 +26,8 @@ export class MessageService {
 
   saveMessagesByIdChat(id:number, messages: Message[]):Observable<any>
   {
-    return this.HttpClient.post<Message[]>(baseURL + "chat/"+ id, httpOptions);
+    console.log("message ", messages);
+    return this.HttpClient.post<Message[]>(baseURL + "chat/"+ id, messages,  httpOptions);
   }
 
 }

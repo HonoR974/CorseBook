@@ -32,56 +32,60 @@ export class ChatComponent implements  OnInit, OnDestroy {
               private chatService:ChatService, 
               private messageService: MessageService) { }
 
-  ngOnInit(): void {
+  
+            
+  //debut             
+  ngOnInit(): void 
+  {
     this.webSocketService.openWebSocket();
 
     this.user = this.tokenService.getUser().username;
     this.getMessageByIdChat();
-    this.addMessageToWebSocket();
-    
   }
 
+  //fin 
   ngOnDestroy(): void {
-    console.log("list message a la fin    ", this.messages );
-    this.webSocketService.closeWebSocket();
-    this.returnMessageFromWebSocket();
-    this.saveMessage
+    
+    // API
+    this.returnMessageFromWebSocket(); 
+    this.saveMessage();
+    this.webSocketService.closeWebSocket(); 
   }
 
-  sendMessage(sendForm: NgForm) {
-    const chatMessageDto = new Message(this.user, sendForm.value.message);
-    this.webSocketService.sendMessage(chatMessageDto);
-    sendForm.controls.message.reset();
 
-    // API 
-    this.messages.push(new Message(this.user, sendForm.value.message));
-  }
 
-  getMessageByIdChat()
+  getMessageByIdChat():void
   {
     this.id = this.route.snapshot.params['id'];
     this.messageService.getMessageByIdChat(this.id).subscribe( data => 
       {
-        console.log("messages ", data);
+     
         this.messages = data;
+        this.webSocketService.chatMessages = this.messages;
+        console.log("message recupere " , this.webSocketService.chatMessages);
       });
-  }
+ }
 
-  // API -> WS 
-  addMessageToWebSocket()
-  {
-    this.webSocketService.setMessage(this.messages);
+
+  sendMessage(sendForm: NgForm) :void {
+    const chatMessageDto = new Message(this.user, sendForm.value.message);
+    this.webSocketService.sendMessage(chatMessageDto);
+    sendForm.controls.message.reset();
+    
+  
+   var newMessage = new Message(this.user, sendForm.value.message);
   }
  
   // WS -> API 
   returnMessageFromWebSocket()
   {
     this.messages = this.webSocketService.getMessage();
-    console.log("this message " , this.messages);
   }
+
 
   saveMessage()
   {
+
     this.messageService.saveMessagesByIdChat(this.id, this.messages).subscribe ( 
       data => 
       {
@@ -89,4 +93,6 @@ export class ChatComponent implements  OnInit, OnDestroy {
       }
     );
   }
+
+
 }

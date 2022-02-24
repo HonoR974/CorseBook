@@ -140,7 +140,6 @@ public class PublicationServiceImpl implements PublicationService {
         {
             if(  !list.contains(securityService.getUser())  )
             {
-                System.out.println("\n la pub n' a pas été liked par " + publicationRequest.getUser().getUsername());
                 condition = false;
             }
             else

@@ -55,8 +55,6 @@ export class PublicationPublicComponent implements OnInit {
   {
     this.publicationService.getPublicationPublic().subscribe(data => {
       this.publications = data;
-
-        console.log("publication pûblic " , this.publications);
       });
   }
 

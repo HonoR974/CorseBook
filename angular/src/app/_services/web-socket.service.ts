@@ -36,11 +36,8 @@ export class WebSocketService {
   public closeWebSocket() {
     this.webSocket.close();
   }
-
-  public setMessage(messages:Message[])
-  {
-    Array.prototype.push.apply(this.chatMessages, messages);
-  }
+  
+  
 
   public getMessage():Message[]
   {

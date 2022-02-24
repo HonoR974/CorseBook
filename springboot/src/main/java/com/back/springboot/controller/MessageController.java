@@ -54,11 +54,13 @@ public class MessageController {
 
     //save all message by id chat 
     @PostMapping("chat/{id}")
-    public ResponseEntity<?> saveAllMessage(@PathVariable long id,
+    public ResponseEntity<List<Message>> saveAllMessage(@PathVariable long id,
                                             @RequestBody List<Message> list)
     {
+
+        System.out.println("\n list " + list);
         List<Message> listMessage = messageService.saveAllByIdChat(id, list);
 
-        return new ResponseEntity<>(listMessage, HttpStatus.ACCEPTED);
+        return new ResponseEntity<List<Message>>(listMessage, HttpStatus.ACCEPTED);
     }
 }
