@@ -135,6 +135,7 @@ public class UserServiceImpl implements UserService{
 
         //si l'user  est connécté 
         //et que sa liste de contacte ne contient pas l'user a convertire 
+        //check if they are in contact 
         if(currentUser != null && !currentUser.getListContact().contains(user) )
         {
            if( currentUser.getListInvitation().contains(user))
@@ -151,7 +152,6 @@ public class UserServiceImpl implements UserService{
         if(currentUser != null && currentUser.getListContact().contains(user))
         {
         
-
             for(Chat chat : currentUser.getChats())
             {
                 if(chat.getUsers().size() == 2 && chat.getUsers().contains(user))
@@ -163,9 +163,7 @@ public class UserServiceImpl implements UserService{
 
 
         }
-      
-      
-      
+
         return userDTO;
     }
 

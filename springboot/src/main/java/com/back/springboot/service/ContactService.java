@@ -37,5 +37,7 @@ public interface ContactService {
 
     void cancelDemande(long id_toCancel);
     
+    //supprime tout les contacts et invitations de chaque user 
+    void cleanAll();
 
 }

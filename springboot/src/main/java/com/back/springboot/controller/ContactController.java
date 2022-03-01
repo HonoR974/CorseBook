@@ -62,6 +62,7 @@ public class ContactController {
     public ResponseEntity<UserDTO> askForAddContactById(@PathVariable long id)
     {
         
+        
         User userRecevant = contactService.setAskContact(id);
 
         UserDTO userDTO = userService.convertToDto(userRecevant);
@@ -165,12 +166,17 @@ public class ContactController {
 
    // supprime un contact by jwt 
    // id user de la liste de contact 
+   //return les contacts de l'user au jwt 
    @DeleteMapping("list/delete/{id}")
-   public ResponseEntity<String> deleteContactByJwt(@PathVariable long id)
+   public ResponseEntity<List<UserDTO>> deleteContactByJwt(@PathVariable long id)
    {    
-    contactService.deletedContactByJwt(id);
-   
-    return new ResponseEntity<String>("Accepted", HttpStatus.ACCEPTED);
+        contactService.deletedContactByJwt(id);
+    
+        List<User> lUsers = contactService.getContactsByJwt();
+
+        List<UserDTO> lDtos = userService.convertTolistDto(lUsers);
+
+        return new ResponseEntity<List<UserDTO>>(lDtos, HttpStatus.ACCEPTED);
     }    
     
 
@@ -204,11 +210,31 @@ public class ContactController {
 
     //supprime une demande envoyé par l'user 
     @PostMapping("demandes/{id}")
-    public ResponseEntity<String> cancelDemande(@PathVariable long id)
+    public  ResponseEntity<List<UserDTO>> cancelDemande(@PathVariable long id)
     {
 
         contactService.cancelDemande(id);
+        List<User> list = contactService.getListDemande();
 
-        return ResponseEntity.ok("Demande Cancel");
+
+        List<UserDTO> lDtos = userService.convertTolistDto(list);
+   
+
+        return new ResponseEntity<List<UserDTO>>(lDtos, HttpStatus.ACCEPTED);
+    }
+
+
+    //supprime tout les contacts et invitations de chaque user 
+    //return tous les users 
+    @DeleteMapping("clean")
+    public ResponseEntity<List<UserDTO>> cleanContact()
+    {
+        contactService.cleanAll();
+
+        List<User> lUsers = userService.getAllUser();
+
+        List<UserDTO> lDtos = userService.convertTolistDto(lUsers);
+
+        return ResponseEntity.ok(lDtos);
     }
 }

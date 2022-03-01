@@ -25,6 +25,8 @@ public class ChatController {
     @Autowired
     private ChatService chatService;
 
+    
+
     @GetMapping()
     public ResponseEntity<List<ChatDTO>> getAllChat()
     {
@@ -51,6 +53,19 @@ public class ChatController {
         String result =  chatService.deleteById(id);
 
         return new ResponseEntity<String>(result, HttpStatus.ACCEPTED);
+    }
+
+    @DeleteMapping("all")
+    public ResponseEntity< List<ChatDTO> > deleteAll()
+    {
+ 
+        chatService.deleteAll();
+
+        List<Chat> list = chatService.getAll();
+
+        List<ChatDTO> lChatDTOs = chatService.convertToDtoList(list);
+
+        return new ResponseEntity<>(lChatDTOs, HttpStatus.ACCEPTED);
     }
     
  

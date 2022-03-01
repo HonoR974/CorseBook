@@ -41,15 +41,7 @@ public class MessageController {
         return new ResponseEntity<>(messages, HttpStatus.ACCEPTED);
     }
 
-    //create message by id chat 
-    /*
-    @PostMapping("{id}")
-    public ResponseEntity<Message> createMessageByIdChat(@PathVariable long id
-                                                        @req)
-    {
 
-    }
-*/
 
 
     //save all message by id chat 
@@ -58,9 +50,9 @@ public class MessageController {
                                             @RequestBody List<Message> list)
     {
 
-        System.out.println("\n list " + list);
+        System.out.println("\n list " + list.size());
         List<Message> listMessage = messageService.saveAllByIdChat(id, list);
 
-        return new ResponseEntity<List<Message>>(listMessage, HttpStatus.ACCEPTED);
+        return new ResponseEntity<>(listMessage, HttpStatus.ACCEPTED);
     }
 }

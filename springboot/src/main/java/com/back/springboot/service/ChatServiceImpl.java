@@ -9,6 +9,7 @@ import com.back.springboot.models.Chat;
 import com.back.springboot.models.Message;
 import com.back.springboot.models.User;
 import com.back.springboot.repository.ChatRepository;
+import com.back.springboot.repository.MessageRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -18,6 +19,9 @@ public class ChatServiceImpl implements ChatService{
 
     @Autowired
     private ChatRepository chatRepository;
+
+    @Autowired
+    private MessageRepository messageRepository;
 
     //------------  CRUD ---------------//
 
@@ -98,4 +102,13 @@ public class ChatServiceImpl implements ChatService{
 
        return chat.getMessages();
    }
+
+
+    @Override
+    public void deleteAll() {
+    
+        messageRepository.deleteAll();
+        chatRepository.deleteAll();
+        
+    }
 }

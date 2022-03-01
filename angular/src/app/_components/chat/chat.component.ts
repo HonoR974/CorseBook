@@ -22,9 +22,7 @@ export class ChatComponent implements  OnInit, OnDestroy {
 
   messages: Message[] = [];
 
-  //recuperer webSocketService.chatMessages
-  //pour lui ajouter la discussion entre deux user 
-  //la discussion est sauvegardé a chaque envois de message 
+ 
 
   constructor(public webSocketService: WebSocketService,
                 private route: ActivatedRoute, 
@@ -72,8 +70,9 @@ export class ChatComponent implements  OnInit, OnDestroy {
     this.webSocketService.sendMessage(chatMessageDto);
     sendForm.controls.message.reset();
     
-  
-   var newMessage = new Message(this.user, sendForm.value.message);
+    
+   //API 
+   this.saveMessage();
   }
  
   // WS -> API 
@@ -86,7 +85,7 @@ export class ChatComponent implements  OnInit, OnDestroy {
   saveMessage()
   {
 
-    this.messageService.saveMessagesByIdChat(this.id, this.messages).subscribe ( 
+    this.messageService.saveMessagesByIdChat(this.id, this.webSocketService.getMessage()).subscribe ( 
       data => 
       {
         console.log("message save in bdd : " , data);

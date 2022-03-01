@@ -53,7 +53,6 @@ export class ProfileComponent implements OnInit {
     
     this.userService.getUserById(this.id).subscribe ( data => 
       {
-
         this.user = data;
       });
   }
@@ -74,8 +73,6 @@ export class ProfileComponent implements OnInit {
     this.isContact = false;
     for (var userTest of this.currentUser.listContact)
     {
-   
-
       if(userTest.username === this.user.username)
       {
         this.isContact = true;

@@ -53,7 +53,6 @@ export class ContactService {
   //accepte la demande d'invitation 
   //de l'user correspondant a l'id 
   //a l'user connecté jwt 
-
   acceptDemand(id:number):Observable<any>
   {
     return this.HttpClient.post<User>(baseURL+ "accept/" + id, httpOptions);

@@ -25,4 +25,7 @@ public interface ChatService {
 
     // 
     List<Message> getMessagesByIdChat(long id);
+
+    //delete all chats 
+    void deleteAll();
 }

@@ -17,11 +17,10 @@ export class ContactComponent implements OnInit {
 
   listContact: User[] = [];
 
-  //liste demande   
-
+  //liste demande envoyé   
   lUserInvited: User[] = [];
 
-  //liste invitation 
+  //liste invitation recu 
   lDemandeInvitation: User[] = [];
 
 
@@ -107,13 +106,13 @@ export class ContactComponent implements OnInit {
        data => 
        {
          this.ngOnInit();
-
+        
        }
      );
 
   }
 
-  //-----------List Demande --------------//
+  //-----------List Demande Envoyé --------------//
 
   getListDemandeContact()
   {
@@ -131,14 +130,15 @@ export class ContactComponent implements OnInit {
     this.contactService.cancelDemande(id).subscribe( 
       data => 
       {
-       this.getListDemandeContact();
+      
+        this.lUserInvited = data;
       }
     );
 
   }
 
 
-  //----------------- List Invitation ----------------//
+  //----------------- List Invitation Recu ----------------//
 
   
    getListDemandeInvitation()
@@ -158,6 +158,7 @@ export class ContactComponent implements OnInit {
       {
 
         this.ngOnInit();
+        window.location.reload();
       });
   }
 

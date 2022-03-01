@@ -28,8 +28,7 @@ public class User {
 
 	private String matchingPassword;
 
-	//publication 
-
+	// 	publication 
 	@OneToMany(mappedBy = "user")
     private List<Publication> publication;
 
@@ -37,7 +36,7 @@ public class User {
 	private List<Publication> publicationsLiked;
 
 
-	//comment 
+	//	comment 
 	@OneToMany(mappedBy = "user")
 	private List<Comment> comments;
 
@@ -45,19 +44,20 @@ public class User {
 	@ManyToMany(mappedBy = "likeUser")
 	private List<Comment> commentsLiked;
 
-	//contact 
+	//	contact 
 	@ManyToMany
 	private List<User> listContact;
 
 	@ManyToMany
 	private List<User> listInvitation;
 
-	//file
+
+	//	file
 	@OneToOne
 	@JoinColumn(name = "file_id", referencedColumnName = "id")
 	private File profilePicture;
 
-	//chat
+	//	chat
 	@ManyToMany(mappedBy = "users")
 	private List<Chat> chats;
 

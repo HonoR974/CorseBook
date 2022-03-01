@@ -34,7 +34,8 @@ public class ContactServiceImpl  implements ContactService{
         User userDemandant = securityService.getUser();
 
         User userRecevant = userRepository.findById(id)
-        .orElseThrow(() -> new ResourceNotFoundException("User with id " + id +  " does'nt exist "));
+        .orElseThrow(() -> new ResourceNotFoundException("User with id " + id + 
+         " does'nt exist "));
 
         List<User> listInvitation = new ArrayList<>();
 
@@ -44,8 +45,7 @@ public class ContactServiceImpl  implements ContactService{
         return userRepository.save(userRecevant);
     }
 
-    //
-    //l'user connecté accepte la demande de l'user via son id 
+    //l'user connecté accepte la demande de l'user2 via son id 
     //return  les deux user 
     @Override
     public List<User> accepteDemande(long id) {
@@ -146,7 +146,7 @@ public class ContactServiceImpl  implements ContactService{
         }
 
         List<User> lUsers2 = userConnected.getListInvitation();
-        if(lUsers.contains(userAccepted))
+        if(lUsers2.contains(userAccepted))
         {
             lUsers2.remove(userAccepted);
             userConnected.setListInvitation(lUsers2);
@@ -263,25 +263,17 @@ public class ContactServiceImpl  implements ContactService{
     @Override
     public void deletedContactByJwt(long id) 
     {
-        User user = securityService.getUser();
+        User userJWT = securityService.getUser();
 
-        if(user.getListContact() != null)
-        {
+        User userID = userRepository.findById(id)
+        .orElseThrow( () -> new ResourceNotFoundException(
+            "L'user avec l'id " + id + " n'existe pas "));
 
-            List<User> listContacts = new ArrayList<>();            
-            for(User userTest : user.getListContact())
-            {
-                if(!userTest.getId().equals(id))
-                {
-                    listContacts.add(user);
-                }
-            }
+        userJWT.getListContact().remove(userID);
+        userID.getListContact().remove(userJWT);
 
-            user.setListContact(listContacts);
-
-            userRepository.save(user);
-
-        }
+        userRepository.save(userJWT);
+        userRepository.save(userID);
     }
 
     @Override
@@ -350,21 +342,41 @@ public class ContactServiceImpl  implements ContactService{
         
     }
 
+
 	@Override
 	public void cancelDemande(long id_toCancel) {
 	
+        //user jwt a demande a user id 
+        //maintenant il cancel sa demande 
+        //user jwt est retirer de la liste d'invitation a user id 
         
         User userJwt = securityService.getUser();
 
         User userID = userRepository.findById(id_toCancel)
         .orElseThrow(() -> new ResourceNotFoundException("User with id " + id_toCancel +  " does'nt exist "));
 
+    
 		List<User> list = userID.getListInvitation();
         list.remove(userJwt);
         userID.setListInvitation(list);
 
         userRepository.save(userID);
-	}    
+	}
+
+    @Override
+    public void cleanAll() {
+
+        List<User> lUsers = userRepository.findAll();
+
+        for(User user : lUsers)
+        {
+            List<User> list = new ArrayList();
+            user.setListContact(list);
+            user.setListInvitation(list);
+            userRepository.save(user);
+        }
+        
+    }    
 
 
 

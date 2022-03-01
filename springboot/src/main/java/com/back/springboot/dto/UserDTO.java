@@ -28,6 +28,9 @@ public class UserDTO {
 
     private long id_chat;
 
+  
+    
+
 
     public Long getId() {
         return id;
@@ -101,7 +104,6 @@ public class UserDTO {
     public void setId_chat(long id_chat) {
         this.id_chat = id_chat;
     }
-
 
     
 }

@@ -84,7 +84,7 @@
 <body >
 
 
-  <div class="container2">
+  <div class="container2" *ngIf="isLoggedIn" >
 
 
 
@@ -92,13 +92,17 @@
       <router-outlet></router-outlet>
     </div>
 
-    <div class="col-3" *ngIf="isLoggedIn" >
+    <div class="col-3"  >
       <app-contact></app-contact>
     </div>
   
+
+  </div>
+
+  <div class="container" *ngIf="!isLoggedIn">
+     <router-outlet></router-outlet>
+
   
-
-
   </div>
 
  

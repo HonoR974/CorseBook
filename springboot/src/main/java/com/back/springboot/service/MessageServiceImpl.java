@@ -31,6 +31,7 @@ public class MessageServiceImpl implements MessageService{
 
          for(Message message : list)
          {
+            System.out.println("\n message content : " +  message.getContent());
              message.setChat(chat);
          }
 
