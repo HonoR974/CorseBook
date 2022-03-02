@@ -7,6 +7,9 @@ import com.back.springboot.models.Publication;
 
 public interface PublicationService {
 
+    List<Publication> getPublicationsByUser();
+    
+    List<Publication> getPublicationsByuserId(long id);
 
     List<Publication> getPublicationPublic();
 

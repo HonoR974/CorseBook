@@ -48,7 +48,32 @@ public class PublicationServiceImpl implements PublicationService {
     @Autowired
     private CommentRepository commentRepository;
 
+    @Override
+    public List<Publication> getPublicationsByUser() {
+        User user = securityService.getUser();
+        if( user != null )
+        {
+             List<Publication> publications= publicationRepository.findByUser(user);
+            return publications;
+        }
+        else
+        {
+             throw new ResourceNotFoundException("l'user n'est pas connecté ");
 
+        }
+       
+    }
+
+	@Override
+	public List<Publication> getPublicationsByuserId(long id) {
+        User user = userRepository.findById(id)
+        .orElseThrow(() -> new ResourceNotFoundException("L'user avec l'id " + id
+         + " n'existe pas "));
+
+            List<Publication> publications= publicationRepository.findByUser(user);
+        return publications;
+    
+	}
 
     //get public publication 
     @Override
@@ -385,5 +410,10 @@ public class PublicationServiceImpl implements PublicationService {
 
         return publication;
     }
+
+
+
+
+
 
 }

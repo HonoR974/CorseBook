@@ -43,7 +43,25 @@ import org.springframework.web.bind.annotation.RestController;
     @Autowired
     private CommentService commentService;
 
+    @GetMapping("user/")
+    public ResponseEntity<List<PublicationDTO>> getPublicationsByUser()
+    {
+        List<Publication> publications = publicationService.getPublicationsByUser();
 
+        List<PublicationDTO> publicationDTOs = publicationService.convertToDtoList(publications);
+
+        return new ResponseEntity<>(publicationDTOs,HttpStatus.ACCEPTED);
+    }
+
+    @GetMapping("user/{id}")
+    public ResponseEntity<List<PublicationDTO>> getPublicationsByUserId(@PathVariable long id)
+    {
+        List<Publication> publications = publicationService.getPublicationsByuserId(id);
+
+        List<PublicationDTO> publicationDTOs = publicationService.convertToDtoList(publications);
+
+        return new ResponseEntity<>(publicationDTOs,HttpStatus.ACCEPTED);
+    }
     @GetMapping("public")
     public ResponseEntity<?> getPublicationPublic()
     {
@@ -86,7 +104,7 @@ import org.springframework.web.bind.annotation.RestController;
     }
 
 
-
+    //------------------ Like & DisLike ----------//
 
     @PutMapping("/liked/{id}")
     public ResponseEntity<?> publicationLikeById(@PathVariable long id)

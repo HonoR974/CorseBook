@@ -16,16 +16,14 @@
                 <p-button 
                 matTooltip="Supprimer" type="button" 
                 styleClass="p-button-rounded p-button-danger"
-                icon="pi pi-times"
-                (click)="deletePublication(publication.id)"> 
+                icon="pi pi-times">
                   
                 </p-button>
     
                 <p-button
                 matTooltip="Modifier" type="button" 
                 styleClass="p-button-rounded "
-                icon="pi pi-stop"
-                (click)="updatePublication(publication.id)"> 
+                icon="pi pi-stop"> 
                 
                 </p-button>
             </div>
@@ -73,13 +71,13 @@
 
             <!-- disliked / btn for liked   -->
             <button type="button" class="btn btn-info" 
-            matTooltip="Like" *ngIf="!publication.liked" (click)="publicationLiked(publication.id)">
+            matTooltip="Like" *ngIf="!publication.liked" >
                 <mat-icon>favorite_border</mat-icon>{{publication.countLike}}
             </button>
 
             <!-- Liked / btn for disliked  -->
             <button type="button" class="btn btn-info"  
-            matTooltip="Dislike" *ngIf="publication.liked" (click)="publicationDisliked(publication.id)"
+            matTooltip="Dislike" *ngIf="publication.liked" 
               >
                 <mat-icon>favorite</mat-icon>{{publication.countLike}}
             </button>
@@ -88,7 +86,7 @@
         
             <button type="button" class="btn btn-info"
                matTooltip="Comment" 
-                            (click)="getCommentsByPublication(publication.id)">
+                           >
                             <mat-icon>comment</mat-icon>
             </button>
 
@@ -115,9 +113,7 @@
 
                     <!-- Liked -->
                     <button type="button" class="btn btn-info"  
-                    matTooltip="Like" *ngIf="comment.liked" 
-                    (click)="commentLiked(comment.id)"
-                      >
+                    matTooltip="Like" *ngIf="comment.liked" >
 
                         <mat-icon>favorite</mat-icon>{{comment.countLike}}
                     </button>
@@ -127,14 +123,13 @@
                     <!-- Not Liked -->
                     <button type="button" class="btn btn-info" 
                     matTooltip="Like" *ngIf="!comment.liked" 
-                    (click)="commentLiked(comment.id)">
+                 >
 
                         <mat-icon>favorite_border</mat-icon>{{comment.countLike}}
                     </button>
 
                     <button type="button" class="btn btn-info" 
-                    matTooltip="Like" *ngIf="!comment.liked" 
-                    (click)="commentLiked(comment.id)">
+                    matTooltip="Like" *ngIf="!comment.liked" >
 
                         <mat-icon>favorite_border</mat-icon>{{comment.countLike}}
                     </button>
@@ -145,29 +140,7 @@
             </div>
      
 
-            <!-- Create -->
-
-            <div class="createComment">
-                <form  [formGroup]="commentForm" (ngSubmit)="createComment(publication.id)">
-  
-                    <div  class="form-group">
-                        <label for="contenu">
-                            Votre Commentaire : 
-                        </label>
-                        <input
-                        formControlName="contenu"
-                        id="contenu" 
-                        type="text" 
-                        class="form-control content"
-                        placeholder="Participez">
-    
-                    </div>
-    
-                   <button class="btn btn-primary button" type="submit">Partager</button>
-               
-                </form>
-            </div>
-
+        
             
            
        

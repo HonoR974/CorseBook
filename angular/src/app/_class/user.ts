@@ -1,8 +1,9 @@
 export class User {
     id?: number ;
-    username?: string ;
+    username: string ;
     email?: string ;
     listContact: User[] = [];
     listInvitation: User[] = [];
     id_chat?:number;
+    urlFile!:string;
 }

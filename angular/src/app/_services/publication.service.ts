@@ -16,6 +16,12 @@ export class PublicationService {
 
   constructor(private HttpClient: HttpClient) { }
 
+  //getPublicationByUserID
+  getPublicationByUserID(id:number):Observable<Publication[]>
+  {
+    return this.HttpClient.get<Publication[]>(baseURL +"user/"+id);
+  }
+
   //publications public 
   getPublicationPublic(): Observable<Publication[]>
   {

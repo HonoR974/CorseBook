@@ -1,0 +1,13 @@
+.fondProfil
+{
+    height: 50px;
+    width: 100%;
+    background-color: aqua;
+    opacity: 0.8;
+}
+
+.borderProfil
+{
+    height: 100px;
+    width: auto;
+}

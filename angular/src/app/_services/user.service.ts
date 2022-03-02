@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient,HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { FileAPI } from '../_class/file-api';
 
 const API_URL = 'http://localhost:8080/api/user/';
 
@@ -21,7 +22,12 @@ export class UserService {
   }
 
   getUserByUsername(username:string):Observable<any>
-    {
-      return this.http.get(API_URL +"jwt/" +username, httpOptions);
-    }
+  {
+    return this.http.get(API_URL +"jwt/" +username, httpOptions);
+  }
+
+  updateProfilePicture(file:FileAPI):Observable<Object>
+  {
+    return this.http.put(API_URL + "file" , file );
+  }
 }

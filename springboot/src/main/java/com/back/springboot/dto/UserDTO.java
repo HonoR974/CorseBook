@@ -28,8 +28,7 @@ public class UserDTO {
 
     private long id_chat;
 
-  
-    
+    private String urlFile;
 
 
     public Long getId() {
@@ -104,6 +103,15 @@ public class UserDTO {
     public void setId_chat(long id_chat) {
         this.id_chat = id_chat;
     }
+
+    public String getUrlFile() {
+        return urlFile;
+    }
+
+    public void setUrlFile(String urlFile) {
+        this.urlFile = urlFile;
+    }
+
 
     
 }

@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.back.springboot.models.Publication;
 import com.back.springboot.models.Statut;
+import com.back.springboot.models.User;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
@@ -12,4 +13,6 @@ import org.springframework.stereotype.Repository;
 public interface PublicationRepository  extends JpaRepository<Publication, Long>{
 
     List<Publication> findByStatut(Statut statut);
+
+    List<Publication> findByUser(User user);
 }

@@ -68,11 +68,14 @@ public class File {
         this.publication = publication;
     }
 
-    @Override
-    public String toString() {
-        return "File [id=" + id + ", name=" + name + ", publication=" + publication + ", url=" + url + "]";
+    public User getUser() {
+        return user;
     }
-    
-    
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+
     
 }

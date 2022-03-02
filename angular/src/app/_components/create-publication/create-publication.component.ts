@@ -66,18 +66,10 @@ export class CreatePublicationComponent implements OnInit {
 
     for (var i = 0; i < event.target.files.length; i++) {
       this.files.push(event.target.files[i]);
-
-      
     }
-
-   
-
   }
 
   async newFileUpdate() {
-
-  
-
 
     for (let i = 0; i < this.files.length; i += 1) {
 
@@ -88,8 +80,6 @@ export class CreatePublicationComponent implements OnInit {
         //s3
         let response = await this.uploadS3Service.uploadFileS3(file, filePath);
      
-
-
       } catch (error) {
         console.log("erreur lors de l'envoie de la publication");
       }
@@ -100,7 +90,6 @@ export class CreatePublicationComponent implements OnInit {
       this.fileAPI.url = this.cheminImage  + filePath;
 
       this.publication.listFile.push(this.fileAPI);
-      
     }
      this.files = [];
 
@@ -127,7 +116,6 @@ export class CreatePublicationComponent implements OnInit {
       });
 
       window.location.reload();
-
   }
 
 

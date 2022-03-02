@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { User } from './_class/user';
 import { TokenStorageService } from './_services/token-storage.service';
+import { UserService } from './_services/user.service';
 
 
 @Component({
@@ -16,18 +17,20 @@ export class AppComponent {
   
 
   isLoggedIn = false;
-  user:User;
+  user: User = new User;
 
 
 
 
-  constructor(private tokenStorageService: TokenStorageService) { }
+  constructor(private tokenStorageService: TokenStorageService,
+               private userService: UserService) { }
 
   ngOnInit(): void {
 
     if (this.tokenStorageService.getToken()) {
       this.isLoggedIn = true;
       this.user = this.tokenStorageService.getUser();
+      this.getUserByUsername();
     }
   }
 
@@ -37,6 +40,16 @@ export class AppComponent {
   }
 
 
+  getUserByUsername()
+  {
+    this.userService.getUserByUsername(this.user.username).subscribe ( 
+      data => 
+      {
+        this.user  = data;
+        console.log("data ", data);
+      }
+    );
+  }
  
 
 }

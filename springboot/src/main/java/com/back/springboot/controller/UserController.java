@@ -3,8 +3,9 @@ package com.back.springboot.controller;
 
 
 import com.back.springboot.models.User;
+import com.back.springboot.service.FileService;
 import com.back.springboot.service.UserService;
-
+import com.back.springboot.dto.FileDTO;
 import com.back.springboot.dto.UserDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -12,7 +13,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -26,8 +28,10 @@ public class UserController {
     
 
 	@Autowired
-	UserService userService;
+	private UserService userService;
 
+    @Autowired
+    private FileService fileService;
 
     @GetMapping("/{id}")
     public ResponseEntity<UserDTO> getuserById(@PathVariable long id)
@@ -49,5 +53,16 @@ public class UserController {
         return new ResponseEntity<UserDTO>(userDTO,HttpStatus.ACCEPTED);
     }
 
+    @PutMapping("/file")
+    public ResponseEntity<UserDTO> updateProfilePicture(@RequestBody FileDTO fileDTORequest)
+    {
+
+
+        User user = userService.updateProfilePicture(fileDTORequest);
+        UserDTO userDTO = userService.convertToDto(user);
+
+        return new ResponseEntity<UserDTO>(userDTO,HttpStatus.ACCEPTED);
+
+    }
 
 }

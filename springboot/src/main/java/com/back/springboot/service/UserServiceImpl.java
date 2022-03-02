@@ -3,11 +3,14 @@ package com.back.springboot.service;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.back.springboot.dto.FileDTO;
 import com.back.springboot.dto.UserDTO;
 import com.back.springboot.exception.ResourceNotFoundException;
 import com.back.springboot.models.Chat;
+import com.back.springboot.models.File;
 import com.back.springboot.models.User;
 import com.back.springboot.repository.ChatRepository;
+import com.back.springboot.repository.FileRepository;
 import com.back.springboot.repository.UserRepository;
 
 import org.modelmapper.ModelMapper;
@@ -35,6 +38,9 @@ public class UserServiceImpl implements UserService{
 
     @Autowired
     private ChatRepository chatRepository;
+
+    @Autowired
+    private FileRepository fileRepository;
 
 
     /**
@@ -160,8 +166,13 @@ public class UserServiceImpl implements UserService{
                     System.out.println("\n id chat : " + chat.getId());
                 }
             }
+        }
 
 
+        //file 
+        if(user.getProfilePicture() != null)
+        {
+            userDTO.setUrlFile(user.getProfilePicture().getUrl());
         }
 
         return userDTO;
@@ -186,5 +197,30 @@ public class UserServiceImpl implements UserService{
     }
 
 
+
+    //---------------- File ----------------//
     
+
+    @Override
+    public User updateProfilePicture(FileDTO fileDTO) {
+  
+        
+        File file = new File();
+        file.setName(fileDTO.getName());
+        file.setUrl(fileDTO.getUrl());
+       
+        User user = securityService.getUser();
+        user.setProfilePicture(file);
+
+        file.setUser(user);
+        fileRepository.save(file);
+
+        userRepository.save(user);
+
+
+        return user;
+    }
+
+
+
 }
