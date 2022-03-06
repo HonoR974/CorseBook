@@ -32,7 +32,7 @@ export class HomeComponent implements OnInit {
       this.isLoggedIn = true;
 
       this.getUserByUsername();
-      console.log("user ", this.user); 
+  
     }
 
  
@@ -46,7 +46,7 @@ export class HomeComponent implements OnInit {
       data => 
       {
         this.user  = data;
-        console.log("data ", data);
+
       }
     );
   }

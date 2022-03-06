@@ -36,8 +36,7 @@ export class RegisterComponent implements OnInit {
 
     this.authService.register(username, email, password).subscribe(
       data => {
-        console.log("inscription reussie ");
-
+   
         this.isSuccessful = true;
         this.isSignUpFailed = false;
         this.authenticate();
@@ -53,7 +52,7 @@ export class RegisterComponent implements OnInit {
   authenticate():void {
 
     const { username, password } = this.form;
-    console.log("l'username sauvegardé apres l'inscription " + username);
+
 
     this.authService.login(username, password).subscribe( 
       data => {

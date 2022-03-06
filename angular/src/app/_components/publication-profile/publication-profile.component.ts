@@ -33,7 +33,6 @@ export class PublicationProfileComponent implements OnInit {
       data => 
       {
         this.publications = data;
-        console.log("data " , data );
       }
     );
   }

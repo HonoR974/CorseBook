@@ -27,6 +27,7 @@ export class AppComponent {
 
   ngOnInit(): void {
 
+    
     if (this.tokenStorageService.getToken()) {
       this.isLoggedIn = true;
       this.user = this.tokenStorageService.getUser();
@@ -46,7 +47,6 @@ export class AppComponent {
       data => 
       {
         this.user  = data;
-        console.log("data ", data);
       }
     );
   }

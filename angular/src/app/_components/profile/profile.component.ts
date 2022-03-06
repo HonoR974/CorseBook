@@ -76,6 +76,7 @@ export class ProfileComponent implements OnInit {
     this.userService.getUserById(this.id).subscribe ( data => 
       {
         this.user = data;
+        
       });
   }
 
@@ -92,21 +93,23 @@ export class ProfileComponent implements OnInit {
 
   checkIfContact()
   {
-    this.isContact = false;
-    for (var userTest of this.currentUser.listContact)
+    let username = this.user.username;
+
+    for( let userTest of Object.values(this.currentUser.listContact))
     {
-      if(userTest.username === this.user.username)
-      {
-        this.isContact = true;
-      }
+      console.log("username ", username);
+      console.log(userTest);
     }
+
+    console.log("check contact  ", this.isContact);
   }
 
   deleteContact(id:any)
   {
     this.contactService.deleteContact(id).subscribe(data => 
       {
-        console.log("data ", data);
+    
+        
         window.location.reload();
       });
   }
@@ -124,7 +127,7 @@ export class ProfileComponent implements OnInit {
   
     if (event.target.files.length > 0) {
       const file = event.target.files[0];
-      console.log("file ", file);
+
 
       let filePath = "image/" + file.name;
 
@@ -139,7 +142,6 @@ export class ProfileComponent implements OnInit {
 
    async updateProfilePicture() {
    
-    console.log("formData ", this.file);
 
       //s3
       try {

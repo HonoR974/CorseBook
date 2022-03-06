@@ -115,12 +115,12 @@ export class PublicationPublicComponent implements OnInit {
     
     this.comment.contenu = this.commentForm.controls['contenu'].value;
     this.comment.username = this.tokenStorage.getUser().username;
-      console.log("comment  " , this.comment);
+  
 
 
       this.commentService.createCommentByPublication(this.comment, id_publication)
                           .subscribe( data => {
-                            console.log("data created " , data);
+                          
                           });
 
                           
@@ -136,7 +136,6 @@ export class PublicationPublicComponent implements OnInit {
     this.commentService.commentLikedById(id)
                       .subscribe ( data => 
                         {
-                          console.log("data created " , data );
                         });
 
     this.getPublicationsPublic();

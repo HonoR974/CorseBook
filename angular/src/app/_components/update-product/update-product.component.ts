@@ -32,7 +32,7 @@ export class UpdateProductComponent implements OnInit {
   {
     this.productService.updateProduct(this.id, this.product).subscribe(
        data => {
-      console.log("updated");
+     
       this.goToProductList();
     }, 
     error => console.log(error));

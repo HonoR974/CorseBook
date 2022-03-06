@@ -60,7 +60,6 @@ export class ChatComponent implements  OnInit, OnDestroy {
      
         this.messages = data;
         this.webSocketService.chatMessages = this.messages;
-        console.log("message recupere " , this.webSocketService.chatMessages);
       });
  }
 
@@ -88,7 +87,6 @@ export class ChatComponent implements  OnInit, OnDestroy {
     this.messageService.saveMessagesByIdChat(this.id, this.webSocketService.getMessage()).subscribe ( 
       data => 
       {
-        console.log("message save in bdd : " , data);
       }
     );
   }

@@ -6,20 +6,19 @@
 
 
   
-    <div *ngIf="isContact && user.username!= currentUser.username">
-      <p>L'user {{user.username}} est ami avec {{currentUser.username}}</p>
+      <div *ngIf="isContact"  style="background-color: red; height: 50px;">
 
-      <p-button type="button" styleClass="p-button p-button-rounded p-mr-2"
+      <p>L'user {{user.username}} est ami avec {{currentUser.username}}</p>
+  
+
+      <p-button type="button"   styleClass="p-button p-button-rounded p-mr-2"
       icon="pi pi-trash"
       matTooltip="Supprimer des contacts "
       (click)="deleteContact(user.id)"></p-button>
 
     </div>
-
-
-
    
-   
+
 
      <div class="borderProfil">
   
@@ -29,12 +28,6 @@
         <img [src]="user.urlFile" [alt]="user.username">
         </div>
 
-        <div>
-          <p-button type="button" styleClass="p-button p-button-rounded p-mr-2"
-          icon="pi pi-trash"
-          matTooltip="Supprimer des contacts "
-          (click)="deleteContact(user.id)"></p-button>
-        </div>
     <div>
 
      
