@@ -7,6 +7,10 @@ import {
   FormBuilder,
 } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+
+
+import Swal from 'sweetalert2';
+
 import { User } from 'src/app/_class/user';
 import { TokenStorageService } from 'src/app/_services/token-storage.service';
 import { UserService } from 'src/app/_services/user.service';
@@ -28,6 +32,7 @@ export class ProfileComponent implements OnInit {
   id!:number;
 
   isContact = false;
+  isUserProfil = false;
 
   //profile picture 
 
@@ -49,7 +54,7 @@ export class ProfileComponent implements OnInit {
               private userService: UserService,
               private uploadS3Service: UploadS3Service,
               private contactService: ContactService,
-     
+              private router : Router,
                ) 
   { }
 
@@ -68,8 +73,9 @@ export class ProfileComponent implements OnInit {
   }
 
 
+  //--------- with NgOnit ----------//
 
-  getUserById()
+  getUserById() :void 
   { 
     this.id = this.route.snapshot.params['id'];
   
@@ -77,6 +83,7 @@ export class ProfileComponent implements OnInit {
       {
         this.user = data;
         
+      this.checkIfContact();
       });
   }
 
@@ -85,34 +92,77 @@ export class ProfileComponent implements OnInit {
     this.userService.getUserByUsername(username).subscribe( data => 
       {
         this.currentUser = data;
-
-        this.checkIfContact();
       });
 
   }
 
-  checkIfContact()
+  checkIfContact() :void 
   {
-    let username = this.user.username;
-
-    for( let userTest of Object.values(this.currentUser.listContact))
+    if (this.user.invitedOrContact)
     {
-      console.log("username ", username);
-      console.log(userTest);
+      this.isContact = true;
     }
-
-    console.log("check contact  ", this.isContact);
+    else if (this.user.username = this.currentUser.username)
+    {
+      
+      this.isContact = true;
+      this.isUserProfil = true;
+    }
+    else
+    {
+      this.isContact = false;
+    }
   }
 
+  
+
+  //-----------------//
+
+
+  // delete Contact 
   deleteContact(id:any)
   {
-    this.contactService.deleteContact(id).subscribe(data => 
-      {
-    
-        
-        window.location.reload();
-      });
+
+
+    Swal.fire({
+      title: 'Suppression Contact',
+      text: 'Voulez-vous vraiment supprimer cette personne de vos contacts ?',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Oui',
+      cancelButtonText: 'Non '
+    }).then((result) => {
+      if (result.value) {
+        Swal.fire(
+          'Deleted!',
+          'Cette personne ne fait plus partie de vos contacts',
+          'success'
+        );
+
+        this.contactService.deleteContact(id).subscribe(data => 
+          {
+      
+           this.ngOnInit();
+          });
+
+      } else if (result.dismiss === Swal.DismissReason.cancel) {
+        Swal.fire(
+          'Cancelled',
+          'Votre ami est toujours la ^^ ',
+          'error'
+        );
+      }
+    });
   }
+
+
+  //btn chat 
+  contact(id:any)
+    {
+      this.router.navigateByUrl('/', {skipLocationChange: true}).then(() => {
+        this.router.navigate(['chat',id]);
+    });
+    }
 
  
   //------------- Profile Picture 
@@ -122,7 +172,7 @@ export class ProfileComponent implements OnInit {
     return this.myForm.controls;
   }
 
-  onFilePicture(event:any)
+  onFilePicture(event:any) :void 
   {
   
     if (event.target.files.length > 0) {
@@ -142,7 +192,6 @@ export class ProfileComponent implements OnInit {
 
    async updateProfilePicture() {
    
-
       //s3
       try {
         //s3
@@ -172,5 +221,16 @@ export class ProfileComponent implements OnInit {
     }
 
 
-
+    
+  //Btn Add User 
+  addUser(id:number)
+  {
+     this.contactService.addContact(id).subscribe(
+       data => 
+       {
+         this.ngOnInit();
+        
+       }
+     );
+  }
 }

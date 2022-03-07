@@ -1,0 +1,24 @@
+
+            <!-- update profile picture -->
+            <div style="visibility: hidden;">
+                <form class="image-picture" [formGroup]="myForm" (ngSubmit)="updateProfilePicture()" >
+    
+                  <div class="form-group section">
+                    <label for="file">Choisissez votre nouvelle image : </label>
+                    <input 
+                        formControlName="file"
+                        id="file" 
+                        type="file" 
+                        class="form-control content2"
+                        (change)="onFilePicture($event)">
+    
+                      
+                        <div *ngIf="f['file'].touched && f['file'].invalid" class="alert alert-danger">
+                          <div *ngIf="f['file'].errors && f['file'].errors['required']">File is required.</div>
+                      </div>
+                </div>
+    
+                <button class="btn btn-primary button" type="submit">Partager</button>
+                </form>
+    
+              </div>

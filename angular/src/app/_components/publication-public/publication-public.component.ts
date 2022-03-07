@@ -179,7 +179,7 @@ export class PublicationPublicComponent implements OnInit {
           'error'
         );
       }
-    })
+    });
   }
   
   

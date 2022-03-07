@@ -64,14 +64,15 @@
                     
                             <div class="car-buttons ">
                                 <!-- Bouton detail User -->
-                                <p-button type="button" styleClass="p-button p-button-rounded"
+                                <p-button type="button" 
+                                styleClass="p-button p-button-rounded"
                                 icon="pi pi-user"
                                 matTooltip="Voir le Profile"
                                 (click)="getUserProfil(user.id)"
                                 ></p-button>
 
                                 <!-- Bouton ajout User -->
-                                <p-button type="button" *ngIf="!user.invitedForContact"
+                                <p-button type="button" *ngIf="!user.invitedOrContact"
                                 styleClass="p-button-success p-button-rounded "
                                 matTooltip="Ajout User"
                                 icon="pi pi-user-plus"

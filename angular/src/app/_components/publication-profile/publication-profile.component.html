@@ -1,154 +1,161 @@
-<div class="list">
-    <div class="colonne">
+
+
+<div class="corps">
+
+    <div class="list">
+        <div class="colonne">
+        
+        <div class="cadre" *ngFor="let publication of publications" >
     
-    <div class="cadre" *ngFor="let publication of publications" >
-
-        <!-- Btn publication Update Delete -->
-
-        <div class="side-top">
-            <div class="side-title">
-                {{publication.username}}
-            </div>
-        
-
-            <div class="side-btn-pub" *ngIf="publication.createdByUser">
-
-                <p-button 
-                matTooltip="Supprimer" type="button" 
-                styleClass="p-button-rounded p-button-danger"
-                icon="pi pi-times">
-                  
-                </p-button>
+            <!-- Btn publication Update Delete -->
     
-                <p-button
-                matTooltip="Modifier" type="button" 
-                styleClass="p-button-rounded "
-                icon="pi pi-stop"> 
-                
-                </p-button>
-            </div>
-        </div>
-        
-
-     
-
-      
-  
-
-        <div class="side-file" >
-            <div>
-                <ngb-carousel 
-                [showNavigationArrows]="true" 
-             [showNavigationIndicators]="true"
-             [interval]="20000"
-             [keyboard]="true"
-             [pauseOnHover]="true"
-             [wrap]="true"
-             [activeId]="'sliderThree'">
-                 <ng-template ngbSlide *ngFor="let image of publication.listFile"> 
-                     <div class="picsum-img-wrapper">
-                         <img [src]="image.url" [alt]="image.name">
-                     </div>
-                     <div class="carousel-caption" >
-                         <!-- 
-                         <h3>Title</h3>
-                         <p>Aenean malesuada nisi ut commodo semper.</p>
-                         -->
-                       
-                     </div>
-                 </ng-template>
-             </ngb-carousel>
-            </div>
-        
-        </div>
-
-        <div class="side-content">
-            <p>{{publication.contenu}}</p>
-            
-        </div>
-
-        <div class="side-butons">
-
-            <!-- disliked / btn for liked   -->
-            <button type="button" class="btn btn-info" 
-            matTooltip="Like" *ngIf="!publication.liked" >
-                <mat-icon>favorite_border</mat-icon>{{publication.countLike}}
-            </button>
-
-            <!-- Liked / btn for disliked  -->
-            <button type="button" class="btn btn-info"  
-            matTooltip="Dislike" *ngIf="publication.liked" 
-              >
-                <mat-icon>favorite</mat-icon>{{publication.countLike}}
-            </button>
-
-          
-        
-            <button type="button" class="btn btn-info"
-               matTooltip="Comment" 
-                           >
-                            <mat-icon>comment</mat-icon>
-            </button>
-
-
-               <!-- futur bouton partage  -->
-               <button type="button" class="btn btn-info" >
-                   <mat-icon>favorite_border</mat-icon>{{publication.countLike}}
-               </button>
-
-        </div>
-
-
-        <!-- Comments -->
-        <div  id="{{publication.id}}"  class="cadreComment" >
-
-            <!-- Affichage -->
-            <div *ngFor="let comment of publication.listComments"> 
-
-                <div  class="comment">
-                    <p>{{comment.username}}</p>
-                    <p>{{comment.contenu}}</p>
-                     Date : {{comment.dateCreated}}
-
-
-                    <!-- Liked -->
-                    <button type="button" class="btn btn-info"  
-                    matTooltip="Like" *ngIf="comment.liked" >
-
-                        <mat-icon>favorite</mat-icon>{{comment.countLike}}
-                    </button>
-        
-
-
-                    <!-- Not Liked -->
-                    <button type="button" class="btn btn-info" 
-                    matTooltip="Like" *ngIf="!comment.liked" 
-                 >
-
-                        <mat-icon>favorite_border</mat-icon>{{comment.countLike}}
-                    </button>
-
-                    <button type="button" class="btn btn-info" 
-                    matTooltip="Like" *ngIf="!comment.liked" >
-
-                        <mat-icon>favorite_border</mat-icon>{{comment.countLike}}
-                    </button>
-
+            <div class="side-top">
+                <div class="side-title">
+                    {{publication.username}}
                 </div>
-
+            
+    
+                <div class="side-btn-pub" *ngIf="publication.createdByUser">
+    
+                    <p-button 
+                    matTooltip="Supprimer" type="button" 
+                    styleClass="p-button-rounded p-button-danger"
+                    icon="pi pi-times">
+                      
+                    </p-button>
+        
+                    <p-button
+                    matTooltip="Modifier" type="button" 
+                    styleClass="p-button-rounded "
+                    icon="pi pi-stop"> 
+                    
+                    </p-button>
+                </div>
+            </div>
+            
+    
+         
+    
+          
+      
+    
+            <div class="side-file" >
+                <div>
+                    <ngb-carousel 
+                    [showNavigationArrows]="true" 
+                 [showNavigationIndicators]="true"
+                 [interval]="20000"
+                 [keyboard]="true"
+                 [pauseOnHover]="true"
+                 [wrap]="true"
+                 [activeId]="'sliderThree'">
+                     <ng-template ngbSlide *ngFor="let image of publication.listFile"> 
+                         <div class="picsum-img-wrapper">
+                             <img [src]="image.url" [alt]="image.name">
+                         </div>
+                         <div class="carousel-caption" >
+                             <!-- 
+                             <h3>Title</h3>
+                             <p>Aenean malesuada nisi ut commodo semper.</p>
+                             -->
+                           
+                         </div>
+                     </ng-template>
+                 </ngb-carousel>
+                </div>
+            
+            </div>
+    
+            <div class="side-content">
+                <p>{{publication.contenu}}</p>
                 
             </div>
-     
-
-        
+    
+            <div class="side-butons">
+    
+                <!-- disliked / btn for liked   -->
+                <button type="button" class="btn btn-info" 
+                matTooltip="Like" *ngIf="!publication.liked" >
+                    <mat-icon>favorite_border</mat-icon>{{publication.countLike}}
+                </button>
+    
+                <!-- Liked / btn for disliked  -->
+                <button type="button" class="btn btn-info"  
+                matTooltip="Dislike" *ngIf="publication.liked" 
+                  >
+                    <mat-icon>favorite</mat-icon>{{publication.countLike}}
+                </button>
+    
+              
             
+                <button type="button" class="btn btn-info"
+                   matTooltip="Comment" 
+                               >
+                                <mat-icon>comment</mat-icon>
+                </button>
+    
+    
+                   <!-- futur bouton partage  -->
+                   <button type="button" class="btn btn-info" >
+                       <mat-icon>favorite_border</mat-icon>{{publication.countLike}}
+                   </button>
+    
+            </div>
+    
+    
+            <!-- Comments -->
+            <div  id="{{publication.id}}"  class="cadreComment" >
+    
+                <!-- Affichage -->
+                <div *ngFor="let comment of publication.listComments"> 
+    
+                    <div  class="comment">
+                        <p>{{comment.username}}</p>
+                        <p>{{comment.contenu}}</p>
+                         Date : {{comment.dateCreated}}
+    
+    
+                        <!-- Liked -->
+                        <button type="button" class="btn btn-info"  
+                        matTooltip="Like" *ngIf="comment.liked" >
+    
+                            <mat-icon>favorite</mat-icon>{{comment.countLike}}
+                        </button>
+            
+    
+    
+                        <!-- Not Liked -->
+                        <button type="button" class="btn btn-info" 
+                        matTooltip="Like" *ngIf="!comment.liked" 
+                     >
+    
+                            <mat-icon>favorite_border</mat-icon>{{comment.countLike}}
+                        </button>
+    
+                        <button type="button" class="btn btn-info" 
+                        matTooltip="Like" *ngIf="!comment.liked" >
+    
+                            <mat-icon>favorite_border</mat-icon>{{comment.countLike}}
+                        </button>
+    
+                    </div>
+    
+                    
+                </div>
+         
+    
+            
+                
+               
            
-       
+            </div>
+    
         </div>
-
+    
+    
+    
+        </div>
     </div>
-
-
-
-    </div>
+    
 </div>
+

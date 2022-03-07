@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Publication } from 'src/app/_class/publication';
+import { ContactService } from 'src/app/_services/contact.service';
 import { PublicationService } from 'src/app/_services/publication.service';
 import { TokenStorageService } from 'src/app/_services/token-storage.service';
 
@@ -18,6 +19,7 @@ export class PublicationProfileComponent implements OnInit {
   id:any;
 
   constructor(private publicationService: PublicationService,
+              private contactService : ContactService,
               private tokenStorage: TokenStorageService,
               private router:Router,
               private route: ActivatedRoute,) { }
@@ -36,5 +38,7 @@ export class PublicationProfileComponent implements OnInit {
       }
     );
   }
+
+
 
 }

@@ -1,13 +1,80 @@
-.fondProfil
+body
 {
-    height: 50px;
     width: 100%;
-    background-color: aqua;
-    opacity: 0.8;
+
+
+}
+
+.profile
+{
+    height: 200px;
+    margin: 10px;
+    display: flex;
+    align-items: flex-end;
 }
 
 .borderProfil
 {
+    height: 150px;
+    width: 100%;
+    background-color: rgba(173, 181, 189,0.5);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    border-radius: 20px;
+}
+
+.username
+{
+    text-align: center;
+    font-size: 25px;
+    text-decoration: underline;
+}
+
+.cadreImage 
+{
+    height: 200px;
+    width: 205px;
+}
+
+.cadreImage img
+{
+    border-radius: 20%;
+    height: 200px;
+    width: 200px;
+}
+
+.cadreItem
+{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
+
+.item
+{
     height: 100px;
-    width: auto;
+    width: 200px;
+    background-color: rgba(108, 117, 125,0.5);
+    border-radius: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+}
+
+.item p-button
+{
+    display: flex;
+    justify-content: center;
+  
+}
+
+.item i
+{
+
+}
+.titleButton
+{
+    font-size: 20px;
+    text-align: center;
 }
