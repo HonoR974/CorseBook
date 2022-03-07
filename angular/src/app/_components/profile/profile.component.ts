@@ -105,7 +105,7 @@ export class ProfileComponent implements OnInit {
     else if (this.user.username = this.currentUser.username)
     {
       
-      this.isContact = true;
+      this.isContact = false;
       this.isUserProfil = true;
     }
     else
