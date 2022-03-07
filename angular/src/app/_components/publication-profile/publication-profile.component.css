@@ -2,3 +2,136 @@
 {
     margin-top: 50px;
 }
+
+.list
+{
+    display: flex;
+    flex-direction: column;
+}
+
+.colonne
+{
+    min-height: 200px;
+    
+}
+
+.cadre
+{
+    border: solid;
+    margin: 10px;
+    padding: 10px;
+    border-radius: 5px;
+    border-color: aliceblue;
+    background-color: rgba(52, 58, 64,0.3);
+    border-style: inset;
+    border-width: 1px;
+
+}
+
+.side-top
+{
+    display: flex;
+    justify-content: space-between;
+    text-align: right;
+}
+
+.side-title
+{
+    font-size: 20px;
+    width: 50%;
+    text-decoration: underline;
+}
+
+.side-btn-pub
+{
+    display: flex;
+    flex-direction: row-reverse;
+}
+
+.side-btn-pub button
+{
+   border-radius: 20px;
+}
+
+.side-btn-pub button:hover
+{
+   background-color: rgba(224,172,22,0.5);
+}
+
+
+
+.side-file
+{
+
+}
+
+.side-file img
+{
+    max-height: 300px;
+    max-width: 500px;
+    width: 100%;
+    background-color: black;
+}
+
+
+.side-content
+{
+    background-color: white;
+    margin: 10px;
+    padding: 10px;
+    text-align: center;
+    font-size: 20px;
+}
+
+.side-butons
+{
+    display: flex;
+    justify-content: space-evenly;
+}   
+
+.cadreComment
+{
+    display: none;
+    background-color: rgba(62, 136, 170, 0.1);
+    margin: 10px;
+    padding: 10px;
+    
+}
+
+.comment
+{
+  
+}
+
+.createComment
+{
+    
+}
+
+.picsum-img-wrapper
+{
+ background-color: black;
+ display: flex;
+    justify-content: center;
+  
+}
+
+.picsum-img-wrapper img
+{
+    width: auto;
+
+}
+
+.carousel-caption
+{
+  
+
+}
+
+@media (max-width: 767px) {
+    .carousel-indicators,
+    .carousel-indicators li {
+      cursor: default;
+      pointer-events: none;
+    }
+}
