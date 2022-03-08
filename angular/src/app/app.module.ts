@@ -33,13 +33,15 @@ import { UpdatePublicationComponent } from './_components/update-publication/upd
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 import { GoogleMapsModule } from '@angular/google-maps';
-import { ListComponent } from './_components/evenement/list/list.component';
 import {CarouselModule} from 'primeng/carousel';
 import {ButtonModule} from 'primeng/button';
 import {ToastModule} from 'primeng/toast';
 import { ContactComponent } from './_components/contact/contact.component';
 import { ChatComponent } from './_components/chat/chat.component';
 import { PublicationProfileComponent } from './_components/publication-profile/publication-profile.component';
+import { EventComponent } from './_components/event/event.component';
+
+
 
 @NgModule({
   declarations: [
@@ -56,10 +58,10 @@ import { PublicationProfileComponent } from './_components/publication-profile/p
     PublicationPublicComponent,
     UploadFileComponent,
     UpdatePublicationComponent,
-    ListComponent,
     ContactComponent,
     ChatComponent,
     PublicationProfileComponent,
+    EventComponent,
   ],
   imports: [
     BrowserModule,
@@ -79,6 +81,7 @@ import { PublicationProfileComponent } from './_components/publication-profile/p
     CarouselModule,
     ButtonModule,
     ToastModule
+   
   ],
   providers: [authInterceptorProviders],
   bootstrap: [AppComponent]

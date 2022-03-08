@@ -7,7 +7,7 @@
     <link href=
   "https://fonts.googleapis.com/icon?family=Material+Icons&display=block" 
           rel="stylesheet">
-    
+          <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBvoeOmgynRFtZHUQdtE0OXOvrTvJbPfac"></script>
 </head>
 
   <!-- Menu -->
@@ -40,7 +40,7 @@
             </li>
     
             <li class="nav-item">
-                <a  class="nav-link" routerLink="evenement-list"
+                <a  class="nav-link" routerLink="event"
                 routerLinkActive="active" >Evenement </a>
             </li>
 
@@ -65,7 +65,7 @@
             
 
             <li class="nav-item" *ngIf="isLoggedIn">
-              <a [routerLink]="['profile/', user.id]"  class="nav-link" >{{ user.username }}</a>
+              <a [routerLink]="['profile/', user.id]"   routerLinkActive="active"  class="nav-link" >{{ user.username }}</a>
             </li>
             <li class="nav-item" *ngIf="isLoggedIn">
               <a href class="nav-link" (click)="logout()">LogOut</a>
@@ -80,8 +80,7 @@
 
   </header>
 
-
-<body >
+<body>
 
 
   <div class="container2" *ngIf="isLoggedIn" >

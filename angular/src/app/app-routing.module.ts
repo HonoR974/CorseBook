@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { ChatComponent } from './_components/chat/chat.component';
 import { CreateProductComponent } from './_components/create-product/create-product.component';
-import { ListComponent } from './_components/evenement/list/list.component';
+import { EventComponent } from './_components/event/event.component';
 import { HomeComponent } from './_components/home/home.component';
 import { LoginComponent } from './_components/login/login.component';
 import { ProductDetailsComponent } from './_components/product-details/product-details.component';
@@ -43,7 +43,7 @@ const routes: Routes = [
   { path: 'uploadFile', component: UploadFileComponent },
 
   //evenement 
-  { path :'evenement-list', component: ListComponent},
+  { path :'event', component: EventComponent},
 
   //chat 
   { path: 'chat/:id', component:ChatComponent}
