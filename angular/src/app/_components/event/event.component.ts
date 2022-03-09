@@ -27,7 +27,9 @@ export class EventComponent implements OnInit {
 
             lng: 72.6822083,
 
-            label: 'Surat'
+            label: 'Surat',
+
+            draggable : true
 
         },
 
@@ -37,7 +39,9 @@ export class EventComponent implements OnInit {
 
             lng: 72.4396548,
 
-            label: 'Ahmedabad'
+            label: 'Ahmedabad',
+
+            draggable : false
 
         },
 
@@ -47,7 +51,9 @@ export class EventComponent implements OnInit {
 
             lng: 70.7512555,
 
-            label: 'Rajkot'
+            label: 'Rajkot',
+
+            draggable : true
 
         }
 
@@ -64,5 +70,11 @@ export class EventComponent implements OnInit {
   ngOnInit() {
   
   }
+
+   
+  clickedMarker(label: string, index: number) {
+    console.log(`clicked the marker: ${label || index}`)
+  }
+ 
 
 }
