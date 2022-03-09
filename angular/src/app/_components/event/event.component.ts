@@ -7,41 +7,62 @@ import { Component, OnInit } from '@angular/core';
 })
 export class EventComponent implements OnInit {
 
-  
-  zoom = 12;
-  center: google.maps.LatLngLiteral;
-  options: google.maps.MapOptions = {
-    mapTypeId: 'hybrid',
-    zoomControl: false,
-    scrollwheel: false,
-    disableDoubleClickZoom: true,
-    maxZoom: 15,
-    minZoom: 8,
-  }
+  title = 'My first AGM project';
+  // google maps zoom level
+  zoom: number = 8;
+    
+  lat = 22.4064172;
 
+  long = 69.0750171;
+
+
+
+  
+
+  markers = [
+
+        {
+
+            lat: 21.1594627,
+
+            lng: 72.6822083,
+
+            label: 'Surat'
+
+        },
+
+        {
+
+            lat: 23.0204978,
+
+            lng: 72.4396548,
+
+            label: 'Ahmedabad'
+
+        },
+
+        {
+
+            lat: 22.2736308,
+
+            lng: 70.7512555,
+
+            label: 'Rajkot'
+
+        }
+
+    ];
+
+
+
+
+    
   constructor() { }
 
 
 
   ngOnInit() {
-    navigator.geolocation.getCurrentPosition((position) => {
-      this.center = {
-        lat: position.coords.latitude,
-        lng: position.coords.longitude,
-      }
-    })
+  
   }
 
-  zoomIn() {
-    if (this.zoom < 15) this.zoom++
-  }
-
-  zoomOut() {
-    if (this.zoom > 8) this.zoom--
-  }
-
-
-  click(event: google.maps.MouseEvent) {
-    console.log(event)
-  }
 }

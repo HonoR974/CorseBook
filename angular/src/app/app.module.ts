@@ -32,7 +32,6 @@ import { UploadFileComponent } from './_components/upload-file/upload-file.compo
 import { UpdatePublicationComponent } from './_components/update-publication/update-publication.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
-import { GoogleMapsModule } from '@angular/google-maps';
 import {CarouselModule} from 'primeng/carousel';
 import {ButtonModule} from 'primeng/button';
 import {ToastModule} from 'primeng/toast';
@@ -41,7 +40,7 @@ import { ChatComponent } from './_components/chat/chat.component';
 import { PublicationProfileComponent } from './_components/publication-profile/publication-profile.component';
 import { EventComponent } from './_components/event/event.component';
 
-
+import { AgmCoreModule } from '@agm/core';
 
 @NgModule({
   declarations: [
@@ -77,10 +76,13 @@ import { EventComponent } from './_components/event/event.component';
     MatTooltipModule,
     MatBadgeModule,
     NgbModule,
-    GoogleMapsModule,
     CarouselModule,
     ButtonModule,
-    ToastModule
+    ToastModule,
+    AgmCoreModule.forRoot({
+      apiKey: 'AIzaSyBvoeOmgynRFtZHUQdtE0OXOvrTvJbPfac',
+      libraries: ['places']
+    })
    
   ],
   providers: [authInterceptorProviders],

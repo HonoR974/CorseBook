@@ -1,12 +1,47 @@
-<google-map
-  height="500px"
-  width="100%"
-  [zoom]="zoom"
-  [center]="center"
-  [options]="options"
-  (mapClick)="click($event)"
-></google-map>
+<h1>Event !!!</h1>
 
-<!-- Use custom zoom buttons -->
-<button (click)="zoomIn()">Zoom in</button>
-<button (click)="zoomOut()">Zoom out</button>
+
+<h1>{{ title }}</h1>
+
+<!-- this creates a google map on the page with the given lat/lng from -->
+<!-- the component as the initial center of the map: -->
+<agm-map [latitude]="lat" [longitude]="long">
+  <agm-marker [latitude]="lat" [longitude]="long"></agm-marker>
+</agm-map>
+
+
+
+<h2>Second map </h2>
+
+
+<agm-map 
+
+[latitude]='lat' 
+
+[longitude]='long'
+
+[zoom]='zoom'
+
+>
+
+ 
+
+ <agm-marker 
+
+     *ngFor="let marker of markers" 
+
+     [latitude]="marker.lat" 
+
+       [longitude]="marker.lng">    
+
+           <agm-info-window #infoWindow>
+
+               {{ marker.label }}
+
+         </agm-info-window>
+
+ </agm-marker>
+
+ 
+
+</agm-map>
