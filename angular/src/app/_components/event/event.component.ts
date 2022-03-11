@@ -16,9 +16,6 @@ export class EventComponent implements OnInit {
   long = 69.0750171;
 
 
-
-  
-
   markers = [
 
         {
@@ -60,7 +57,8 @@ export class EventComponent implements OnInit {
     ];
 
 
-
+    latitude: number;
+    longitude: number;
 
     
   constructor() { }
@@ -68,9 +66,18 @@ export class EventComponent implements OnInit {
 
 
   ngOnInit() {
-  
+    this.setCurrentLocation();
   }
-
+// Get Current Location Coordinates
+private setCurrentLocation() {
+  if ('geolocation' in navigator) {
+    navigator.geolocation.getCurrentPosition((position) => {
+      this.latitude = position.coords.latitude;
+      this.longitude = position.coords.longitude;
+      this.zoom = 15;
+    });
+  }
+}
    
   clickedMarker(label: string, index: number) {
     console.log(`clicked the marker: ${label || index}`)

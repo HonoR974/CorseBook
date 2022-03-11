@@ -80,7 +80,7 @@ import { AgmCoreModule } from '@agm/core';
     ButtonModule,
     ToastModule,
     AgmCoreModule.forRoot({
-      apiKey: 'AIzaSyBvoeOmgynRFtZHUQdtE0OXOvrTvJbPfac',
+      apiKey: 'AIzaSyD-5cW7KLHBPf4-lQwRkYw0_ndyzY0Ydd0',
       libraries: ['places']
     })
    

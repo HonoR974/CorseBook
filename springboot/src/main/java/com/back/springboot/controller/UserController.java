@@ -3,7 +3,6 @@ package com.back.springboot.controller;
 
 
 import com.back.springboot.models.User;
-import com.back.springboot.service.FileService;
 import com.back.springboot.service.UserService;
 import com.back.springboot.dto.FileDTO;
 import com.back.springboot.dto.UserDTO;
@@ -30,8 +29,6 @@ public class UserController {
 	@Autowired
 	private UserService userService;
 
-    @Autowired
-    private FileService fileService;
 
     @GetMapping("/{id}")
     public ResponseEntity<UserDTO> getuserById(@PathVariable long id)
