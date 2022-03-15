@@ -12,8 +12,6 @@ import { authInterceptorProviders } from './_helpers/auth.interceptor';
 import {MatIconModule} from '@angular/material/icon';
 import {MatTooltipModule} from '@angular/material/tooltip';
 import {MatBadgeModule} from '@angular/material/badge';
-
-
 import { NgxDropzoneModule } from 'ngx-dropzone';
 import { CommonModule } from '@angular/common';
 
@@ -31,6 +29,7 @@ import { PublicationPublicComponent } from './_components/publication-public/pub
 import { UploadFileComponent } from './_components/upload-file/upload-file.component';
 import { UpdatePublicationComponent } from './_components/update-publication/update-publication.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+
 
 import {CarouselModule} from 'primeng/carousel';
 import {ButtonModule} from 'primeng/button';
@@ -80,8 +79,9 @@ import { AgmCoreModule } from '@agm/core';
     ButtonModule,
     ToastModule,
     AgmCoreModule.forRoot({
-      apiKey: 'AIzaSyCHUHHs9LPOEewZS0zZ_HRplwmlJQg-M3Q',
-    })
+      apiKey: 'AIzaSyD-5cW7KLHBPf4-lQwRkYw0_ndyzY0Ydd0',
+      libraries: ['places']
+    }),
   ],
   providers: [authInterceptorProviders],
   bootstrap: [AppComponent]

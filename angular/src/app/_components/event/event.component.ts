@@ -8,6 +8,7 @@ import { Component, OnInit } from '@angular/core';
 export class EventComponent implements OnInit {
 
   title = 'My first AGM project';
+
   // google maps zoom level
   zoom: number = 8;
  
@@ -36,6 +37,7 @@ export class EventComponent implements OnInit {
     }
             ]
 
+  
     
   constructor() { }
 
@@ -45,10 +47,9 @@ export class EventComponent implements OnInit {
    
   }
 
-    
+   
   clickedMarker(label: string, index: number) {
     console.log(`clicked the marker: ${label || index}`)
   }
  
-
 }
