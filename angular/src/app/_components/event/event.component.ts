@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-
+import { Marker } from 'src/app/_class/marker';
+import { Location } from 'src/app/_class/location';
 @Component({
   selector: 'app-event',
   templateUrl: './event.component.html',
@@ -13,13 +14,13 @@ export class EventComponent implements OnInit {
   zoom: number = 8;
  
   // initial center position for the map
-  lat: number = 51.673858;
-  lng: number = 7.815982;
+  lat: number = 41.91;
+  lng: number =  8.73;
 
   markers = [
     {
-        lat: 51.673858,
-        lng: 7.815982,
+        lat: 41.54,
+        lng: 8.43,
         label: "A",
         draggable: true
     },
@@ -35,21 +36,52 @@ export class EventComponent implements OnInit {
         label: "C",
         draggable: true
     }
-            ]
-
-  
+            ];
     
+  location: Location;
+  selectedMarker: Marker;
+
+
   constructor() { }
 
 
 
   ngOnInit() {
-   
+   this.selectedMarker = new Marker(41.50,8.50);
+   this.location = new Location(41.50, 7.50);
   }
 
    
-  clickedMarker(label: string, index: number) {
-    console.log(`clicked the marker: ${label || index}`)
+  clickedMarker(label: string, latitude: number, longitude : number) {
+    console.log(`clicked the marker: ` , label + "\n latitude  : " , latitude + "\n longitude : ", longitude);
   }
  
+
+  
+  addMarker(lat: number, lng: number) {
+    console.log("add markers " )
+    this.markers.push({
+        lat,
+        lng,
+        label:"new",
+        draggable: true
+    })
+  }
+
+  selectMarker(event:any) {
+   
+    this.selectedMarker = {
+        latitude: event.latitude,
+        longitude: event.longitude
+    }
+
+    console.log("selectMarker", this.selectedMarker);
+}
+
+markerDragEnd(coords: any) {
+  
+  console.log("coords ", coords);
+  this.location.latitude = coords.lat;
+  this.location.longitude = coords.lng;
+}
 }

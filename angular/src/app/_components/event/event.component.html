@@ -1,27 +1,18 @@
-<h2>Angular Google Maps (AGM) Demo</h2>
 
 
-<agm-map
-  [latitude]="lat"
-  [longitude]="lng"
-  [zoom]="zoom"
-  [disableDefaultUI]="false"   >
- 
-  <agm-marker
-      *ngFor="let m of markers; let i = index"
-      (markerClick)="clickedMarker(m.label, i)"
-      [latitude]="m.lat"
-      [longitude]="m.lng"
-      [label]="m.label"
-      [markerDraggable]="m.draggable">
-     
-    <agm-info-window>
-      <strong>Label: {{m.label}}</strong><br/>
-      <strong>Latitude: {{m.lat}}</strong><br/>
-      <strong>Longitude: {{m.lng}}</strong>
-    </agm-info-window>
-<h1>Angular 13 Google Map Example - ItSolutionStuff.com</h1>
-   
-  </agm-marker>
- 
+<!-- map.component.html -->
+<agm-map [latitude]="lat" [longitude]="lng" 
+ (mapClick)="addMarker($event.coords.lat, $event.coords.lng)">
+
+  <agm-marker *ngFor="let marker of markers"
+  [latitude]="marker.lat" [longitude]="marker.lng"
+  [label]="marker.label"
+  [markerDraggable]="marker.draggable"
+  (markerClick)="selectMarker($event)"
+  (dragEnd)="markerDragEnd($event.coords)">
+</agm-marker>
 </agm-map>
+
+<div>
+  Selected Marker is: Longitude {{selectedMarker.latitude}} Latitude {{selectedMarker.longitude}}
+</div>
