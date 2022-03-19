@@ -22,6 +22,7 @@ import { UploadS3Service } from 'src/app/_services/upload-s3.service';
 })
 export class CreatePublicationComponent implements OnInit {
 
+  
 
   currentUser: any;
   isLoggedIn = false;

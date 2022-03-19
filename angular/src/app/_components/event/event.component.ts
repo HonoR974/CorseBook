@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Marker } from 'src/app/_class/marker';
 import { Location } from 'src/app/_class/location';
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-event',
   templateUrl: './event.component.html',
@@ -19,6 +20,7 @@ export class EventComponent implements OnInit {
 
   markers = [
     {
+      
         lat: 41.54,
         lng: 8.43,
         label: "A",
@@ -38,11 +40,11 @@ export class EventComponent implements OnInit {
     }
             ];
     
-  location: Location;
-  selectedMarker: Marker;
+  location !: Location ;
+  selectedMarker !: Marker;
 
 
-  constructor() { }
+  constructor(private router : Router) { }
 
 
 
@@ -70,18 +72,23 @@ export class EventComponent implements OnInit {
 
   selectMarker(event:any) {
    
-    this.selectedMarker = {
-        latitude: event.latitude,
-        longitude: event.longitude
-    }
-
+    this.selectedMarker = new Marker(event.latitude,event.longitude);
+    
     console.log("selectMarker", this.selectedMarker);
 }
 
-markerDragEnd(coords: any) {
-  
-  console.log("coords ", coords);
-  this.location.latitude = coords.lat;
-  this.location.longitude = coords.lng;
-}
+  markerDragEnd(coords: any) {
+    
+    console.log("coords ", coords);
+    this.location.latitude = coords.lat;
+    this.location.longitude = coords.lng;
+  }
+
+  createEvent()
+  {
+    this.router.navigate(['create-event']);
+  }
+
+
+
 }

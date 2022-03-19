@@ -19,8 +19,6 @@ export class ProductService {
 
   constructor(private HttpClient: HttpClient) { }
 
-  
-
 
   getProductsList(): Observable<Product[]>
   {

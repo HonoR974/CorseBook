@@ -1,0 +1,91 @@
+<body>
+
+
+    <div class="container" >
+        <div class="row">
+            <div>
+                Create Event 
+            </div>
+        </div>
+
+      
+
+
+        <!--Formulaire create -->
+        <div class="col">
+
+            <form [formGroup]="eventForm" (ngSubmit)="createEvent()">
+
+                  <!-- map component-->
+                <div class="col">
+
+                    <agm-map  [latitude]="lat" [longitude]="lng"
+                    (mapClick)="addMarker($event.coords.lat, $event.coords.lng)"  >
+
+                        <agm-marker *ngFor="let marker of markers"
+                        [latitude]="marker.latitude" [longitude]="marker.longitude"
+                        [label]="marker.label"
+                        [markerDraggable]="true"
+                        (dragEnd)="markerDragEnd(marker.id, $event.coords.lat, $event.coords.lng)">
+                        </agm-marker>
+
+                    </agm-map>
+
+                    Ajouter la position de l'evenement 
+                    <ul>
+                        <li>Double Clique pour ajouter un marker </li>
+                    </ul>
+                </div>
+
+                <div class="col">
+                    <div class="form-group section">
+                        <label for="name">Nommez l'évenement  : </label>
+                        <input 
+                        formControlName="name"
+                            id="name" 
+                            type="text" 
+                            class="form-control content"
+                            placeholder="Nom de l'évenement">
+                    </div>
+    
+                    <div class="form-group section">
+                        <label for="contenu">Expliquez l'évenement  : </label>
+                        <input 
+                        formControlName="contenu"
+                            id="contenu" 
+                            type="text" 
+                            class="form-control content"
+                            placeholder="Résumer l'evenement">
+                    </div>
+
+                    <div class="form-group section">
+                        <label for="contenu">Date début  : </label>
+                        <input 
+                        formControlName="dateDebut"
+                            id="dateDebut" 
+                            type="date" 
+                            class="form-control content"
+                            placeholder="date du début ">
+                    </div>
+
+                    <div class="form-group section">
+                        <label for="contenu">Date Fin  : </label>
+                        <input 
+                        formControlName="dateFin"
+                            id="dateFin" 
+                            type="date" 
+                            class="form-control content"
+                            placeholder="Date de fin ">
+                    </div>
+                </div>
+           
+                <button class="btn btn-primary button" type="submit">Valider</button>
+            </form>
+
+        </div>
+
+
+
+    </div>
+
+</body>

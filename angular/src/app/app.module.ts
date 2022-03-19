@@ -40,6 +40,7 @@ import { PublicationProfileComponent } from './_components/publication-profile/p
 import { EventComponent } from './_components/event/event.component';
 
 import { AgmCoreModule } from '@agm/core';
+import { CreateEventComponent } from './_components/create-event/create-event.component';
 
 @NgModule({
   declarations: [
@@ -60,6 +61,7 @@ import { AgmCoreModule } from '@agm/core';
     ChatComponent,
     PublicationProfileComponent,
     EventComponent,
+    CreateEventComponent,
   ],
   imports: [
     BrowserModule,
