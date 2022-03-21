@@ -67,6 +67,7 @@ export class CreateEventComponent implements OnInit {
     this.event.contenu = this.eventForm.value.contenu;
     this.event.listMarker = this.markers;
 
+    console.log("send data ", this.event);
     this.eventService.createEvent(this.event).subscribe( data => 
       {
         console.log("data " , data);

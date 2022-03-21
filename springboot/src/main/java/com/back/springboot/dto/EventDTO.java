@@ -1,38 +1,25 @@
-package com.back.springboot.models;
-
-
+package com.back.springboot.dto;
 
 import java.util.Date;
 import java.util.List;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
+import lombok.Data;
 
-
-@Entity
-public class Event {
-
-      
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+@Data
+public class EventDTO {
+   
     private long id;
 
-    public Date dateDebut;
+    private  Date dateDebut;
 
     private Date dateFin;
 
     private String resume;
 
-    @OneToMany( mappedBy = "event")
-    private List<Marker> listMarkers;
+    private List<MarkerDTO> listMarker;
 
-
-    public Event() {
+    
+    public EventDTO() {
     }
 
     public long getId() {
@@ -67,16 +54,22 @@ public class Event {
         this.resume = resume;
     }
 
-    public List<Marker> getListMarkers() {
-        return listMarkers;
+    public List<MarkerDTO> getListMarker() {
+        return listMarker;
     }
 
-    public void setListMarkers(List<Marker> listMarkers) {
-        this.listMarkers = listMarkers;
+    public void setListMarker(List<MarkerDTO> listMarker) {
+        this.listMarker = listMarker;
     }
 
-   
+    @Override
+    public String toString() {
+        return "EventDTO [dateDebut=" + dateDebut + ", dateFin=" + dateFin + ", id=" + id + ", listMarker=" + listMarker
+                + ", resume=" + resume + "]";
+    }
+
 
     
+
 
 }

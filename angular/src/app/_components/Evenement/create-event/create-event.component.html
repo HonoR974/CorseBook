@@ -20,8 +20,7 @@
                 <div class="col">
 
                     <agm-map  [latitude]="lat" [longitude]="lng"
-                    (mapClick)="addMarker($event.coords.lat, $event.coords.lng)"  >
-
+                     >
                         <agm-marker *ngFor="let marker of markers"
                         [latitude]="marker.latitude" [longitude]="marker.longitude"
                         [label]="marker.label"
@@ -33,7 +32,11 @@
 
                     Ajouter la position de l'evenement 
                     <ul>
-                        <li>Double Clique pour ajouter un marker </li>
+                        <li> <button class="btn btn-primary"
+                             type="button" (click)="addMarker(lat, lng)">
+                            Ajouter un marker
+                        </button>
+                        </li>
                     </ul>
                 </div>
 
@@ -78,7 +81,7 @@
                             placeholder="Date de fin ">
                     </div>
                 </div>
-           
+   
                 <button class="btn btn-primary button" type="submit">Valider</button>
             </form>
 

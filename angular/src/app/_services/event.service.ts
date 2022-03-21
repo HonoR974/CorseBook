@@ -21,5 +21,9 @@ export class EventService {
   {
     return this.HttpClient.post(baseURL, event);
   }
+  getallEvent():Observable<Evenement[]>
+  {
+    return this.HttpClient.get<Evenement[]>(baseURL, httpOptions);
+  }
 
 }

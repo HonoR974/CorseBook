@@ -10,7 +10,7 @@ import javax.persistence.OneToOne;
 
 
 @Entity
-public class Location 
+public class Marker 
 {
 
     
@@ -25,7 +25,16 @@ public class Location
 
     private String label;
 
-    public Location() {
+    @ManyToOne
+    private Event event;
+
+    public Marker() {
+    }
+    
+    public Marker(long lat, long lng)
+    {
+        this.latitude = lat;
+        this.longitude = lng;
     }
 
     public long getId() {
@@ -58,6 +67,14 @@ public class Location
 
     public void setLabel(String label) {
         this.label = label;
+    }
+
+    public Event getEvent() {
+        return event;
+    }
+
+    public void setEvent(Event event) {
+        this.event = event;
     }
 
     

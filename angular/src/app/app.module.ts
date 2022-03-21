@@ -5,7 +5,6 @@ import { FormsModule,ReactiveFormsModule } from '@angular/forms';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { ProductListComponent } from './_components/product-list/product-list.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { authInterceptorProviders } from './_helpers/auth.interceptor';
 
@@ -16,18 +15,10 @@ import { NgxDropzoneModule } from 'ngx-dropzone';
 import { CommonModule } from '@angular/common';
 
 import { ToastrModule } from 'ngx-toastr';
-import { CreateProductComponent } from './_components/create-product/create-product.component';
-import { CreatePublicationComponent } from './_components/create-publication/create-publication.component';
-import { HomeComponent } from './_components/home/home.component';
-import { LoginComponent } from './_components/login/login.component';
-import { ProductDetailsComponent } from './_components/product-details/product-details.component';
-import { ProfileComponent } from './_components/profile/profile.component';
-import { RegisterComponent } from './_components/register/register.component';
-import { UpdateProductComponent } from './_components/update-product/update-product.component';
-import { PublicationPublicComponent } from './_components/publication-public/publication-public.component';
+import { HomeComponent } from './_components/Accueil/home/home.component';
+import { RegisterComponent } from './_components/Logs/register/register.component';
 
-import { UploadFileComponent } from './_components/upload-file/upload-file.component';
-import { UpdatePublicationComponent } from './_components/update-publication/update-publication.component';
+import { UpdatePublicationComponent } from './_components/Accueil/update-publication/update-publication.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 
@@ -36,19 +27,21 @@ import {ButtonModule} from 'primeng/button';
 import {ToastModule} from 'primeng/toast';
 import { ContactComponent } from './_components/contact/contact.component';
 import { ChatComponent } from './_components/chat/chat.component';
-import { PublicationProfileComponent } from './_components/publication-profile/publication-profile.component';
-import { EventComponent } from './_components/event/event.component';
+import { EventComponent } from './_components/Evenement/event/event.component';
 
 import { AgmCoreModule } from '@agm/core';
-import { CreateEventComponent } from './_components/create-event/create-event.component';
+import { LoginComponent } from './_components/Logs/login/login.component';
+import { ProfileComponent } from './_components/Espace/profile/profile.component';
+import { CreatePublicationComponent } from './_components/Accueil/create-publication/create-publication.component';
+import { PublicationPublicComponent } from './_components/Accueil/publication-public/publication-public.component';
+import { UploadFileComponent } from './_components/upload-file/upload-file.component';
+import { PublicationProfileComponent } from './_components/Espace/publication-profile/publication-profile.component';
+import { CreateEventComponent } from './_components/Evenement/create-event/create-event.component';
+import { EventListComponent } from './_components/Evenement/event-list/event-list.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    ProductListComponent,
-    CreateProductComponent,
-    UpdateProductComponent,
-    ProductDetailsComponent,
     LoginComponent,
     RegisterComponent,
     HomeComponent,
@@ -62,6 +55,7 @@ import { CreateEventComponent } from './_components/create-event/create-event.co
     PublicationProfileComponent,
     EventComponent,
     CreateEventComponent,
+    EventListComponent,
   ],
   imports: [
     BrowserModule,

@@ -3,6 +3,7 @@ package com.back.springboot.controller;
 
 import java.util.List;
 
+import com.back.springboot.dto.EventDTO;
 import com.back.springboot.models.Event;
 import com.back.springboot.service.EventService;
 
@@ -29,17 +30,22 @@ public class EventController {
     private EventService eventService;
 
     @PostMapping()
-    public ResponseEntity<Event> createEvent(@RequestBody Event event)
+    public ResponseEntity<EventDTO> createEvent(@RequestBody EventDTO eventDTORequest )
     {
-        event = eventService.createEvent(event);
+        System.out.println("\n eventDTO " + eventDTORequest.toString());
+       Event  event = eventService.createEvent(eventService.convertDTO(eventDTORequest));
 
-        return new ResponseEntity<>(event, HttpStatus.ACCEPTED);
+       EventDTO eventDTO = eventService.convertEntity(event);
+
+        return new ResponseEntity<>(eventDTO, HttpStatus.ACCEPTED);
     }
     
     @GetMapping()
-    public ResponseEntity<List<Event>> getAll()
+    public ResponseEntity<List<EventDTO>> getAll()
     {
         List<Event> list = eventService.getAll();
-        return new ResponseEntity<>(list, HttpStatus.ACCEPTED);
+
+        List<EventDTO> lDtos = eventService.convertListEntity(list);
+        return new ResponseEntity<>(lDtos, HttpStatus.ACCEPTED);
     }
 }

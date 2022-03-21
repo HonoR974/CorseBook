@@ -1,19 +1,17 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { ChatComponent } from './_components/chat/chat.component';
-import { CreateEventComponent } from './_components/create-event/create-event.component';
-import { CreateProductComponent } from './_components/create-product/create-product.component';
-import { EventComponent } from './_components/event/event.component';
-import { HomeComponent } from './_components/home/home.component';
-import { LoginComponent } from './_components/login/login.component';
-import { ProductDetailsComponent } from './_components/product-details/product-details.component';
-import { ProductListComponent } from './_components/product-list/product-list.component';
-import { ProfileComponent } from './_components/profile/profile.component';
-import { PublicationPublicComponent } from './_components/publication-public/publication-public.component';
-import { RegisterComponent } from './_components/register/register.component';
 
-import { UpdateProductComponent } from './_components/update-product/update-product.component';
-import { UpdatePublicationComponent } from './_components/update-publication/update-publication.component';
+import { EventComponent } from './_components/Evenement/event/event.component';
+import { HomeComponent } from './_components/Accueil/home/home.component';
+
+import { RegisterComponent } from './_components/Logs/register/register.component';
+
+import { UpdatePublicationComponent } from './_components/Accueil/update-publication/update-publication.component';
+import { LoginComponent } from './_components/Logs/login/login.component';
+import { PublicationPublicComponent } from './_components/Accueil/publication-public/publication-public.component';
+import { ProfileComponent } from './_components/Espace/profile/profile.component';
+import { CreateEventComponent } from './_components/Evenement/create-event/create-event.component';
 import { UploadFileComponent } from './_components/upload-file/upload-file.component';
 
 
@@ -29,12 +27,6 @@ const routes: Routes = [
 
   //profile 
   { path: 'profile/:id', component: ProfileComponent },
-
-  //product 
-  {path: 'products', component: ProductListComponent},
-  {path: 'create-product', component: CreateProductComponent},
-  {path: 'update-product/:id', component: UpdateProductComponent},
-  {path: 'product-details/:id', component: ProductDetailsComponent},
 
   //publication
   { path: 'publication-public', component: PublicationPublicComponent },
