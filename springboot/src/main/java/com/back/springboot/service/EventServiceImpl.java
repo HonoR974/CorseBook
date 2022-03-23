@@ -7,10 +7,13 @@ import java.util.Date;
 import java.util.List;
 
 import com.back.springboot.dto.EventDTO;
+import com.back.springboot.dto.FileDTO;
 import com.back.springboot.dto.MarkerDTO;
 import com.back.springboot.models.Event;
+import com.back.springboot.models.File;
 import com.back.springboot.models.Marker;
 import com.back.springboot.repository.EventRepository;
+import com.back.springboot.repository.FileRepository;
 import com.back.springboot.repository.MarkerRepository;
 
 import org.modelmapper.ModelMapper;
@@ -29,22 +32,36 @@ public class EventServiceImpl implements EventService{
     @Autowired
     private MarkerRepository markerRepository;
 
+    @Autowired
+    private FileRepository fileRepository;
+
     @Override
     public Event createEvent(Event event) {
-        eventRepository.save(event);
+
+
+        System.out.println("\n \n create " + event.toString());
+       
         if(event.getListMarkers() != null)
         {
-            markerRepository.saveAll(event.getListMarkers());
-
+           
+            for(Marker mark : event.getListMarkers())
+            {
+                System.out.println("\n marker " + mark.getEvent().getId());
+                markerRepository.save(mark);
+            }
         }
+        if( event.getListFile() != null)
+        {
+            fileRepository.saveAll(event.getListFile());
+            System.out.println("\n  file ");
+        }
+        eventRepository.save(event);
         
         return   event;
     }
 
     @Override
     public List<Event> getAll() {
-      
-
         return eventRepository.findAll();
     }
 
@@ -70,21 +87,18 @@ public class EventServiceImpl implements EventService{
            
         }
 
-        //dateDebut
-        if (eventDTO.getDateDebut() != null)
-        {
-             //dateDebut
-             try {
-                Date dateDebut = new SimpleDateFormat("dd/MM/yyyy").parse(eventDTO.getDateDebut());
-                event.setDateDebut(dateDebut);
-            
-            } catch (ParseException e) {
-
-                System.out.println("\n il n'a pas de date ");
-        
-                e.printStackTrace();
-            }
-        }
+       if(eventDTO.getListFileAPI() != null)
+       {
+           List<File> list = new ArrayList();
+           
+           for( FileDTO fileDTO : eventDTO.getListFileAPI())
+           {
+               File file = new File(fileDTO.getUrl(), fileDTO.getName());
+                file.setEvent(event);
+                list.add(file);
+           }
+           event.setListFile(list);
+       }
         
         return event;
     }

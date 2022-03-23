@@ -15,7 +15,7 @@ public class Marker
 
     
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
 
 
@@ -76,6 +76,8 @@ public class Marker
     public void setEvent(Event event) {
         this.event = event;
     }
+
+    
 
     
 }

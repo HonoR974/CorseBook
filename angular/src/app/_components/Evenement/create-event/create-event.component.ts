@@ -1,5 +1,5 @@
-
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, NgZone } from '@angular/core';
+import { MapsAPILoader } from '@agm/core';
 import { FormGroup,FormControl, Validators } from '@angular/forms';
 import { Evenement } from 'src/app/_class/evenement';
 import { FileAPI } from 'src/app/_class/file-api';
@@ -88,6 +88,7 @@ export class CreateEventComponent implements OnInit {
       {
         console.log("data " , data);
         this.ngOnInit();
+        window.location.reload();
       });
 
 

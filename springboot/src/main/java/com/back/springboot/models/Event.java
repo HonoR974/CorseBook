@@ -28,6 +28,8 @@ public class Event {
     @OneToMany( mappedBy = "event")
     private List<Marker> listMarkers;
 
+    @OneToMany( mappedBy = "event")
+    private List<File> listFile;
 
     public Event() {
     }
@@ -72,6 +74,21 @@ public class Event {
         this.listMarkers = listMarkers;
     }
 
+    public List<File> getListFile() {
+        return listFile;
+    }
+
+    public void setListFile(List<File> listFile) {
+        this.listFile = listFile;
+    }
+
+    @Override
+    public String toString() {
+        return "Event [dateDebut=" + dateDebut + ", dateFin=" + dateFin + ", id=" + id + ", listFile=" + listFile
+                + ", listMarkers=" + listMarkers + ", resume=" + resume + "]";
+    }
+
+    
    
 
     

@@ -1,14 +1,26 @@
-<p>event-list works!</p>
 
-<div *ngFor="let event of events ">
+
+<div *ngFor="let event of events " style="">
     
     <p>{{event.name}}</p>
     <p>{{event.dateDebut}}</p>
     <p>{{event.dateFin}}</p>
     <p>{{event.contenu}}</p>
 
+    <div style="height: 100px;"></div>
+
     <div  *ngFor="let marker of event.listMarker">
         <p>{{marker.latitude}}</p>
         <p>{{marker.longitude}}</p>
     </div>
+    <div style="height: 100px;"></div>
+ 
+    <h1>File</h1>
+    <div  *ngFor="let file of event.listFileAPI">
+        <p>{{file.url}}</p>
+        <p>{{file.name}}</p>
+    </div>
 </div>
+
+
+

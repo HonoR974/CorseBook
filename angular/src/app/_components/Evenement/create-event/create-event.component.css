@@ -1,3 +1,55 @@
 agm-map {
     height: 300px;
   }
+
+body
+{
+ width: 100%;
+
+}
+
+.corps
+{
+  border-radius: 15px;
+  background-color: rgba(108, 117, 125,0.2);
+}
+
+.row-map
+{
+  margin-bottom: 20px;
+}
+
+.btnMap
+{
+  margin-top: 10px;
+
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.row-formulaire
+{
+  display: flex;
+  flex-direction: column;
+  background-color: rgba(173, 181, 189,0.3);
+  margin: 10px;
+  padding: 10px;
+  border-radius: 15px;
+}
+
+.line-top
+{
+  display: flex;
+  justify-content: space-between;
+}
+
+.line-bot
+{
+  margin: 15px 0px 15px 0px;
+}
+
+.btn-line
+{
+  display: flex;
+  justify-content: center;
+}

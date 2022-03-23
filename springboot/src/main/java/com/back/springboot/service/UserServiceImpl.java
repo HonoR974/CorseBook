@@ -163,7 +163,6 @@ public class UserServiceImpl implements UserService{
                 if(chat.getUsers().size() == 2 && chat.getUsers().contains(user))
                 {
                     userDTO.setId_chat(chat.getId());
-                    System.out.println("\n id chat : " + chat.getId());
                 }
             }
         }

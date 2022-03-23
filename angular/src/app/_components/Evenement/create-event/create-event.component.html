@@ -1,106 +1,108 @@
 <body>
 
+<div class="corps">
 
-    <div class="container" >
-        <div class="row">
-            <div>
-                Create Event 
-            </div>
-        </div>
+    <form [formGroup]="eventForm" (ngSubmit)="fileUpdate()">
+
+        <!-- map component-->
+      <div class="row-map">
+
+          <agm-map  [latitude]="lat" [longitude]="lng"
+           >
+              <agm-marker *ngFor="let marker of markers"
+              [latitude]="marker.latitude" [longitude]="marker.longitude"
+              [label]="marker.label"
+              [markerDraggable]="true"
+              (dragEnd)="markerDragEnd(marker.id, $event.coords.lat, $event.coords.lng)">
+              </agm-marker>
+
+          </agm-map>
+      
+          <div class="btnMap">
+
+              <div >
+                  <button class="btn btn-primary"
+                  type="button" (click)="addMarker(lat, lng)">
+                       Ajouter un marker
+                  </button>
+              </div>
+          
+              <div>
+
+                  <input 
+                      formControlName="file"
+                      id="file" 
+                      type="file" 
+                      multiple
+                      class="form-control content2"
+                      placeholder="Ajouter des fichiers s"
+                      (change)="addFile($event)">
+
+              </div>
+              
+          </div>
+           
+      </div>
 
       
+      <!-- formulaire -->
+      <div class="row-formulaire">
+
+          <div class="line-top">
+              <div class="form-group section">
+                  <label for="name">Nommez l'évenement  : </label>
+                  <input 
+                  formControlName="name"
+                      id="name" 
+                      type="text" 
+                      class="form-control content"
+                      placeholder="Nom de l'évenement">
+              </div>
+
+              <div class="form-group section">
+                  <label for="contenu">Date début  : </label>
+                  <input 
+                  formControlName="dateDebut"
+                      id="dateDebut" 
+                      type="date" 
+                      class="form-control content"
+                      placeholder="date du début ">
+              </div>
+
+            
+              <div class="form-group section">
+                  <label for="contenu">Date Fin  : </label>
+                  <input 
+                  formControlName="dateFin"
+                      id="dateFin" 
+                      type="date" 
+                      class="form-control content"
+                      placeholder="Date de fin ">
+              </div>
+          </div>
+       
+          <div class="line-bot">
+
+           
+              <div class="form-group section">
+                  <label for="contenu">Expliquez l'évenement  : </label>
+                  <input 
+                  formControlName="contenu"
+                      id="contenu" 
+                      type="text" 
+                      class="form-control content"
+                      placeholder="Résumer l'evenement">
+              </div>
+
+          </div>
+      </div>
+
+      <div class="btn-line">
+          <button class="btn btn-primary button" type="submit">Valider</button>
+
+      </div>
+  </form>
 
 
-        <!--Formulaire create -->
-        <div class="col">
-
-            <form [formGroup]="eventForm" (ngSubmit)="fileUpdate()">
-
-                  <!-- map component-->
-                <div class="col">
-
-                    <agm-map  [latitude]="lat" [longitude]="lng"
-                     >
-                        <agm-marker *ngFor="let marker of markers"
-                        [latitude]="marker.latitude" [longitude]="marker.longitude"
-                        [label]="marker.label"
-                        [markerDraggable]="true"
-                        (dragEnd)="markerDragEnd(marker.id, $event.coords.lat, $event.coords.lng)">
-                        </agm-marker>
-
-                    </agm-map>
-
-                    Ajouter la position de l'evenement 
-                    <ul>
-                        <li> <button class="btn btn-primary"
-                             type="button" (click)="addMarker(lat, lng)">
-                            Ajouter un marker
-                        </button>
-                        </li>
-
-                        <li>
-                            <label for="file">Ajoutez des fichiers </label>
-                            <input 
-                                formControlName="file"
-                                id="file" 
-                                type="file" 
-                                multiple
-                                class="form-control content2"
-                                (change)="addFile($event)">
-                        </li>
-                    </ul>
-                </div>
-
-                <div class="col">
-                    
-                    <div class="form-group section">
-                        <label for="name">Nommez l'évenement  : </label>
-                        <input 
-                        formControlName="name"
-                            id="name" 
-                            type="text" 
-                            class="form-control content"
-                            placeholder="Nom de l'évenement">
-                    </div>
-    
-                    <div class="form-group section">
-                        <label for="contenu">Expliquez l'évenement  : </label>
-                        <input 
-                        formControlName="contenu"
-                            id="contenu" 
-                            type="text" 
-                            class="form-control content"
-                            placeholder="Résumer l'evenement">
-                    </div>
-
-                    <div class="form-group section">
-                        <label for="contenu">Date début  : </label>
-                        <input 
-                        formControlName="dateDebut"
-                            id="dateDebut" 
-                            type="date" 
-                            class="form-control content"
-                            placeholder="date du début ">
-                    </div>
-
-                    <div class="form-group section">
-                        <label for="contenu">Date Fin  : </label>
-                        <input 
-                        formControlName="dateFin"
-                            id="dateFin" 
-                            type="date" 
-                            class="form-control content"
-                            placeholder="Date de fin ">
-                    </div>
-                </div>
-   
-                <button class="btn btn-primary button" type="submit">Valider</button>
-            </form>
-
-        </div>
-
-
-
-    </div>
-
+</div>
 </body>

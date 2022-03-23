@@ -30,6 +30,7 @@ public class EventController {
     {
         System.out.println("\n event request " + eventDTORequest.toString());
 
+        System.out.println("request " + eventDTORequest.getListFileAPI().size());
         
        Event  event = eventService.createEvent(eventService.convertDTO(eventDTORequest));
 

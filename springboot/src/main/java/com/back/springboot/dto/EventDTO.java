@@ -9,11 +9,13 @@ public class EventDTO {
    
     private long id;
 
+    private String name;
+
     private String dateDebut;
 
     private String dateFin;
 
-    private String resume;
+    private String contenu;
 
     private List<MarkerDTO> listMarker;
 
@@ -32,13 +34,6 @@ public class EventDTO {
     }
 
   
-    public String getResume() {
-        return resume;
-    }
-
-    public void setResume(String resume) {
-        this.resume = resume;
-    }
 
     public List<MarkerDTO> getListMarker() {
         return listMarker;
@@ -72,12 +67,19 @@ public class EventDTO {
         this.dateFin = dateFin;
     }
 
-    @Override
-    public String toString() {
-        return "EventDTO [dateDebut=" + dateDebut + ", dateFin=" + dateFin + ", id=" + id + ", listFileAPI="
-                + listFileAPI + ", listMarker=" + listMarker + ", resume=" + resume + "]";
+    public String getContenu() {
+        return contenu;
     }
 
+    public void setContenu(String contenu) {
+        this.contenu = contenu;
+    }
+
+    @Override
+    public String toString() {
+        return "EventDTO [contenu=" + contenu + ", dateDebut=" + dateDebut + ", dateFin=" + dateFin + ", id=" + id
+                + ", listFileAPI=" + listFileAPI + ", listMarker=" + listMarker + "]";
+    }
 
 
     

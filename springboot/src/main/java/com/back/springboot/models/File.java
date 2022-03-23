@@ -27,6 +27,10 @@ public class File {
     @OneToOne(mappedBy = "profilePicture")
     private User user;
 
+    @ManyToOne
+    private Event event;
+
+
     public File()
     {}
 
@@ -76,6 +80,15 @@ public class File {
         this.user = user;
     }
 
+    public Event getEvent() {
+        return event;
+    }
 
+    public void setEvent(Event event) {
+        this.event = event;
+    }
+
+
+    
     
 }

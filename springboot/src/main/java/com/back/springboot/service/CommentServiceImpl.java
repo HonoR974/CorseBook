@@ -83,8 +83,7 @@ public class CommentServiceImpl  implements CommentService{
         
         if (!comment.getLikeUser().contains(user))
         {
-            System.out.println("\n commentLike null ");
-
+         
 
             // save comment 
             List<User> list = comment.getLikeUser();
