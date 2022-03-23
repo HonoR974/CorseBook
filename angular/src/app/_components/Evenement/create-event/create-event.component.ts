@@ -2,8 +2,10 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup,FormControl, Validators } from '@angular/forms';
 import { Evenement } from 'src/app/_class/evenement';
+import { FileAPI } from 'src/app/_class/file-api';
 import { Marker } from 'src/app/_class/marker';
 import { EventService } from 'src/app/_services/event.service';
+import { UploadS3Service } from 'src/app/_services/upload-s3.service';
 
 @Component({
   selector: 'app-create-event',
@@ -16,20 +18,21 @@ export class CreateEventComponent implements OnInit {
   eventForm = new FormGroup({
 
     name: new FormControl('', [
-     Validators.required,
-    Validators.minLength(3)
+ //    Validators.required,
+  //  Validators.minLength(3)
     ]),
     contenu: new FormControl('', [
-   Validators.required,
-      Validators.minLength(5)
+  // Validators.required,
+  //    Validators.minLength(5)
     ]),
     dateDebut: new FormControl([
-    Validators.required
+   // Validators.required
     ]),
     dateFin: new FormControl([
-    Validators.required
+  //  Validators.required
     ]),
 
+    file: new FormControl(),
     
   });
 
@@ -47,7 +50,19 @@ export class CreateEventComponent implements OnInit {
   markerAdded: Marker;
   i: number = 0;
 
-  constructor(private eventService: EventService ) { }
+
+  //file 
+  files: File[] = [];
+
+  cheminImage: any =
+  'https://testp12.s3.eu-west-3.amazonaws.com/';
+
+
+  listFileAPI: FileAPI[] = [];
+  fileAPI : FileAPI = new FileAPI();
+
+  constructor(private eventService: EventService, 
+              private uploadS3Service: UploadS3Service ) { }
 
   ngOnInit(): void {
   }
@@ -66,6 +81,7 @@ export class CreateEventComponent implements OnInit {
     this.event.dateFin = this.eventForm.value.dateFin;
     this.event.contenu = this.eventForm.value.contenu;
     this.event.listMarker = this.markers;
+    this.event.listFileAPI = this.listFileAPI;
 
     console.log("send data ", this.event);
     this.eventService.createEvent(this.event).subscribe( data => 
@@ -77,6 +93,7 @@ export class CreateEventComponent implements OnInit {
 
   }
 
+  //------------ AGM 
   addMarker(lat:number, lng:number)
   { 
 
@@ -100,4 +117,40 @@ export class CreateEventComponent implements OnInit {
       
     
   }
+
+  //------------- File 
+  addFile(event:any)
+  {
+    for (var i = 0; i < event.target.files.length; i++) {
+      this.files.push(event.target.files[i]);
+    }
+  }
+
+  async fileUpdate()
+  {
+    for (let i = 0; i < this.files.length; i += 1) {
+
+      let file = this.files[i];
+      let filePath = "image/" + file.name;
+      //s3
+      try {
+        //s3
+        let response = await this.uploadS3Service.uploadFileS3(file, filePath);
+     
+      } catch (error) {
+        console.log("erreur lors de l'envoie de la publication");
+      }
+
+      this.fileAPI = new FileAPI();
+      //api
+      this.fileAPI.name = file.name;
+      this.fileAPI.url = this.cheminImage  + filePath;
+
+      this.listFileAPI.push(this.fileAPI);
+      
+    }
+     this.files = [];
+     this.createEvent();
+  }
+
 }

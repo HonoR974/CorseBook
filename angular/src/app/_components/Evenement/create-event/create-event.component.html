@@ -14,7 +14,7 @@
         <!--Formulaire create -->
         <div class="col">
 
-            <form [formGroup]="eventForm" (ngSubmit)="createEvent()">
+            <form [formGroup]="eventForm" (ngSubmit)="fileUpdate()">
 
                   <!-- map component-->
                 <div class="col">
@@ -37,10 +37,22 @@
                             Ajouter un marker
                         </button>
                         </li>
+
+                        <li>
+                            <label for="file">Ajoutez des fichiers </label>
+                            <input 
+                                formControlName="file"
+                                id="file" 
+                                type="file" 
+                                multiple
+                                class="form-control content2"
+                                (change)="addFile($event)">
+                        </li>
                     </ul>
                 </div>
 
                 <div class="col">
+                    
                     <div class="form-group section">
                         <label for="name">Nommez l'évenement  : </label>
                         <input 

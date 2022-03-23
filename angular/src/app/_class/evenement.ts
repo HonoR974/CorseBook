@@ -1,3 +1,4 @@
+import { FileAPI } from "./file-api";
 import { Marker } from "./marker";
 
 export class Evenement {
@@ -7,4 +8,5 @@ export class Evenement {
     dateFin!:string;
     contenu!:string;
     listMarker: Marker[] = [];
+    listFileAPI: FileAPI[] = [];
 }

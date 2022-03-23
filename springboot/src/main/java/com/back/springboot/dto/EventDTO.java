@@ -1,6 +1,5 @@
 package com.back.springboot.dto;
 
-import java.util.Date;
 import java.util.List;
 
 import lombok.Data;
@@ -10,13 +9,15 @@ public class EventDTO {
    
     private long id;
 
-    private  Date dateDebut;
+    private String dateDebut;
 
-    private Date dateFin;
+    private String dateFin;
 
     private String resume;
 
     private List<MarkerDTO> listMarker;
+
+    private List<FileDTO> listFileAPI;
 
     
     public EventDTO() {
@@ -30,22 +31,7 @@ public class EventDTO {
         this.id = id;
     }
 
-    public Date getDateDebut() {
-        return dateDebut;
-    }
-
-    public void setDateDebut(Date dateDebut) {
-        this.dateDebut = dateDebut;
-    }
-
-    public Date getDateFin() {
-        return dateFin;
-    }
-
-    public void setDateFin(Date dateFin) {
-        this.dateFin = dateFin;
-    }
-
+  
     public String getResume() {
         return resume;
     }
@@ -62,11 +48,36 @@ public class EventDTO {
         this.listMarker = listMarker;
     }
 
+    public List<FileDTO> getListFileAPI() {
+        return listFileAPI;
+    }
+
+    public void setListFileAPI(List<FileDTO> listFileAPI) {
+        this.listFileAPI = listFileAPI;
+    }
+
+    public String getDateDebut() {
+        return dateDebut;
+    }
+
+    public void setDateDebut(String dateDebut) {
+        this.dateDebut = dateDebut;
+    }
+
+    public String getDateFin() {
+        return dateFin;
+    }
+
+    public void setDateFin(String dateFin) {
+        this.dateFin = dateFin;
+    }
+
     @Override
     public String toString() {
-        return "EventDTO [dateDebut=" + dateDebut + ", dateFin=" + dateFin + ", id=" + id + ", listMarker=" + listMarker
-                + ", resume=" + resume + "]";
+        return "EventDTO [dateDebut=" + dateDebut + ", dateFin=" + dateFin + ", id=" + id + ", listFileAPI="
+                + listFileAPI + ", listMarker=" + listMarker + ", resume=" + resume + "]";
     }
+
 
 
     

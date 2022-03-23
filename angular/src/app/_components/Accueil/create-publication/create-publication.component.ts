@@ -28,7 +28,6 @@ export class CreatePublicationComponent implements OnInit {
   isLoggedIn = false;
 
   files: File[] = [];
-  renderImages: any = [];
 
   cheminImage: any =
     'https://testp12.s3.eu-west-3.amazonaws.com/';

@@ -1,6 +1,9 @@
 package com.back.springboot.service;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import com.back.springboot.dto.EventDTO;
@@ -65,6 +68,22 @@ public class EventServiceImpl implements EventService{
             }
             event.setListMarkers(listMarkers);
            
+        }
+
+        //dateDebut
+        if (eventDTO.getDateDebut() != null)
+        {
+             //dateDebut
+             try {
+                Date dateDebut = new SimpleDateFormat("dd/MM/yyyy").parse(eventDTO.getDateDebut());
+                event.setDateDebut(dateDebut);
+            
+            } catch (ParseException e) {
+
+                System.out.println("\n il n'a pas de date ");
+        
+                e.printStackTrace();
+            }
         }
         
         return event;
