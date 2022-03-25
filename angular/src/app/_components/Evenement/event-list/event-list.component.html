@@ -1,26 +1,97 @@
 
+<div class="list">
 
-<div *ngFor="let event of events " style="">
+    <div *ngFor="let event of events " class="cadre " >
+
+
+            <div class="side-name">
+                {{event.name}}
+            </div>
+      
+            <div class="line-toggle">
     
-    <p>{{event.name}}</p>
-    <p>{{event.dateDebut}}</p>
-    <p>{{event.dateFin}}</p>
-    <p>{{event.contenu}}</p>
+                <div class="btn-toggle">
+                    <mat-slide-toggle 
+                    [(ngModel)]="event.checkedMarker" 
+                    >
+                    </mat-slide-toggle>
+             
+                </div>
+                  
+            </div>
+            
+        
+            <div class="toggle">
 
-    <div style="height: 100px;"></div>
 
-    <div  *ngFor="let marker of event.listMarker">
-        <p>{{marker.latitude}}</p>
-        <p>{{marker.longitude}}</p>
+                <div *ngIf="event.checkedMarker" class="side-file">
+
+                <ngb-carousel 
+                [showNavigationArrows]="true" 
+                    [showNavigationIndicators]="true"
+                    [interval]="20000"
+                    [keyboard]="true"
+                    [pauseOnHover]="true"
+                    [wrap]="true"
+                    [activeId]="'sliderThree'">
+                        <ng-template ngbSlide *ngFor="let image of event.listFileAPI"> 
+                            <div class="picsum-img-wrapper">
+                                <img [src]="image.url" [alt]="image.name">
+                            </div>
+                            <div class="carousel-caption">
+                                <!-- 
+                                <h3>Title</h3>
+                                <p>Aenean malesuada nisi ut commodo semper.</p>
+                                -->
+                            </div>
+    
+    
+                        </ng-template>
+    
+                    
+    
+                    </ngb-carousel>
+                </div>
+    
+                <div *ngIf="!event.checkedMarker" class="side-map"> 
+
+                    <div >
+                        <agm-map  [latitude]="lat" [longitude]="lng">
+
+                            <agm-marker *ngFor="let marker of event.listMarker"
+                            [latitude]="marker.latitude"
+                            [longitude]="marker.longitude"
+                            [label]="marker.label">
+                            
+                            </agm-marker>
+                
+                        </agm-map>
+                    </div>
+                    
+                    </div>
+            </div>
+
+            <div class="content">
+
+                <div class="section-content">
+                  <div>Date debut   {{event.dateDebut}}</div>
+                  <div>Date fin : {{event.dateFin}}</div> 
+                </div>
+    
+             
+                <div class="section-content">
+                   <p>Content : {{event.contenu}}</p> 
+                </div>
+                
+            </div>
+  
+
+      
+
+
     </div>
-    <div style="height: 100px;"></div>
- 
-    <h1>File</h1>
-    <div  *ngFor="let file of event.listFileAPI">
-        <p>{{file.url}}</p>
-        <p>{{file.name}}</p>
-    </div>
+    
+    
 </div>
-
 
 

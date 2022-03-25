@@ -40,6 +40,7 @@ public class EventServiceImpl implements EventService{
     @Override
     public Event createEvent(Event event) {
 
+        
         eventRepository.save(event);
         if(event.getListMarkers() != null)
         {
@@ -74,8 +75,34 @@ public class EventServiceImpl implements EventService{
         Event event = eventRepository.findById(id)
                   .orElseThrow(() -> new ResourceNotFoundException(
                       "Event not extist with id : "+ id) ) ;
- 
+        
+        if(event.getListFile() != null)
+        {
+            fileRepository.deleteAll(event.getListFile());
+        }
+        if(event.getListMarkers() != null)
+        {
+            markerRepository.deleteAll(event.getListMarkers());
+        }
         eventRepository.delete(event);
+    }
+
+    @Override
+    public void deleteAll()
+    {
+        markerRepository.deleteAll();
+
+        List<Event> list = eventRepository.findAll();
+
+        for( Event event : list )
+        {
+            if( event.getListFile() != null)
+            {
+                fileRepository.deleteAll(event.getListFile());
+            }
+        }
+
+        eventRepository.deleteAll();
     }
     //--------------CONVERT 
      

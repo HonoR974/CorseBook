@@ -1,0 +1,135 @@
+.list
+{
+  background-color: rgba(108, 117, 125,0.5);
+  margin: 15px 0px 15px 0px;
+  border-radius: 15px;
+}
+
+.cadre
+{
+  margin: 20px;
+ background-color: rgba(248, 249, 250,0.5);
+ border-radius: 15px;
+
+}
+
+.line-toggle
+{
+  display: flex;
+  flex-direction: row-reverse;
+
+}
+
+.btn-toggle
+{
+  width: 100px;
+}
+.toggle
+{
+
+  margin: 10px;
+}
+
+.side-name
+{
+  margin: 20px;
+  text-align: center;
+  font-size: 22px;
+}
+
+.side-file
+{
+  background-color: rgba(73, 80, 87,0.5)
+}
+
+.side-file img
+{
+  max-height: 300px;
+  max-width: 500px;
+  width: 100%;
+}
+
+.picsum-img-wrapper
+{
+   
+    display: flex;
+    justify-content: center;
+  
+}
+.side-map
+{
+
+}
+
+agm-map
+{
+    height: 200px;
+    width: 100%;
+}
+
+.content
+{
+  margin: 15px;
+  display: flex;
+  flex-direction: column;
+  background-color: rgba(73, 80, 87,0.1);
+  border-radius: 15px;
+}
+
+.section-content
+{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  margin: 10px 0px 10px 0px;
+
+}
+
+
+/* BTN Toggle file / map */
+.switch {
+    position: relative;
+    display: inline-block;
+    width: 60px;
+    height: 34px;
+  }
+  
+  .switch input {display:none;}
+  
+  .slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    -webkit-transition: .4s;
+    transition: .4s;
+  }
+  
+  .slider:before {
+    position: absolute;
+    content: "";
+    height: 26px;
+    width: 26px;
+    left: 4px;
+    bottom: 4px;
+    background-color: white;
+    -webkit-transition: .4s;
+    transition: .4s;
+  }
+  
+  input:checked + .slider {
+    background-color: #2196F3;
+  }
+  
+  input:focus + .slider {
+    box-shadow: 0 0 1px #2196F3;
+  }
+  
+  input:checked + .slider:before {
+    -webkit-transform: translateX(26px);
+    -ms-transform: translateX(26px);
+    transform: translateX(26px);
+  }

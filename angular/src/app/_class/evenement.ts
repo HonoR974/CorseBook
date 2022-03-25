@@ -9,4 +9,7 @@ export class Evenement {
     contenu!:string;
     listMarker: Marker[] = [];
     listFileAPI: FileAPI[] = [];
+    
+    //le btn toggle entre map et file 
+    checkedMarker:boolean = true;
 }

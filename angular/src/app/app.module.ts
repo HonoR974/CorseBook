@@ -39,6 +39,8 @@ import { PublicationProfileComponent } from './_components/Espace/publication-pr
 import { CreateEventComponent } from './_components/Evenement/create-event/create-event.component';
 import { EventListComponent } from './_components/Evenement/event-list/event-list.component';
 
+
+import {MatSlideToggleModule} from '@angular/material/slide-toggle';
 @NgModule({
   declarations: [
     AppComponent,
@@ -70,6 +72,7 @@ import { EventListComponent } from './_components/Evenement/event-list/event-lis
     MatIconModule,
     MatTooltipModule,
     MatBadgeModule,
+    MatSlideToggleModule,
     NgbModule,
     CarouselModule,
     ButtonModule,

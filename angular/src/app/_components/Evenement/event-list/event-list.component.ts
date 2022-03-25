@@ -11,6 +11,14 @@ export class EventListComponent implements OnInit {
 
   events:Evenement[] = [];
 
+//agm 
+  // google maps zoom level
+  zoom: number = 8;
+
+  // initial center position for the map
+  lat: number = 41.91;
+  lng: number =  8.73;
+
   constructor(private eventService: EventService) { }
 
   ngOnInit(): void {
@@ -25,4 +33,11 @@ export class EventListComponent implements OnInit {
         console.log("getEvent ", data);
       });
   }
+
+  toggle(id:number)
+  {
+    console.log("event id " , id );
+    
+  }
+
 }

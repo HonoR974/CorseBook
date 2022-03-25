@@ -33,6 +33,7 @@ public class EventController {
     public ResponseEntity<EventDTO> createEvent(@RequestBody EventDTO eventDTORequest )
     {
       
+        System.out.println(("\n request " + eventDTORequest.toString()));
        Event  event = eventService.createEvent(eventService.convertDTO(eventDTORequest));
 
        EventDTO eventDTO = eventService.convertEntity(event);
@@ -54,6 +55,16 @@ public class EventController {
     public ResponseEntity< Map<String, Boolean>> deleteEventById(@PathVariable long id )
     {
         eventService.deleteById(id);
+
+        Map<String,Boolean> response = new HashMap<>();
+        response.put("deleted", Boolean.TRUE);
+        return ResponseEntity.ok(response);
+    }
+
+    @DeleteMapping("all")
+    public ResponseEntity< Map<String, Boolean>> deleteEventAll( )
+    {
+        eventService.deleteAll();
 
         Map<String,Boolean> response = new HashMap<>();
         response.put("deleted", Boolean.TRUE);

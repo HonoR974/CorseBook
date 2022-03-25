@@ -75,14 +75,19 @@ public class EventDTO {
         this.contenu = contenu;
     }
 
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
     @Override
     public String toString() {
         return "EventDTO [contenu=" + contenu + ", dateDebut=" + dateDebut + ", dateFin=" + dateFin + ", id=" + id
-                + ", listFileAPI=" + listFileAPI + ", listMarker=" + listMarker + "]";
+                + ", listFileAPI=" + listFileAPI + ", listMarker=" + listMarker + ", name=" + name + "]";
     }
-
-
-    
 
 
 }

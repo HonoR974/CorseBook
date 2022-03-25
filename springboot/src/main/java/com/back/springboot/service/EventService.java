@@ -15,6 +15,7 @@ public interface EventService {
 
     void deleteById(long id);
 
+    void deleteAll();
     //convert 
     Event convertDTO(EventDTO EventDTO);
 

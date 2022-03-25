@@ -19,11 +19,14 @@ public class Event {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
+    private String name;
+
+
     public Date dateDebut;
 
     private Date dateFin;
 
-    private String resume;
+    private String contenu;
 
     @OneToMany( mappedBy = "event")
     private List<Marker> listMarkers;
@@ -58,12 +61,21 @@ public class Event {
         this.dateFin = dateFin;
     }
 
-    public String getResume() {
-        return resume;
+   
+    public String getName() {
+        return name;
     }
 
-    public void setResume(String resume) {
-        this.resume = resume;
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getContenu() {
+        return contenu;
+    }
+
+    public void setContenu(String contenu) {
+        this.contenu = contenu;
     }
 
     public List<Marker> getListMarkers() {
@@ -82,13 +94,6 @@ public class Event {
         this.listFile = listFile;
     }
 
-    @Override
-    public String toString() {
-        return "Event [dateDebut=" + dateDebut + ", dateFin=" + dateFin + ", id=" + id + ", listFile=" + listFile
-                + ", listMarkers=" + listMarkers + ", resume=" + resume + "]";
-    }
-
-    
    
 
     
