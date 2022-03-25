@@ -11,10 +11,15 @@ public class FileDTO {
     private String name;
 
 
-public FileDTO()
-{
-    
-}
+    public FileDTO()
+    {
+        
+    }
+    public FileDTO(String url_champs, String nom)
+    {
+        this.url = url_champs;
+        this.name = nom;
+    }
     
     public String getUrl() {
         return url;

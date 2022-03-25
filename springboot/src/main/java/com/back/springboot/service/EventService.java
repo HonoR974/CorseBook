@@ -13,6 +13,8 @@ public interface EventService {
 
     Event createEvent(Event event);
 
+    void deleteById(long id);
+
     //convert 
     Event convertDTO(EventDTO EventDTO);
 

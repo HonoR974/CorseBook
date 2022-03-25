@@ -111,11 +111,12 @@ export class CreatePublicationComponent implements OnInit {
 
     this.publicationService
       .createPublication(this.publication)
-      .subscribe((data) => {
+      .subscribe( data  => {
         console.log("data created " + data);
+        window.location.reload();
       });
 
-      window.location.reload();
+     
   }
 
 

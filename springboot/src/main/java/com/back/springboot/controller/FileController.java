@@ -1,6 +1,9 @@
 package com.back.springboot.controller;
 
 
+import java.util.List;
+
+import com.back.springboot.dto.FileDTO;
 import com.back.springboot.models.File;
 import com.back.springboot.service.FileService;
 
@@ -29,9 +32,10 @@ public class FileController {
     }
 
     @GetMapping()
-    public ResponseEntity<?> getAllFile()
+    public ResponseEntity<  List<FileDTO>> getAllFile()
     {
-        return ResponseEntity.ok(fileService.getAll());
+        List<FileDTO> list = fileService.convertToListeDTO(fileService.getAll());
+        return ResponseEntity.ok(list);
     }
 
     

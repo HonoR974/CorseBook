@@ -9,6 +9,7 @@ import java.util.List;
 import com.back.springboot.dto.EventDTO;
 import com.back.springboot.dto.FileDTO;
 import com.back.springboot.dto.MarkerDTO;
+import com.back.springboot.exception.ResourceNotFoundException;
 import com.back.springboot.models.Event;
 import com.back.springboot.models.File;
 import com.back.springboot.models.Marker;
@@ -35,27 +36,27 @@ public class EventServiceImpl implements EventService{
     @Autowired
     private FileRepository fileRepository;
 
+
     @Override
     public Event createEvent(Event event) {
 
-
-        System.out.println("\n \n create " + event.toString());
-       
+        eventRepository.save(event);
         if(event.getListMarkers() != null)
         {
-           
             for(Marker mark : event.getListMarkers())
             {
-                System.out.println("\n marker " + mark.getEvent().getId());
                 markerRepository.save(mark);
             }
         }
         if( event.getListFile() != null)
         {
-            fileRepository.saveAll(event.getListFile());
-            System.out.println("\n  file ");
+            for(File file: event.getListFile())
+            {
+                fileRepository.save(file);
+            }
+       
         }
-        eventRepository.save(event);
+       
         
         return   event;
     }
@@ -66,6 +67,16 @@ public class EventServiceImpl implements EventService{
     }
 
 
+
+    @Override
+    public void deleteById(long id) {
+       
+        Event event = eventRepository.findById(id)
+                  .orElseThrow(() -> new ResourceNotFoundException(
+                      "Event not extist with id : "+ id) ) ;
+ 
+        eventRepository.delete(event);
+    }
     //--------------CONVERT 
      
     @Override
@@ -120,6 +131,18 @@ public class EventServiceImpl implements EventService{
             }
             eventDTO.setListMarker(lDtos);
         }
+
+        if ( event.getListFile() != null)
+        {
+            List<FileDTO> lFileDTOs = new ArrayList<>();
+
+            for ( File file : event.getListFile())
+            {
+                FileDTO fileDTO = new FileDTO(file.getUrl(), file.getName());
+                lFileDTOs.add(fileDTO);
+            }
+            eventDTO.setListFileAPI(lFileDTOs);
+        }
         return eventDTO;
     }
 
@@ -134,4 +157,6 @@ public class EventServiceImpl implements EventService{
         }
 		return listDtos;
 	}
+
+  
 }

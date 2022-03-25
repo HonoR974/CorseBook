@@ -1,7 +1,9 @@
 package com.back.springboot.controller;
 
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import com.back.springboot.dto.EventDTO;
 import com.back.springboot.models.Event;
@@ -11,7 +13,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -28,10 +32,7 @@ public class EventController {
     @PostMapping()
     public ResponseEntity<EventDTO> createEvent(@RequestBody EventDTO eventDTORequest )
     {
-        System.out.println("\n event request " + eventDTORequest.toString());
-
-        System.out.println("request " + eventDTORequest.getListFileAPI().size());
-        
+      
        Event  event = eventService.createEvent(eventService.convertDTO(eventDTORequest));
 
        EventDTO eventDTO = eventService.convertEntity(event);
@@ -46,5 +47,16 @@ public class EventController {
 
         List<EventDTO> lDtos = eventService.convertListEntity(list);
         return new ResponseEntity<>(lDtos, HttpStatus.ACCEPTED);
+    }
+
+
+    @DeleteMapping("{id}")
+    public ResponseEntity< Map<String, Boolean>> deleteEventById(@PathVariable long id )
+    {
+        eventService.deleteById(id);
+
+        Map<String,Boolean> response = new HashMap<>();
+        response.put("deleted", Boolean.TRUE);
+        return ResponseEntity.ok(response);
     }
 }
