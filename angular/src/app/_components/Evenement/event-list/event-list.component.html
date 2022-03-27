@@ -120,21 +120,33 @@
             <div *ngFor="let comment of event.listComments"> 
 
                 <div  class="comment">
-                    <p>{{comment.username}}</p>
-                    <p>{{comment.contenu}}</p>
-                     Date : {{comment.dateCreated}}
 
+                    <div class="comment-title">  
+                        {{comment.username}}
 
+                    </div>
+                  
+                    <div class="comment-content">
+
+                        <div>
+                            {{comment.contenu}}
+                        </div>
+                        <div>
+                            {{comment.dateCreated}}
+                        </div>
+                    </div>
+                  
+
+                    <div>
                     <!-- Liked -->
                     <button type="button" class="btn btn-info"  
-                    matTooltip="Like" *ngIf="comment.liked" 
+                    matTooltip="J'aime" *ngIf="!comment.liked" 
                     (click)="commentLiked(comment.id)"
-                      >
+                    >
 
-                        <mat-icon>favorite</mat-icon>{{comment.countLike}}
+                        <mat-icon>favorite_border</mat-icon>{{comment.countLike}}
                     </button>
-    
-
+                    </div>
                 </div>
 
                 

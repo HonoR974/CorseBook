@@ -92,7 +92,29 @@ agm-map
   height: 150px;
 }
 
+.comment
+{
+  display: flex;
+  flex-direction: column;
+  border-radius: 15px;
+  margin: 10px;
+  border-color: white;
+ border-style: groove;
+}
 
+.comment-title
+{
+  text-align: center;
+  font-size: 20px;
+  text-decoration: underline;
+}
+
+.comment-content 
+{
+   display: flex;
+   flex-direction: row;
+   justify-content: space-between;
+}
 
 /* BTN Toggle file / map */
 .switch {
