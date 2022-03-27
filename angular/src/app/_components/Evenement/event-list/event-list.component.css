@@ -39,7 +39,8 @@
 
 .side-file
 {
-  background-color: rgba(73, 80, 87,0.5)
+  background-color: rgba(73, 80, 87,0.5);
+  border-radius: 15px;
 }
 
 .side-file img
@@ -84,6 +85,13 @@ agm-map
   margin: 10px 0px 10px 0px;
 
 }
+
+
+.line-button
+{
+  height: 150px;
+}
+
 
 
 /* BTN Toggle file / map */

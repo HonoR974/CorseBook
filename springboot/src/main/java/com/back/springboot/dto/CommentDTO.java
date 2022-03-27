@@ -20,6 +20,8 @@ public class CommentDTO {
 
     private boolean liked;
 
+    private long id_event;
+
     public CommentDTO(){}
 
     public long getId() {
@@ -77,6 +79,14 @@ public class CommentDTO {
 
     public void setLiked(boolean liked) {
         this.liked = liked;
+    }
+
+    public long getId_event() {
+        return id_event;
+    }
+
+    public void setId_event(long id_event) {
+        this.id_event = id_event;
     }
 
     

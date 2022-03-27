@@ -11,9 +11,11 @@ import java.text.SimpleDateFormat;
 import com.back.springboot.dto.CommentDTO;
 import com.back.springboot.exception.ResourceNotFoundException;
 import com.back.springboot.models.Comment;
+import com.back.springboot.models.Event;
 import com.back.springboot.models.Publication;
 import com.back.springboot.models.User;
 import com.back.springboot.repository.CommentRepository;
+import com.back.springboot.repository.EventRepository;
 import com.back.springboot.repository.PublicationRepository;
 import com.back.springboot.repository.UserRepository;
 
@@ -39,6 +41,35 @@ public class CommentServiceImpl  implements CommentService{
     @Autowired
     private SecurityService securityService;
 
+    @Autowired
+    private EventRepository eventRepository;
+
+    //create comment in event 
+    @Override
+    public Comment createCommentByEventId(long id, Comment commentRequest) {
+        
+        
+
+        Comment comment = new Comment();
+        comment.setContenu(commentRequest.getContenu());
+        comment.setUser(commentRequest.getUser());
+
+        Event event = eventRepository.findById(id)
+        .orElseThrow(() -> new ResourceNotFoundException(
+            "Event not extist with id : "+ id) ) ;
+
+        List<Comment> list = new ArrayList<>();
+        list.add(comment);
+
+        event.setListComments(list);
+        eventRepository.save(event);
+
+        comment.setEvent(event);
+
+        return commentRepository.save(comment);
+    }
+
+  
 
 
     //create comment in publication 
@@ -246,6 +277,16 @@ public class CommentServiceImpl  implements CommentService{
             }
                 
         }
+
+        // event 
+        if (commentDTO.getId_event() != 0 )
+        {
+            Event event = eventRepository.findById(commentDTO.getId_event())
+            .orElseThrow(() -> new ResourceNotFoundException(
+                "Event not extist with id : "+ commentDTO.getId_event()) ) ;
+    
+            comment.setEvent(event);
+        }
      
 
 
@@ -292,7 +333,11 @@ public class CommentServiceImpl  implements CommentService{
             commentDTO.setLiked(checkLikeByUserAndCom(comment));
         }
 
-
+        //event's comment
+        if (comment.getEvent() != null)
+        {
+            commentDTO.setId_event(comment.getEvent().getId());
+        }
 
         return commentDTO;
     }
@@ -311,7 +356,7 @@ public class CommentServiceImpl  implements CommentService{
         return lDtos;
     }
 
-  
+
     
 
 

@@ -7,6 +7,8 @@ import com.back.springboot.models.Comment;
 
 public interface CommentService {
     
+    Comment createCommentByEventId(long id, Comment commentRequest);
+
     Comment createCommentByPublicationID(long id,Comment commentRequest);
 
     Comment commentLiked(long id);

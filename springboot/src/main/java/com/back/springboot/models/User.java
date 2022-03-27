@@ -9,6 +9,8 @@ import javax.validation.constraints.Size;
 
 @Entity
 public class User {
+
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
@@ -60,6 +62,11 @@ public class User {
 	//	chat
 	@ManyToMany(mappedBy = "users")
 	private List<Chat> chats;
+
+	// event 
+	@ManyToMany
+	private List<Event> listEvent;
+
 
 	public User() {
 	}
@@ -181,6 +188,16 @@ public class User {
 
 	public void setChats(List<Chat> chats) {
 		this.chats = chats;
+	}
+
+
+	public List<Event> getListEvent() {
+		return listEvent;
+	}
+
+
+	public void setListEvent(List<Event> listEvent) {
+		this.listEvent = listEvent;
 	}
 
 	

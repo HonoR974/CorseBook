@@ -21,7 +21,10 @@ public class EventDTO {
 
     private List<FileDTO> listFileAPI;
 
+    private List<String> listParticipant;
     
+    private List<CommentDTO> listComments;
+
     public EventDTO() {
     }
 
@@ -83,11 +86,22 @@ public class EventDTO {
         this.name = name;
     }
 
-    @Override
-    public String toString() {
-        return "EventDTO [contenu=" + contenu + ", dateDebut=" + dateDebut + ", dateFin=" + dateFin + ", id=" + id
-                + ", listFileAPI=" + listFileAPI + ", listMarker=" + listMarker + ", name=" + name + "]";
+    public List<String> getListParticipant() {
+        return listParticipant;
     }
 
+    public void setListParticipant(List<String> listParticipant) {
+        this.listParticipant = listParticipant;
+    }
+
+    public List<CommentDTO> getListComments() {
+        return listComments;
+    }
+
+    public void setListComments(List<CommentDTO> listComments) {
+        this.listComments = listComments;
+    }
+
+    
 
 }

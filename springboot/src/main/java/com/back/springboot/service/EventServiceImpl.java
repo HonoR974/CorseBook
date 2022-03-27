@@ -6,16 +6,20 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import com.back.springboot.dto.CommentDTO;
 import com.back.springboot.dto.EventDTO;
 import com.back.springboot.dto.FileDTO;
 import com.back.springboot.dto.MarkerDTO;
 import com.back.springboot.exception.ResourceNotFoundException;
+import com.back.springboot.models.Comment;
 import com.back.springboot.models.Event;
 import com.back.springboot.models.File;
 import com.back.springboot.models.Marker;
+import com.back.springboot.models.User;
 import com.back.springboot.repository.EventRepository;
 import com.back.springboot.repository.FileRepository;
 import com.back.springboot.repository.MarkerRepository;
+import com.back.springboot.repository.UserRepository;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,6 +39,37 @@ public class EventServiceImpl implements EventService{
 
     @Autowired
     private FileRepository fileRepository;
+
+    @Autowired
+    private SecurityService securityService;
+
+    @Autowired
+    private UserRepository userRepository;
+    
+    @Override
+	public Event addUserOnEvent(long id) {
+		
+        Event event = eventRepository.findById(id)
+        .orElseThrow(() -> new ResourceNotFoundException(
+            "Event not extist with id : "+ id) ) ;
+
+        User user = securityService.getUser();
+        
+        List<User> list = new ArrayList<>();
+        list.addAll(event.getListUser());
+        list.add(user);
+        
+        event.setListUser(list);
+        eventRepository.save(event);
+
+        List<Event> lEvents = new ArrayList<>();
+        lEvents.addAll(user.getListEvent());
+        lEvents.add(event);
+        user.setListEvent(lEvents);
+        userRepository.save(user);
+
+		return event;
+	}
 
 
     @Override
@@ -106,6 +141,22 @@ public class EventServiceImpl implements EventService{
     }
     //--------------CONVERT 
      
+
+    public List<CommentDTO> getCommentsDTOByPublication( Event event)
+    {
+        List<CommentDTO> list = new ArrayList<>();
+
+        for ( Comment com :  event.getListComments())
+        {
+            CommentDTO commentDTO = modelMapper.map(com, CommentDTO.class);
+            commentDTO.setId_event(event.getId());
+            commentDTO.setUsername(com.getUser().getUsername());
+
+            list.add(commentDTO);
+        }
+        return list;
+    }
+
     @Override
     public Event convertDTO(EventDTO eventDTO) {
         Event event = modelMapper.map((eventDTO), Event.class);
@@ -146,6 +197,7 @@ public class EventServiceImpl implements EventService{
        
         EventDTO eventDTO = modelMapper.map(event, EventDTO.class);
 
+        //marker
         if( event.getListMarkers() != null)
         {
             List<MarkerDTO> lDtos = new ArrayList<>();
@@ -159,6 +211,7 @@ public class EventServiceImpl implements EventService{
             eventDTO.setListMarker(lDtos);
         }
 
+        //file 
         if ( event.getListFile() != null)
         {
             List<FileDTO> lFileDTOs = new ArrayList<>();
@@ -169,6 +222,25 @@ public class EventServiceImpl implements EventService{
                 lFileDTOs.add(fileDTO);
             }
             eventDTO.setListFileAPI(lFileDTOs);
+        }
+
+        //user 
+        if ( event.getListUser() != null)
+        {
+            List<String> lUsers = new ArrayList<>();
+
+            for ( User user : event.getListUser())
+            {
+                lUsers.add(user.getUsername());
+            }
+            eventDTO.setListParticipant(lUsers);
+        }
+        
+
+        //comment 
+        if (event.getListComments() != null)
+        {
+            eventDTO.setListComments(getCommentsDTOByPublication(event));
         }
         return eventDTO;
     }
@@ -184,6 +256,8 @@ public class EventServiceImpl implements EventService{
         }
 		return listDtos;
 	}
+
+
 
   
 }

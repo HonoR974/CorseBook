@@ -29,6 +29,20 @@ public class EventController {
     @Autowired
     private EventService eventService;
 
+    
+
+    //Add User on Event
+    @PostMapping("add/{id}")
+    public ResponseEntity<EventDTO> addUserOnEvent(@PathVariable long id )
+    {
+        Event event = eventService.addUserOnEvent(id);
+        EventDTO eventDTO = eventService.convertEntity(event);
+
+        return new ResponseEntity<>(eventDTO, HttpStatus.ACCEPTED);
+    }
+
+
+    //------------- CRUD 
     @PostMapping()
     public ResponseEntity<EventDTO> createEvent(@RequestBody EventDTO eventDTORequest )
     {
@@ -70,4 +84,6 @@ public class EventController {
         response.put("deleted", Boolean.TRUE);
         return ResponseEntity.ok(response);
     }
+
+    //--------------------- CRUD 
 }

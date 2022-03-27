@@ -17,6 +17,11 @@ export class EventService {
 
   constructor(private HttpClient: HttpClient) { }
 
+  addUserOnEvent(id:number):Observable<Object>
+  {
+    return this.HttpClient.post(baseURL + "add/"+ id , httpOptions);
+  }
+
   createEvent(event:Evenement ):Observable<Object>
   {
     return this.HttpClient.post(baseURL, event);

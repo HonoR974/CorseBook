@@ -11,6 +11,7 @@ import com.back.springboot.service.CommentService;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -30,7 +31,20 @@ public class CommentController {
     @Autowired
     private CommentService commentService;
 
+    //create comment in event 
+    @PostMapping("event/{id_event}")
+    public ResponseEntity<CommentDTO> createCommentByEventId(@PathVariable long id_event,
+                                                                @RequestBody CommentDTO commentDTORequest)
+    {
 
+        Comment comment = commentService.convertToEntity(commentDTORequest);
+
+        Comment commentCreated = commentService.createCommentByEventId(id_event, comment);
+
+        CommentDTO commentDTO = commentService.convertToDto(commentCreated);
+
+        return new ResponseEntity<>(commentDTO, HttpStatus.ACCEPTED);
+    }
     //create comment in publication 
     @PostMapping("publication/{id_publication}")
     public ResponseEntity<?> createCommentByPublicationId(@PathVariable long id_publication,

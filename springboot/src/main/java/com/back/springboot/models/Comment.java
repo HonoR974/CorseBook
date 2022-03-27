@@ -11,6 +11,8 @@ import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 
+import org.springframework.lang.Nullable;
+
 @Entity
 public class Comment {
 
@@ -20,10 +22,15 @@ public class Comment {
     private long id;
 
     @ManyToOne
+    @Nullable
     private Publication publication;
 
     @ManyToOne
     private User user;
+
+    @ManyToOne
+    @Nullable
+    private Event event;
 
     private String contenu; 
 
@@ -87,6 +94,14 @@ public class Comment {
 
     public void setLikeUser(List<User> likeUser) {
         this.likeUser = likeUser;
+    }
+
+    public Event getEvent() {
+        return event;
+    }
+
+    public void setEvent(Event event) {
+        this.event = event;
     }
 
 

@@ -81,7 +81,8 @@
 
             <!-- Liked / btn for disliked  -->
             <button type="button" class="btn btn-info"  
-            matTooltip="Dislike" *ngIf="publication.liked" (click)="publicationDisliked(publication.id)"
+            matTooltip="Dislike" *ngIf="publication.liked" 
+            (click)="publicationDisliked(publication.id)"
               >
                 <mat-icon>favorite</mat-icon>{{publication.countLike}}
             </button>

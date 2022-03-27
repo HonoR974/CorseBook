@@ -18,15 +18,29 @@ export class CommentService {
 
   constructor(private HttpClient: HttpClient) { }
 
+  //create pub comment 
   createCommentByPublication(comment:Comment, id_publication:number):Observable<any>
   {
-    console.log("create comment " , comment);
+  
 
     return this.HttpClient.post<Comment>(baseURL + "publication/"+id_publication, comment);
+  }
+
+  //create event comment 
+  createCommentByEvent(comment:Comment, id_event:number):Observable<any>
+  {
+
+
+    return this.HttpClient.post<Comment>(baseURL + "event/"+id_event, comment);
   }
 
   commentLikedById(id:number):Observable<any> 
   {
     return this.HttpClient.post<Comment>(baseURL +"like/" + id, httpOptions);
   }
+
+
+
+
+  
 }

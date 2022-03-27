@@ -9,6 +9,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 
 @Entity
@@ -34,6 +35,12 @@ public class Event {
     @OneToMany( mappedBy = "event")
     private List<File> listFile;
 
+    @ManyToMany
+    private List<User> listUser;
+
+    @OneToMany( mappedBy = "event")
+    private List<Comment> listComments;
+    
     public Event() {
     }
 
@@ -92,6 +99,22 @@ public class Event {
 
     public void setListFile(List<File> listFile) {
         this.listFile = listFile;
+    }
+
+    public List<User> getListUser() {
+        return listUser;
+    }
+
+    public void setListUser(List<User> listUser) {
+        this.listUser = listUser;
+    }
+
+    public List<Comment> getListComments() {
+        return listComments;
+    }
+
+    public void setListComments(List<Comment> listComments) {
+        this.listComments = listComments;
     }
 
    

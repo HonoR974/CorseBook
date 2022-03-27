@@ -22,9 +22,7 @@
             
         
             <div class="toggle">
-
-
-                <div *ngIf="event.checkedMarker" class="side-file">
+                <div *ngIf="!event.checkedMarker" class="side-file">
 
                 <ngb-carousel 
                 [showNavigationArrows]="true" 
@@ -53,7 +51,7 @@
                     </ngb-carousel>
                 </div>
     
-                <div *ngIf="!event.checkedMarker" class="side-map"> 
+                <div *ngIf="event.checkedMarker" class="side-map"> 
 
                     <div >
                         <agm-map  [latitude]="lat" [longitude]="lng">
@@ -86,7 +84,92 @@
             </div>
   
 
-      
+            <div class="line-button">
+             
+                <!-- btn Participer -->
+                <p-button type="button" 
+                        styleClass="p-button-success "
+                        matTooltip="Participer à l'evenement "
+                        [disabled]="event.isParticiped"
+                        icon="pi pi-user-plus"
+                        (click)="addParticipant(event.id)">
+             
+                </p-button>
+
+
+                <!-- btn Commenter -->
+                <button type="button" class="btn btn-info" [disabled]=""
+                matTooltip="Commenter"
+                
+                  (click)="getComments(event.id)">
+
+                    <mat-icon>comment</mat-icon>
+                   
+                </button>
+
+            </div>
+
+
+
+            
+
+             <!------------- Comments -------------> 
+        <div   class="cadreComment" >
+
+            <!-- Affichage -->
+            <div *ngFor="let comment of event.listComments"> 
+
+                <div  class="comment">
+                    <p>{{comment.username}}</p>
+                    <p>{{comment.contenu}}</p>
+                     Date : {{comment.dateCreated}}
+
+
+                    <!-- Liked -->
+                    <button type="button" class="btn btn-info"  
+                    matTooltip="Like" *ngIf="comment.liked" 
+                    (click)="commentLiked(comment.id)"
+                      >
+
+                        <mat-icon>favorite</mat-icon>{{comment.countLike}}
+                    </button>
+    
+
+                </div>
+
+                
+            </div>
+     
+
+            <!-- Create -->
+
+            <div class="createComment">
+                <form  [formGroup]="commentForm" (ngSubmit)="createComment(event.id)">
+  
+                    <div  class="form-group">
+                        <label for="contenu">
+                            Votre Commentaire : 
+                        </label>
+                        <input
+                        formControlName="contenu"
+                        id="contenu" 
+                        type="text" 
+                        class="form-control content"
+                        placeholder="Participez">
+    
+                    </div>
+    
+                   <button class="btn btn-primary button" type="submit">Partager</button>
+               
+                </form>
+            </div>
+
+            
+           
+       
+        </div>
+
+
 
 
     </div>
