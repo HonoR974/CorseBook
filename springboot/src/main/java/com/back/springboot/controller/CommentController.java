@@ -37,6 +37,7 @@ public class CommentController {
                                                                 @RequestBody CommentDTO commentDTORequest)
     {
 
+
         Comment comment = commentService.convertToEntity(commentDTORequest);
 
         Comment commentCreated = commentService.createCommentByEventId(id_event, comment);
@@ -45,11 +46,15 @@ public class CommentController {
 
         return new ResponseEntity<>(commentDTO, HttpStatus.ACCEPTED);
     }
+   
+   
+   
     //create comment in publication 
     @PostMapping("publication/{id_publication}")
     public ResponseEntity<?> createCommentByPublicationId(@PathVariable long id_publication,
                                                             @RequestBody CommentDTO commentDTORequest)
     {
+        
 
         System.out.println("\n create comment \n ");
         Comment comment = commentService.convertToEntity(commentDTORequest);

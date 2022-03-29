@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 
 import 'sweetalert2/src/sweetalert2.scss';
@@ -37,7 +37,6 @@ export class PublicationPublicComponent implements OnInit {
   });
 
 
-
   constructor(private publicationService: PublicationService,
               private tokenStorage: TokenStorageService,
               private commentService : CommentService,
@@ -46,6 +45,8 @@ export class PublicationPublicComponent implements OnInit {
   ngOnInit(): void {
 
     this.getPublicationsPublic();
+
+    
   }
 
   //------------------ Publication ----------------//
@@ -55,6 +56,9 @@ export class PublicationPublicComponent implements OnInit {
   {
     this.publicationService.getPublicationPublic().subscribe(data => {
       this.publications = data;
+      this.publications.forEach(element => element.isClickedComment = false);
+
+    console.log("publications init ", this.publications);
       });
   }
 
@@ -94,24 +98,14 @@ export class PublicationPublicComponent implements OnInit {
 
   //----------------- Comments  ---------------//
 
-  //getCommentsByPublication(id:number)
-  getCommentsByPublication(id:number)
-  {
-    this.x = document.getElementById(""+id);
 
-    if ( this.x.style.display == "none") {
-      this.x.style.display = "block";
-    } else {
-      this.x.style.display = "none";
-    }
-
-
-  }
+ 
 
 
   //create comment by publication  
   createComment( id_publication: number)
   {
+    console.log("create ");
     
     this.comment.contenu = this.commentForm.controls['contenu'].value;
     this.comment.username = this.tokenStorage.getUser().username;
@@ -120,7 +114,15 @@ export class PublicationPublicComponent implements OnInit {
 
       this.commentService.createCommentByPublication(this.comment, id_publication)
                           .subscribe( data => {
-                          
+
+                            //ajout du comment a la pub 
+                          this.publications.forEach( element => 
+                            {
+                              if (element.id == id_publication)
+                              {
+                                element.listComments.push(data);
+                              }
+                            })
                           });
 
                           
@@ -131,8 +133,6 @@ export class PublicationPublicComponent implements OnInit {
   //like comment 
   commentLiked(id:number)
   {
-
-    
     this.commentService.commentLikedById(id)
                       .subscribe ( data => 
                         {
@@ -140,8 +140,6 @@ export class PublicationPublicComponent implements OnInit {
 
     this.getPublicationsPublic();
   }
-
-
 
 
 

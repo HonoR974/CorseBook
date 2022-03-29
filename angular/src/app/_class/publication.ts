@@ -11,7 +11,12 @@ export class Publication {
     public username!: string;
  
     public listFile : FileAPI[] = [];
-    public listComments : Comment[] = [];
 
+    public listComments : Comment[] = [];
+    public isClickedComment:boolean = false;
     public createdByUser!: boolean;
+
+
 }
+
+

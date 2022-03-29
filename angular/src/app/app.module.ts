@@ -41,6 +41,9 @@ import { EventListComponent } from './_components/Evenement/event-list/event-lis
 
 
 import {MatSlideToggleModule} from '@angular/material/slide-toggle';
+import { ListComponent } from './_components/Nature/list/list.component';
+
+import { CommentPubComponent } from './_components/comment-pub/comment-pub.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -58,6 +61,8 @@ import {MatSlideToggleModule} from '@angular/material/slide-toggle';
     EventComponent,
     CreateEventComponent,
     EventListComponent,
+    ListComponent,
+    CommentPubComponent,
   ],
   imports: [
     BrowserModule,

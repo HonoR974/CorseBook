@@ -1,6 +1,9 @@
 <body>
     
 <div class="list">
+
+ 
+
     <div class="colonne">
     
     <div class="cadre" *ngFor="let publication of publications" >
@@ -89,93 +92,25 @@
 
           
         
-            <button type="button" class="btn btn-info"
-               matTooltip="Comment" 
-                            (click)="getCommentsByPublication(publication.id)">
-                            <mat-icon>comment</mat-icon>
+        
+           <button type="button" class="btn btn-info"
+           matTooltip="Comment" 
+           mat-button
+            (click)="publication.isClickedComment=!publication.isClickedComment">
+            
+              <mat-icon>comment</mat-icon>
             </button>
 
-
-               <!-- futur bouton partage  -->
-               <button type="button" class="btn btn-info" >
-                   <mat-icon>favorite_border</mat-icon>{{publication.countLike}}
-               </button>
-
         </div>
+
+
 
 
         <!-- Comments -->
-        <div  id="{{publication.id}}"  class="cadreComment" >
-
-            <!-- Affichage -->
-            <div *ngFor="let comment of publication.listComments"> 
-
-                <div  class="comment">
-                    <p>{{comment.username}}</p>
-                    <p>{{comment.contenu}}</p>
-                     Date : {{comment.dateCreated}}
-
-
-                    <!-- Liked -->
-                    <button type="button" class="btn btn-info"  
-                    matTooltip="Like" *ngIf="comment.liked" 
-                    (click)="commentLiked(comment.id)"
-                      >
-
-                        <mat-icon>favorite</mat-icon>{{comment.countLike}}
-                    </button>
-        
-
-
-                    <!-- Not Liked -->
-                    <button type="button" class="btn btn-info" 
-                    matTooltip="Like" *ngIf="!comment.liked" 
-                    (click)="commentLiked(comment.id)">
-
-                        <mat-icon>favorite_border</mat-icon>{{comment.countLike}}
-                    </button>
-
-                    <button type="button" class="btn btn-info" 
-                    matTooltip="Like" *ngIf="!comment.liked" 
-                    (click)="commentLiked(comment.id)">
-
-                        <mat-icon>favorite_border</mat-icon>{{comment.countLike}}
-                    </button>
-
-                </div>
-
-                
-            </div>
-     
-
-            <!-- Create -->
-
-            <div class="createComment">
-                <form  [formGroup]="commentForm" (ngSubmit)="createComment(publication.id)">
-  
-                    <div  class="form-group">
-                        <label for="contenu">
-                            Votre Commentaire : 
-                        </label>
-                        <input
-                        formControlName="contenu"
-                        id="contenu" 
-                        type="text" 
-                        class="form-control content"
-                        placeholder="Participez">
-    
-                    </div>
-    
-                   <button class="btn btn-primary button" type="submit">Partager</button>
-               
-                </form>
-            </div>
-
-            
-           
-       
-        </div>
-
+        <div *ngIf="publication.isClickedComment; ">
+   
+            <app-comment-pub [id]="publication.id"></app-comment-pub>
+        </div>      
     </div>
 
 

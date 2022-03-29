@@ -318,12 +318,10 @@ public class CommentServiceImpl  implements CommentService{
         //like count 
         if( comment.getLikeUser() == null )
         {
-            System.out.println("\n comment.getlCommentLike() == null  ");
             commentDTO.setCountLike(0);
         }
         else
         {
-            System.out.println("\n nmb like comment " + comment.getLikeUser().size() );
             commentDTO.setCountLike(comment.getLikeUser().size());
         }
 

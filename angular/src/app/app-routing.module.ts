@@ -13,6 +13,7 @@ import { PublicationPublicComponent } from './_components/Accueil/publication-pu
 import { ProfileComponent } from './_components/Espace/profile/profile.component';
 import { CreateEventComponent } from './_components/Evenement/create-event/create-event.component';
 import { UploadFileComponent } from './_components/upload-file/upload-file.component';
+import { ListComponent } from './_components/Nature/list/list.component';
 
 
 const routes: Routes = [
@@ -41,7 +42,10 @@ const routes: Routes = [
 
 
   //chat 
-  { path: 'chat/:id', component:ChatComponent}
+  { path: 'chat/:id', component:ChatComponent},
+
+  //nature 
+  { path :'nature', component:ListComponent}
 ];
 
 @NgModule({

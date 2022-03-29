@@ -1,0 +1,16 @@
+<button mat-button (click)="show = !show">{{show ? 'hide' : 'show'}}</button>
+<button mat-button (click)="switchThenTemplate()">Switch Then Template</button>
+show = {{show}}
+<br>
+<div *ngIf="show; then thenTemplate; else elseTemplate">
+   Inline template Ignored
+</div>
+<ng-template #primaryTemplate>
+  Default Primary then Template
+</ng-template>
+<ng-template #secondaryTemplate>
+  Secondary then Template
+</ng-template>
+<ng-template #elseTemplate>
+  Else Template
+</ng-template>

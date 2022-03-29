@@ -78,7 +78,8 @@ export class EventListComponent implements OnInit {
 
   checkListEvent()
   {
-    this.events.forEach(element =>  element.isParticiped =  this.isParticiped(element) );
+    this.events.forEach(element => 
+       element.isParticiped =  this.isParticiped(element) );
     console.log("event " ,this.events);
   }
 

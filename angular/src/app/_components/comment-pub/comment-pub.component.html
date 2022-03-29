@@ -1,0 +1,69 @@
+<p>
+    Today's item: {{id}}
+  </p>
+
+
+          <!-- Comments -->
+          <div    class="cadreComment" >
+
+            <!-- Affichage -->
+            <div *ngFor="let comment of publication.listComments"> 
+
+                <div  class="comment">
+                    <p>{{comment.username}}</p>
+                    <p>{{comment.contenu}}</p>
+                     Date : {{comment.dateCreated}}
+
+
+                    <!-- Liked -->
+                    <button type="button" class="btn btn-info"  
+                    matTooltip="Like" *ngIf="comment.liked" 
+                    (click)="commentLiked(comment.id)"
+                      >
+
+                        <mat-icon>favorite</mat-icon>{{comment.countLike}}
+                    </button>
+        
+
+
+                    <!-- Not Liked -->
+                    <button type="button" class="btn btn-info" 
+                    matTooltip="Like" *ngIf="!comment.liked" 
+                    (click)="commentLiked(comment.id)">
+
+                        <mat-icon>favorite_border</mat-icon>{{comment.countLike}}
+                    </button>
+
+                </div>
+
+                
+            </div>
+     
+
+            <!-- Create -->
+
+            <div class="createComment">
+                <form  [formGroup]="commentForm" (ngSubmit)="createComment(publication.id)">
+  
+                    <div  class="form-group">
+                        <label for="contenu">
+                            Votre Commentaire : 
+                        </label>
+                        <input
+                        formControlName="contenu"
+                        id="contenu" 
+                        type="text" 
+                        class="form-control content"
+                        placeholder="Participez">
+    
+                    </div>
+    
+                   <button class="btn btn-primary button" type="submit">Partager</button>
+               
+                </form>
+            </div>
+
+            
+           
+       
+        </div>
