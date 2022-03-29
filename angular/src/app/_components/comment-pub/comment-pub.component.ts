@@ -65,7 +65,10 @@ export class CommentPubComponent implements OnInit {
 
 
       this.commentService.createCommentByPublication(this.comment, id_publication)
-                          .subscribe( data => { console.log("data comment created ", data)});
+                          .subscribe( data => { 
+                            console.log("data comment created ", data)
+                            this.ngOnInit();
+                            });
 
                    
 
