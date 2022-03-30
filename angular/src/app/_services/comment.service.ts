@@ -40,6 +40,10 @@ export class CommentService {
   }
 
 
+  commentDislikedById(id:number):Observable<any> 
+  {
+    return this.HttpClient.post<Comment>(baseURL +"dislike/" + id, httpOptions);
+  }
 
 
   

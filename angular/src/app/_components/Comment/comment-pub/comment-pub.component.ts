@@ -14,8 +14,8 @@ import { TokenStorageService } from 'src/app/_services/token-storage.service';
 })
 export class CommentPubComponent implements OnInit {
 
-  publication:Publication;
-  comment:Comment;
+  publication!:Publication;
+  comment:Comment =new Comment;
 
   commentForm =  new FormGroup({
     contenu: new FormControl('', [
@@ -29,30 +29,23 @@ export class CommentPubComponent implements OnInit {
               private tokenStorage: TokenStorageService,
               private commentService : CommentService) { }
 
-  @Input() id : number;
+  @Input()
+  publicationRequest!: Publication;
 
 
   ngOnInit(): void {
+
+    this.publication = this.publicationRequest;
+
+    this.publication.listComments.forEach( element => console.log("comment : "
+                + element.id + " est liké par l'user " + element.liked));
     this.getPublicationById();
   }
   
-  getPublicationById()
-  {
-    this.publicationService.getPublicationById(this.id).subscribe( 
-      data => {
-        this.publication = data;
-        console.log("data", data);
-      }
-    )
-  }
 
 
 
   //----------------- Comments  ---------------//
-
-
- 
-
 
   //create comment by publication  
   createComment( id_publication: number)
@@ -65,16 +58,12 @@ export class CommentPubComponent implements OnInit {
 
 
       this.commentService.createCommentByPublication(this.comment, id_publication)
-                          .subscribe( data => { 
-                            console.log("data comment created ", data)
-                            this.ngOnInit();
+                          .subscribe( data =>
+                             { 
+                              console.log("data comment created ", data);
+                              this.commentForm.reset();
+                              this.getPublicationById();
                             });
-
-                   
-
-                          
-      
-
   }
 
   //like comment 
@@ -83,10 +72,30 @@ export class CommentPubComponent implements OnInit {
     this.commentService.commentLikedById(id)
                       .subscribe ( data => 
                         {
+                          console.log("data Liked " ,  data);
+                          this.getPublicationById();
                         });
 
   }
 
+  commentDisliked(id:number)
+  {
+    this.commentService.commentDislikedById(id).subscribe( data => 
+      {
+        console.log("data disliked ", data ); 
+        this.getPublicationById();
+      });
+  }
+
+  getPublicationById()
+  {
+    this.publicationService.getPublicationById(this.publication.id).subscribe( 
+      data => {
+        this.publication = data;
+        console.log("data pub ", data);
+      }
+    )
+  }
 
 
 }

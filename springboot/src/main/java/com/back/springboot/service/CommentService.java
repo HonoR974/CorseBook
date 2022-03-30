@@ -13,6 +13,8 @@ public interface CommentService {
 
     Comment commentLiked(long id);
 
+    Comment commentDisliked(long id);
+
     //  CRUD //
     List<Comment> getAll();
 

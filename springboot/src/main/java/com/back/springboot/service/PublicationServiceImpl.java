@@ -1,6 +1,9 @@
 package com.back.springboot.service;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -310,14 +313,52 @@ public class PublicationServiceImpl implements PublicationService {
 
             commentDTO.setUsername(comment.getUser().getUsername());
 
-            list.add(commentDTO);
-        }
+             //date 
+            Date date = Calendar.getInstance().getTime();  
+            DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");  
+            commentDTO.setDateCreated(dateFormat.format(date));
+
+
+            //like count 
+            if( comment.getLikeUser() == null )
+            {
+                commentDTO.setCountLike(0);
+            }
+            else
+            {
+                commentDTO.setCountLike(comment.getLikeUser().size());
+            }
+
+            //liked by user ? 
+            if ( securityService.isAuthenticated())
+            {
+                commentDTO.setLiked(checkLikeByUserAndCom(comment));
+            }
+
+                list.add(commentDTO);
+            }
 
 
 
         return list;
     }
 
+    public boolean checkLikeByUserAndCom(Comment commentRequest)
+    {
+        
+       boolean condition = false;
+
+       User user = securityService.getUser();
+
+       List<User> list = commentRequest.getLikeUser();
+
+       if (list != null && list.contains(user))
+       {
+           condition = true;
+       }
+
+        return condition;
+    }
 
 
     // from publication to publicationDTO

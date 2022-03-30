@@ -133,21 +133,14 @@ public class CommentServiceImpl  implements CommentService{
             Publication publication = comment.getPublication();
  
             List<Comment> lComments  = new ArrayList<>();
-            for(Comment comm : publication.getListComments())
-            {
-                if(comm.getId() != comment.getId())
-                {
-                    lComments.add(comm);
-                }
-                else
-                {
-                    lComments.add(comment);
-                }
-            }
+            lComments.addAll(publication.getListComments());
+            lComments.add(comment);
+
             publication.setListComments(lComments);
 
             publicationRepository.save(publication);
 
+            
             
         }
         else
@@ -160,9 +153,58 @@ public class CommentServiceImpl  implements CommentService{
 
 
 
-        return comment;
+        return commentRepository.save(comment);
     }
 
+
+
+    //disliked 
+    @Override
+    public Comment commentDisliked(long id) {
+ 
+        Comment comment = commentRepository.findById(id)
+        .orElseThrow(() -> new ResourceNotFoundException(
+            "le commentaire avec l'id " + id + " n'existe pas "));
+
+            //verifie que l'user n'a pas deja like ce commentaire
+        User user = securityService.getUser();
+        System.out.println("\n user " +  user.toString());
+
+
+        if (comment.getLikeUser().contains(user))
+        {
+         
+            List<User> list = comment.getLikeUser();
+            list.remove(user);
+            comment.setLikeUser(list);
+            commentRepository.save(comment);
+
+            List<Comment> list2 = user.getCommentsLiked();
+            list2.remove(comment);
+            user.setCommentsLiked(list2);
+            userRepository.save(user);
+
+            Publication publication = comment.getPublication();
+
+            List<Comment> lComments = publication.getListComments();
+            lComments.remove(comment);
+            lComments.add(comment);
+            publication.setListComments(lComments);
+            publicationRepository.save(publication);
+
+        }
+        else
+        {
+            System.out.println("\n le commentaire n'est pas aimé par l'user  ");
+
+            throw new ResourceNotFoundException(
+                "l'user " + user.getUsername()  + " n'a pas  liké le commentaire " + comment.getId());
+        }
+
+
+
+        return comment;
+    }
 
 
 
@@ -353,6 +395,9 @@ public class CommentServiceImpl  implements CommentService{
         }
         return lDtos;
     }
+
+
+
 
 
     

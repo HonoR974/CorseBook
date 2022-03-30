@@ -109,7 +109,7 @@
         <!-- Comments -->
         <div *ngIf="publication.isClickedComment; ">
    
-            <app-comment-pub [id]="publication.id"></app-comment-pub>
+            <app-comment-pub [publicationRequest]="publication"></app-comment-pub>
         </div>      
     </div>
 

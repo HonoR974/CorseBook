@@ -9,7 +9,7 @@ import com.back.springboot.dto.CommentDTO;
 import com.back.springboot.models.Comment;
 import com.back.springboot.service.CommentService;
 
-
+import org.apache.catalina.connector.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -68,17 +68,28 @@ public class CommentController {
     }
 
 
-    //like comment in publication 
+    //like comment 
     @PostMapping("like/{id}")
-    public ResponseEntity<?> commentLikedByID(@PathVariable long id)
+    public ResponseEntity<CommentDTO> commentLikedByID(@PathVariable long id)
     {
 
         Comment comment = commentService.commentLiked(id);
 
         CommentDTO commentDTO = commentService.convertToDto(comment);
 
-        return ResponseEntity.ok(commentDTO);
+        return new  ResponseEntity<>(commentDTO, HttpStatus.ACCEPTED);
+    }
 
+
+    //dislike comment
+    @PostMapping("dislike/{id}")
+    public ResponseEntity<CommentDTO> dislikeById(@PathVariable long id )
+    {
+        Comment comment = commentService.commentDisliked(id);
+
+        CommentDTO commentDTO = commentService.convertToDto(comment);
+
+        return new  ResponseEntity<>(commentDTO, HttpStatus.ACCEPTED);
     }
 
     // ------------------- CRUD ------------------//

@@ -1,0 +1,89 @@
+          <!-- Comments -->
+          <div    class="corps" >
+
+            <!-- Affichage -->
+            <div  *ngFor="let comment of publication.listComments"> 
+
+
+                    <div  class="comment">
+                        <div class="info">
+
+                            <div class="text">
+                              <div class="titre">{{comment.username}}</div> 
+                              <div class="contenu">{{comment.contenu}}</div> 
+                            </div>
+                     
+                            <div class="option" >
+                                
+                                
+
+                                    <div >
+                                        Date : {{comment.dateCreated}}
+                    
+                                    </div>
+
+                                    <div class="line-btn">
+
+                                        <!-- Liked btn dislike  -->
+                                        <button type="button" class="btn btn-info"  
+                                        matTooltip="Dislike" 
+                                        *ngIf="comment.liked" 
+                                        (click)="commentDisliked(comment.id)"
+                                            >
+
+                                            <mat-icon>favorite</mat-icon>{{comment.countLike}}
+                                        </button>
+
+
+
+                                        <!-- Not liked btn like -->
+                                        <button type="button" class="btn btn-info" 
+                                        matTooltip="Like" *ngIf="!comment.liked" 
+                                        (click)="commentLiked(comment.id)">
+
+                                            <mat-icon>favorite_border</mat-icon>{{comment.countLike}}
+                                        </button>
+
+                                    </div>
+                            </div>
+                      
+                       
+                        </div>
+        
+    
+    
+                     
+                    </div>
+                      
+
+                
+            </div>
+     
+
+            <!-- Create -->
+
+            <div class="createComment">
+                <form  [formGroup]="commentForm" (ngSubmit)="createComment(publication.id)">
+  
+                    <div  class="form-group">
+                        <label for="contenu">
+                            Votre Commentaire : 
+                        </label>
+                        <input
+                        formControlName="contenu"
+                        id="contenu" 
+                        type="text" 
+                        class="form-control content"
+                        placeholder="Participez">
+    
+                    </div>
+    
+                   <button class="btn btn-primary button" type="submit">Partager</button>
+               
+                </form>
+            </div>
+
+            
+           
+       
+        </div>

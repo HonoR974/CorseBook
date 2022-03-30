@@ -35,8 +35,7 @@ public class Comment {
     private String contenu; 
 
     private Date dateCreated;
-
-    @Column(name="user")
+    
     @ManyToMany
     private List<User> likeUser;
     
