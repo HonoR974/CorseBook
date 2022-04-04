@@ -15,6 +15,8 @@ public interface EventService {
 
     List<Event> getAll();
 
+    Event getEventById(long id);
+
     Event createEvent(Event event);
 
     void deleteById(long id);

@@ -31,4 +31,9 @@ export class EventService {
     return this.HttpClient.get<Evenement[]>(baseURL, httpOptions);
   }
 
+  getEventByID(id:number):Observable<any>
+  {
+    return this.HttpClient.get(baseURL + id, httpOptions);
+  }
+
 }

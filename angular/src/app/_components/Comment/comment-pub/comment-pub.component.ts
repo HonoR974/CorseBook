@@ -1,6 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Comment } from 'src/app/_class/comment';
+import { Evenement } from 'src/app/_class/evenement';
 
 import { Publication } from 'src/app/_class/publication';
 import { CommentService } from 'src/app/_services/comment.service';
@@ -36,9 +37,6 @@ export class CommentPubComponent implements OnInit {
   ngOnInit(): void {
 
     this.publication = this.publicationRequest;
-
-    this.publication.listComments.forEach( element => console.log("comment : "
-                + element.id + " est liké par l'user " + element.liked));
     this.getPublicationById();
   }
   

@@ -75,7 +75,30 @@ public class EventServiceImpl implements EventService{
     @Override
     public Event createEvent(Event event) {
 
-        
+        //date yyyy-MM-dd to dd-MM-yyyy
+        try {
+
+        // Setting the pattern
+        String sDebut= new SimpleDateFormat("dd-MM-yyyy").format(event.getDateDebut());
+        String sFin = new SimpleDateFormat("dd-MM-yyyy").format(event.getDateFin());
+
+
+        Date dateDebut = new SimpleDateFormat("dd-MM-yyyy").parse(sDebut);
+        Date dateFin = new SimpleDateFormat("dd-MM-yyyy").parse(sFin);
+
+        System.out.println("Date Debut  " + dateDebut);
+        System.out.println("Date Fin  " + dateDebut);
+
+
+        event.setDateDebut(dateDebut);
+        event.setDateFin(dateFin);
+
+    } catch (ParseException e) {
+ 
+        System.out.println("\n bad try ");
+        e.printStackTrace();
+    }  
+      
         eventRepository.save(event);
         if(event.getListMarkers() != null)
         {
@@ -92,6 +115,7 @@ public class EventServiceImpl implements EventService{
             }
        
         }
+
        
         
         return   event;
@@ -103,6 +127,15 @@ public class EventServiceImpl implements EventService{
     }
 
 
+
+    @Override
+    public Event getEventById(long id) {
+        Event event = eventRepository.findById(id)
+        .orElseThrow(() -> new ResourceNotFoundException(
+            "Event not extist with id : "+ id) ) ;
+
+        return event;
+    }
 
     @Override
     public void deleteById(long id) {
@@ -188,7 +221,9 @@ public class EventServiceImpl implements EventService{
            }
            event.setListFile(list);
        }
-        
+
+
+  
         return event;
     }
 
@@ -222,27 +257,41 @@ public class EventServiceImpl implements EventService{
                 lFileDTOs.add(fileDTO);
             }
             eventDTO.setListFileAPI(lFileDTOs);
+
         }
 
-        //user 
+        //user particpant  & current user is participed ? 
         if ( event.getListUser() != null)
         {
+
             List<String> lUsers = new ArrayList<>();
+            User userCurrent = securityService.getUser();
 
             for ( User user : event.getListUser())
             {
                 lUsers.add(user.getUsername());
+
+
+                if (userCurrent.getUsername().equalsIgnoreCase(user.getUsername()))
+                {
+                    eventDTO.setParticiped(true);
+                }
             }
             eventDTO.setListParticipant(lUsers);
         }
         
-
         //comment 
         if (event.getListComments() != null)
         {
             eventDTO.setListComments(getCommentsDTOByPublication(event));
         }
-        return eventDTO;
+
+       //date 
+       //Date to string 
+
+       eventDTO.setDateDebut(new SimpleDateFormat("dd-MM-yyyy").format(event.getDateDebut()));
+       eventDTO.setDateFin(new SimpleDateFormat("dd-MM-yyyy").format(event.getDateFin()));
+        return eventDTO;  
     }
 
 	@Override
@@ -256,6 +305,7 @@ public class EventServiceImpl implements EventService{
         }
 		return listDtos;
 	}
+
 
 
 

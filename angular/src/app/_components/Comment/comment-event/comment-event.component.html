@@ -2,7 +2,7 @@
           <div    class="corps" >
 
             <!-- Affichage -->
-            <div  *ngFor="let comment of publication.listComments"> 
+            <div  *ngFor="let comment of event.listComments"> 
 
 
                     <div  class="comment">
@@ -59,7 +59,8 @@
             <!-- Create -->
 
             <div class="createComment">
-                <form  [formGroup]="commentForm" (ngSubmit)="createComment(publication.id)">
+                <form  [formGroup]="commentForm" 
+                (ngSubmit)="createComment(event.id)">
   
                     <div  class="form-group">
                         <label for="contenu">

@@ -103,42 +103,5 @@ export class EventListComponent implements OnInit {
 
 
 
-  //---------- Comment 
 
-  getComments(id:number)
-  {
-    
-   
-    
-
-  }
-
-  
-  //like comment 
-  commentLiked(id:number)
-  {
-
-    
-    this.commentService.commentLikedById(id)
-        .subscribe ( data => 
-          {
-            console.log("data liked ", data ); 
-          });
-
-   
-  }
-
-  createComment(id:number)
-  {
-    let comment = new Comment();
-    comment.contenu =  this.commentForm.controls['contenu'].value;
-    comment.username = this.tokenService.getUser().username;
-
-
-    this.commentService.createCommentByEvent(comment, id)
-    .subscribe( data => {
-      console.log("comment created ", data ); 
-    });
-
-  }
 }

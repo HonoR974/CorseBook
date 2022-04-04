@@ -72,7 +72,7 @@
             <div class="content">
 
                 <div class="section-content">
-                  <div>Date debut   {{event.dateDebut}}</div>
+                  <div>Date debut   {{event.dateDebut }}</div>
                   <div>Date fin : {{event.dateFin}}</div> 
                 </div>
     
@@ -87,25 +87,27 @@
             <div class="line-button">
              
                 <!-- btn Participer -->
-                <p-button type="button" 
-                        styleClass="p-button-success "
-                        matTooltip="Participer à l'evenement "
-                        [disabled]="event.isParticiped"
-                        icon="pi pi-user-plus"
+                <p-button 
+                matTooltip="Participer" type="button" 
+                styleClass="p-button-rounded p-button-success"
+                [disabled]="event.isParticiped"
                         (click)="addParticipant(event.id)">
-             
+
+                <mat-icon>public</mat-icon>
+                {{event.listParticipant.length}}
                 </p-button>
 
 
                 <!-- btn Commenter -->
-                <button type="button" class="btn btn-info" [disabled]=""
+                <p-button type="button" 
+                styleClass="p-button-rounded p-button-info"
                 matTooltip="Commenter"
                 
-                  (click)="getComments(event.id)">
+                (click)="event.isClickedComment=!event.isClickedComment">
 
                     <mat-icon>comment</mat-icon>
-                   
-                </button>
+                   {{event.listComments.length}}
+                </p-button>
 
             </div>
 
@@ -114,73 +116,11 @@
             
 
              <!------------- Comments -------------> 
-        <div   class="cadreComment" >
-
-            <!-- Affichage -->
-            <div *ngFor="let comment of event.listComments"> 
-
-                <div  class="comment">
-
-                    <div class="comment-title">  
-                        {{comment.username}}
-
-                    </div>
-                  
-                    <div class="comment-content">
-
-                        <div>
-                            {{comment.contenu}}
-                        </div>
-                        <div>
-                            {{comment.dateCreated}}
-                        </div>
-                    </div>
-                  
-
-                    <div>
-                    <!-- Liked -->
-                    <button type="button" class="btn btn-info"  
-                    matTooltip="J'aime" *ngIf="!comment.liked" 
-                    (click)="commentLiked(comment.id)"
-                    >
-
-                        <mat-icon>favorite_border</mat-icon>{{comment.countLike}}
-                    </button>
-                    </div>
-                </div>
-
-                
-            </div>
-     
-
-            <!-- Create -->
-
-            <div class="createComment">
-                <form  [formGroup]="commentForm" (ngSubmit)="createComment(event.id)">
-  
-                    <div  class="form-group">
-                        <label for="contenu">
-                            Votre Commentaire : 
-                        </label>
-                        <input
-                        formControlName="contenu"
-                        id="contenu" 
-                        type="text" 
-                        class="form-control content"
-                        placeholder="Participez">
-    
-                    </div>
-    
-                   <button class="btn btn-primary button" type="submit">Partager</button>
-               
-                </form>
-            </div>
-
-            
-           
-       
-        </div>
-
+             <!-- Comments -->
+            <div *ngIf="event.isClickedComment; ">
+        
+                <app-comment-event [eventRequest] ="event"></app-comment-event>
+            </div>      
 
 
 

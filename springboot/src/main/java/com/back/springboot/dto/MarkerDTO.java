@@ -8,9 +8,9 @@ public class MarkerDTO {
     private long id;
 
 
-    private long latitude;
+    private float latitude;
 
-    private long longitude;
+    private float longitude;
 
     private String label;
 
@@ -19,13 +19,15 @@ public class MarkerDTO {
     public MarkerDTO() {
     }
 
-    public MarkerDTO(long lat, long lng)
-    {
-        this.latitude = lat;
-        this.longitude = lng;
+   
+    
+    public MarkerDTO(float latitude, float longitude) {
+        this.latitude = latitude;
+        this.longitude = longitude;
     }
 
-    
+
+
     public long getId() {
         return id;
     }
@@ -34,19 +36,22 @@ public class MarkerDTO {
         this.id = id;
     }
 
-    public long getLatitude() {
+ 
+
+
+    public float getLatitude() {
         return latitude;
     }
 
-    public void setLatitude(long latitude) {
+    public void setLatitude(float latitude) {
         this.latitude = latitude;
     }
 
-    public long getLongitude() {
+    public float getLongitude() {
         return longitude;
     }
 
-    public void setLongitude(long longitude) {
+    public void setLongitude(float longitude) {
         this.longitude = longitude;
     }
 

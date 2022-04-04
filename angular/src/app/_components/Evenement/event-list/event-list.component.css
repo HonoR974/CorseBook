@@ -89,7 +89,13 @@ agm-map
 
 .line-button
 {
-  height: 150px;
+ display: flex;
+ justify-content: space-evenly;
+}
+
+.line-button button
+{
+  border-radius: 30px;
 }
 
 .comment

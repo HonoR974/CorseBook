@@ -25,8 +25,12 @@ public class EventDTO {
     
     private List<CommentDTO> listComments;
 
+    private boolean isParticiped;
+
     public EventDTO() {
     }
+
+    
 
     public long getId() {
         return id;
@@ -100,6 +104,14 @@ public class EventDTO {
 
     public void setListComments(List<CommentDTO> listComments) {
         this.listComments = listComments;
+    }
+
+    public boolean isParticiped() {
+        return isParticiped;
+    }
+
+    public void setParticiped(boolean isParticiped) {
+        this.isParticiped = isParticiped;
     }
 
     

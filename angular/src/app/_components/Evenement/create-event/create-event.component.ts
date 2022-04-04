@@ -18,18 +18,18 @@ export class CreateEventComponent implements OnInit {
   eventForm = new FormGroup({
 
     name: new FormControl('', [
- //    Validators.required,
-  //  Validators.minLength(3)
+   Validators.required,
+  Validators.minLength(3)
     ]),
     contenu: new FormControl('', [
-  // Validators.required,
-  //    Validators.minLength(5)
+ Validators.required,
+    Validators.minLength(5)
     ]),
     dateDebut: new FormControl([
-   // Validators.required
+   Validators.required
     ]),
     dateFin: new FormControl([
-  //  Validators.required
+    Validators.required
     ]),
 
     file: new FormControl(),
@@ -75,7 +75,6 @@ export class CreateEventComponent implements OnInit {
   createEvent()
   {
     this.event = new Evenement();
-
     this.event.name = this.eventForm.value.name;
     this.event.dateDebut = this.eventForm.value.dateDebut;
     this.event.dateFin = this.eventForm.value.dateFin;
@@ -83,10 +82,12 @@ export class CreateEventComponent implements OnInit {
     this.event.listMarker = this.markers;
     this.event.listFileAPI = this.listFileAPI;
 
-    console.log("send data ", this.event);
+    console.log("send date " , this.event.dateDebut);
+
+    
     this.eventService.createEvent(this.event).subscribe( data => 
       {
-        console.log("data " , data);
+        console.log("receved marker " , data);
         this.ngOnInit();
         window.location.reload();
       });

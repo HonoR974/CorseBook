@@ -17,4 +17,6 @@ export class Evenement {
 
     //l'user participe à l'event 
     isParticiped:boolean = false;
+
+    isClickedComment : boolean = false;
 }

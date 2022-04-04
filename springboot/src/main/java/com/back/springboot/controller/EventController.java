@@ -9,6 +9,7 @@ import com.back.springboot.dto.EventDTO;
 import com.back.springboot.models.Event;
 import com.back.springboot.service.EventService;
 
+import org.apache.catalina.connector.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -47,7 +48,7 @@ public class EventController {
     public ResponseEntity<EventDTO> createEvent(@RequestBody EventDTO eventDTORequest )
     {
       
-        System.out.println(("\n request " + eventDTORequest.toString()));
+       
        Event  event = eventService.createEvent(eventService.convertDTO(eventDTORequest));
 
        EventDTO eventDTO = eventService.convertEntity(event);
@@ -64,6 +65,15 @@ public class EventController {
         return new ResponseEntity<>(lDtos, HttpStatus.ACCEPTED);
     }
 
+    @GetMapping("{id}")
+    public ResponseEntity<EventDTO> getEventById(@PathVariable long id)
+    {
+        Event event = eventService.getEventById(id);
+
+        EventDTO eventDTO = eventService.convertEntity(event);
+
+        return new ResponseEntity<>(eventDTO, HttpStatus.ACCEPTED);
+    }
 
     @DeleteMapping("{id}")
     public ResponseEntity< Map<String, Boolean>> deleteEventById(@PathVariable long id )
