@@ -14,6 +14,8 @@ const httpOptions = {
   providedIn: 'root'
 })
 export class UserService {
+
+  
   constructor(private http: HttpClient) { }
 
   getUserById(id: number):Observable<any>

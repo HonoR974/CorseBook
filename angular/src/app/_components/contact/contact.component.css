@@ -48,25 +48,37 @@ ul
     list-style-type: circle;
 }
 
-.user-item-content
-{
-    background-color: rgba(73, 80, 87,0.1);
-    margin: 5px;
-    padding: 5px;
-    min-height: 120px;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.car-buttons
-{
-    display: flex;
-}
 
 .cadre
 {
     display: flex;
     flex-direction: column;
+  
+}
+
+
+
+.user-item-content
+{
+    background-color: rgba(73, 80, 87,0.1);
+    margin: 5px;
+    padding: 5px;
+    min-height: 200px;
+    min-width: 150px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    
+}
+
+
+.user-item-content img
+{
+    max-height: 150px;
+    max-width: 100px;
+}
+.car-buttons
+{
+    display: flex;
 }

@@ -23,6 +23,8 @@ export class ContactComponent implements OnInit {
   //liste invitation recu 
   lDemandeInvitation: User[] = [];
 
+  //lien de l'image par default des user 
+  urlIconUser:any = "https://testp12.s3.eu-west-3.amazonaws.com/image/user.png";
 
   //suggest  
   listSuggest: User[] = [];
@@ -43,6 +45,7 @@ export class ContactComponent implements OnInit {
       this.getListDemandeContact();
       this.getListDemandeInvitation();
       this.getSuggestContact();
+      console.log("user image ", this.user);
     }
 
   }

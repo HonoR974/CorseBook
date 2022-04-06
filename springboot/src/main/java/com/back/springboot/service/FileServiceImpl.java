@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.back.springboot.dto.FileDTO;
+import com.back.springboot.exception.ResourceNotFoundException;
 import com.back.springboot.models.File;
 import com.back.springboot.repository.FileRepository;
 
@@ -34,6 +35,12 @@ public class FileServiceImpl implements FileService{
     {
         return fileRepository.findAll();
     }
+    @Override
+    public File getFileById(long id) {
+        // TODO Auto-generated method stub
+        return fileRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException(
+            "Filet not extist with id : "+ id) ) ;
+    }
 
 
     //------------- Convert -------------//
@@ -43,6 +50,10 @@ public class FileServiceImpl implements FileService{
 	public FileDTO convertToDTO(File file) {
 	
         FileDTO fileDTO=  modelMapper.map(file, FileDTO.class);
+        if (file.getUser() != null)
+        {
+            fileDTO.setUsername(file.getUser().getUsername());
+        }
 
 		return fileDTO;
 	}
@@ -59,4 +70,5 @@ public class FileServiceImpl implements FileService{
 		return list;
 	}
 
+  
 }

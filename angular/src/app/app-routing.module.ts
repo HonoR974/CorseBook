@@ -16,6 +16,7 @@ import { UploadFileComponent } from './_components/upload-file/upload-file.compo
 import { ListComponent } from './_components/Nature/list/list.component';
 
 
+
 const routes: Routes = [
 
   //accueil 
@@ -45,7 +46,11 @@ const routes: Routes = [
   { path: 'chat/:id', component:ChatComponent},
 
   //nature 
-  { path :'nature', component:ListComponent}
+  { path :'nature', component:ListComponent},
+
+  //update profile 
+  { path :'update-profile/:id', component:UpdatePublicationComponent}
+
 ];
 
 @NgModule({

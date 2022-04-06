@@ -18,7 +18,7 @@ export class UploadFileComponent implements OnInit {
  
   renderImages: any = [];
 
-  cheminImage:any = "https://testp12.s3.eu-west-3.amazonaws.com/images/";
+  cheminImage:any = "https://testp12.s3.eu-west-3.amazonaws.com/image/";
 
 
   constructor(private uploadS3Service: UploadS3Service,

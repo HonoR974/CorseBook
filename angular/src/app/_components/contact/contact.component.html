@@ -43,7 +43,7 @@
     <!-- Suggest Contact -->
     <div class="cadre">
 
-        <p-carousel [value]="listSuggest" [numVisible]="3"
+        <p-carousel class="carousel" [value]="listSuggest" [numVisible]="3"
          [numScroll]="3" [circular]="false" 
          [responsiveOptions]="responsiveOptions">
             
@@ -59,9 +59,21 @@
                     <div class="user-item-content">
                     
                 
-                            <div >{{user.username}}</div>
+                    <div >{{user.username}}</div>
 
-                    
+                    <div *ngIf="user.urlFile; else elseBlock">
+                        <img [src]="user.urlFile"  >
+                    </div>
+
+                    <ng-template #elseBlock  >
+
+                        <div>
+                            <img [src]="urlIconUser">
+                        </div>
+
+                    </ng-template>
+
+
                             <div class="car-buttons ">
                                 <!-- Bouton detail User -->
                                 <p-button type="button" 

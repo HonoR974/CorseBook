@@ -10,6 +10,7 @@ public interface FileService {
 
     List<File> getAll();
 
+    File getFileById(long id );
     //convert 
     FileDTO convertToDTO(File file);
     

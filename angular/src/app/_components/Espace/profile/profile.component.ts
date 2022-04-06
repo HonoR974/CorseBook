@@ -164,62 +164,6 @@ export class ProfileComponent implements OnInit {
     });
     }
 
- 
-  //------------- Profile Picture 
-  
-
-  get f() {
-    return this.myForm.controls;
-  }
-
-  onFilePicture(event:any) :void 
-  {
-  
-    if (event.target.files.length > 0) {
-      const file = event.target.files[0];
-
-
-      let filePath = "image/" + file.name;
-
-      this.file = file;
-
-      this.fileAPI.name = file.name;
-      this.fileAPI.url = this.cheminImage + filePath;
-    }
-
-  }
-  
-
-   async updateProfilePicture() {
-   
-      //s3
-      try {
-        //s3
-        let response = await this.uploadS3Service.uploadFileS3(this.file, this.fileAPI.name);
-        console.log("response : " , response);
-
-      } catch (error) {
-        console.log("erreur lors du telechargement de l'image ");
-      }
-
-      this.updateAPI();
-    }
-
-  
-    //une fois le telechargement finit 
-    //l'api rectoi la modif 
-    //et l'affiche dans la page profile 
-    updateAPI()
-    {
-      this.userService.updateProfilePicture(this.fileAPI).subscribe( 
-        data => 
-        {
-          this.currentUser = data;
-          this.ngOnInit();
-        }
-      )
-    }
-
 
     
   //Btn Add User 
@@ -232,5 +176,12 @@ export class ProfileComponent implements OnInit {
         
        }
      );
+  }
+
+
+  updateProfile(id:number)
+  {
+    this.router.navigate(['update-profile', id]);
+    
   }
 }

@@ -45,6 +45,8 @@ import { ListComponent } from './_components/Nature/list/list.component';
 import { CreateComponent } from './_components/Comment/create/create.component';
 import { CommentPubComponent } from './_components/Comment/comment-pub/comment-pub.component';
 import { CommentEventComponent } from './_components/Comment/comment-event/comment-event.component';
+import { UpdateProfileComponent } from './_components/Espace/update-profile/update-profile.component';
+
 
 @NgModule({
   declarations: [
@@ -66,7 +68,9 @@ import { CommentEventComponent } from './_components/Comment/comment-event/comme
     ListComponent,
     CreateComponent,
     CommentPubComponent,
-    CommentEventComponent
+    CommentEventComponent,
+    UpdateProfileComponent,
+
   ],
   imports: [
     BrowserModule,

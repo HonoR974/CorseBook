@@ -7,35 +7,37 @@
       <!-- Image Profile-->
       <div class="cadreImage"> 
         <img [src]="user.urlFile" >
+
+    
       </div>
 
       <!-- Barre Profile -->
-      <div class="borderProfil">
+      <div class="borderProfil"  *ngIf="!isUserProfil; else elseProfil">
 
         <div class="username">
           {{user.username}}
         </div>
       
 
-        <div class="cadreItem">
+          <div class="cadreItem">
 
-          <div  class="item">
+            <div  class="item">
 
-            <div *ngIf="isContact; else elseBlock">
+              <div *ngIf="isContact; else elseBlock">
 
-             <div class="titleButton">Supprimer ce contact </div> 
+              <div class="titleButton">Supprimer ce contact </div> 
 
-                    <!-- Bouton delete User -->
-                    <p-button type="button" 
-                    styleClass="p-button-danger p-button-rounded"
-                    matTooltip="Supprimer ce contact "
-                    icon="pi pi-times-circle"
-                    (click)="deleteContact(user.id)"></p-button>
-            </div>
-           
-         
+                      <!-- Bouton delete User -->
+                      <p-button type="button" 
+                      styleClass="p-button-danger p-button-rounded"
+                      matTooltip="Supprimer ce contact "
+                      icon="pi pi-times-circle"
+                      (click)="deleteContact(user.id)"></p-button>
+              </div>
+            
+          
 
-            <ng-template #elseBlock  >
+              <ng-template #elseBlock  >
               <div >
 
                 <div class="titleButton">Ajouter cet user</div>
@@ -47,52 +49,64 @@
                 (click)="addUser(user.id)"></p-button>
               
               </div>
-            </ng-template>
+              </ng-template>
 
 
-          </div>
-
-          <div class="item">
-
-            <div>
-              <div class="titleButton">Envoyer un message</div>
-
-              <!-- btn Chat-->
-              <p-button  type="button"  styleClass="p-button-secondary
-              p-button-rounded "
-              icon="pi pi-telegram"
-              matTooltip="Discutter"
-              (click)="contact(user.id_chat)"
-              ></p-button>
             </div>
-         
-      
+
+            <div class="item">
+
+              <div>
+                <div class="titleButton">Envoyer un message</div>
+
+                <!-- btn Chat-->
+                <p-button  type="button"  styleClass="p-button-secondary
+                p-button-rounded "
+                icon="pi pi-telegram"
+                matTooltip="Discutter"
+                (click)="contact(user.id_chat)"
+                ></p-button>
+              </div>
+          
         
+          
+            </div>
+
           </div>
 
          
-
-
-          <!-- Si l'userJwt a le jouerID ( de la page ) en contact -->
-            <div *ngIf="isContact"  class="item">
-                      
-              <div class="titleButton">Parametre</div>
-
-              <!-- delete Contact -->
-              <p-button type="button"   styleClass="p-button p-button-rounded p-mr-2"
-              icon="pi pi-trash"
-              matTooltip="Parametre en cours  "
-              ></p-button>
-
-            </div>
-
-
+          
+        <div>
+          
         </div>
-         
-
 
       </div>
       
+      <ng-template #elseProfil  >
+
+           <div class="secondProfil">
+
+            <div class="cadreUsername">
+              <div class="username">{{user.username}}</div> 
+            </div>
+              
+
+              <div class="secondButton" >
+                <button pButton 
+                matTooltip="Modifier votre Image de profile"
+                type="file"  
+                icon="pi pi-cog" 
+                class="p-button-rounded p-button-info"
+                
+               (click)="updateProfile(user.id)">
+
+                </button>
+
+              </div>
+
+           </div>
+         
+      </ng-template>
 
     </div>
 

@@ -30,7 +30,7 @@ export class CreatePublicationComponent implements OnInit {
   files: File[] = [];
 
   cheminImage: any =
-    'https://testp12.s3.eu-west-3.amazonaws.com/';
+    'https://testp12.s3.eu-west-3.amazonaws.com/image/';
 
   myFiles: string[] = [];
 
