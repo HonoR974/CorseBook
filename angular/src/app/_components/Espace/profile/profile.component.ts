@@ -18,6 +18,7 @@ import { AuthService } from 'src/app/_services/auth.service';
 import { ContactService } from 'src/app/_services/contact.service';
 import { FileAPI } from 'src/app/_class/file-api';
 import { UploadS3Service } from 'src/app/_services/upload-s3.service';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-profile',
@@ -33,6 +34,7 @@ export class ProfileComponent implements OnInit {
 
   isContact = false;
   isUserProfil = false;
+
 
   //profile picture 
 
@@ -179,9 +181,53 @@ export class ProfileComponent implements OnInit {
   }
 
 
+  //go to update profile
   updateProfile(id:number)
   {
     this.router.navigate(['update-profile', id]);
     
   }
+
+  changePicture(event:any)
+  {
+    const fileConst:File = event.target.files[0];
+    this.file = fileConst;
+    console.log("file", this.file);
+
+    this.fileUpdate();
+  }
+
+  async fileUpdate()
+  {
+    let filePath = "image/" + this.file.name;
+     //s3
+     try {
+      //s3
+      let response = await this.uploadS3Service.uploadFileS3(this.file, filePath);
+   
+    } catch (error) {
+      console.log("erreur lors de l'envoie de la publication");
+    }
+
+
+     //api
+     this.fileAPI.name = this.file.name;
+     this.fileAPI.url = this.cheminImage  + filePath;
+
+     this.updateProfilePicture();
+  }
+
+  updateProfilePicture()
+  {
+    this.userService.updateProfilePicture(this.fileAPI).subscribe( data => 
+      {
+        console.log("data update ", data );
+        this.ngOnInit();
+      });
+  }
+
+
+
+
+
 }

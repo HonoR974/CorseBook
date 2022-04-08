@@ -8,6 +8,11 @@
       <div class="cadreImage"> 
         <img [src]="user.urlFile" >
 
+        <label for="file" class="label-file">Choisir une image</label>
+        <input id="file" 
+        class="input-file" 
+        type="file" 
+        (change)="changePicture($event)">
     
       </div>
 

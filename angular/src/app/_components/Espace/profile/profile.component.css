@@ -51,6 +51,23 @@ body
     justify-content: space-around;
 }
 
+.label-file {
+    cursor: pointer;
+    color: #00b1ca;
+    font-weight: bold;
+    margin: 2px;
+    border-style: inset;
+    border-radius: 20px;
+}
+.label-file:hover {
+    color: #25a5c4;
+}
+
+/* et on masque le input */ 
+.input-file {
+    display: none;
+}
+
 .item
 {
     height: 100px;
