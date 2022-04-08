@@ -8,12 +8,16 @@
       <div class="cadreImage"> 
         <img [src]="user.urlFile" >
 
-        <label for="file" class="label-file">Choisir une image</label>
+        <div class="line-picture">
+          
+        <label for="file" class="label-file"  >Choisir une image</label>
         <input id="file" 
         class="input-file" 
         type="file" 
         (change)="changePicture($event)">
     
+        </div>
+
       </div>
 
       <!-- Barre Profile -->
@@ -96,18 +100,6 @@
             </div>
               
 
-              <div class="secondButton" >
-                <button pButton 
-                matTooltip="Modifier votre Image de profile"
-                type="file"  
-                icon="pi pi-cog" 
-                class="p-button-rounded p-button-info"
-                
-               (click)="updateProfile(user.id)">
-
-                </button>
-
-              </div>
 
            </div>
          

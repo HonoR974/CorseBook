@@ -11,6 +11,8 @@ public interface EventService {
     //add user 
     Event addUserOnEvent(long id);
 
+    Event deleteUserOnEvent(long id);
+
     //crud 
 
     List<Event> getAll();

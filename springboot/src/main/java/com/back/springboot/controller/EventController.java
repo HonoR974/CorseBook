@@ -32,8 +32,8 @@ public class EventController {
 
     
 
-    //Add User on Event
-    @PostMapping("add/{id}")
+    //Add User on Event id-event 
+    @PostMapping("add/user/{id}")
     public ResponseEntity<EventDTO> addUserOnEvent(@PathVariable long id )
     {
         Event event = eventService.addUserOnEvent(id);
@@ -41,6 +41,18 @@ public class EventController {
 
         return new ResponseEntity<>(eventDTO, HttpStatus.ACCEPTED);
     }
+
+    //delete User on Event id-event
+    @PostMapping("delete/user/{id}")
+    public ResponseEntity<EventDTO> deleteUserOnEvent(@PathVariable long id)
+    {
+        Event event = eventService.deleteUserOnEvent(id);
+    
+        EventDTO eventDTO = eventService.convertEntity(event);
+
+        return new ResponseEntity<>(eventDTO, HttpStatus.ACCEPTED);
+    }
+
 
 
     //------------- CRUD 

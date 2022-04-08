@@ -68,6 +68,12 @@ body
     display: none;
 }
 
+.line-picture
+{
+    display: flex;
+    justify-content: center;
+}
+
 .item
 {
     height: 100px;
@@ -111,10 +117,11 @@ body
 
 .cadreUsername
 {
-    width: 90%;
+    width: 100%;
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     justify-content: center;
+    align-items: center;
 }
 
 .secondButton

@@ -86,16 +86,28 @@
 
             <div class="line-button">
              
-                <!-- btn Participer -->
-                <p-button 
+                <!-- btn Participer /when user don't participe on event  -->
+                <p-button  *ngIf="!event.isParticiped"
                 matTooltip="Participer" type="button" 
                 styleClass="p-button-rounded p-button-success"
-                [disabled]="event.isParticiped"
+                
                         (click)="addParticipant(event.id)">
 
                 <mat-icon>public</mat-icon>
                 {{event.listParticipant.length}}
                 </p-button>
+
+                   <!-- btn delete  /when user participe on event  -->
+                   <p-button  *ngIf="event.isParticiped"
+                   matTooltip="Ne plus participer" type="button" 
+                   styleClass="p-button-rounded p-button-success"
+                   
+                           (click)="deleteParticipant(event.id)">
+   
+                           <mat-icon>event_busy</mat-icon>
+                   {{event.listParticipant.length}}
+                   </p-button>
+   
 
 
                 <!-- btn Commenter -->

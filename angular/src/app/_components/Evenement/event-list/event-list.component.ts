@@ -72,8 +72,19 @@ export class EventListComponent implements OnInit {
     this.eventService.addUserOnEvent(id).subscribe( data =>
       {
         console.log("data ", data);
+        this.ngOnInit();
       })
 
+  }
+
+  //supprime l'user a l'event selectionné 
+  deleteParticipant(id:number)
+  {
+    this.eventService.deleteUserOnEvent(id).subscribe( data => 
+      {
+        console.log("data delete ", data);
+        this.ngOnInit();
+      })
   }
 
   checkListEvent()

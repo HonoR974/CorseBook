@@ -71,6 +71,31 @@ public class EventServiceImpl implements EventService{
 		return event;
 	}
 
+    @Override
+	public Event deleteUserOnEvent(long id) {
+
+
+        Event event = eventRepository.findById(id)
+        .orElseThrow(() -> new ResourceNotFoundException(
+            "Event not extist with id : "+ id) ) ;
+
+        User user = securityService.getUser();
+
+        List<User> lUsers = event.getListUser();
+        lUsers.remove(user);
+        event.setListUser(lUsers);
+
+        List<Event> lEvents = user.getListEvent();
+        lEvents.remove(event);
+        user.setListEvent(lEvents);
+
+        eventRepository.save(event);
+        userRepository.save(user);
+
+		return event;
+
+    }
+
 
     @Override
     public Event createEvent(Event event) {
