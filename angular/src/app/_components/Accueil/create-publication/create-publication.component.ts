@@ -29,6 +29,8 @@ export class CreatePublicationComponent implements OnInit {
 
   files: File[] = [];
 
+
+  isLoading:boolean = false;
   cheminImage: any =
     'https://testp12.s3.eu-west-3.amazonaws.com/image/';
 
@@ -77,9 +79,11 @@ export class CreatePublicationComponent implements OnInit {
       let filePath = "image/" + file.name;
       //s3
       try {
+        this.isLoading = true;
         //s3
         let response = await this.uploadS3Service.uploadFileS3(file, filePath);
-     
+        console.log("response " +  response);
+        
       } catch (error) {
         console.log("erreur lors de l'envoie de la publication");
       }

@@ -1,5 +1,8 @@
 import { Component, OnInit,ViewChild, TemplateRef } from '@angular/core';
 
+import { ToastrService } from 'ngx-toastr';
+import { UploadS3Service } from 'src/app/_services/upload-s3.service';
+
 
 @Component({
   selector: 'app-list-nature',
@@ -8,27 +11,12 @@ import { Component, OnInit,ViewChild, TemplateRef } from '@angular/core';
 })
 export class ListComponent implements OnInit {
 
-  show:boolean;
-
-  constructor() {
-  this.show=true;
+  constructor(
+    private uploadS3Service: UploadS3Service,
+    private toaster: ToastrService
+  ) {}
+  ngOnInit(): void {
+    
   }
 
-  thenTemplate:TemplateRef<any>|null=null;
-  
-  @ViewChild('primaryTemplate')
-  primaryTemplate:TemplateRef<any>|null=null;
-  
-  @ViewChild('secondaryTemplate')
-  secondaryTemplate:TemplateRef<any>|null=null;
-  
-  switchThenTemplate() {
-  this.thenTemplate= 
-   (this.thenTemplate===this.primaryTemplate) ?
-   this.secondaryTemplate:
-   this.primaryTemplate;
-  }
-  ngOnInit() {
-   this.thenTemplate=this.primaryTemplate;
-  }
-  }
+}

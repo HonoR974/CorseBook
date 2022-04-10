@@ -48,6 +48,8 @@ import { CommentEventComponent } from './_components/Comment/comment-event/comme
 import { UpdateProfileComponent } from './_components/Espace/update-profile/update-profile.component';
 
 
+import { MatProgressBarModule } from '@angular/material/progress-bar';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -94,6 +96,7 @@ import { UpdateProfileComponent } from './_components/Espace/update-profile/upda
       apiKey: 'AIzaSyD-5cW7KLHBPf4-lQwRkYw0_ndyzY0Ydd0',
       libraries: ['places']
     }),
+    MatProgressBarModule,
   ],
   providers: [authInterceptorProviders],
   bootstrap: [AppComponent]
