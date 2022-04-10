@@ -1,0 +1,36 @@
+.corps
+{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.line-img
+{
+    display: flex;
+    justify-content: center;
+}
+
+.line-img img
+{
+    border-radius: 30px;
+    height: 300px;
+    width: 300px;
+}
+
+
+
+.line-text
+{
+
+margin-left: 25%;
+margin-right: 25%;
+
+}
+
+.line-btn
+{
+    display: flex;
+    justify-content: center;
+}
