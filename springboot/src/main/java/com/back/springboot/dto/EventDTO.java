@@ -27,6 +27,8 @@ public class EventDTO {
 
     private boolean isParticiped;
 
+    private String nameCreator;
+
     public EventDTO() {
     }
 
@@ -112,6 +114,18 @@ public class EventDTO {
 
     public void setParticiped(boolean isParticiped) {
         this.isParticiped = isParticiped;
+    }
+
+
+
+    public String getNameCreator() {
+        return nameCreator;
+    }
+
+
+
+    public void setNameCreator(String nameCreator) {
+        this.nameCreator = nameCreator;
     }
 
     

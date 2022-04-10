@@ -32,7 +32,7 @@ export class CreatePublicationComponent implements OnInit {
 
   isLoading:boolean = false;
   cheminImage: any =
-    'https://testp12.s3.eu-west-3.amazonaws.com/image/';
+    'https://testp12.s3.eu-west-3.amazonaws.com/';
 
   myFiles: string[] = [];
 

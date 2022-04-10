@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Comment } from 'src/app/_class/comment';
 
+import Swal from 'sweetalert2';
+
 import { Evenement } from 'src/app/_class/evenement';
 import { User } from 'src/app/_class/user';
 
@@ -49,6 +51,8 @@ export class EventListComponent implements OnInit {
     {
       this.isConnected = true;
       this.user = this.tokenService.getUser();
+
+      console.log("user" , this.user);
     }
   }
 
@@ -112,6 +116,40 @@ export class EventListComponent implements OnInit {
   }
 
 
+  //supprime un event 
+  deleteEvent(id:number)
+  {
+
+    Swal.fire({
+      title: 'Voulez-vous vraiment supprimer cette évenement ? ',
+      text: 'Apres la suppression de cuil-ci vous ne pourrez plus le récupérer ',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Oui, je le supprime',
+      cancelButtonText: 'Non, je le garde '
+    }).then((result) => {
+      if (result.value) {
+        Swal.fire(
+          'Deleted!',
+          'Votre evenelent a été supprimée.',
+          'success'
+        );
+
+        this.eventService.deleteEventByID(id).subscribe( data => 
+          {
+
+            this.ngOnInit();
+          });
+
+      } else if (result.dismiss === Swal.DismissReason.cancel) {
+        Swal.fire(
+          'Cancelled',
+          'Votre evenemnt est toujours là :D ',
+          'error'
+        );
+      }
+    });
+  }
 
 
 

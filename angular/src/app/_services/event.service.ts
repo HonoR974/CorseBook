@@ -17,6 +17,9 @@ export class EventService {
 
   constructor(private HttpClient: HttpClient) { }
 
+
+  //user on event 
+
   addUserOnEvent(id:number):Observable<Object>
   {
     return this.HttpClient.post(baseURL + "add/user/"+ id , httpOptions);
@@ -26,6 +29,8 @@ export class EventService {
   {
     return this.HttpClient.post(baseURL + "delete/user/"+ id , httpOptions);
   }
+
+  //CRUD 
   createEvent(event:Evenement ):Observable<Object>
   {
     return this.HttpClient.post(baseURL, event);
@@ -38,6 +43,11 @@ export class EventService {
   getEventByID(id:number):Observable<any>
   {
     return this.HttpClient.get(baseURL + id, httpOptions);
+  }
+
+  deleteEventByID(id:number):Observable<any>
+  {
+    return this.HttpClient.delete(baseURL + id, httpOptions);
   }
 
 }

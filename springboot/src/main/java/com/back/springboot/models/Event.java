@@ -41,6 +41,8 @@ public class Event {
     @OneToMany( mappedBy = "event")
     private List<Comment> listComments;
     
+    private String nameCreator;
+
     public Event() {
     }
 
@@ -115,6 +117,14 @@ public class Event {
 
     public void setListComments(List<Comment> listComments) {
         this.listComments = listComments;
+    }
+
+    public String getNameCreator() {
+        return nameCreator;
+    }
+
+    public void setNameCreator(String nameCreator) {
+        this.nameCreator = nameCreator;
     }
 
    

@@ -3,7 +3,17 @@
 
     <div *ngFor="let event of events " class="cadre " >
 
+        <!-- Line btn Deelet -->
+        <div class="line-toggle" *ngIf="event.nameCreator===user.username">
 
+            <p-button 
+            matTooltip="Supprimer" type="button" 
+            styleClass="p-button-rounded p-button-danger"
+            icon="pi pi-times"
+            (click)="deleteEvent(event.id)"> 
+
+            </p-button>
+        </div>
             <div class="side-name">
                 {{event.name}}
             </div>

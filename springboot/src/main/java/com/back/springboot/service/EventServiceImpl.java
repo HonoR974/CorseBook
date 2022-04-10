@@ -100,6 +100,7 @@ public class EventServiceImpl implements EventService{
     @Override
     public Event createEvent(Event event) {
 
+    
         //date yyyy-MM-dd to dd-MM-yyyy
         try {
 
@@ -118,11 +119,15 @@ public class EventServiceImpl implements EventService{
         event.setDateDebut(dateDebut);
         event.setDateFin(dateFin);
 
+        User user = securityService.getUser();
+        event.setNameCreator(user.getUsername());
+      
+
     } catch (ParseException e) {
  
         System.out.println("\n bad try ");
         e.printStackTrace();
-    }  
+      }  
       
         eventRepository.save(event);
         if(event.getListMarkers() != null)
@@ -313,10 +318,13 @@ public class EventServiceImpl implements EventService{
 
        //date 
        //Date to string 
-
        eventDTO.setDateDebut(new SimpleDateFormat("dd-MM-yyyy").format(event.getDateDebut()));
        eventDTO.setDateFin(new SimpleDateFormat("dd-MM-yyyy").format(event.getDateFin()));
-        return eventDTO;  
+    
+
+
+
+       return eventDTO;  
     }
 
 	@Override
