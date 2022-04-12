@@ -76,6 +76,11 @@ export class MenuComponent implements OnInit {
   }
 
 
+  test()
+  { 
+
+    console.log("test 2", this.secondControl.value);
+  }
   
   private secondFilter(value:string):string[]
   {

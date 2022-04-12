@@ -35,10 +35,10 @@
 
     
 
-            <li class="nav-item">
+            <li class="nav-item" style="background-color: azure;">
               <mat-form-field>
                 <input type="text" 
-                placeholder="Enter City"
+                placeholder="Search here"
                  matInput
                   [formControl]="secondControl"
                   [matAutocomplete]="auto">
@@ -48,7 +48,10 @@
                     {{user}}
                   </mat-option>
                 </mat-autocomplete>
+
               </mat-form-field>
+
+              <button class="btn btn-outline-light my-2 my-sm-0" type="submit" (click)="test()">Recherche</button>
             </li>
        
             <li class="nav-item"  *ngIf="!isLoggedIn">
