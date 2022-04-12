@@ -15,7 +15,6 @@ import javax.persistence.OneToMany;
 @Entity
 public class Event {
 
-      
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;

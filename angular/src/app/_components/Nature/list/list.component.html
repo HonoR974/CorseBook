@@ -1,0 +1,21 @@
+
+<h1> Barre de recherche</h1>
+
+
+<div style="height: 100px;"></div>
+
+<h1>Second </h1>
+
+<mat-form-field>
+  <input type="text" 
+  placeholder="Enter City"
+   matInput
+    [formControl]="secondControl"
+    [matAutocomplete]="auto">
+
+  <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
+    <mat-option *ngFor="let user of userFilter | async" [value]="user">
+      {{user}}
+    </mat-option>
+  </mat-autocomplete>
+</mat-form-field>

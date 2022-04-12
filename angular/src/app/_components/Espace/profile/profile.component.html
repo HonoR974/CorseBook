@@ -8,7 +8,7 @@
       <div class="cadreImage"> 
         <img [src]="user.urlFile" >
 
-        <div class="line-picture">
+        <div class="line-picture" *ngIf="isUserProfil">
           
         <label for="file" class="label-file"  >Choisir une image</label>
         <input id="file" 

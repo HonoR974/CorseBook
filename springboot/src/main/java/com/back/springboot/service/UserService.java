@@ -11,6 +11,10 @@ import com.back.springboot.models.User;
  */
 public interface UserService {
 
+
+
+    
+
     /**
      * Inscription de l'user
      * @param userDTO
@@ -25,6 +29,7 @@ public interface UserService {
      */
     User findByUsername(String username);
 
+    List<String> getAllUsername();
 
     // crud 
     List<User> getAllUser();

@@ -70,7 +70,7 @@ export class ProfileComponent implements OnInit {
 
       const username= this.currentUser.username;
       this.getUserByUsername(username);
-
+      
     }
   }
 

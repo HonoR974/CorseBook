@@ -219,6 +219,19 @@ public class UserServiceImpl implements UserService{
 
         return user;
     }
+    ///////////----
+
+    @Override
+    public List<String> getAllUsername() {
+        List<User> list = userRepository.findAll();
+
+        List<String> listUsername = new ArrayList<>();
+
+        list.forEach((t) -> listUsername.add(t.getUsername()));
+
+
+        return listUsername;
+    }
 
 
 

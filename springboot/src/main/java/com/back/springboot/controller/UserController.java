@@ -4,6 +4,9 @@ package com.back.springboot.controller;
 
 import com.back.springboot.models.User;
 import com.back.springboot.service.UserService;
+
+import java.util.List;
+
 import com.back.springboot.dto.FileDTO;
 import com.back.springboot.dto.UserDTO;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -61,5 +64,30 @@ public class UserController {
         return new ResponseEntity<UserDTO>(userDTO,HttpStatus.ACCEPTED);
 
     }
+
+
+
+    @GetMapping("/all")
+    public ResponseEntity<List<UserDTO>> getAllUser()
+    {
+        List<User> list = userService.getAllUser();
+
+        List<UserDTO> lDtos = userService.convertTolistDto(list);
+
+
+        return new ResponseEntity<>(lDtos, HttpStatus.ACCEPTED);
+    }
+
+
+    
+    @GetMapping("/all/username")
+    public ResponseEntity<List<String>> getAllUserByUsername()
+    {
+        List<String> list = userService.getAllUsername();
+
+        return new ResponseEntity<>(list, HttpStatus.ACCEPTED);
+    }
+
+
 
 }

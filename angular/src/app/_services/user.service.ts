@@ -18,6 +18,16 @@ export class UserService {
   
   constructor(private http: HttpClient) { }
 
+  getAllUser():Observable<any>
+  {
+    return this.http.get(API_URL + "all", httpOptions)
+  }
+
+  getAllUsername():Observable<any>
+  {
+    return this.http.get(API_URL + "all/username", httpOptions)
+  }
+
   getUserById(id: number):Observable<any>
   {
     return this.http.get(API_URL + id , httpOptions);

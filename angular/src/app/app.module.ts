@@ -46,9 +46,12 @@ import { CreateComponent } from './_components/Comment/create/create.component';
 import { CommentPubComponent } from './_components/Comment/comment-pub/comment-pub.component';
 import { CommentEventComponent } from './_components/Comment/comment-event/comment-event.component';
 import { UpdateProfileComponent } from './_components/Espace/update-profile/update-profile.component';
-
+import { MenuComponent } from './_components/menu/menu.component';
 
 import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import { MatInputModule } from '@angular/material/input';
+import { MatFormFieldModule } from '@angular/material/form-field';
 
 @NgModule({
   declarations: [
@@ -72,7 +75,7 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
     CommentPubComponent,
     CommentEventComponent,
     UpdateProfileComponent,
-
+    MenuComponent
   ],
   imports: [
     BrowserModule,
@@ -89,14 +92,19 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
     MatBadgeModule,
     MatSlideToggleModule,
     NgbModule,
+    MatProgressBarModule,
+    MatAutocompleteModule,
+    MatInputModule,
+    MatFormFieldModule,
+    MatInputModule,
     CarouselModule,
     ButtonModule,
     ToastModule,
     AgmCoreModule.forRoot({
       apiKey: 'AIzaSyD-5cW7KLHBPf4-lQwRkYw0_ndyzY0Ydd0',
       libraries: ['places']
-    }),
-    MatProgressBarModule,
+    })
+ 
   ],
   providers: [authInterceptorProviders],
   bootstrap: [AppComponent]
