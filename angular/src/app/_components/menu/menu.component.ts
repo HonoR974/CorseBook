@@ -39,11 +39,8 @@ export class MenuComponent implements OnInit {
 
   ngOnInit(): void {
 
-    
-
     this.userService.getAllUsername().subscribe(data => 
       {
-        console.log("data username", data );
         this.users = data;
       });
     
@@ -80,13 +77,9 @@ export class MenuComponent implements OnInit {
 
   search()
   { 
-
-    console.log("test 2", this.secondControl.value);
-
     this.userService.getUserByUsername(this.secondControl.value).subscribe ( 
       data => 
       {
-        console.log("data get ", data);
         this.user  = data;
 
         this.router.navigateByUrl('/', {skipLocationChange: true}).then(() => {
@@ -98,7 +91,6 @@ export class MenuComponent implements OnInit {
   
   private secondFilter(value:string):string[]
   {
-
       const filterValue = value.toLowerCase();
 
       return this.users.filter( user => user.toLowerCase()

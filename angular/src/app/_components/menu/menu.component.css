@@ -3,3 +3,40 @@ ul
     width: 100%;
 }
 
+nav
+{
+   margin-bottom: 5px;
+   border-style: groove none groove none ;
+   border-radius: 10px;
+}
+
+ul
+{
+
+}
+
+.nav-item
+{
+    display: flex;
+    align-items: center;
+    border-style: outset none inset none ;
+    border-radius: 5px;
+    font-size: 17px;
+
+}
+
+.navbar-light .navbar-nav .nav-link.active
+{
+    background-color:rebeccapurple;
+}
+
+
+.nav-item :hover
+{
+    text-decoration: underline;
+    background-color: black;
+    color: white;
+    border-radius: 15px;
+    
+}
+
