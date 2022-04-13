@@ -29,6 +29,7 @@ const routes: Routes = [
 
   //profile 
   { path: 'profile/:id', component: ProfileComponent },
+  { path :'update-profile/:id', component:UpdatePublicationComponent},
 
   //publication
   { path: 'publication-public', component: PublicationPublicComponent },
@@ -46,10 +47,9 @@ const routes: Routes = [
   { path: 'chat/:id', component:ChatComponent},
 
   //nature 
-  { path :'nature', component:ListComponent},
+  { path :'nature', component:ListComponent}
 
-  //update profile 
-  { path :'update-profile/:id', component:UpdatePublicationComponent}
+  
 
 ];
 

@@ -21,7 +21,7 @@
       </div>
 
       <!-- Barre Profile -->
-      <div class="borderProfil"  *ngIf="!isUserProfil; else elseProfil">
+      <div class="borderProfil"  *ngIf="!isUserProfil && isConnected; else elseProfil">
 
         <div class="username">
           {{user.username}}

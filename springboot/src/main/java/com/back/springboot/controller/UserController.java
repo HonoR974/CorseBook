@@ -5,6 +5,7 @@ package com.back.springboot.controller;
 import com.back.springboot.models.User;
 import com.back.springboot.service.UserService;
 
+import java.util.Collections;
 import java.util.List;
 
 import com.back.springboot.dto.FileDTO;
@@ -19,6 +20,8 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import io.jsonwebtoken.lang.Arrays;
 
 
 
@@ -46,9 +49,12 @@ public class UserController {
     @GetMapping("/jwt/{username}")
     public ResponseEntity<UserDTO> getuserByUsername(@PathVariable String username)
     {
+        System.out.println("\n bonne methode ");
         User user = userService.getUserByUsername(username);
 
         UserDTO userDTO = userService.convertToDto(user);
+
+        System.out.println("userDTO getUserByUsername " + userDTO.toString());
 
         return new ResponseEntity<UserDTO>(userDTO,HttpStatus.ACCEPTED);
     }
@@ -84,7 +90,7 @@ public class UserController {
     public ResponseEntity<List<String>> getAllUserByUsername()
     {
         List<String> list = userService.getAllUsername();
-
+        Collections.sort(list);
         return new ResponseEntity<>(list, HttpStatus.ACCEPTED);
     }
 

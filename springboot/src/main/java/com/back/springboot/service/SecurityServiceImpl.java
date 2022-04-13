@@ -47,7 +47,7 @@ public class SecurityServiceImpl implements SecurityService{
 
         String username = authentication.getName();
         User user = userRepository.findByUsername(username)
-        .orElseThrow( () -> new ResourceNotFoundException("cette usernerame ne correspond a aucun user "));
+        .orElseThrow( () -> new ResourceNotFoundException("cette usernerame " + username+  " ne correspond a aucun user "));
         
         
         return user;

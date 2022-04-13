@@ -33,7 +33,9 @@ export class MenuComponent implements OnInit {
   constructor(private tokenStorageService: TokenStorageService,
     private userService: UserService,
     private router: Router,
-    private _formBuilder: FormBuilder) { }
+    private _formBuilder: FormBuilder
+    ) { }
+
 
   ngOnInit(): void {
 
@@ -65,9 +67,9 @@ export class MenuComponent implements OnInit {
   }
 
 
-  getUserByUsername()
+  getUserByUsername(username:string)
   {
-    this.userService.getUserByUsername(this.user.username).subscribe ( 
+    this.userService.getUserByUsername(username).subscribe ( 
       data => 
       {
         this.user  = data;
@@ -76,21 +78,28 @@ export class MenuComponent implements OnInit {
   }
 
 
-  test()
+  search()
   { 
 
     console.log("test 2", this.secondControl.value);
+
+    this.userService.getUserByUsername(this.secondControl.value).subscribe ( 
+      data => 
+      {
+        console.log("data get ", data);
+        this.user  = data;
+
+        this.router.navigateByUrl('/', {skipLocationChange: true}).then(() => {
+          this.router.navigate(['profile/',this.user.id]);
+      });
+      }
+    );
   }
   
   private secondFilter(value:string):string[]
   {
-    console.log("filter second ",value);
 
       const filterValue = value.toLowerCase();
-
-      console.log("return "  + this.users.filter( user => user.toLowerCase()
-      .indexOf(filterValue) ===0 ));
-
 
       return this.users.filter( user => user.toLowerCase()
       .indexOf(filterValue) ===0 );

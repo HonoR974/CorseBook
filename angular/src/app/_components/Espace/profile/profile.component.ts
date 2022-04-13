@@ -32,6 +32,7 @@ export class ProfileComponent implements OnInit {
 
   id!:number;
 
+  isConnected = false;
   isContact = false;
   isUserProfil = false;
 
@@ -67,10 +68,10 @@ export class ProfileComponent implements OnInit {
     if(this.token.getToken())
     {
       this.currentUser=this.token.getUser()
-
+      this.isConnected =true;
       const username= this.currentUser.username;
       this.getUserByUsername(username);
-      
+      this.checkIfContact();
     }
   }
 
@@ -85,7 +86,7 @@ export class ProfileComponent implements OnInit {
       {
         this.user = data;
         
-      this.checkIfContact();
+     
       });
   }
 

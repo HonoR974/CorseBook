@@ -112,7 +112,7 @@ public class UserServiceImpl implements UserService{
     public UserDTO convertToDto(User user) {
         
         UserDTO userDTO = modelMapper.map(user, UserDTO.class);
-
+        User currentUser;
         //listContact -> String 
         if(user.getListContact() !=  null)
         {
@@ -136,7 +136,15 @@ public class UserServiceImpl implements UserService{
         }
 
         //is invited by current user 
-        User currentUser = securityService.getUser();
+        if (securityService.isAuthenticated())
+        {
+           currentUser = securityService.getUser();
+        }
+        else
+        {
+            currentUser = null;
+        }
+      
 
 
         //si l'user  est connécté 

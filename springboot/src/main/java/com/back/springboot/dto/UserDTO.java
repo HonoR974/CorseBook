@@ -114,6 +114,14 @@ public class UserDTO {
         this.urlFile = urlFile;
     }
 
+    @Override
+    public String toString() {
+        return "UserDTO [email=" + email + ", id=" + id + ", id_chat=" + id_chat + ", isInvitedOrContact="
+                + isInvitedOrContact + ", listContact=" + listContact + ", listInvitation=" + listInvitation
+                + ", matchingPassword=" + matchingPassword + ", password=" + password + ", urlFile=" + urlFile
+                + ", username=" + username + "]";
+    }
+
 
     
 }
