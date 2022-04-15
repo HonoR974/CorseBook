@@ -115,13 +115,12 @@ public class EventServiceImpl implements EventService{
         System.out.println("Date Debut  " + dateDebut);
         System.out.println("Date Fin  " + dateDebut);
 
-
         event.setDateDebut(dateDebut);
         event.setDateFin(dateFin);
 
         User user = securityService.getUser();
         event.setNameCreator(user.getUsername());
-      
+        event.setDateCreate(new Date());
 
     } catch (ParseException e) {
  

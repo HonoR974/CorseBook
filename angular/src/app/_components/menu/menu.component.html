@@ -36,26 +36,39 @@
     
 
             <li class="nav-item">
-              <mat-form-field>
-                <input type="text" 
-                placeholder="Search here"
-                 matInput
-                  [formControl]="secondControl"
-                  [matAutocomplete]="auto">
+
+              <div class="searchSection">
+                <div>
+                  <mat-form-field>
+                    <input type="text" 
+                    placeholder="Search here"
+                     matInput
+                      [formControl]="secondControl"
+                      [matAutocomplete]="auto">
+                      
+                      <div class="sectionComplete">
+                        <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
+                          <mat-option *ngFor="let user of userFilter | async"
+                          [value]="user">
+                            {{user}}
+                          </mat-option>
+                        </mat-autocomplete>
+                      </div>
+                  </mat-form-field>
                   
-              <div class="sectionComplete">
-                <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
-                  <mat-option *ngFor="let user of userFilter | async"
-                   [value]="user">
-                    {{user}}
-                  </mat-option>
-                </mat-autocomplete>
-              </div>
+                </div>
+           
+  
+                <div>
+                  <button class="btn btn-info my-2 my-sm-0"
+                  type="submit" (click)="search()">
+                     Recherche
+                   </button>
+                </div>
                
-
-              </mat-form-field>
-
-              <button class="btn btn-outline-light my-2 my-sm-0" type="submit" (click)="search()">Recherche</button>
+              </div>
+           
+           
             </li>
        
             <li class="nav-item"  *ngIf="!isLoggedIn">

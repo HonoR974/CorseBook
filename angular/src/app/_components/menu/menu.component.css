@@ -8,6 +8,7 @@ nav
    margin-bottom: 5px;
    border-style: groove none groove none ;
    border-radius: 10px;
+   background-color: rgba(173, 181, 189,0.2);
 }
 
 ul
@@ -19,24 +20,35 @@ ul
 {
     display: flex;
     align-items: center;
-    border-style: outset none inset none ;
-    border-radius: 5px;
+    border-style: inset;
+    border-radius: 15px;
     font-size: 17px;
-
+    border-width: 1px;
+    background-color: rgba(206, 212, 218, 0.2);
+    margin: 10px;
 }
 
 .navbar-light .navbar-nav .nav-link.active
 {
-    background-color:rebeccapurple;
+    background-color:rgba(108, 117, 125, 0.2);
+    border-radius: 10px;
 }
 
 
 .nav-item :hover
 {
     text-decoration: underline;
-    background-color: black;
-    color: white;
+    background-color: rgba(222, 226, 230, 0.5);
+  
     border-radius: 15px;
     
+}
+
+.searchSection
+{
+    display: flex;
+    flex-direction: row;
+    margin: 10px;
+  align-items: center;
 }
 

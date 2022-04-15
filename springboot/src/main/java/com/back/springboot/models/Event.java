@@ -21,6 +21,7 @@ public class Event {
 
     private String name;
 
+    private Date dateCreate;
 
     public Date dateDebut;
 
@@ -124,6 +125,14 @@ public class Event {
 
     public void setNameCreator(String nameCreator) {
         this.nameCreator = nameCreator;
+    }
+
+    public Date getDateCreate() {
+        return dateCreate;
+    }
+
+    public void setDateCreate(Date dateCreate) {
+        this.dateCreate = dateCreate;
     }
 
    
