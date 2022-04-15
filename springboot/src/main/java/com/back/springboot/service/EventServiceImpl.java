@@ -11,11 +11,13 @@ import com.back.springboot.dto.EventDTO;
 import com.back.springboot.dto.FileDTO;
 import com.back.springboot.dto.MarkerDTO;
 import com.back.springboot.exception.ResourceNotFoundException;
+import com.back.springboot.models.Chat;
 import com.back.springboot.models.Comment;
 import com.back.springboot.models.Event;
 import com.back.springboot.models.File;
 import com.back.springboot.models.Marker;
 import com.back.springboot.models.User;
+import com.back.springboot.repository.ChatRepository;
 import com.back.springboot.repository.EventRepository;
 import com.back.springboot.repository.FileRepository;
 import com.back.springboot.repository.MarkerRepository;
@@ -45,6 +47,9 @@ public class EventServiceImpl implements EventService{
 
     @Autowired
     private UserRepository userRepository;
+
+    @Autowired
+    private ChatRepository chatRepository;
     
     @Override
 	public Event addUserOnEvent(long id) {
@@ -122,6 +127,9 @@ public class EventServiceImpl implements EventService{
         event.setNameCreator(user.getUsername());
         event.setDateCreate(new Date());
 
+        addChat(event);
+        addUser(event);
+
     } catch (ParseException e) {
  
         System.out.println("\n bad try ");
@@ -144,10 +152,20 @@ public class EventServiceImpl implements EventService{
             }
        
         }
-
-       
-        
         return   event;
+    }
+
+    public void addChat(Event event)
+    {
+        System.out.println("\n   addChat");
+
+        Chat chat = new Chat();
+        chat.setEvent(event);
+
+        event.setChat(chat);
+
+        eventRepository.save(event);
+        chatRepository.save(chat);
     }
 
     @Override
@@ -155,6 +173,20 @@ public class EventServiceImpl implements EventService{
         return eventRepository.findAll();
     }
 
+    public void addUser(Event event)
+    {
+        User user = securityService.getUser();
+        List<User> list = new ArrayList<>();
+        list.add(user);
+        event.setListUser(list);
+
+        List<Event> lEvents =  new ArrayList<>();
+        lEvents.add(event);
+        user.setListEvent(lEvents);
+        
+        eventRepository.save(event);
+        userRepository.save(user);
+    }
 
 
     @Override
@@ -197,6 +229,8 @@ public class EventServiceImpl implements EventService{
             {
                 fileRepository.deleteAll(event.getListFile());
             }
+
+            
         }
 
         eventRepository.deleteAll();
@@ -321,6 +355,12 @@ public class EventServiceImpl implements EventService{
        eventDTO.setDateFin(new SimpleDateFormat("dd-MM-yyyy").format(event.getDateFin()));
     
 
+       if (event.getChat() != null)
+       {
+           System.out.println("\n l'event a un chat ");
+         eventDTO.setId_chat(event.getChat().getId());
+       }
+ 
 
 
        return eventDTO;  
@@ -337,6 +377,38 @@ public class EventServiceImpl implements EventService{
         }
 		return listDtos;
 	}
+
+    @Override
+    public List<Event> getEventByUserID(long id) {
+
+        User user = userRepository.findById(id)
+                                .orElseThrow(() -> new ResourceNotFoundException(
+                                    "user not extist with id : "+ id) ); 
+        List<Event> lEvents = new ArrayList<>();
+
+        if (user.getListEvent() != null)
+        {
+            lEvents.addAll(user.getListEvent());
+        }
+        return lEvents;
+    }
+
+    @Override
+    public List<Event> getEventByUser() {
+      
+        User user = securityService.getUser();
+        List<Event> lEvents = new ArrayList<>();
+
+        if(user.getListEvent() != null)
+        {
+            lEvents.addAll(user.getListEvent());
+
+            System.out.println("syze lEvent " + lEvents.size());
+        }
+
+
+        return lEvents;
+    }
 
 
 

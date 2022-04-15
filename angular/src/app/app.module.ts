@@ -52,6 +52,7 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
+import { TableComponent } from './_components/Evenement/table/table.component';
 
 @NgModule({
   declarations: [
@@ -75,7 +76,8 @@ import { MatFormFieldModule } from '@angular/material/form-field';
     CommentPubComponent,
     CommentEventComponent,
     UpdateProfileComponent,
-    MenuComponent
+    MenuComponent,
+    TableComponent
   ],
   imports: [
     BrowserModule,

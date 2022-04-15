@@ -50,6 +50,12 @@ export class MenuComponent implements OnInit {
         map(value => this.secondFilter(value))
       );
 
+      if(this.tokenStorageService.getToken())
+      {
+        this.isLoggedIn = true;
+        this.user = this.tokenStorageService.getUser();
+        console.log("user menu ", this.user);
+      }
   }
 
   

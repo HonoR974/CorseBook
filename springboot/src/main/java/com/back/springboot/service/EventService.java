@@ -7,6 +7,11 @@ import com.back.springboot.models.Event;
 
 public interface EventService {
     
+    //get event by user 
+    List<Event> getEventByUserID(long id);
+
+    List<Event> getEventByUser();
+
 
     //add user 
     Event addUserOnEvent(long id);

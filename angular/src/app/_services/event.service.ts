@@ -17,6 +17,10 @@ export class EventService {
 
   constructor(private HttpClient: HttpClient) { }
 
+  getAllEventByUser():Observable<any>
+  {
+    return this.HttpClient.get(baseURL + "user", httpOptions);
+  }
 
   //user on event 
 

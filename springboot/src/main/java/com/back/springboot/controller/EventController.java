@@ -1,9 +1,11 @@
 package com.back.springboot.controller;
 
 
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 import com.back.springboot.dto.EventDTO;
 import com.back.springboot.models.Event;
@@ -30,7 +32,24 @@ public class EventController {
     @Autowired
     private EventService eventService;
 
-    
+    //get By User id_user 
+    @GetMapping("user/{id}")
+    public ResponseEntity<List<EventDTO>> getEventByUserID(@PathVariable long id)
+    {
+        List<Event> lEvents = eventService.getEventByUserID(id);
+        List<EventDTO> lDtos  = eventService.convertListEntity(lEvents);
+
+        return new ResponseEntity<>(lDtos, HttpStatus.ACCEPTED);
+    }
+
+    @GetMapping("user")
+    public ResponseEntity<List<EventDTO>> getEventByUser()
+    {
+        List<Event> lEvents = eventService.getEventByUser();
+        List<EventDTO> lDtos  = eventService.convertListEntity(lEvents);
+
+        return new ResponseEntity<>(lDtos, HttpStatus.ACCEPTED);
+    }
 
     //Add User on Event id-event 
     @PostMapping("add/user/{id}")
@@ -71,7 +90,9 @@ public class EventController {
     @GetMapping()
     public ResponseEntity<List<EventDTO>> getAll()
     {
-        List<Event> list = eventService.getAll();
+        List<Event> list = eventService.getAll().stream()
+        .sorted(Comparator.comparing(Event::getDateCreate).reversed())
+        .collect(Collectors.toList());
 
         List<EventDTO> lDtos = eventService.convertListEntity(list);
         return new ResponseEntity<>(lDtos, HttpStatus.ACCEPTED);

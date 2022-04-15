@@ -7,8 +7,10 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 
 @Entity
 public class Chat {
@@ -24,6 +26,9 @@ public class Chat {
    
     @ManyToMany
     private List<User> users;
+
+    @OneToOne
+    private Event event;
 
     public Chat()
     {}
@@ -50,6 +55,14 @@ public class Chat {
 
     public void setUsers(List<User> users) {
         this.users = users;
+    }
+
+    public Event getEvent() {
+        return event;
+    }
+
+    public void setEvent(Event event) {
+        this.event = event;
     }
 
 

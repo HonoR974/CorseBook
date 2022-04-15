@@ -1,3 +1,5 @@
+import { Evenement } from "./evenement";
+
 export class User {
     id!: number ;
     username!: string;
@@ -7,6 +9,5 @@ export class User {
     id_chat?:number;
     urlFile?:string;
     invitedOrContact!:boolean;
-
 
 }

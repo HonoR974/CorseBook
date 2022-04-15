@@ -29,10 +29,10 @@ public class EventDTO {
 
     private String nameCreator;
 
+    private long id_chat;
+
     public EventDTO() {
     }
-
-    
 
     public long getId() {
         return id;
@@ -126,6 +126,14 @@ public class EventDTO {
 
     public void setNameCreator(String nameCreator) {
         this.nameCreator = nameCreator;
+    }
+
+    public long getId_chat() {
+        return id_chat;
+    }
+
+    public void setId_chat(long id_chat) {
+        this.id_chat = id_chat;
     }
 
     

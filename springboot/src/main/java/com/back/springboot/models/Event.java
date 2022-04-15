@@ -11,6 +11,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 
 @Entity
 public class Event {
@@ -42,6 +43,11 @@ public class Event {
     private List<Comment> listComments;
     
     private String nameCreator;
+
+
+    @OneToOne(mappedBy = "event")
+    private Chat chat;
+
 
     public Event() {
     }
@@ -133,6 +139,14 @@ public class Event {
 
     public void setDateCreate(Date dateCreate) {
         this.dateCreate = dateCreate;
+    }
+
+    public Chat getChat() {
+        return chat;
+    }
+
+    public void setChat(Chat chat) {
+        this.chat = chat;
     }
 
    

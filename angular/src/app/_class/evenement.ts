@@ -26,4 +26,6 @@ export class Evenement {
     isClickedComment : boolean = false;
 
     nameCreator!:string;
+
+    id_chat!:number;
 }

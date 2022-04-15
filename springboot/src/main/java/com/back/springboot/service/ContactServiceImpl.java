@@ -108,15 +108,15 @@ public class ContactServiceImpl  implements ContactService{
     public void addContact(User userConnected, User userAccepted)
     {
 
-            //de l'userJwt a UserId 
-            List<User> listContact = userConnected.getListContact();
-            listContact.add(userAccepted);
-            userConnected.setListContact(listContact);
+        //de l'userJwt a UserId 
+        List<User> listContact = userConnected.getListContact();
+        listContact.add(userAccepted);
+        userConnected.setListContact(listContact);
 
-            //de UserId a UserJwt
-            listContact = userAccepted.getListContact();
-            listContact.add(userConnected);
-            userAccepted.setListContact(listContact);
+        //de UserId a UserJwt
+        listContact = userAccepted.getListContact();
+        listContact.add(userConnected);
+        userAccepted.setListContact(listContact);
     }
     
     public void addChat(User userConnected,User userAccepted)
