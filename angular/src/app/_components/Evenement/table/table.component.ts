@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { Evenement } from 'src/app/_class/evenement';
 import { User } from 'src/app/_class/user';
 import { EventService } from 'src/app/_services/event.service';
@@ -15,9 +16,9 @@ export class TableComponent implements OnInit {
 
   eventsUser:Evenement[] = [];
 
-
   constructor(private tokenStorageService: TokenStorageService,
-              private eventService:EventService)
+              private eventService:EventService,
+              private router:Router)
    { }
 
   ngOnInit(): void {
@@ -35,6 +36,18 @@ export class TableComponent implements OnInit {
       });
   }
  
-  //get last event 
+  //chatEvent
+  //id event 
+  contact(id:number)
+  {
+    //envoyer l'user a la page 
+    //du chat de l'event
+    
+    this.router.navigateByUrl('/', {skipLocationChange: true}).then(() => {
+      this.router.navigate(['chat',id]);
+          });
+  }
+
+
 
 }

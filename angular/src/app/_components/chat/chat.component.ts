@@ -35,10 +35,12 @@ export class ChatComponent implements  OnInit, OnDestroy {
   //debut             
   ngOnInit(): void 
   {
-    this.webSocketService.openWebSocket();
+    this.id = this.route.snapshot.params['id'];
+
+    this.webSocketService.openWebSocket(this.id);
 
     this.user = this.tokenService.getUser().username;
-    this.getMessageByIdChat();
+   // this.getMessageByIdChat();
   }
 
   //fin 
@@ -54,10 +56,10 @@ export class ChatComponent implements  OnInit, OnDestroy {
 
   getMessageByIdChat():void
   {
-    this.id = this.route.snapshot.params['id'];
     this.messageService.getMessageByIdChat(this.id).subscribe( data => 
       {
      
+        console.log("get ", data);
         this.messages = data;
         this.webSocketService.chatMessages = this.messages;
       });

@@ -105,7 +105,39 @@ public class EventServiceImpl implements EventService{
     @Override
     public Event createEvent(Event event) {
 
+        System.out.println("\n create event method "  + event);
+
+        eventRepository.save(event);
+        //marker 
+        if(event.getListMarkers() != null)
+        {
+            List<Marker> lMarkers  = new ArrayList<>();
+         
+            for(Marker mark : event.getListMarkers())
+            {
+       
+                lMarkers.add(mark);
+                mark.setEvent(event);
+                markerRepository.save(mark);
+            }
+            event.setListMarkers(lMarkers);
+        }
+
+        //file 
+        if( event.getListFile() != null)
+        {
+            List<File> lFiles = new ArrayList<>();
+
+            for(File file: event.getListFile())
+            {
+                lFiles.add(file);
+                file.setEvent(event);
+                fileRepository.save(file);
+            }
+            event.setListFile(lFiles);
+        }
     
+      
         //date yyyy-MM-dd to dd-MM-yyyy
         try {
 
@@ -117,9 +149,6 @@ public class EventServiceImpl implements EventService{
         Date dateDebut = new SimpleDateFormat("dd-MM-yyyy").parse(sDebut);
         Date dateFin = new SimpleDateFormat("dd-MM-yyyy").parse(sFin);
 
-        System.out.println("Date Debut  " + dateDebut);
-        System.out.println("Date Fin  " + dateDebut);
-
         event.setDateDebut(dateDebut);
         event.setDateFin(dateFin);
 
@@ -130,51 +159,36 @@ public class EventServiceImpl implements EventService{
         addChat(event);
         addUser(event);
 
+        
+
     } catch (ParseException e) {
  
         System.out.println("\n bad try ");
         e.printStackTrace();
       }  
-      
-        eventRepository.save(event);
-        if(event.getListMarkers() != null)
-        {
-            for(Marker mark : event.getListMarkers())
-            {
-                markerRepository.save(mark);
-            }
-        }
-        if( event.getListFile() != null)
-        {
-            for(File file: event.getListFile())
-            {
-                fileRepository.save(file);
-            }
-       
-        }
-        return   event;
+     
+        return   eventRepository.save(event);
     }
 
     public void addChat(Event event)
     {
-        System.out.println("\n   addChat");
+
 
         Chat chat = new Chat();
         chat.setEvent(event);
-
         event.setChat(chat);
 
-        eventRepository.save(event);
         chatRepository.save(chat);
+        eventRepository.save(event);
+     
+       
     }
 
-    @Override
-    public List<Event> getAll() {
-        return eventRepository.findAll();
-    }
-
+ 
     public void addUser(Event event)
     {
+
+        //user & event 
         User user = securityService.getUser();
         List<User> list = new ArrayList<>();
         list.add(user);
@@ -183,11 +197,25 @@ public class EventServiceImpl implements EventService{
         List<Event> lEvents =  new ArrayList<>();
         lEvents.add(event);
         user.setListEvent(lEvents);
-        
+
+        //chat & user 
+        Chat chat = event.getChat();
+        chat.setUsers(list);
+
+        List<Chat> lChats = new ArrayList<>();
+        lChats.add(chat);
+        user.setChats(lChats);
+
+        chatRepository.save(chat);
         eventRepository.save(event);
         userRepository.save(user);
     }
 
+    @Override
+    public List<Event> getAll() {
+        System.out.println("\n get all ");
+        return eventRepository.findAll();
+    }
 
     @Override
     public Event getEventById(long id) {
@@ -213,6 +241,21 @@ public class EventServiceImpl implements EventService{
         {
             markerRepository.deleteAll(event.getListMarkers());
         }
+
+         //liste user 
+         if( event.getListUser() != null)
+         {
+             List<Event> listEvent = new ArrayList<>();
+             for(User user : event.getListUser())
+             {
+                 listEvent = user.getListEvent();
+                 listEvent.remove(event);
+                 user.setListEvent(listEvent);
+                 userRepository.save(user);
+             }
+             
+         }
+
         eventRepository.delete(event);
     }
 
@@ -225,16 +268,32 @@ public class EventServiceImpl implements EventService{
 
         for( Event event : list )
         {
+            //file 
             if( event.getListFile() != null)
             {
                 fileRepository.deleteAll(event.getListFile());
             }
 
-            
+            //liste user 
+            if( event.getListUser() != null)
+            {
+                List<Event> listEvent = new ArrayList<>();
+                for(User user : event.getListUser())
+                {
+                    listEvent = user.getListEvent();
+                    listEvent.remove(event);
+                    user.setListEvent(listEvent);
+                    userRepository.save(user);
+                }
+                
+            }
         }
 
         eventRepository.deleteAll();
     }
+
+
+
     //--------------CONVERT 
      
 
@@ -357,7 +416,7 @@ public class EventServiceImpl implements EventService{
 
        if (event.getChat() != null)
        {
-           System.out.println("\n l'event a un chat ");
+
          eventDTO.setId_chat(event.getChat().getId());
        }
  

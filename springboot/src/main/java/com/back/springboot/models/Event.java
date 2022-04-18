@@ -5,13 +5,16 @@ package com.back.springboot.models;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
+
 
 @Entity
 public class Event {
@@ -44,8 +47,9 @@ public class Event {
     
     private String nameCreator;
 
-
-    @OneToOne(mappedBy = "event")
+    //chat 
+	@OneToOne
+	@JoinColumn(name = "chat_id", referencedColumnName = "id")
     private Chat chat;
 
 
@@ -147,6 +151,14 @@ public class Event {
 
     public void setChat(Chat chat) {
         this.chat = chat;
+    }
+
+    @Override
+    public String toString() {
+        return "Event [chat=" + chat + ", contenu=" + contenu + ", dateCreate=" + dateCreate + ", dateDebut="
+                + dateDebut + ", dateFin=" + dateFin + ", id=" + id + ", listComments=" + listComments + ", listFile="
+                + listFile + ", listMarkers=" + listMarkers + ", listUser=" + listUser + ", name=" + name
+                + ", nameCreator=" + nameCreator + "]";
     }
 
    

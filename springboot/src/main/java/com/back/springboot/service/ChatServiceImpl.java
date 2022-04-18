@@ -64,16 +64,17 @@ public class ChatServiceImpl implements ChatService{
 
         chatDTO.setId(chat.getId());
     
-        List<String> listUser = new ArrayList<>();
-
-        for ( User user : chat.getUsers())
+        if (chat.getUsers() != null)
         {
-            listUser.add(user.getUsername());
+            List<String> listUser = new ArrayList<>();
+            for ( User user : chat.getUsers())
+            {
+                listUser.add(user.getUsername());
+            }
+            chatDTO.setListUser(listUser);
+            
         }
-
-        chatDTO.setListUser(listUser);
-
-
+     
         return chatDTO;
     }
 

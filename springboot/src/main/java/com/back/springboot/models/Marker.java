@@ -82,6 +82,14 @@ public class Marker
         this.event = event;
     }
 
+
+
+    @Override
+    public String toString() {
+        return "Marker [ id=" + id + ", latitude=" + latitude + ", longitude="
+                + longitude + "]";
+    }
+
     
 
     

@@ -82,13 +82,10 @@ export class CreateEventComponent implements OnInit {
     this.event.contenu = this.eventForm.value.contenu;
     this.event.listMarker = this.markers;
     this.event.listFileAPI = this.listFileAPI;
-
-    console.log("send date " , this.event.dateDebut);
-
     
     this.eventService.createEvent(this.event).subscribe( data => 
       {
-        console.log("receved marker " , data);
+        console.log("event created data  ", data);
         this.ngOnInit();
         window.location.reload();
       });

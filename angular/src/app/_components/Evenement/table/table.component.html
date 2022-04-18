@@ -2,6 +2,20 @@
 
 <ul *ngFor="let event of eventsUser">
 
-    <h1> titre : {{event.name}} </h1>
-    <h1> chat ID :  {{event.id_chat}}  </h1>
+    <li>
+        <h1> titre : {{event.name}} </h1>
+        <h1> chat ID :  {{event.id_chat}}  </h1>
+
+
+          <!-- btn Chat-->
+          <p-button  type="button"  styleClass="p-button-secondary
+          p-button-rounded "
+          icon="pi pi-telegram"
+          matTooltip="Discutter"
+          (click)="contact(event.id_chat)"
+          ></p-button>
+    </li>
+    
+
+    
 </ul>

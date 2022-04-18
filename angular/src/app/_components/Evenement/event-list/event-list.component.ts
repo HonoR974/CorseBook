@@ -60,8 +60,9 @@ export class EventListComponent implements OnInit {
   {
     this.eventService.getallEvent().subscribe( data => 
       {
-        this.events = data;
         console.log("getEvent ", data);
+        this.events = data;
+     
         if (this.isConnected)
         {
           this.checkListEvent();
@@ -77,7 +78,7 @@ export class EventListComponent implements OnInit {
       {
         console.log("data ", data);
         this.ngOnInit();
-      })
+      });
 
   }
 
@@ -88,7 +89,8 @@ export class EventListComponent implements OnInit {
       {
         console.log("data delete ", data);
         this.ngOnInit();
-      })
+        
+      });
   }
 
   checkListEvent()

@@ -136,6 +136,14 @@ public class EventDTO {
         this.id_chat = id_chat;
     }
 
+    @Override
+    public String toString() {
+        return "EventDTO [contenu=" + contenu + ", dateDebut=" + dateDebut + ", dateFin=" + dateFin + ", id=" + id
+                + ", id_chat=" + id_chat + ", isParticiped=" + isParticiped + ", listComments=" + listComments
+                + ", listFileAPI=" + listFileAPI + ", listMarker=" + listMarker + ", listParticipant=" + listParticipant
+                + ", name=" + name + ", nameCreator=" + nameCreator + "]";
+    }
+
     
 
 }

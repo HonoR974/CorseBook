@@ -78,11 +78,13 @@ public class EventController {
     @PostMapping()
     public ResponseEntity<EventDTO> createEvent(@RequestBody EventDTO eventDTORequest )
     {
-      
+        Event eventRecep = eventService.convertDTO(eventDTORequest);
        
-       Event  event = eventService.createEvent(eventService.convertDTO(eventDTORequest));
+       Event  event = eventService.createEvent(eventRecep);
 
        EventDTO eventDTO = eventService.convertEntity(event);
+       
+       
 
         return new ResponseEntity<>(eventDTO, HttpStatus.ACCEPTED);
     }
