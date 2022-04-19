@@ -1,21 +1,34 @@
-<p>table works!</p>
 
-<ul *ngFor="let event of eventsUser">
+<body>
 
-    <li>
-        <h1> titre : {{event.name}} </h1>
-        <h1> chat ID :  {{event.id_chat}}  </h1>
+    <!---Liste evchats event -->
+    <div class="section">
+        <div class="section-titre">
+            Liste Events : 
+        </div>
+        <ul *ngFor="let event of eventsUser">
+            <li >
+                <div class="li-list">
 
+                    <div> 
+                        {{event.name}} 
+                    </div>
 
-          <!-- btn Chat-->
-          <p-button  type="button"  styleClass="p-button-secondary
-          p-button-rounded "
-          icon="pi pi-telegram"
-          matTooltip="Discutter"
-          (click)="contact(event.id_chat)"
-          ></p-button>
-    </li>
-    
+                    <div>
+                        <!-- btn Chat-->
+                        <p-button  type="button"  styleClass="p-button-secondary
+                        p-button-rounded "
+                        icon="pi pi-telegram"
+                        matTooltip="Discutter"
+                        (click)="contact(event.id_chat)"
+                        ></p-button>
+                    </div>
 
-    
-</ul>
+                
+                </div>
+            </li>       
+        </ul>
+    </div>
+   
+
+</body>

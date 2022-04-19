@@ -20,10 +20,9 @@ ul
 {
     display: flex;
     align-items: center;
-    border-style: inset;
+    border-style: ridge;
     border-radius: 15px;
     font-size: 17px;
-    border-width: 1px;
     background-color: rgba(206, 212, 218, 0.2);
 }
 

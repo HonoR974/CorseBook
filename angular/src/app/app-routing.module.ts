@@ -14,6 +14,8 @@ import { ProfileComponent } from './_components/Espace/profile/profile.component
 import { CreateEventComponent } from './_components/Evenement/create-event/create-event.component';
 import { UploadFileComponent } from './_components/upload-file/upload-file.component';
 import { ListComponent } from './_components/Nature/list/list.component';
+import { EventListComponent } from './_components/Evenement/event-list/event-list.component';
+import { TableComponent } from './_components/Evenement/table/table.component';
 
 
 
@@ -41,7 +43,8 @@ const routes: Routes = [
   //evenement 
   { path :'event', component: EventComponent},
   { path :'create-event', component: CreateEventComponent},
-
+  { path :'list-event', component:EventListComponent},
+  { path :'table-event', component:TableComponent},
 
   //chat 
   { path: 'chat/:id', component:ChatComponent},

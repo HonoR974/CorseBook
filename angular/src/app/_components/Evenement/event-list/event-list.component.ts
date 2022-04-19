@@ -10,6 +10,7 @@ import { User } from 'src/app/_class/user';
 import { CommentService } from 'src/app/_services/comment.service';
 import { EventService } from 'src/app/_services/event.service';
 import { TokenStorageService } from 'src/app/_services/token-storage.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-event-list',
@@ -42,7 +43,8 @@ export class EventListComponent implements OnInit {
 
   constructor(private eventService: EventService,
               private tokenService: TokenStorageService,
-              private commentService: CommentService) { }
+              private commentService: CommentService,
+              private router:Router) { }
 
   ngOnInit(): void {
     this.getAllEvent();
@@ -77,7 +79,8 @@ export class EventListComponent implements OnInit {
     this.eventService.addUserOnEvent(id).subscribe( data =>
       {
         console.log("data ", data);
-        this.ngOnInit();
+
+      window.location.reload();
       });
 
   }
@@ -88,8 +91,8 @@ export class EventListComponent implements OnInit {
     this.eventService.deleteUserOnEvent(id).subscribe( data => 
       {
         console.log("data delete ", data);
-        this.ngOnInit();
-        
+      
+        window.location.reload();
       });
   }
 
