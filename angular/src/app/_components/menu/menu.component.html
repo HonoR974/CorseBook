@@ -1,7 +1,7 @@
+<body>
 
   <!-- Menu -->
-  <header>
-    <div>
+  <div>
       
       <nav class="navbar navbar-expand-lg navbar-light ">
           
@@ -38,6 +38,7 @@
             <li class="nav-item">
 
               <div class="searchSection">
+                
                 <div>
                   <mat-form-field>
                     <input type="text" 
@@ -47,7 +48,8 @@
                       [matAutocomplete]="auto">
                       
                       <div class="sectionComplete">
-                        <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
+                        <mat-autocomplete autoActiveFirstOption 
+                        #auto="matAutocomplete">
                           <mat-option *ngFor="let user of userFilter | async"
                           [value]="user">
                             {{user}}
@@ -59,11 +61,14 @@
                 </div>
            
   
-                <div>
-                  <button class="btn btn-info my-2 my-sm-0"
-                  type="submit" (click)="search()">
-                     Recherche
-                   </button>
+                <div class="searchButton" >
+
+                    <button 
+                    type="submit" (click)="search()">
+                      Recherche
+                    </button>
+
+
                 </div>
                
               </div>
@@ -93,4 +98,5 @@
       </nav>
   </div>
 
-  </header>
+
+</body>

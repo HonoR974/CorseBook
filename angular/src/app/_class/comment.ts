@@ -6,4 +6,5 @@ export class Comment {
     public countLike!:number;
     public liked!:boolean;
     public dateCreated!:string;
+    public pathFileUser!:string;
 }

@@ -1,3 +1,5 @@
+<html>
+  
 <head>
     <meta charset="utf-8">
     <title>Tutorial</title>
@@ -7,51 +9,45 @@
     <link href=
   "https://fonts.googleapis.com/icon?family=Material+Icons&display=block" 
           rel="stylesheet">
-  
+
 </head>
 
- <app-menu></app-menu>
+
 
 <body>
 
 
-  <div class="container2" *ngIf="isLoggedIn" >
+<header>
+  <app-menu></app-menu>
+</header>
 
 
+<div  *ngIf="isLoggedIn" >
 
+  <div class="row">
+    <div class="col-lg-9 col-sm">
+      <router-outlet></router-outlet>
+    </div>
 
-      <div class=" col-9">
-        <router-outlet></router-outlet>
-      </div>
-  
-      <div class="col-3" >
-        <app-table></app-table>
-        <app-contact></app-contact>
-      </div>
-
-
-
-  
+    <div class="col-lg-3 col-sm">
+      <app-table></app-table>
+      <app-contact></app-contact>
+    </div>
 
   </div>
+   
+ 
+</div>
 
-  <div class="container" *ngIf="!isLoggedIn">
-     <router-outlet></router-outlet>
+<div class="container" *ngIf="!isLoggedIn">
+   <router-outlet></router-outlet>
 
-  
-  </div>
+
+</div>
+
 
  
-   
 
-  
-    
-
-<!--
-<footer class="footer">
-    <div class="container">
-        <span>All Rights Reserved 2021 @Honor</span>
-    </div>
-</footer>
--->
 </body>
+
+</html>

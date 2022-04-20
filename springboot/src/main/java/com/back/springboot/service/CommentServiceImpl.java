@@ -348,8 +348,14 @@ public class CommentServiceImpl  implements CommentService{
 
         }
 
-        //username 
+       //user
+        //username
         commentDTO.setUsername(comment.getUser().getUsername());
+        //fileUser
+        if(comment.getUser().getProfilePicture() != null)
+        {
+            commentDTO.setPathFileUser(comment.getUser().getProfilePicture().getUrl());
+        }
 
         //date 
         Date date = Calendar.getInstance().getTime();  

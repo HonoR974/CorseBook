@@ -307,9 +307,8 @@ public class PublicationServiceImpl implements PublicationService {
         {
             CommentDTO commentDTO = modelMapper.map(comment, CommentDTO.class);
 
+            //id pub 
             commentDTO.setId_publication(comment.getPublication().getId());
-
-            commentDTO.setUsername(comment.getUser().getUsername());
 
              //date 
             Date date = Calendar.getInstance().getTime();  
@@ -334,8 +333,18 @@ public class PublicationServiceImpl implements PublicationService {
             }
 
                 list.add(commentDTO);
+
+            //user
+            //username
+            commentDTO.setUsername(comment.getUser().getUsername());
+            //fileUser
+            if(comment.getUser().getProfilePicture() != null)
+            {
+                commentDTO.setPathFileUser(comment.getUser().getProfilePicture().getUrl());
             }
 
+
+        }
 
 
         return list;
@@ -369,7 +378,7 @@ public class PublicationServiceImpl implements PublicationService {
         publicationDTO.setUsername(publication.getUser().getUsername());
 
 
-
+        //like by user 
         // l'user doit etre connecté pour savoir 
         //si il a deja like la publication 
         if(!securityService.isAuthenticated())

@@ -20,14 +20,31 @@
 
 .text 
 {
-
+    display: flex;
+    flex-direction: column;
+    
 }
 
+.userSection
+{
+    display: flex;
+    flex-direction: row;
+}
+
+
+.userSection img 
+{
+    height: 72px;
+    width: 72px;
+    border-radius: 50px;
+}
 .titre
 {
-    text-align: center;
-    font-size: 22px;
-    text-decoration: underline;
+       font-size: 22px;
+       text-decoration: underline;
+       display: flex;
+       flex-direction: column-reverse;
+       margin-left: 12px;
 }
 
 .contenu
@@ -36,7 +53,7 @@
     background-color: rgba(222, 226, 230,0.8);
     font-size: 20px;
     border-radius: 10px;
-    text-align: center;
+
 }
 
 .createComment
@@ -47,8 +64,15 @@
 .option
 {
     display: flex;
-    flex-direction: row;
-    justify-content: space-between;
+    flex-direction: row-reverse;
+}
+
+.date
+{
+    font-size: 17px;
+    display: flex;
+    flex-direction: column-reverse;
+    margin-left: 12px;
 }
 
 .line-btn button
