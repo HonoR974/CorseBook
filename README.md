@@ -16,7 +16,7 @@
   * 
   
  > Implementation du front-end : 
- 
+     * Ouvrer un terminal et rendez-vous à la racine du dossier "springboot" et utliser la commande : mvn spring-boot:run.
   * Se rendre dans le fichier `CorseBook/angular` avec un terminal. 
   * Tapez la commande `npm install`.
  
