@@ -5,7 +5,7 @@
 
 > Documentation : 
   * Diagramme
-  * Lien  [AWS S3](https://hackernoon.com/hosting-an-angular-application-on-amazon-s3-using-github-actions)
+  * Creation d'un bucket sur [AWS S3](https://hackernoon.com/hosting-an-angular-application-on-amazon-s3-using-github-actions)
  
  
 > Modules : 
