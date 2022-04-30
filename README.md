@@ -3,9 +3,8 @@
 </h1>
 
  
- <p align="center">
 > Installation necessaire au deploiement : 
- </p>
+
  * Installer la version 3.8.1 d'apache maven . 
  * Installer la version 11 de Java. 
  * Installation d'un bucket S3. 
