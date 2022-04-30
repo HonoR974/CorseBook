@@ -1,4 +1,4 @@
->#P12
+#P12
 
  <addr> Projet 12 du parcours Developpeur Web Java. 
 
