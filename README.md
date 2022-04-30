@@ -2,22 +2,20 @@
  CorseBook
 </h1>
  <addr> Projet 12 du parcours Developpeur Web Java. 
+ 
+ 
+> Installation necessaire au deploiement : 
+ * Installer la version 3.8.1 d'apache maven . 
+ * Installer la version 11 de Java. 
+ * Installation d'un bucket S3. 
+ * Creation d'un bucket sur [AWS S3](https://hackernoon.com/hosting-an-angular-application-on-amazon-s3-using-github-actions)
 
-> Documentation : 
-  * Diagramme
-  * Creation d'un bucket sur [AWS S3](https://hackernoon.com/hosting-an-angular-application-on-amazon-s3-using-github-actions)
- 
- 
+
 > Modules : 
- 
   * angular 
   * springboot 
   
  
- > Installation necessaire au deploiement : 
-  * Installer la version 3.8.1 d'apache maven . 
-  * Installer la version 11 de Java. 
-  * Installation d'un bucket S3. 
   
  > Implementation du front-end : 
   
