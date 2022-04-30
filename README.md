@@ -3,6 +3,9 @@
 </h1>
  <addr> Projet 12 du parcours Developpeur Web Java. 
 
+> Documentation : 
+  * Diagramme
+  * Lien  [AWS S3 (https://hackernoon.com/hosting-an-angular-application-on-amazon-s3-using-github-actions)
  
  
 > Modules : 
