@@ -1,6 +1,5 @@
 <p align="center">
- 
-#                                        CorseBook
+                                        CorseBook
 </p>
  <addr> Projet 12 du parcours Developpeur Web Java. 
 
@@ -28,3 +27,6 @@
   * Ouvrez un terminal et rendez-vous à la racine du dossier `springboot`
   * Tapez: `mvn spring-boot:run`
  
+<p align="center">
+  <img width="200" src="http://material-bread.org/logo-shadow.svg" alt="Material Bread logo">
+</p>
