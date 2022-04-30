@@ -1,6 +1,6 @@
-<p align="center">
+<h1 align="center">
 #  CorseBook
-</p>
+</h1>
  <addr> Projet 12 du parcours Developpeur Web Java. 
 
  
