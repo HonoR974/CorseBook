@@ -21,6 +21,7 @@ public class Chat {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
 
+    private String name;
     
     @OneToMany(mappedBy = "chat")
     private List<Message> messages;
@@ -64,6 +65,14 @@ public class Chat {
 
     public void setEvent(Event event) {
         this.event = event;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
 

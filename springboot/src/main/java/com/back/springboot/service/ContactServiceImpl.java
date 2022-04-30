@@ -122,12 +122,17 @@ public class ContactServiceImpl  implements ContactService{
     public void addChat(User userConnected,User userAccepted)
     {
         Chat chat = new Chat();
+        String title;
 
        List<User> list = new ArrayList<>();
        list.add(userConnected);
        list.add(userAccepted);
-
        chat.setUsers(list);
+       
+        title = userConnected.getUsername() + " - " + 
+                userAccepted.getUsername();
+       chat.setName(title);
+
 
        chatRepository.save(chat);
         

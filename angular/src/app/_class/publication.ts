@@ -1,5 +1,6 @@
 import { FileAPI } from "./file-api";
 import { Comment } from "./comment";
+import { Marker } from "./marker";
 
 export class Publication {
     public id!: number ;
@@ -12,11 +13,14 @@ export class Publication {
  
     public listFile : FileAPI[] = [];
 
+    listMarker: Marker[] = [];
+
     public listComments : Comment[] = [];
     public isClickedComment:boolean = false;
     public createdByUser!: boolean;
 
-
+   //le btn toggle entre map et file 
+   checkedMarker:boolean = true;
 }
 
 

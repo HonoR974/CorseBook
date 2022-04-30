@@ -24,6 +24,9 @@ export class ChatService {
     return this.HttpClient.get<Chat>(baseURL + id, httpOptions);
   }
 
-
+  getTitleChatByIdChat(id:number):Observable<any>
+  {
+    return this.HttpClient.get<any>(baseURL + "title/" + id , httpOptions,  );
+  }
 
 }

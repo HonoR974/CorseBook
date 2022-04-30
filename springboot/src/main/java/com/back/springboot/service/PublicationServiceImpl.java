@@ -9,17 +9,18 @@ import java.util.List;
 
 import com.back.springboot.dto.CommentDTO;
 import com.back.springboot.dto.FileDTO;
+import com.back.springboot.dto.MarkerDTO;
 import com.back.springboot.dto.PublicationDTO;
 import com.back.springboot.exception.ResourceNotFoundException;
 import com.back.springboot.models.Comment;
 import com.back.springboot.models.File;
+import com.back.springboot.models.Marker;
 import com.back.springboot.models.Publication;
-import com.back.springboot.models.Statut;
 import com.back.springboot.models.User;
 import com.back.springboot.repository.CommentRepository;
 import com.back.springboot.repository.FileRepository;
+import com.back.springboot.repository.MarkerRepository;
 import com.back.springboot.repository.PublicationRepository;
-import com.back.springboot.repository.StatutRepository;
 import com.back.springboot.repository.UserRepository;
 
 import org.modelmapper.ModelMapper;
@@ -36,9 +37,6 @@ public class PublicationServiceImpl implements PublicationService {
     private SecurityService securityService;
 
     @Autowired
-    private StatutRepository statutRepository;
-
-    @Autowired
     private ModelMapper modelMapper;
 
     @Autowired
@@ -47,6 +45,8 @@ public class PublicationServiceImpl implements PublicationService {
     @Autowired
     private UserRepository userRepository;
 
+    @Autowired
+    private MarkerRepository markerRepository;
 
     @Autowired
     private CommentRepository commentRepository;
@@ -82,11 +82,7 @@ public class PublicationServiceImpl implements PublicationService {
     @Override
     public List<Publication> getPublicationPublic() {
 
-        Statut statut = statutRepository.findByName("public")
-                .orElseThrow(() -> new ResourceNotFoundException("Le statut : public n'existe pas "));
-
-                
-        return publicationRepository.findByStatut(statut);
+        return publicationRepository.findAll();
     }
 
 
@@ -193,11 +189,6 @@ public class PublicationServiceImpl implements PublicationService {
     @Override
     public Publication createPublication(Publication publication) {
 
-        // statut public
-        Statut statut = statutRepository.findByName("public")
-                .orElseThrow(() -> new ResourceNotFoundException("Le statut : public n'existe pas "));
-        publication.setStatut(statut);
-
         // date
         publication.setDateCreate(new Date());
 
@@ -210,6 +201,15 @@ public class PublicationServiceImpl implements PublicationService {
             fileRepository.saveAll(publication.getListFile());
         }
 
+        //marker 
+        if (publication.getListMarkers() != null)
+        {
+            for (Marker marker : publication.getListMarkers())
+            {
+                marker.setPublication(publication);
+                markerRepository.save(marker);
+            }
+        }
         return publication;
     }
 
@@ -274,7 +274,13 @@ public class PublicationServiceImpl implements PublicationService {
 
 
         deleteFile(publication);
-        deleteComments(publication);        
+        deleteComments(publication);     
+
+
+        if (publication.getListMarkers() != null )
+        {
+            markerRepository.deleteAll(publication.getListMarkers());
+        }
         publicationRepository.delete(publication);
 
     }
@@ -294,6 +300,8 @@ public class PublicationServiceImpl implements PublicationService {
             commentRepository.delete(comment);
         }
     }
+
+
 
     // ------------- Convert DTO -----------//
 
@@ -409,8 +417,30 @@ public class PublicationServiceImpl implements PublicationService {
             publicationDTO.setCreatedByUser(false);
         }
 
-        //statut 
-        publicationDTO.setStatut(publication.getStatut().getNom());
+        //file 
+        if ( publication.getListFile() != null ) 
+        {
+            List<FileDTO> list = new ArrayList<>();
+            for(File file : publication.getListFile())
+            {
+                FileDTO fileDTO = new FileDTO(file.getUrl(), file.getName());
+                list.add(fileDTO);
+            }
+            publicationDTO.setListFile(list);
+        }
+
+        //marker 
+        
+        if (publication.getListMarkers() != null)
+        {
+            List<MarkerDTO> listmarker = new ArrayList<>();
+            for ( Marker marker : publication.getListMarkers() )
+            {
+                MarkerDTO markerDTO =  new MarkerDTO(marker.getLatitude(), marker.getLongitude());
+                listmarker.add(markerDTO);
+            }
+            publicationDTO.setListMarker(listmarker);
+        }
 
         return publicationDTO;
     }
@@ -426,6 +456,7 @@ public class PublicationServiceImpl implements PublicationService {
         }
         return lDtos;
     }
+
 
     @Override
     public Publication convertToEntity(PublicationDTO publicationDTO) {
@@ -455,6 +486,20 @@ public class PublicationServiceImpl implements PublicationService {
             }
             publication.setListFile(list);
         }
+
+        if ( publicationDTO.getListMarker() != null)
+        {
+            List<Marker> lMarkers = new ArrayList<>();
+            for ( MarkerDTO marker : publicationDTO.getListMarker())
+            {
+                Marker location = new Marker(marker.getLatitude(), marker.getLongitude());
+                location.setPublication(publication);
+                lMarkers.add(location);
+            }
+
+            publication.setListMarkers(lMarkers);
+        }
+
 
         return publication;
     }

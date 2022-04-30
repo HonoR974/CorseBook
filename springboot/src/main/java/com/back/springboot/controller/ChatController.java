@@ -68,5 +68,17 @@ public class ChatController {
         return new ResponseEntity<>(lChatDTOs, HttpStatus.ACCEPTED);
     }
     
+
+    //getTitle For chat 
+    //renvoie le nom de l'event 
+    //ou le nom du contact 
+    @GetMapping("title/{id}")
+    public ResponseEntity<String> getTitleByIdChat(@PathVariable long id )
+    {
+
+        String title = chatService.getTitleByIdChat(id);
+
+        return ResponseEntity.ok(title);
+    }
  
 }

@@ -53,6 +53,7 @@ public class CommentServiceImpl  implements CommentService{
         Comment comment = new Comment();
         comment.setContenu(commentRequest.getContenu());
         comment.setUser(commentRequest.getUser());
+        comment.setDateCreated(new Date());
 
         Event event = eventRepository.findById(id)
         .orElseThrow(() -> new ResourceNotFoundException(

@@ -21,6 +21,8 @@ public class PublicationDTO {
 
     private List<CommentDTO> listComments;
     
+    private List<MarkerDTO> listMarker;
+    
     private boolean createdByUser;
 
     private String statut; 
@@ -100,6 +102,14 @@ public class PublicationDTO {
 
     public void setStatut(String statut) {
         this.statut = statut;
+    }
+
+    public List<MarkerDTO> getListMarker() {
+        return listMarker;
+    }
+
+    public void setListMarker(List<MarkerDTO> listMarker) {
+        this.listMarker = listMarker;
     }
 
 

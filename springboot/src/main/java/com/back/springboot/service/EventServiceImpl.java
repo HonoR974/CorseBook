@@ -18,6 +18,7 @@ import com.back.springboot.models.File;
 import com.back.springboot.models.Marker;
 import com.back.springboot.models.User;
 import com.back.springboot.repository.ChatRepository;
+import com.back.springboot.repository.CommentRepository;
 import com.back.springboot.repository.EventRepository;
 import com.back.springboot.repository.FileRepository;
 import com.back.springboot.repository.MarkerRepository;
@@ -51,6 +52,9 @@ public class EventServiceImpl implements EventService{
     @Autowired
     private ChatRepository chatRepository;
     
+    @Autowired
+    private CommentRepository commentRepository;
+
     @Override
 	public Event addUserOnEvent(long id) {
 		
@@ -175,6 +179,7 @@ public class EventServiceImpl implements EventService{
 
 
         Chat chat = new Chat();
+        chat.setName(event.getName());
         chat.setEvent(event);
         event.setChat(chat);
 
@@ -286,6 +291,12 @@ public class EventServiceImpl implements EventService{
                     userRepository.save(user);
                 }
                 
+            }
+
+            //comment 
+            if ( event.getListComments() != null)
+            {
+                commentRepository.deleteAll(event.getListComments());
             }
         }
 

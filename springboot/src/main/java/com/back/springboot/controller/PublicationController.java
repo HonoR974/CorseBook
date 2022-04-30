@@ -146,6 +146,9 @@ import org.springframework.web.bind.annotation.RestController;
                               publicationService.convertToEntity(publicationDTORequest));
                             
     PublicationDTO publicationDTO = publicationService.convertToDto(publication);
+
+
+    System.out.println("\n retour created " +  publicationDTO.toString());
     return new ResponseEntity<PublicationDTO>(publicationDTO, HttpStatus.ACCEPTED);
   }
 

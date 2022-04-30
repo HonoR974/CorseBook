@@ -37,6 +37,12 @@ export class PublicationPublicComponent implements OnInit {
   });
 
 
+  
+  // initial center position for the map
+  lat: number = 41.91;
+  lng: number =  8.73;
+
+
   constructor(private publicationService: PublicationService,
               private tokenStorage: TokenStorageService,
               private commentService : CommentService,
@@ -57,8 +63,6 @@ export class PublicationPublicComponent implements OnInit {
     this.publicationService.getPublicationPublic().subscribe(data => {
       this.publications = data;
       this.publications.forEach(element => element.isClickedComment = false);
-
-    console.log("publications init ", this.publications);
       });
   }
 

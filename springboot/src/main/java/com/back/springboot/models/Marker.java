@@ -28,6 +28,9 @@ public class Marker
     @ManyToOne
     private Event event;
 
+    @ManyToOne
+    private Publication publication;
+
     public Marker() {
     }
     
@@ -84,11 +87,18 @@ public class Marker
 
 
 
-    @Override
-    public String toString() {
-        return "Marker [ id=" + id + ", latitude=" + latitude + ", longitude="
-                + longitude + "]";
+    public Publication getPublication() {
+        return publication;
     }
+
+
+
+    public void setPublication(Publication publication) {
+        this.publication = publication;
+    }
+
+
+
 
     
 

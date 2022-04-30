@@ -20,14 +20,33 @@
 
 .text 
 {
+    display: flex;
+    flex-direction: column;
+}
 
+
+.userSection
+{
+    display: flex;
+    flex-direction: row;
+}
+
+
+.userSection img 
+{
+    height: 72px;
+    width: 72px;
+    border-radius: 50px;
 }
 
 .titre
 {
-    text-align: center;
     font-size: 22px;
     text-decoration: underline;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-left: 5px;
 }
 
 .contenu

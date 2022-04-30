@@ -21,19 +21,13 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent" >
 
           <!-- lien -->
-          <ul class="navbar-nav d-flex justify-content-around p-2 " routerLinkActive="active">
-
-            <li class="nav-item">
-                <a routerLink="nature" routerLinkActive="active" 
-                class="nav-link">Nature</a>
-            </li>
+          <ul class="navbar-nav d-flex justify-content-around p-2 "
+           routerLinkActive="active">
     
             <li class="nav-item">
                 <a class="nav-link" routerLink="event"
                 routerLinkActive="active" >Evenement </a>
             </li>
-
-    
 
             <li class="nav-item">
 
@@ -60,15 +54,12 @@
                   
                 </div>
            
-  
                 <div class="searchButton" >
 
                     <button 
                     type="submit" (click)="search()">
                       Recherche
                     </button>
-
-
                 </div>
                
               </div>
@@ -85,7 +76,8 @@
             
 
             <li class="nav-item" *ngIf="isLoggedIn">
-              <a [routerLink]="['profile/', user.id]"   routerLinkActive="active"  class="nav-link" >{{ user.username }}</a>
+              <a [routerLink]="['profile/', user.id]"  
+               routerLinkActive="active"  class="nav-link" >{{ user.username }}</a>
             </li>
             <li class="nav-item" *ngIf="isLoggedIn">
               <a href class="nav-link" (click)="logout()">LogOut</a>

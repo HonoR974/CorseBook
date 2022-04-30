@@ -37,37 +37,68 @@
         </div>
         
 
-     
+        <div class="line-toggle" *ngIf="publication.listMarker.length > 0 ">
+    
+            <div class="btn-toggle">
+                <mat-slide-toggle 
+                [(ngModel)]="publication.checkedMarker" 
+                >
+                </mat-slide-toggle>
+         
+            </div>
+              
+        </div>
 
-      
+      <div class="toggle">
+
+            <div   *ngIf="!publication.checkedMarker" class="side-file" >
+
+                    <ngb-carousel 
+                        [showNavigationArrows]="true" 
+                    [showNavigationIndicators]="true"
+                    [interval]="20000"
+                    [keyboard]="true"
+                    [pauseOnHover]="true"
+                    [wrap]="true"
+                    [activeId]="'sliderThree'">
+                        <ng-template ngbSlide *ngFor="let image of publication.listFile"> 
+                            <div class="picsum-img-wrapper">
+                                <img [src]="image.url" [alt]="image.name">
+                            </div>
+                            <div class="carousel-caption" >
+                                <!-- 
+                                <h3>Title</h3>
+                                <p>Aenean malesuada nisi ut commodo semper.</p>
+                                -->
+                            
+                            </div>
+                        </ng-template>
+                </ngb-carousel>
+            
+            </div>
+
+            <div *ngIf="publication.checkedMarker" class="side-map"> 
+
+                <div >
+                    <agm-map  [latitude]="lat" [longitude]="lng">
+
+                        <agm-marker *ngFor="let marker of publication.listMarker"
+                        [latitude]="marker.latitude"
+                        [longitude]="marker.longitude"
+                        [label]="marker.label">
+                        
+                        </agm-marker>
+            
+                    </agm-map>
+                </div>
+                
+                </div>
+
+      </div>
   
 
-        <div class="side-file" >
-            <div>
-                <ngb-carousel 
-                [showNavigationArrows]="true" 
-             [showNavigationIndicators]="true"
-             [interval]="20000"
-             [keyboard]="true"
-             [pauseOnHover]="true"
-             [wrap]="true"
-             [activeId]="'sliderThree'">
-                 <ng-template ngbSlide *ngFor="let image of publication.listFile"> 
-                     <div class="picsum-img-wrapper">
-                         <img [src]="image.url" [alt]="image.name">
-                     </div>
-                     <div class="carousel-caption" >
-                         <!-- 
-                         <h3>Title</h3>
-                         <p>Aenean malesuada nisi ut commodo semper.</p>
-                         -->
-                       
-                     </div>
-                 </ng-template>
-             </ngb-carousel>
-            </div>
-        
-        </div>
+   
+
 
         <div class="side-content">
             <p>{{publication.contenu}}</p>

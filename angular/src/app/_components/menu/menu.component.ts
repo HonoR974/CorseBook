@@ -54,7 +54,7 @@ export class MenuComponent implements OnInit {
       {
         this.isLoggedIn = true;
         this.user = this.tokenStorageService.getUser();
-        console.log("user menu ", this.user);
+        this.getUserByUsername(this.user.username);
       }
   }
 
@@ -76,6 +76,7 @@ export class MenuComponent implements OnInit {
       data => 
       {
         this.user  = data;
+
       }
     );
   }

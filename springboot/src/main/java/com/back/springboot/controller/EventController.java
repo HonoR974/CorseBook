@@ -29,6 +29,8 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/api/event/")
 public class EventController {
 
+
+
     @Autowired
     private EventService eventService;
 
@@ -42,6 +44,7 @@ public class EventController {
         return new ResponseEntity<>(lDtos, HttpStatus.ACCEPTED);
     }
 
+    //get event by User 
     @GetMapping("user")
     public ResponseEntity<List<EventDTO>> getEventByUser()
     {
