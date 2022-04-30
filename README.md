@@ -24,6 +24,7 @@
  
   > Implementation du back -end : 
 
-  * Ouvrez un terminal et rendez-vous à la racine du dossier `springboot`
+  * Ouvrez un terminal et rendez-vous à la racine du dossier `CorseBook/springboot/src/main/resources/application.properties`.
+  * Remplacer les informations vous concernant pour la connexion à votre base de donnée.
   * Tapez: `mvn spring-boot:run`
  
