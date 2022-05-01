@@ -2,6 +2,10 @@
  CorseBook
 </h1>
 
+
+> Modules : 
+  * angular 
+  * springboot 
  
 > Installation necessaire au deploiement : 
 
@@ -14,12 +18,7 @@
  * Nommez le : `testp12`.
  * Entrez vos identifiant dans le fichier `CorseBook/angular/src/app/_services/upload-s3.service.ts`. 
 
-> Modules : 
-  * angular 
-  * springboot 
-  
  
-  
  > Implementation du front-end : 
   
   * Se rendre dans le fichier `CorseBook/angular` avec un terminal. 
