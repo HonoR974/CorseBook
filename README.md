@@ -7,9 +7,12 @@
 
  * Installer la version 3.8.1 d'apache maven . 
  * Installer la version 11 de Java. 
+
+> Mise en place du front-end
  * Installation d'un bucket S3. 
- * Creation d'un bucket sur [AWS S3](https://hackernoon.com/hosting-an-angular-application-on-amazon-s3-using-github-actions) nommez le : `testp12`.
- * 
+ * Creation d'un bucket sur [AWS S3](https://hackernoon.com/hosting-an-angular-application-on-amazon-s3-using-github-actions) et d'un IAM.
+ * Nommez le : `testp12`.
+ * Entrez vos identifiant dans le fichier `CorseBook/angular/src/app/_services/upload-s3.service.ts`. 
 
 > Modules : 
   * angular 
