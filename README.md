@@ -8,8 +8,8 @@
  * Installer la version 3.8.1 d'apache maven . 
  * Installer la version 11 de Java. 
  * Installation d'un bucket S3. 
- * Creation d'un bucket sur [AWS S3](https://hackernoon.com/hosting-an-angular-application-on-amazon-s3-using-github-actions)
-
+ * Creation d'un bucket sur [AWS S3](https://hackernoon.com/hosting-an-angular-application-on-amazon-s3-using-github-actions) nommez le : `testp12`.
+ * 
 
 > Modules : 
   * angular 
