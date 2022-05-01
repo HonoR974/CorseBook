@@ -28,8 +28,6 @@ public class Publication {
     @ManyToOne
     private User user;
 
-    @ManyToOne
-    private Statut statut;
 
     @OneToMany( mappedBy = "publication")
     private List<File> listFile;
@@ -39,6 +37,10 @@ public class Publication {
 
     @ManyToMany 
     private List<User> likeUser;
+
+    @OneToMany( mappedBy = "publication")
+    private List<Marker> listMarkers;
+
 
     public Publication() {
     }
@@ -80,13 +82,6 @@ public class Publication {
         this.user = user;
     }
 
-    public Statut getStatut() {
-        return statut;
-    }
-
-    public void setStatut(Statut statut) {
-        this.statut = statut;
-    }
 
     public Date getDateCreate() {
         return dateCreate;
@@ -118,6 +113,14 @@ public class Publication {
 
     public void setLikeUser(List<User> likeUser) {
         this.likeUser = likeUser;
+    }
+
+    public List<Marker> getListMarkers() {
+        return listMarkers;
+    }
+
+    public void setListMarkers(List<Marker> listMarkers) {
+        this.listMarkers = listMarkers;
     }
 
 

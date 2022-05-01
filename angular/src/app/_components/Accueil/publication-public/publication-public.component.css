@@ -11,6 +11,8 @@
     
 }
 
+
+
 .cadre
 {
     border: solid;
@@ -22,6 +24,31 @@
     border-style: inset;
     border-width: 1px;
 
+}
+
+
+
+.line-toggle
+{
+  display: flex;
+  flex-direction: row-reverse;
+
+}
+
+.btn-toggle
+{
+  width: 100px;
+}
+.toggle
+{
+
+  margin: 10px;
+}
+
+agm-map
+{
+    height: 200px;
+    width: 100%;
 }
 
 .side-top

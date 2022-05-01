@@ -7,6 +7,7 @@ body
     padding: 5px;
     border-radius: 20px;
     height: auto;
+
 }
 
 .section
@@ -53,7 +54,7 @@ ul
 {
     display: flex;
     flex-direction: column;
-  
+
 }
 
 
@@ -73,10 +74,13 @@ ul
 }
 
 
+
+
 .user-item-content img
 {
     max-height: 150px;
     max-width: 100px;
+    border-radius: 50px;
 }
 .car-buttons
 {

@@ -1,7 +1,7 @@
+<body>
 
   <!-- Menu -->
-  <header>
-    <div>
+  <div>
       
       <nav class="navbar navbar-expand-lg navbar-light ">
           
@@ -21,23 +21,18 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent" >
 
           <!-- lien -->
-          <ul class="navbar-nav d-flex justify-content-around p-2 " routerLinkActive="active">
-
-            <li class="nav-item">
-                <a routerLink="nature" routerLinkActive="active" 
-                class="nav-link">Nature</a>
-            </li>
+          <ul class="navbar-nav d-flex justify-content-around p-2 "
+           routerLinkActive="active">
     
             <li class="nav-item">
                 <a class="nav-link" routerLink="event"
                 routerLinkActive="active" >Evenement </a>
             </li>
 
-    
-
             <li class="nav-item">
 
               <div class="searchSection">
+                
                 <div>
                   <mat-form-field>
                     <input type="text" 
@@ -47,7 +42,8 @@
                       [matAutocomplete]="auto">
                       
                       <div class="sectionComplete">
-                        <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
+                        <mat-autocomplete autoActiveFirstOption 
+                        #auto="matAutocomplete">
                           <mat-option *ngFor="let user of userFilter | async"
                           [value]="user">
                             {{user}}
@@ -58,12 +54,12 @@
                   
                 </div>
            
-  
-                <div>
-                  <button class="btn btn-info my-2 my-sm-0"
-                  type="submit" (click)="search()">
-                     Recherche
-                   </button>
+                <div class="searchButton" >
+
+                    <button 
+                    type="submit" (click)="search()">
+                      Recherche
+                    </button>
                 </div>
                
               </div>
@@ -80,7 +76,8 @@
             
 
             <li class="nav-item" *ngIf="isLoggedIn">
-              <a [routerLink]="['profile/', user.id]"   routerLinkActive="active"  class="nav-link" >{{ user.username }}</a>
+              <a [routerLink]="['profile/', user.id]"  
+               routerLinkActive="active"  class="nav-link" >{{ user.username }}</a>
             </li>
             <li class="nav-item" *ngIf="isLoggedIn">
               <a href class="nav-link" (click)="logout()">LogOut</a>
@@ -93,4 +90,5 @@
       </nav>
   </div>
 
-  </header>
+
+</body>

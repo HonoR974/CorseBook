@@ -54,7 +54,7 @@ export class PublicationService {
 
   createPublication(publication: Publication): Observable<any>
   {
-  
+    
     return this.HttpClient.post<Publication>(baseURL, publication);
   }
 

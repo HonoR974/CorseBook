@@ -14,6 +14,7 @@ import { Publication } from 'src/app/_class/publication';
 import { PublicationService } from 'src/app/_services/publication.service';
 import { TokenStorageService } from 'src/app/_services/token-storage.service';
 import { UploadS3Service } from 'src/app/_services/upload-s3.service';
+import { Marker } from 'src/app/_class/marker';
 
 @Component({
   selector: 'app-create-publication',
@@ -43,6 +44,16 @@ export class CreatePublicationComponent implements OnInit {
     ]),
     file: new FormControl(),
   });
+
+    //AGM 
+
+    // initial center position for the map
+    lat: number = 41.91;
+    lng: number =  8.73;
+
+    markers: Marker[] = [];
+    markerAdded: Marker;
+    i:number = 0;
 
   publication: Publication = new Publication();
 
@@ -105,6 +116,7 @@ export class CreatePublicationComponent implements OnInit {
   createPubAPI()
   {
 
+
     //le contenu 
  
     this.publication.contenu = this.myForm.controls['contenu'].value;
@@ -113,15 +125,45 @@ export class CreatePublicationComponent implements OnInit {
     this.currentUser = this.tokenStorage.getUser();
     this.publication.username = this.currentUser.username;
 
+    //marker 
+    this.publication.listMarker = this.markers;
+
+    console.log("before created ", this.publication);
+    console.log("before created marker  " ,  this.publication.listMarker);
+
+
     this.publicationService
       .createPublication(this.publication)
       .subscribe( data  => {
-        console.log("data created " + data);
+        console.log("data created " , data);
         window.location.reload();
       });
-
      
   }
 
+  //---------- AGM 
 
+  addMarker(lat:number, lng:number)
+  { 
+
+    this.markerAdded = new Marker(lat, lng);
+    this.markerAdded.id = this.i++;
+    this.markers.push(this.markerAdded);
+  }
+
+  markerDragEnd(id :number, lat:number, lng :number)
+  {
+    
+    this.markerAdded = new Marker(lat, lng);
+    this.markers.forEach(element => 
+      {
+        if (element.id === id)
+        {
+          element = this.markerAdded;
+          this.markers[id] = element;
+        }
+      });
+      
+    
+  }
 }

@@ -1,6 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
+import { Chat } from 'src/app/_class/chat';
 import { Message } from 'src/app/_class/message';
 import { ChatService } from 'src/app/_services/chat.service';
 import { MessageService } from 'src/app/_services/message.service';
@@ -22,6 +23,9 @@ export class ChatComponent implements  OnInit, OnDestroy {
 
   messages: Message[] = [];
 
+  title ! :string;
+
+  chat:Chat = new Chat;
  
 
   constructor(public webSocketService: WebSocketService,
@@ -40,7 +44,8 @@ export class ChatComponent implements  OnInit, OnDestroy {
     this.webSocketService.openWebSocket(this.id);
 
     this.user = this.tokenService.getUser().username;
-   // this.getMessageByIdChat();
+
+    this.getChat();
   }
 
   //fin 
@@ -54,16 +59,6 @@ export class ChatComponent implements  OnInit, OnDestroy {
 
 
 
-  getMessageByIdChat():void
-  {
-    this.messageService.getMessageByIdChat(this.id).subscribe( data => 
-      {
-     
-        console.log("get ", data);
-        this.messages = data;
-        this.webSocketService.chatMessages = this.messages;
-      });
- }
 
 
   sendMessage(sendForm: NgForm) :void {
@@ -93,5 +88,14 @@ export class ChatComponent implements  OnInit, OnDestroy {
     );
   }
 
+
+  getChat()
+  {
+    this.chatService.getById(this.id).subscribe( data => 
+      {
+        console.log("chat get ", data); 
+        this.chat = data;
+      });
+  }
 
 }

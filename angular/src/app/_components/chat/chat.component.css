@@ -12,3 +12,17 @@ div.chat-content {
 .card {
     height: 100%;
 }
+
+.cadreTitle
+{
+    height: 200px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.title
+{
+    text-align: center;
+    font-size: 25px;
+}

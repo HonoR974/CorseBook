@@ -53,6 +53,7 @@ public class CommentServiceImpl  implements CommentService{
         Comment comment = new Comment();
         comment.setContenu(commentRequest.getContenu());
         comment.setUser(commentRequest.getUser());
+        comment.setDateCreated(new Date());
 
         Event event = eventRepository.findById(id)
         .orElseThrow(() -> new ResourceNotFoundException(
@@ -348,8 +349,14 @@ public class CommentServiceImpl  implements CommentService{
 
         }
 
-        //username 
+       //user
+        //username
         commentDTO.setUsername(comment.getUser().getUsername());
+        //fileUser
+        if(comment.getUser().getProfilePicture() != null)
+        {
+            commentDTO.setPathFileUser(comment.getUser().getProfilePicture().getUrl());
+        }
 
         //date 
         Date date = Calendar.getInstance().getTime();  

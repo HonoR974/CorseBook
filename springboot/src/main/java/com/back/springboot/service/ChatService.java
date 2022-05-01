@@ -28,4 +28,7 @@ public interface ChatService {
 
     //delete all chats 
     void deleteAll();
+
+    //title 
+    String getTitleByIdChat(long id);
 }

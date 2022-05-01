@@ -9,15 +9,27 @@
                         <div class="info">
 
                             <div class="text">
-                              <div class="titre">{{comment.username}}</div> 
-                              <div class="contenu">{{comment.contenu}}</div> 
+
+                                <div class="userSection">
+                             
+                                        <img [src]="comment.pathFileUser" 
+                                        alt="file path :  {{comment.pathFileUser}} ">
+
+                                        <div class="titre">{{comment.username}}</div> 
+                               
+                                </div>
+                           
+                               <div class="contenu">
+                                   {{comment.contenu}}
+                                </div> 
+
                             </div>
                      
                             <div class="option" >
                                 
                                 
 
-                                    <div >
+                                    <div class="date">
                                         Date : {{comment.dateCreated}}
                     
                                     </div>

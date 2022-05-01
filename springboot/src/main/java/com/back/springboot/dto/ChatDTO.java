@@ -10,6 +10,8 @@ public class ChatDTO {
     
     private long id;
 
+    private String name;
+
     private List<String> listUser;
 
     private HashMap<String, String> listMessage;
@@ -39,6 +41,14 @@ public class ChatDTO {
 
     public void setListMessage(HashMap<String, String> listMessage) {
         this.listMessage = listMessage;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
    

@@ -21,6 +21,8 @@ export class CommentEventComponent implements OnInit {
   eventRequest!:Evenement;
 
 
+  imgStandardPath : string = "https://testp12.s3.eu-west-3.amazonaws.com/image/user.png";
+  
   event!:Evenement;
   comment:Comment =new Comment;
 

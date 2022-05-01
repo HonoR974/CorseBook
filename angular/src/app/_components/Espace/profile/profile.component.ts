@@ -85,8 +85,6 @@ export class ProfileComponent implements OnInit {
     this.userService.getUserById(this.id).subscribe ( data => 
       {
         this.user = data;
-        
-     
       });
   }
 

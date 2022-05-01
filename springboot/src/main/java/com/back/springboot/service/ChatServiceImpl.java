@@ -23,6 +23,9 @@ public class ChatServiceImpl implements ChatService{
     @Autowired
     private MessageRepository messageRepository;
 
+    @Autowired
+    private SecurityService securityService;
+
     //------------  CRUD ---------------//
 
     @Override
@@ -74,6 +77,8 @@ public class ChatServiceImpl implements ChatService{
             chatDTO.setListUser(listUser);
             
         }
+
+        chatDTO.setName(chat.getName());
      
         return chatDTO;
     }
@@ -111,5 +116,27 @@ public class ChatServiceImpl implements ChatService{
         messageRepository.deleteAll();
         chatRepository.deleteAll();
         
+    }
+
+
+    //retourne le nom de l'event 
+    //ou le nom du contact 
+    @Override
+    public String getTitleByIdChat(long id) {
+        String title ;
+
+        Chat chat = chatRepository.findById(id)
+        .orElseThrow( () -> new ResourceNotFoundException("le chat avec l'id : "+ id + " n'existe pas "));
+
+        if (chat.getEvent() != null)
+        {
+            title = chat.getEvent().getName();
+        }
+        else 
+        {
+            title = chat.getUsers().get(0).getUsername() + " - " + 
+                    chat.getUsers().get(1).getUsername() ;
+        }
+        return title;
     }
 }

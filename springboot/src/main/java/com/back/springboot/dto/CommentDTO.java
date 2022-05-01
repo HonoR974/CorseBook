@@ -22,6 +22,8 @@ public class CommentDTO {
 
     private long id_event;
 
+    private String pathFileUser;
+
     public CommentDTO(){}
 
     public long getId() {
@@ -89,8 +91,16 @@ public class CommentDTO {
         this.id_event = id_event;
     }
 
-    
+    public String getPathFileUser() {
+        return pathFileUser;
+    }
 
+    public void setPathFileUser(String pathFileUser) {
+        this.pathFileUser = pathFileUser;
+    }
+
+    
+    
     
     
 }

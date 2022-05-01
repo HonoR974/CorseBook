@@ -59,6 +59,7 @@ export class RegisterComponent implements OnInit {
         this.tokenStorage.saveToken(data.jwt);
         this.tokenStorage.saveUser(data);
 
+        window.location.reload();
       }, 
       err => {
         this.errorMessage = err.error.message;

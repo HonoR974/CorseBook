@@ -66,6 +66,8 @@ export class ContactComponent implements OnInit {
     //btn profile 
     getContact(id:any)
     {
+
+      
       this.router.navigateByUrl('/', {skipLocationChange: true}).then(() => {
           this.router.navigate(['profile/', id]);
 
@@ -75,9 +77,10 @@ export class ContactComponent implements OnInit {
     //btn chat 
     contact(id:any)
     {
-      this.router.navigateByUrl('/', {skipLocationChange: true}).then(() => {
+
+      console.log("btn chat ", id);
+
         this.router.navigate(['chat',id]);
-    });
     }
 
  

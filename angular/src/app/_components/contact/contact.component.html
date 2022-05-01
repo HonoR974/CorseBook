@@ -44,7 +44,7 @@
     <div class="cadre">
 
         <p-carousel class="carousel" [value]="listSuggest" [numVisible]="3"
-         [numScroll]="3" [circular]="false" 
+         [numScroll]="3" [circular]="true" 
          [responsiveOptions]="responsiveOptions">
             
             <ng-template pTemplate="header">
@@ -61,7 +61,7 @@
                 
                     <div >{{user.username}}</div>
 
-                    <div *ngIf="user.urlFile; else elseBlock">
+                    <div *ngIf="user.urlFile; else elseBlock" >
                         <img [src]="user.urlFile"  >
                     </div>
 
