@@ -17,7 +17,7 @@
  * Creation d'un bucket sur [AWS S3](https://hackernoon.com/hosting-an-angular-application-on-amazon-s3-using-github-actions) et d'un IAM.
  * Nommez le : `testp12`.
  * Entrez vos identifiant dans le fichier `CorseBook/angular/src/app/_services/upload-s3.service.ts`. 
-
+ * Dans votre bucket créez deux dossier `icon` et `image`.Importez les fichiers du dossier `S3` aux dossier correspondants. 
  
  > Implementation du front-end : 
   
