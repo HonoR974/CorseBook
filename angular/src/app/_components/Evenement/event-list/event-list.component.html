@@ -3,8 +3,12 @@
 
     <div *ngFor="let event of events " class="cadre " >
 
+    
         <!-- Line btn Deelet -->
         <div class="line-toggle" *ngIf="event.nameCreator===user.username">
+
+
+         
 
             <p-button 
             matTooltip="Supprimer" type="button" 
@@ -14,8 +18,14 @@
 
             </p-button>
         </div>
+        <div class="title">
+            {{event.nameCreator}}
+        </div>
             <div class="side-name">
-                {{event.name}}
+                <div class="name">
+                    {{event.name}}
+                </div>
+        
             </div>
       
             <div class="line-toggle">
@@ -88,7 +98,7 @@
     
              
                 <div class="section-content">
-                   <p>Content : {{event.contenu}}</p> 
+                   <p>{{event.contenu}}</p> 
                 </div>
                 
             </div>

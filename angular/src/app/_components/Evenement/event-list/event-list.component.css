@@ -13,6 +13,14 @@
 
 }
 
+.title
+{
+
+    font-size: 24px;
+
+    text-decoration: underline;
+    text-align: center;
+}
 
 
 .line-toggle
@@ -35,10 +43,21 @@
 .side-name
 {
   margin: 20px;
-  text-align: center;
   font-size: 22px;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+ 
 }
+.name
+{
+  background-color: rgba(73, 80, 87,0.3);
+  width: auto;
+  width: fit-content;
+  padding: 10px;
+  border-radius: 20px;
 
+}
 .side-file
 {
   background-color: rgba(73, 80, 87,0.5);
