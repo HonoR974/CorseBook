@@ -26,6 +26,9 @@ export class CommentPubComponent implements OnInit {
   });
 
 
+  //lien de l'image par default des user 
+  urlIconUser:any = "https://testp12.s3.eu-west-3.amazonaws.com/image/user.png";
+
   constructor(private publicationService : PublicationService,
               private tokenStorage: TokenStorageService,
               private commentService : CommentService) { }

@@ -37,6 +37,9 @@ export class ProfileComponent implements OnInit {
   isUserProfil = false;
 
 
+  //lien de l'image par default des user 
+  urlIconUser:any = "https://testp12.s3.eu-west-3.amazonaws.com/image/user.png";
+
   //profile picture 
 
   cheminImage: any =

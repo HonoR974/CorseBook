@@ -1,103 +1,105 @@
-          <!-- Comments -->
-          <div    class="corps" >
+    <!-- Comments -->
+    <div    class="corps" >
 
-            <!-- Affichage -->
-            <div  *ngFor="let comment of event.listComments"> 
-
-
-                    <div  class="comment">
-                        <div class="info">
-
-                            <div class="text">
-
-                           <div class="userSection">
-                             
-                                     <!-- img user --> 
-                                    <img [src]="comment.pathFileUser" 
-                                    alt="file path :  {{comment.pathFileUser}} " 
-                                    *ngIf="comment.pathFileUser">
+    <!-- Affichage -->
+    <div  *ngFor="let comment of event.listComments"> 
 
 
-                                    <!-- img standars -->
-                                    <img [src]="imgStandardPath" 
-                               
-                                    *ngIf="!comment.pathFileUser">
+            <div  class="comment">
+                <div class="info">
 
-                                    <div class="titre">{{comment.username}}</div> 
-                            
-                                </div>
+                    <div class="text">
 
-                              <div class="contenu">
-                                  {{comment.contenu}}
-
-                              </div> 
-                            </div>
-                     
-                            <div class="option" >
-                                
-                                
-
-                                  
-
-                                    <div class="line-btn">
-
-                                        <!-- Liked btn dislike  -->
-                                        <button type="button" class="btn btn-info"  
-                                        matTooltip="Dislike" 
-                                        *ngIf="comment.liked" 
-                                        (click)="commentDisliked(comment.id)"
-                                            >
-
-                                            <mat-icon>favorite</mat-icon>{{comment.countLike}}
-                                        </button>
-
-
-
-                                        <!-- Not liked btn like -->
-                                        <button type="button" class="btn btn-info" 
-                                        matTooltip="Like" *ngIf="!comment.liked" 
-                                        (click)="commentLiked(comment.id)">
-
-                                            <mat-icon>favorite_border</mat-icon>{{comment.countLike}}
-                                        </button>
-
-                                    </div>
-                            </div>
-                      
-                       
+                    <div class="userSection">
+                        
+                        
+                        <div *ngIf="comment.pathFileUser; else elseBlock" >
+                            <img [src]="comment.pathFileUser"  >
                         </div>
-                    </div>
-                      
 
+                        <ng-template #elseBlock  >
+
+                            <div>
+                                <img [src]="urlIconUser">
+                            </div>
+
+                        </ng-template>
+                            
+                            <div class="titre">{{comment.username}}</div> 
+                    
+                        </div>
+
+                        <div class="contenu">
+                            {{comment.contenu}}
+
+                        </div> 
+                    </div>
                 
-            </div>
-     
+                    <div class="option" >
+                        
+                        
 
-            <!-- Create -->
+                            
 
-            <div class="createComment">
-                <form  [formGroup]="commentForm" 
-                (ngSubmit)="createComment(event.id)">
-  
-                    <div  class="form-group">
-                        <label for="contenu">
-                            Votre Commentaire : 
-                        </label>
-                        <input
-                        formControlName="contenu"
-                        id="contenu" 
-                        type="text" 
-                        class="form-control content"
-                        placeholder="Participez">
-    
+                            <div class="line-btn">
+
+                                <!-- Liked btn dislike  -->
+                                <button type="button" class="btn btn-info"  
+                                matTooltip="Dislike" 
+                                *ngIf="comment.liked" 
+                                (click)="commentDisliked(comment.id)"
+                                    >
+
+                                    <mat-icon>favorite</mat-icon>{{comment.countLike}}
+                                </button>
+
+
+
+                                <!-- Not liked btn like -->
+                                <button type="button" class="btn btn-info" 
+                                matTooltip="Like" *ngIf="!comment.liked" 
+                                (click)="commentLiked(comment.id)">
+
+                                    <mat-icon>favorite_border</mat-icon>{{comment.countLike}}
+                                </button>
+
+                            </div>
                     </div>
-    
-                   <button class="btn btn-primary button" type="submit">Partager</button>
-               
-                </form>
+                
+                
+                </div>
+            </div>
+                
+
+        
+    </div>
+
+
+    <!-- Create -->
+
+    <div class="createComment">
+        <form  [formGroup]="commentForm" 
+        (ngSubmit)="createComment(event.id)">
+
+            <div  class="form-group">
+                <label for="contenu">
+                    Votre Commentaire : 
+                </label>
+                <input
+                formControlName="contenu"
+                id="contenu" 
+                type="text" 
+                class="form-control content"
+                placeholder="Participez">
+
             </div>
 
-            
-           
-       
-        </div>
+            <button class="btn btn-primary button" type="submit">Partager</button>
+        
+        </form>
+    </div>
+
+    
+    
+
+</div>

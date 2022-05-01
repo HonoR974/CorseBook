@@ -6,8 +6,18 @@
 
       <!-- Image Profile-->
       <div class="cadreImage"> 
-        <img [src]="user.urlFile" >
+        
+        <div *ngIf="user.urlFile; else elseBlock" >
+          <img [src]="user.urlFile"  >
+      </div>
 
+      <ng-template #elseBlock  >
+
+          <div>
+              <img [src]="urlIconUser">
+          </div>
+
+      </ng-template>
         <div class="line-picture" *ngIf="isUserProfil">
           
         <label for="file" class="label-file"  >Choisir une image</label>
