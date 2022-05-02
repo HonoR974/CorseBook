@@ -1,16 +1,16 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http';
-import { FormsModule,ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { authInterceptorProviders } from './_helpers/auth.interceptor';
+import { authInterceptorProviders } from './_interceptor/auth.interceptor';
 
-import {MatIconModule} from '@angular/material/icon';
-import {MatTooltipModule} from '@angular/material/tooltip';
-import {MatBadgeModule} from '@angular/material/badge';
+import { MatIconModule } from '@angular/material/icon';
+import { MatTooltipModule } from '@angular/material/tooltip';
+import { MatBadgeModule } from '@angular/material/badge';
 import { NgxDropzoneModule } from 'ngx-dropzone';
 import { CommonModule } from '@angular/common';
 
@@ -21,10 +21,9 @@ import { RegisterComponent } from './_components/Logs/register/register.componen
 import { UpdatePublicationComponent } from './_components/Accueil/update-publication/update-publication.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
-
-import {CarouselModule} from 'primeng/carousel';
-import {ButtonModule} from 'primeng/button';
-import {ToastModule} from 'primeng/toast';
+import { CarouselModule } from 'primeng/carousel';
+import { ButtonModule } from 'primeng/button';
+import { ToastModule } from 'primeng/toast';
 import { ContactComponent } from './_components/contact/contact.component';
 import { ChatComponent } from './_components/chat/chat.component';
 import { EventComponent } from './_components/Evenement/event/event.component';
@@ -39,9 +38,7 @@ import { PublicationProfileComponent } from './_components/Espace/publication-pr
 import { CreateEventComponent } from './_components/Evenement/create-event/create-event.component';
 import { EventListComponent } from './_components/Evenement/event-list/event-list.component';
 
-
-import {MatSlideToggleModule} from '@angular/material/slide-toggle';
-import { ListComponent } from './_components/Nature/list/list.component';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { CreateComponent } from './_components/Comment/create/create.component';
 import { CommentPubComponent } from './_components/Comment/comment-pub/comment-pub.component';
 import { CommentEventComponent } from './_components/Comment/comment-event/comment-event.component';
@@ -71,13 +68,12 @@ import { TableComponent } from './_components/Evenement/table/table.component';
     EventComponent,
     CreateEventComponent,
     EventListComponent,
-    ListComponent,
     CreateComponent,
     CommentPubComponent,
     CommentEventComponent,
     UpdateProfileComponent,
     MenuComponent,
-    TableComponent
+    TableComponent,
   ],
   imports: [
     BrowserModule,
@@ -104,11 +100,10 @@ import { TableComponent } from './_components/Evenement/table/table.component';
     ToastModule,
     AgmCoreModule.forRoot({
       apiKey: 'AIzaSyD-5cW7KLHBPf4-lQwRkYw0_ndyzY0Ydd0',
-      libraries: ['places']
-    })
- 
+      libraries: ['places'],
+    }),
   ],
   providers: [authInterceptorProviders],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

@@ -10,15 +10,14 @@ import { UploadS3Service } from 'src/app/_services/upload-s3.service';
 @Component({
   selector: 'app-update-publication',
   templateUrl: './update-publication.component.html',
-  styleUrls: ['./update-publication.component.css']
+  styleUrls: ['./update-publication.component.css'],
 })
 export class UpdatePublicationComponent implements OnInit {
-
-  id!:number;
+  id!: number;
   currentUser: any;
 
-  publication:Publication = new Publication();
-  publicationSend:Publication = new Publication();
+  publication: Publication = new Publication();
+  publicationSend: Publication = new Publication();
 
   files: FileAPI[] = [];
 
@@ -32,105 +31,78 @@ export class UpdatePublicationComponent implements OnInit {
     file: new FormControl(),
   });
 
-  cheminImage: any =
-    'https://testp12.s3.eu-west-3.amazonaws.com/';
+  cheminImage: any = 'https://testp12.s3.eu-west-3.amazonaws.com/';
 
-
-    
   fileAPI: FileAPI = new FileAPI();
 
-
-  constructor(  private router:Router, 
-                private route:ActivatedRoute,
-                private publicationService: PublicationService,
-                private uploadS3Service: UploadS3Service,
-                private tokenStorage: TokenStorageService,) { }
+  constructor(
+    private router: Router,
+    private route: ActivatedRoute,
+    private publicationService: PublicationService,
+    private uploadS3Service: UploadS3Service,
+    private tokenStorage: TokenStorageService
+  ) {}
 
   ngOnInit(): void {
     this.id = this.route.snapshot.params['id'];
     this.getPublicationById(this.id);
-  
   }
 
-  getPublicationById(id:number){
-    this.publicationService.getPublicationById(id).subscribe(data => 
-      {
-        this.publication = data;
-      });
-
-    
+  getPublicationById(id: number) {
+    this.publicationService.getPublicationById(id).subscribe((data) => {
+      this.publication = data;
+    });
   }
 
-
-  updatePublicationByID()
-  {
-
+  updatePublicationByID() {
     this.publicationSend.contenu = this.myForm.controls['contenu'].value;
     this.publicationSend.listFile = this.listFilesAPI;
 
-    console.log("  pub  " , this.publicationSend );
+    console.log('  pub  ', this.publicationSend);
 
-    this.publicationService.updatePublication( this.id,this.publicationSend).subscribe( 
-      data => {
-       console.log("\n  data " , data);
-        this.goToPublicationPublic();
-      },
-      error => console.log(error));
-    
+    this.publicationService
+      .updatePublication(this.id, this.publicationSend)
+      .subscribe(
+        (data) => {
+          console.log('\n  data ', data);
+          this.goToPublicationPublic();
+        },
+        (error) => console.log(error)
+      );
   }
 
-
-  goToPublicationPublic()
-  {
+  goToPublicationPublic() {
     this.router.navigate(['home']);
   }
 
-  
   onFileChange(event: any) {
-
     for (var i = 0; i < event.target.files.length; i++) {
       this.files.push(event.target.files[i]);
-
     }
-
   }
 
-  
   async newFileUpdate() {
-
     for (let i = 0; i < this.files.length; i += 1) {
-
       let file = this.files[i];
-      let filePath = "image/" + file.name;
+      let filePath = 'image/' + file.name;
       //s3
       try {
-
-        console.log("request upload file " + filePath);
+        console.log('request upload file ' + filePath);
         //s3
         let response = await this.uploadS3Service.uploadFileS3(file, filePath);
-     
-
-
       } catch (error) {
         console.log("erreur lors de l'envoie de la publication");
       }
 
       //api
       this.fileAPI.name = file.name;
-      this.fileAPI.url = this.cheminImage  + filePath;
+      this.fileAPI.url = this.cheminImage + filePath;
 
-      console.log('fileAPI ajouté  ' , this.fileAPI);
+      console.log('fileAPI ajouté  ', this.fileAPI);
 
       this.listFilesAPI.push(this.fileAPI);
-
     }
 
-  
-
     this.updatePublicationByID();
-
   }
-
-
-
 }

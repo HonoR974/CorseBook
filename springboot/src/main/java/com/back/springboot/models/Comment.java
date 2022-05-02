@@ -3,7 +3,6 @@ package com.back.springboot.models;
 import java.util.Date;
 import java.util.List;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -16,7 +15,6 @@ import org.springframework.lang.Nullable;
 @Entity
 public class Comment {
 
-      
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
@@ -32,21 +30,20 @@ public class Comment {
     @Nullable
     private Event event;
 
-    private String contenu; 
+    private String contenu;
 
     private Date dateCreated;
-    
+
     @ManyToMany
     private List<User> likeUser;
-    
 
-    public Comment(){}
+    public Comment() {
+    }
 
     public long getId() {
         return id;
     }
 
-  
     public void setId(long id) {
         this.id = id;
     }
@@ -102,9 +99,5 @@ public class Comment {
     public void setEvent(Event event) {
         this.event = event;
     }
-
-
-   
-    
 
 }

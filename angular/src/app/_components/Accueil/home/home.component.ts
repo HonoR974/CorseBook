@@ -9,46 +9,33 @@ import { UserService } from 'src/app/_services/user.service';
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
-  styleUrls: ['./home.component.css']
+  styleUrls: ['./home.component.css'],
 })
 export class HomeComponent implements OnInit {
-
   title = 'Accueil ';
 
-  
-
   isLoggedIn = false;
-  user: User = new User;
+  user: User = new User();
 
-  constructor(private tokenStorage: TokenStorageService,
-              private userService: UserService) { }
+  constructor(
+    private tokenStorage: TokenStorageService,
+    private userService: UserService
+  ) {}
 
   ngOnInit(): void {
-
-    //verification du jwt 
-    //get info user 
+    //verification du jwt
+    //get info user
     if (this.tokenStorage.getToken()) {
       this.user = this.tokenStorage.getUser();
       this.isLoggedIn = true;
 
       this.getUserByUsername();
-  
     }
-
- 
-
   }
 
-
-  getUserByUsername()
-  {
-    this.userService.getUserByUsername(this.user.username).subscribe ( 
-      data => 
-      {
-        this.user  = data;
-
-      }
-    );
+  getUserByUsername() {
+    this.userService.getUserByUsername(this.user.username).subscribe((data) => {
+      this.user = data;
+    });
   }
-
 }

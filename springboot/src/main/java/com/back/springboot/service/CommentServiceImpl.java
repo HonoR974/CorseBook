@@ -6,7 +6,7 @@ import java.util.Date;
 import java.util.List;
 import java.text.DateFormat;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;  
+import java.text.SimpleDateFormat;
 
 import com.back.springboot.dto.CommentDTO;
 import com.back.springboot.exception.ResourceNotFoundException;
@@ -24,31 +24,34 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-public class CommentServiceImpl  implements CommentService{
-    
-    @Autowired
-    private ModelMapper modelMapper;
+public class CommentServiceImpl implements CommentService {
 
-    @Autowired
-    private UserRepository userRepository;
+    private final ModelMapper modelMapper;
 
-    @Autowired
-    private PublicationRepository publicationRepository;
+    private final UserRepository userRepository;
 
-    @Autowired
-    private CommentRepository commentRepository;
+    private final PublicationRepository publicationRepository;
 
-    @Autowired
-    private SecurityService securityService;
+    private final CommentRepository commentRepository;
 
-    @Autowired
-    private EventRepository eventRepository;
+    private final SecurityService securityService;
 
-    //create comment in event 
+    private final EventRepository eventRepository;
+
+    public CommentServiceImpl(ModelMapper modelMapper, UserRepository userRepository,
+            PublicationRepository publicationRepository, CommentRepository commentRepository,
+            SecurityService securityService, EventRepository eventRepository) {
+        this.modelMapper = modelMapper;
+        this.userRepository = userRepository;
+        this.publicationRepository = publicationRepository;
+        this.commentRepository = commentRepository;
+        this.securityService = securityService;
+        this.eventRepository = eventRepository;
+    }
+
+    // create comment in event
     @Override
     public Comment createCommentByEventId(long id, Comment commentRequest) {
-        
-        
 
         Comment comment = new Comment();
         comment.setContenu(commentRequest.getContenu());
@@ -56,8 +59,8 @@ public class CommentServiceImpl  implements CommentService{
         comment.setDateCreated(new Date());
 
         Event event = eventRepository.findById(id)
-        .orElseThrow(() -> new ResourceNotFoundException(
-            "Event not extist with id : "+ id) ) ;
+                .orElseThrow(() -> new ResourceNotFoundException(
+                        "Event not extist with id : " + id));
 
         List<Comment> list = new ArrayList<>();
         list.add(comment);
@@ -70,70 +73,57 @@ public class CommentServiceImpl  implements CommentService{
         return commentRepository.save(comment);
     }
 
-  
-
-
-    //create comment in publication 
+    // create comment in publication
     @Override
-    public Comment createCommentByPublicationID(long id,Comment commentRequest)
-    {
+    public Comment createCommentByPublicationID(long id, Comment commentRequest) {
         Comment comment = new Comment();
         comment.setContenu(commentRequest.getContenu());
         comment.setUser(commentRequest.getUser());
 
-        //ajout du commentaire a la publication 
-        Publication publication = publicationRepository.findById(id)  .orElseThrow(() -> new ResourceNotFoundException(
-            "la publication avec l'id " + id + " n'existe pas "));
+        // ajout du commentaire a la publication
+        Publication publication = publicationRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException(
+                "la publication avec l'id " + id + " n'existe pas "));
 
         List<Comment> list = new ArrayList<>();
         list.add(commentRequest);
         publication.setListComments(list);
         publicationRepository.save(publication);
 
-        //ajout de la publication au commentaire 
+        // ajout de la publication au commentaire
         comment.setPublications(publication);
 
-        
-
-        return     commentRepository.save(comment);
+        return commentRepository.save(comment);
     }
 
-
-    //comment liked 
+    // comment liked
     @Override
-    public Comment commentLiked(long id)
-    {
+    public Comment commentLiked(long id) {
         Comment comment = commentRepository.findById(id)
-        .orElseThrow(() -> new ResourceNotFoundException(
-            "le commentaire avec l'id " + id + " n'existe pas "));
+                .orElseThrow(() -> new ResourceNotFoundException(
+                        "le commentaire avec l'id " + id + " n'existe pas "));
 
-            //verifie que l'user n'a pas deja like ce commentaire
+        // verifie que l'user n'a pas deja like ce commentaire
         User user = securityService.getUser();
-        System.out.println("\n user " +  user.toString());
+        System.out.println("\n user " + user.toString());
 
-        
-        
-        if (!comment.getLikeUser().contains(user))
-        {
-         
+        if (!comment.getLikeUser().contains(user)) {
 
-            // save comment 
+            // save comment
             List<User> list = comment.getLikeUser();
             list.add(user);
             comment.setLikeUser(list);
             commentRepository.save(comment);
 
-
-            //save user 
+            // save user
             List<Comment> listLiked = user.getCommentsLiked();
             listLiked.add(comment);
             user.setCommentsLiked(listLiked);
             userRepository.save(user);
 
-            //publication 
+            // publication
             Publication publication = comment.getPublication();
- 
-            List<Comment> lComments  = new ArrayList<>();
+
+            List<Comment> lComments = new ArrayList<>();
             lComments.addAll(publication.getListComments());
             lComments.add(comment);
 
@@ -141,40 +131,30 @@ public class CommentServiceImpl  implements CommentService{
 
             publicationRepository.save(publication);
 
-            
-            
-        }
-        else
-        {
+        } else {
             System.out.println("\n le commentaire a deja ete aime ");
 
             throw new ResourceNotFoundException(
-                "l'user " + user.getUsername()  + " a deja liké le commentaire " + comment.getId());
+                    "l'user " + user.getUsername() + " a deja liké le commentaire " + comment.getId());
         }
-
-
 
         return commentRepository.save(comment);
     }
 
-
-
-    //disliked 
+    // disliked
     @Override
     public Comment commentDisliked(long id) {
- 
+
         Comment comment = commentRepository.findById(id)
-        .orElseThrow(() -> new ResourceNotFoundException(
-            "le commentaire avec l'id " + id + " n'existe pas "));
+                .orElseThrow(() -> new ResourceNotFoundException(
+                        "le commentaire avec l'id " + id + " n'existe pas "));
 
-            //verifie que l'user n'a pas deja like ce commentaire
+        // verifie que l'user n'a pas deja like ce commentaire
         User user = securityService.getUser();
-        System.out.println("\n user " +  user.toString());
+        System.out.println("\n user " + user.toString());
 
+        if (comment.getLikeUser().contains(user)) {
 
-        if (comment.getLikeUser().contains(user))
-        {
-         
             List<User> list = comment.getLikeUser();
             list.remove(user);
             comment.setLikeUser(list);
@@ -193,196 +173,167 @@ public class CommentServiceImpl  implements CommentService{
             publication.setListComments(lComments);
             publicationRepository.save(publication);
 
-        }
-        else
-        {
+        } else {
             System.out.println("\n le commentaire n'est pas aimé par l'user  ");
 
             throw new ResourceNotFoundException(
-                "l'user " + user.getUsername()  + " n'a pas  liké le commentaire " + comment.getId());
+                    "l'user " + user.getUsername() + " n'a pas  liké le commentaire " + comment.getId());
         }
-
-
 
         return comment;
     }
 
+    public boolean checkLikeByUserAndCom(Comment commentRequest) {
 
+        boolean condition = false;
 
-    public boolean checkLikeByUserAndCom(Comment commentRequest)
-    {
-        
-       boolean condition = false;
+        User user = securityService.getUser();
 
-       User user = securityService.getUser();
+        List<User> list = commentRequest.getLikeUser();
 
-       List<User> list = commentRequest.getLikeUser();
-
-       if (list != null && list.contains(user))
-       {
-           condition = true;
-       }
+        if (list != null && list.contains(user)) {
+            condition = true;
+        }
 
         return condition;
     }
-    //-------- CRUD -------// 
+    // -------- CRUD -------//
 
-    //create 
+    // create
     @Override
     public Comment createComment(Comment comment) {
         return commentRepository.save(comment);
     }
 
-    //get all 
+    // get all
     @Override
     public List<Comment> getAll() {
         return commentRepository.findAll();
     }
 
-
-    //get by id 
+    // get by id
     @Override
-    public Comment getById(long id)
-    {
+    public Comment getById(long id) {
         Comment comment = commentRepository.findById(id)
-             .orElseThrow(() -> new ResourceNotFoundException(
-                    "le commentaire avec l'id " + id + " n'existe pas "));
+                .orElseThrow(() -> new ResourceNotFoundException(
+                        "le commentaire avec l'id " + id + " n'existe pas "));
 
         return comment;
     }
 
-    //update 
+    // update
     @Override
-    public  Comment updateComment(long id, Comment commentRequest)
-    {
+    public Comment updateComment(long id, Comment commentRequest) {
         Comment comment = commentRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException(
-                    "le commentaire avec l'id " + id + " n'existe pas "));
-         
+                        "le commentaire avec l'id " + id + " n'existe pas "));
+
         comment.setContenu(commentRequest.getContenu());
         comment.setUser(commentRequest.getUser());
-        comment.setPublications(commentRequest.getPublication());    
-        
+        comment.setPublications(commentRequest.getPublication());
+
         return commentRepository.save(comment);
     }
 
-    //delete 
-    public void deleteById(long id)
-    {
+    // delete
+    public void deleteById(long id) {
         Comment comment = commentRepository.findById(id)
-        .orElseThrow(() -> new ResourceNotFoundException(
-            "le commentaire avec l'id " + id + " n'existe pas "));
+                .orElseThrow(() -> new ResourceNotFoundException(
+                        "le commentaire avec l'id " + id + " n'existe pas "));
 
         commentRepository.delete(comment);
     }
 
+    // -------- CONVERT DTO -----//
 
-    //-------- CONVERT DTO -----//
-
-    
     @Override
     public Comment convertToEntity(CommentDTO commentDTO) {
 
-   
         Comment comment = modelMapper.map(commentDTO, Comment.class);
 
-        //user 
+        // user
         User user = userRepository.findByUsername(commentDTO.getUsername())
-        .orElseThrow(() -> new ResourceNotFoundException(
-                "User with username " + commentDTO.getUsername() + " is null"));
+                .orElseThrow(() -> new ResourceNotFoundException(
+                        "User with username " + commentDTO.getUsername() + " is null"));
 
-        comment.setUser(user);        
+        comment.setUser(user);
 
-        //publication 
-        if (commentDTO.getId_publication() != 0 )
-        {
+        // publication
+        if (commentDTO.getId_publication() != 0) {
             Publication publication = publicationRepository.findById(commentDTO.getId_publication())
-            .orElseThrow(() -> new ResourceNotFoundException(
-                "Publication with id  " + commentDTO.getId_publication() + " doesnt exist "));
+                    .orElseThrow(() -> new ResourceNotFoundException(
+                            "Publication with id  " + commentDTO.getId_publication() + " doesnt exist "));
 
-          comment.setPublications(publication);            
+            comment.setPublications(publication);
 
         }
 
-        //date 
-        if(commentDTO.getDateCreated() != null)
-        {
-            //dateCreated 
+        // date
+        if (commentDTO.getDateCreated() != null) {
+            // dateCreated
             try {
                 Date dateCreated = new SimpleDateFormat("dd/MM/yyyy").parse(commentDTO.getDateCreated());
                 comment.setDateCreated(dateCreated);
-            
+
             } catch (ParseException e) {
 
                 System.out.println("\n il n'a pas de date ");
-        
+
                 e.printStackTrace();
             }
-                
+
         }
 
-        // event 
-        if (commentDTO.getId_event() != 0 )
-        {
+        // event
+        if (commentDTO.getId_event() != 0) {
             Event event = eventRepository.findById(commentDTO.getId_event())
-            .orElseThrow(() -> new ResourceNotFoundException(
-                "Event not extist with id : "+ commentDTO.getId_event()) ) ;
-    
+                    .orElseThrow(() -> new ResourceNotFoundException(
+                            "Event not extist with id : " + commentDTO.getId_event()));
+
             comment.setEvent(event);
         }
-     
-
-
 
         return comment;
     }
 
     @Override
     public CommentDTO convertToDto(Comment comment) {
-        
+
         CommentDTO commentDTO = modelMapper.map(comment, CommentDTO.class);
 
-        //publication 
-        if(comment.getPublication() != null)
-        {
+        // publication
+        if (comment.getPublication() != null) {
             commentDTO.setId_publication(comment.getPublication().getId());
 
         }
 
-       //user
-        //username
+        // user
+        // username
         commentDTO.setUsername(comment.getUser().getUsername());
-        //fileUser
-        if(comment.getUser().getProfilePicture() != null)
-        {
+        // fileUser
+        if (comment.getUser().getProfilePicture() != null) {
             commentDTO.setPathFileUser(comment.getUser().getProfilePicture().getUrl());
         }
 
-        //date 
-        Date date = Calendar.getInstance().getTime();  
-        DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");  
+        // date
+        Date date = Calendar.getInstance().getTime();
+        DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
         commentDTO.setDateCreated(dateFormat.format(date));
 
-
-        //like count 
-        if( comment.getLikeUser() == null )
-        {
+        // like count
+        if (comment.getLikeUser() == null) {
             commentDTO.setCountLike(0);
-        }
-        else
-        {
+        } else {
             commentDTO.setCountLike(comment.getLikeUser().size());
         }
 
-        //liked by user ? 
-        if ( securityService.isAuthenticated())
-        {
+        // liked by user ?
+        if (securityService.isAuthenticated()) {
             commentDTO.setLiked(checkLikeByUserAndCom(comment));
         }
 
-        //event's comment
-        if (comment.getEvent() != null)
-        {
+        // event's comment
+        if (comment.getEvent() != null) {
             commentDTO.setId_event(comment.getEvent().getId());
         }
 
@@ -391,23 +342,15 @@ public class CommentServiceImpl  implements CommentService{
 
     @Override
     public List<CommentDTO> convertToDtoList(List<Comment> listComment) {
-  
+
         List<CommentDTO> lDtos = new ArrayList<>();
-        
-        for(Comment comment : listComment)
-        {
+
+        for (Comment comment : listComment) {
             CommentDTO commentDTO = convertToDto(comment);
             lDtos.add(commentDTO);
 
         }
         return lDtos;
     }
-
-
-
-
-
-    
-
 
 }

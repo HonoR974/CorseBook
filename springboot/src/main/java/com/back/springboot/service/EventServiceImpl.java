@@ -29,45 +29,50 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-public class EventServiceImpl implements EventService{
-    
-    @Autowired
-    private ModelMapper modelMapper;
+public class EventServiceImpl implements EventService {
 
-    @Autowired
-    private EventRepository eventRepository;
+    private final ModelMapper modelMapper;
 
-    @Autowired
-    private MarkerRepository markerRepository;
+    private final EventRepository eventRepository;
 
-    @Autowired
-    private FileRepository fileRepository;
+    private final MarkerRepository markerRepository;
 
-    @Autowired
-    private SecurityService securityService;
+    private final FileRepository fileRepository;
 
-    @Autowired
-    private UserRepository userRepository;
+    private final SecurityService securityService;
 
-    @Autowired
-    private ChatRepository chatRepository;
-    
-    @Autowired
-    private CommentRepository commentRepository;
+    private final UserRepository userRepository;
+
+    private final ChatRepository chatRepository;
+
+    private final CommentRepository commentRepository;
+
+    public EventServiceImpl(ModelMapper modelMapper, EventRepository eventRepository, MarkerRepository markerRepository,
+            FileRepository fileRepository, SecurityService securityService, UserRepository userRepository,
+            ChatRepository chatRepository, CommentRepository commentRepository) {
+        this.modelMapper = modelMapper;
+        this.eventRepository = eventRepository;
+        this.markerRepository = markerRepository;
+        this.fileRepository = fileRepository;
+        this.securityService = securityService;
+        this.userRepository = userRepository;
+        this.chatRepository = chatRepository;
+        this.commentRepository = commentRepository;
+    }
 
     @Override
-	public Event addUserOnEvent(long id) {
-		
+    public Event addUserOnEvent(long id) {
+
         Event event = eventRepository.findById(id)
-        .orElseThrow(() -> new ResourceNotFoundException(
-            "Event not extist with id : "+ id) ) ;
+                .orElseThrow(() -> new ResourceNotFoundException(
+                        "Event not extist with id : " + id));
 
         User user = securityService.getUser();
-        
+
         List<User> list = new ArrayList<>();
         list.addAll(event.getListUser());
         list.add(user);
-        
+
         event.setListUser(list);
         eventRepository.save(event);
 
@@ -77,16 +82,15 @@ public class EventServiceImpl implements EventService{
         user.setListEvent(lEvents);
         userRepository.save(user);
 
-		return event;
-	}
+        return event;
+    }
 
     @Override
-	public Event deleteUserOnEvent(long id) {
-
+    public Event deleteUserOnEvent(long id) {
 
         Event event = eventRepository.findById(id)
-        .orElseThrow(() -> new ResourceNotFoundException(
-            "Event not extist with id : "+ id) ) ;
+                .orElseThrow(() -> new ResourceNotFoundException(
+                        "Event not extist with id : " + id));
 
         User user = securityService.getUser();
 
@@ -101,25 +105,22 @@ public class EventServiceImpl implements EventService{
         eventRepository.save(event);
         userRepository.save(user);
 
-		return event;
+        return event;
 
     }
-
 
     @Override
     public Event createEvent(Event event) {
 
-        System.out.println("\n create event method "  + event);
+        System.out.println("\n create event method " + event);
 
         eventRepository.save(event);
-        //marker 
-        if(event.getListMarkers() != null)
-        {
-            List<Marker> lMarkers  = new ArrayList<>();
-         
-            for(Marker mark : event.getListMarkers())
-            {
-       
+        // marker
+        if (event.getListMarkers() != null) {
+            List<Marker> lMarkers = new ArrayList<>();
+
+            for (Marker mark : event.getListMarkers()) {
+
                 lMarkers.add(mark);
                 mark.setEvent(event);
                 markerRepository.save(mark);
@@ -127,56 +128,48 @@ public class EventServiceImpl implements EventService{
             event.setListMarkers(lMarkers);
         }
 
-        //file 
-        if( event.getListFile() != null)
-        {
+        // file
+        if (event.getListFile() != null) {
             List<File> lFiles = new ArrayList<>();
 
-            for(File file: event.getListFile())
-            {
+            for (File file : event.getListFile()) {
                 lFiles.add(file);
                 file.setEvent(event);
                 fileRepository.save(file);
             }
             event.setListFile(lFiles);
         }
-    
-      
-        //date yyyy-MM-dd to dd-MM-yyyy
+
+        // date yyyy-MM-dd to dd-MM-yyyy
         try {
 
-        // Setting the pattern
-        String sDebut= new SimpleDateFormat("dd-MM-yyyy").format(event.getDateDebut());
-        String sFin = new SimpleDateFormat("dd-MM-yyyy").format(event.getDateFin());
+            // Setting the pattern
+            String sDebut = new SimpleDateFormat("dd-MM-yyyy").format(event.getDateDebut());
+            String sFin = new SimpleDateFormat("dd-MM-yyyy").format(event.getDateFin());
 
+            Date dateDebut = new SimpleDateFormat("dd-MM-yyyy").parse(sDebut);
+            Date dateFin = new SimpleDateFormat("dd-MM-yyyy").parse(sFin);
 
-        Date dateDebut = new SimpleDateFormat("dd-MM-yyyy").parse(sDebut);
-        Date dateFin = new SimpleDateFormat("dd-MM-yyyy").parse(sFin);
+            event.setDateDebut(dateDebut);
+            event.setDateFin(dateFin);
 
-        event.setDateDebut(dateDebut);
-        event.setDateFin(dateFin);
+            User user = securityService.getUser();
+            event.setNameCreator(user.getUsername());
+            event.setDateCreate(new Date());
 
-        User user = securityService.getUser();
-        event.setNameCreator(user.getUsername());
-        event.setDateCreate(new Date());
+            addChat(event);
+            addUser(event);
 
-        addChat(event);
-        addUser(event);
+        } catch (ParseException e) {
 
-        
+            System.out.println("\n bad try ");
+            e.printStackTrace();
+        }
 
-    } catch (ParseException e) {
- 
-        System.out.println("\n bad try ");
-        e.printStackTrace();
-      }  
-     
-        return   eventRepository.save(event);
+        return eventRepository.save(event);
     }
 
-    public void addChat(Event event)
-    {
-
+    public void addChat(Event event) {
 
         Chat chat = new Chat();
         chat.setName(event.getName());
@@ -185,25 +178,22 @@ public class EventServiceImpl implements EventService{
 
         chatRepository.save(chat);
         eventRepository.save(event);
-     
-       
+
     }
 
- 
-    public void addUser(Event event)
-    {
+    public void addUser(Event event) {
 
-        //user & event 
+        // user & event
         User user = securityService.getUser();
         List<User> list = new ArrayList<>();
         list.add(user);
         event.setListUser(list);
 
-        List<Event> lEvents =  new ArrayList<>();
+        List<Event> lEvents = new ArrayList<>();
         lEvents.add(event);
         user.setListEvent(lEvents);
 
-        //chat & user 
+        // chat & user
         Chat chat = event.getChat();
         chat.setUsers(list);
 
@@ -225,77 +215,67 @@ public class EventServiceImpl implements EventService{
     @Override
     public Event getEventById(long id) {
         Event event = eventRepository.findById(id)
-        .orElseThrow(() -> new ResourceNotFoundException(
-            "Event not extist with id : "+ id) ) ;
+                .orElseThrow(() -> new ResourceNotFoundException(
+                        "Event not extist with id : " + id));
 
         return event;
     }
 
     @Override
     public void deleteById(long id) {
-       
+
         Event event = eventRepository.findById(id)
-                  .orElseThrow(() -> new ResourceNotFoundException(
-                      "Event not extist with id : "+ id) ) ;
-        
-        if(event.getListFile() != null)
-        {
+                .orElseThrow(() -> new ResourceNotFoundException(
+                        "Event not extist with id : " + id));
+
+        if (event.getListFile() != null) {
             fileRepository.deleteAll(event.getListFile());
         }
-        if(event.getListMarkers() != null)
-        {
+        if (event.getListMarkers() != null) {
             markerRepository.deleteAll(event.getListMarkers());
         }
 
-         //liste user 
-         if( event.getListUser() != null)
-         {
-             List<Event> listEvent = new ArrayList<>();
-             for(User user : event.getListUser())
-             {
-                 listEvent = user.getListEvent();
-                 listEvent.remove(event);
-                 user.setListEvent(listEvent);
-                 userRepository.save(user);
-             }
-             
-         }
+        // liste user
+        if (event.getListUser() != null) {
+            List<Event> listEvent = new ArrayList<>();
+            for (User user : event.getListUser()) {
+                listEvent = user.getListEvent();
+                listEvent.remove(event);
+                user.setListEvent(listEvent);
+                userRepository.save(user);
+            }
+
+        }
 
         eventRepository.delete(event);
     }
 
     @Override
-    public void deleteAll()
-    {
+    public void deleteAll() {
         markerRepository.deleteAll();
 
         List<Event> list = eventRepository.findAll();
 
-        for( Event event : list )
-        {
-            //file 
-            if( event.getListFile() != null)
-            {
+        for (Event event : list) {
+            // file
+            if (event.getListFile() != null) {
                 fileRepository.deleteAll(event.getListFile());
             }
 
-            //liste user 
-            if( event.getListUser() != null)
-            {
+            // liste user
+            if (event.getListUser() != null) {
                 List<Event> listEvent = new ArrayList<>();
-                for(User user : event.getListUser())
-                {
+                for (User user : event.getListUser()) {
                     listEvent = user.getListEvent();
                     listEvent.remove(event);
                     user.setListEvent(listEvent);
                     userRepository.save(user);
                 }
-                
+
             }
 
-            //comment 
-            if ( event.getListComments() != null)
-            {
+            // comment
+            if (event.getListComments() != null) {
                 commentRepository.deleteAll(event.getListComments());
             }
         }
@@ -303,17 +283,12 @@ public class EventServiceImpl implements EventService{
         eventRepository.deleteAll();
     }
 
+    // --------------CONVERT
 
-
-    //--------------CONVERT 
-     
-
-    public List<CommentDTO> getCommentsDTOByPublication( Event event)
-    {
+    public List<CommentDTO> getCommentsDTOByPublication(Event event) {
         List<CommentDTO> list = new ArrayList<>();
 
-        for ( Comment com :  event.getListComments())
-        {
+        for (Comment com : event.getListComments()) {
             CommentDTO commentDTO = modelMapper.map(com, CommentDTO.class);
             commentDTO.setId_event(event.getId());
             commentDTO.setUsername(com.getUser().getUsername());
@@ -327,51 +302,43 @@ public class EventServiceImpl implements EventService{
     public Event convertDTO(EventDTO eventDTO) {
         Event event = modelMapper.map((eventDTO), Event.class);
 
-        //location
-        if(eventDTO.getListMarker() != null)
-        {
+        // location
+        if (eventDTO.getListMarker() != null) {
             List<Marker> listMarkers = new ArrayList();
-            
-            for(MarkerDTO locationDTO : eventDTO.getListMarker() )
-            {
+
+            for (MarkerDTO locationDTO : eventDTO.getListMarker()) {
                 Marker location = new Marker(locationDTO.getLatitude(), locationDTO.getLongitude());
                 location.setEvent(event);
                 listMarkers.add(location);
             }
             event.setListMarkers(listMarkers);
-           
+
         }
 
-       if(eventDTO.getListFileAPI() != null)
-       {
-           List<File> list = new ArrayList();
-           
-           for( FileDTO fileDTO : eventDTO.getListFileAPI())
-           {
-               File file = new File(fileDTO.getUrl(), fileDTO.getName());
+        if (eventDTO.getListFileAPI() != null) {
+            List<File> list = new ArrayList();
+
+            for (FileDTO fileDTO : eventDTO.getListFileAPI()) {
+                File file = new File(fileDTO.getUrl(), fileDTO.getName());
                 file.setEvent(event);
                 list.add(file);
-           }
-           event.setListFile(list);
-       }
+            }
+            event.setListFile(list);
+        }
 
-
-  
         return event;
     }
 
     @Override
     public EventDTO convertEntity(Event event) {
-       
+
         EventDTO eventDTO = modelMapper.map(event, EventDTO.class);
 
-        //marker
-        if( event.getListMarkers() != null)
-        {
+        // marker
+        if (event.getListMarkers() != null) {
             List<MarkerDTO> lDtos = new ArrayList<>();
 
-            for ( Marker marker : event.getListMarkers())
-            {
+            for (Marker marker : event.getListMarkers()) {
                 MarkerDTO markerDTO = new MarkerDTO(marker.getLatitude(), marker.getLongitude());
                 lDtos.add(markerDTO);
 
@@ -379,13 +346,11 @@ public class EventServiceImpl implements EventService{
             eventDTO.setListMarker(lDtos);
         }
 
-        //file 
-        if ( event.getListFile() != null)
-        {
+        // file
+        if (event.getListFile() != null) {
             List<FileDTO> lFileDTOs = new ArrayList<>();
 
-            for ( File file : event.getListFile())
-            {
+            for (File file : event.getListFile()) {
                 FileDTO fileDTO = new FileDTO(file.getUrl(), file.getName());
                 lFileDTOs.add(fileDTO);
             }
@@ -393,71 +358,60 @@ public class EventServiceImpl implements EventService{
 
         }
 
-        //user particpant  & current user is participed ? 
-        if ( event.getListUser() != null)
-        {
+        // user particpant & current user is participed ?
+        if (event.getListUser() != null) {
 
             List<String> lUsers = new ArrayList<>();
             User userCurrent = securityService.getUser();
 
-            for ( User user : event.getListUser())
-            {
+            for (User user : event.getListUser()) {
                 lUsers.add(user.getUsername());
 
-
-                if (userCurrent.getUsername().equalsIgnoreCase(user.getUsername()))
-                {
+                if (userCurrent.getUsername().equalsIgnoreCase(user.getUsername())) {
                     eventDTO.setParticiped(true);
                 }
             }
             eventDTO.setListParticipant(lUsers);
         }
-        
-        //comment 
-        if (event.getListComments() != null)
-        {
+
+        // comment
+        if (event.getListComments() != null) {
             eventDTO.setListComments(getCommentsDTOByPublication(event));
         }
 
-       //date 
-       //Date to string 
-       eventDTO.setDateDebut(new SimpleDateFormat("dd-MM-yyyy").format(event.getDateDebut()));
-       eventDTO.setDateFin(new SimpleDateFormat("dd-MM-yyyy").format(event.getDateFin()));
-    
+        // date
+        // Date to string
+        eventDTO.setDateDebut(new SimpleDateFormat("dd-MM-yyyy").format(event.getDateDebut()));
+        eventDTO.setDateFin(new SimpleDateFormat("dd-MM-yyyy").format(event.getDateFin()));
 
-       if (event.getChat() != null)
-       {
+        if (event.getChat() != null) {
 
-         eventDTO.setId_chat(event.getChat().getId());
-       }
- 
+            eventDTO.setId_chat(event.getChat().getId());
+        }
 
-
-       return eventDTO;  
+        return eventDTO;
     }
 
-	@Override
-	public List<EventDTO> convertListEntity(List<Event> list) {
-	
+    @Override
+    public List<EventDTO> convertListEntity(List<Event> list) {
+
         List<EventDTO> listDtos = new ArrayList<>();
 
-        for(Event event : list)
-        {
+        for (Event event : list) {
             listDtos.add(convertEntity(event));
         }
-		return listDtos;
-	}
+        return listDtos;
+    }
 
     @Override
     public List<Event> getEventByUserID(long id) {
 
         User user = userRepository.findById(id)
-                                .orElseThrow(() -> new ResourceNotFoundException(
-                                    "user not extist with id : "+ id) ); 
+                .orElseThrow(() -> new ResourceNotFoundException(
+                        "user not extist with id : " + id));
         List<Event> lEvents = new ArrayList<>();
 
-        if (user.getListEvent() != null)
-        {
+        if (user.getListEvent() != null) {
             lEvents.addAll(user.getListEvent());
         }
         return lEvents;
@@ -465,23 +419,17 @@ public class EventServiceImpl implements EventService{
 
     @Override
     public List<Event> getEventByUser() {
-      
+
         User user = securityService.getUser();
         List<Event> lEvents = new ArrayList<>();
 
-        if(user.getListEvent() != null)
-        {
+        if (user.getListEvent() != null) {
             lEvents.addAll(user.getListEvent());
 
             System.out.println("syze lEvent " + lEvents.size());
         }
 
-
         return lEvents;
     }
 
-
-
-
-  
 }

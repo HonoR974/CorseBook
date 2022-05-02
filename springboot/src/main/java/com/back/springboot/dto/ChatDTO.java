@@ -7,7 +7,7 @@ import lombok.Data;
 
 @Data
 public class ChatDTO {
-    
+
     private long id;
 
     private String name;
@@ -51,7 +51,4 @@ public class ChatDTO {
         this.name = name;
     }
 
-   
-
-    
 }

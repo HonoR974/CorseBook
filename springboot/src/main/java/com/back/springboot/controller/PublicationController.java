@@ -1,12 +1,9 @@
 package com.back.springboot.controller;
 
-
-
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
-
 
 import java.util.HashMap;
 import java.util.Map;
@@ -31,131 +28,117 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+@CrossOrigin
+@RestController
+@RequestMapping("/api/publication/")
+public class PublicationController {
 
-  @CrossOrigin
-  @RestController
-  @RequestMapping("/api/publication/")
-  public class PublicationController {
+  private final PublicationService publicationService;
 
-    @Autowired
-    private PublicationService publicationService;
+  private final CommentService commentService;
 
-    @Autowired
-    private CommentService commentService;
+  public PublicationController(PublicationService publicationService, CommentService commentService) {
+    this.publicationService = publicationService;
+    this.commentService = commentService;
+  }
 
-    @GetMapping("user/")
-    public ResponseEntity<List<PublicationDTO>> getPublicationsByUser()
-    {
-        List<Publication> publications = publicationService.getPublicationsByUser();
+  @GetMapping("user/")
+  public ResponseEntity<List<PublicationDTO>> getPublicationsByUser() {
+    List<Publication> publications = publicationService.getPublicationsByUser();
 
-        List<PublicationDTO> publicationDTOs = publicationService.convertToDtoList(publications);
+    List<PublicationDTO> publicationDTOs = publicationService.convertToDtoList(publications);
 
-        return new ResponseEntity<>(publicationDTOs,HttpStatus.ACCEPTED);
-    }
+    return new ResponseEntity<>(publicationDTOs, HttpStatus.ACCEPTED);
+  }
 
-    @GetMapping("user/{id}")
-    public ResponseEntity<List<PublicationDTO>> getPublicationsByUserId(@PathVariable long id)
-    {
-        List<Publication> publications = publicationService.getPublicationsByuserId(id);
+  @GetMapping("user/{id}")
+  public ResponseEntity<List<PublicationDTO>> getPublicationsByUserId(@PathVariable long id) {
+    List<Publication> publications = publicationService.getPublicationsByuserId(id);
 
-        List<PublicationDTO> publicationDTOs = publicationService.convertToDtoList(publications);
+    List<PublicationDTO> publicationDTOs = publicationService.convertToDtoList(publications);
 
-        return new ResponseEntity<>(publicationDTOs,HttpStatus.ACCEPTED);
-    }
-    @GetMapping("public")
-    public ResponseEntity<?> getPublicationPublic()
-    {
-        List<Publication> list = publicationService.getPublicationPublic().stream()
-                                  .sorted(Comparator.comparing(Publication::getDateCreate).reversed())
-                                  .collect(Collectors.toList());
+    return new ResponseEntity<>(publicationDTOs, HttpStatus.ACCEPTED);
+  }
 
-        if(list == null)
-        {
-          new ResourceNotFoundException("la liste est null ");
+  @GetMapping("public")
+  public ResponseEntity<?> getPublicationPublic() {
+    List<Publication> list = publicationService.getPublicationPublic().stream()
+        .sorted(Comparator.comparing(Publication::getDateCreate).reversed())
+        .collect(Collectors.toList());
 
-        }
-
-        //
-        List<PublicationDTO> lDtos = new ArrayList<>();
-        PublicationDTO publicationDTO;
-        List<CommentDTO> commentDTOs;
-
-        for(Publication pub : list)
-        {
-          commentDTOs = new ArrayList<>();
-          publicationDTO = new PublicationDTO();
-
-
-          publicationDTO = publicationService.convertToDto(pub);
-
-
-          
-          if(pub.getListComments() !=null)
-          {
-            commentDTOs = commentService.convertToDtoList(pub.getListComments());
-
-            publicationDTO.setListComments(commentDTOs);
-          }
-      
-         lDtos.add(publicationDTO);
-
-        }
-        return ResponseEntity.ok(lDtos);
-    }
-
-
-    //------------------ Like & DisLike ----------//
-
-    @PutMapping("/liked/{id}")
-    public ResponseEntity<?> publicationLikeById(@PathVariable long id)
-    {
-
-      Publication publication = publicationService.publicationLiked(id);
-
-      PublicationDTO publicationDTO = publicationService.convertToDto(publication);
-
-      return ResponseEntity.ok(publicationDTO);
-    }
-
-    @PutMapping("/disliked/{id}")
-
-    public ResponseEntity<?> publicationDislikedById(@PathVariable long id)
-    {
-
-      Publication publication = publicationService.publicationDisliked(id);
-
-      PublicationDTO publicationDTO = publicationService.convertToDto(publication);
-
-      return ResponseEntity.ok(publicationDTO);
+    if (list == null) {
+      new ResourceNotFoundException("la liste est null ");
 
     }
 
+    //
+    List<PublicationDTO> lDtos = new ArrayList<>();
+    PublicationDTO publicationDTO;
+    List<CommentDTO> commentDTOs;
 
+    for (Publication pub : list) {
+      commentDTOs = new ArrayList<>();
+      publicationDTO = new PublicationDTO();
 
-  //-------- CRUD Operations -----------------//
+      publicationDTO = publicationService.convertToDto(pub);
 
-  //create 
-  @PostMapping()
-  public ResponseEntity<?> createPublication(@RequestBody PublicationDTO publicationDTORequest )
-  {
+      if (pub.getListComments() != null) {
+        commentDTOs = commentService.convertToDtoList(pub.getListComments());
 
-    System.out.println("\n publication DTO Request  " + publicationDTORequest.toString()
-          +  "\n "+ " \n ");
-    
-    Publication publication  = publicationService.createPublication( 
-                              publicationService.convertToEntity(publicationDTORequest));
-                            
+        publicationDTO.setListComments(commentDTOs);
+      }
+
+      lDtos.add(publicationDTO);
+
+    }
+    return ResponseEntity.ok(lDtos);
+  }
+
+  // ------------------ Like & DisLike ----------//
+
+  @PutMapping("/liked/{id}")
+  public ResponseEntity<?> publicationLikeById(@PathVariable long id) {
+
+    Publication publication = publicationService.publicationLiked(id);
+
     PublicationDTO publicationDTO = publicationService.convertToDto(publication);
 
+    return ResponseEntity.ok(publicationDTO);
+  }
 
-    System.out.println("\n retour created " +  publicationDTO.toString());
+  @PutMapping("/disliked/{id}")
+
+  public ResponseEntity<?> publicationDislikedById(@PathVariable long id) {
+
+    Publication publication = publicationService.publicationDisliked(id);
+
+    PublicationDTO publicationDTO = publicationService.convertToDto(publication);
+
+    return ResponseEntity.ok(publicationDTO);
+
+  }
+
+  // -------- CRUD Operations -----------------//
+
+  // create
+  @PostMapping()
+  public ResponseEntity<?> createPublication(@RequestBody PublicationDTO publicationDTORequest) {
+
+    System.out.println("\n publication DTO Request  " + publicationDTORequest.toString()
+        + "\n " + " \n ");
+
+    Publication publication = publicationService.createPublication(
+        publicationService.convertToEntity(publicationDTORequest));
+
+    PublicationDTO publicationDTO = publicationService.convertToDto(publication);
+
+    System.out.println("\n retour created " + publicationDTO.toString());
     return new ResponseEntity<PublicationDTO>(publicationDTO, HttpStatus.ACCEPTED);
   }
 
-  //get all 
+  // get all
   @GetMapping()
-  public ResponseEntity<?> getAllPublication()
-  {
+  public ResponseEntity<?> getAllPublication() {
     List<Publication> list = publicationService.getAll();
     List<PublicationDTO> listDto = publicationService.convertToDtoList(list);
 
@@ -163,16 +146,14 @@ import org.springframework.web.bind.annotation.RestController;
 
   }
 
-  //get by id 
+  // get by id
   @GetMapping("{id}")
-  public ResponseEntity<?> getPublicationByID(@PathVariable long id)
-  {
+  public ResponseEntity<?> getPublicationByID(@PathVariable long id) {
 
     Publication publication = publicationService.getById(id);
 
-    if(publication == null )
-    {
-        new ResourceNotFoundException("la publication : "+ id + " n'existe pas ");
+    if (publication == null) {
+      new ResourceNotFoundException("la publication : " + id + " n'existe pas ");
     }
 
     PublicationDTO publicationDTO = publicationService.convertToDto(publication);
@@ -180,40 +161,33 @@ import org.springframework.web.bind.annotation.RestController;
     return new ResponseEntity<PublicationDTO>(publicationDTO, HttpStatus.ACCEPTED);
 
   }
-  
 
-  //update by id 
+  // update by id
   @PutMapping("{id}")
   public ResponseEntity<PublicationDTO> updatePublicationById(@PathVariable long id,
-                                                @RequestBody PublicationDTO publicationDTORequest)
-  {
+      @RequestBody PublicationDTO publicationDTORequest) {
 
-  Publication publication = publicationService.updatePublication
-            (id, publicationService.convertToEntity(publicationDTORequest));
+    Publication publication = publicationService.updatePublication(id,
+        publicationService.convertToEntity(publicationDTORequest));
 
-  System.out.println("\n update publication " + publication.getListFile().size());
+    System.out.println("\n update publication " + publication.getListFile().size());
 
-  PublicationDTO publicationDTO = publicationService.convertToDto(publication);
-  return new ResponseEntity<PublicationDTO>(publicationDTO, HttpStatus.ACCEPTED);
+    PublicationDTO publicationDTO = publicationService.convertToDto(publication);
+    return new ResponseEntity<PublicationDTO>(publicationDTO, HttpStatus.ACCEPTED);
   }
 
-  //delete by id 
+  // delete by id
 
   @DeleteMapping("{id}")
-  public ResponseEntity< Map<String, Boolean>> deletePublicationById(@PathVariable long id)
-  {
+  public ResponseEntity<Map<String, Boolean>> deletePublicationById(@PathVariable long id) {
 
     publicationService.deletePublication(id);
 
-
-  Map<String,Boolean> response = new HashMap<>();
-      response.put("deleted", Boolean.TRUE);
-      return ResponseEntity.ok(response);
+    Map<String, Boolean> response = new HashMap<>();
+    response.put("deleted", Boolean.TRUE);
+    return ResponseEntity.ok(response);
   }
 
-
-    //-------- CRUD Operations -----------------//
-
-
+  // -------- CRUD Operations -----------------//
 
 }

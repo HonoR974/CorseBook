@@ -9,7 +9,6 @@ import com.back.springboot.dto.CommentDTO;
 import com.back.springboot.models.Comment;
 import com.back.springboot.service.CommentService;
 
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -28,15 +27,16 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/api/comment/")
 public class CommentController {
 
-    @Autowired
-    private CommentService commentService;
+    private final CommentService commentService;
 
-    //create comment in event 
+    public CommentController(CommentService commentService) {
+        this.commentService = commentService;
+    }
+
+    // create comment in event
     @PostMapping("event/{id_event}")
     public ResponseEntity<CommentDTO> createCommentByEventId(@PathVariable long id_event,
-                                                                @RequestBody CommentDTO commentDTORequest)
-    {
-
+            @RequestBody CommentDTO commentDTORequest) {
 
         Comment comment = commentService.convertToEntity(commentDTORequest);
 
@@ -46,15 +46,11 @@ public class CommentController {
 
         return new ResponseEntity<>(commentDTO, HttpStatus.ACCEPTED);
     }
-   
-   
-   
-    //create comment in publication 
+
+    // create comment in publication
     @PostMapping("publication/{id_publication}")
     public ResponseEntity<?> createCommentByPublicationId(@PathVariable long id_publication,
-                                                            @RequestBody CommentDTO commentDTORequest)
-    {
-        
+            @RequestBody CommentDTO commentDTORequest) {
 
         System.out.println("\n create comment \n ");
         Comment comment = commentService.convertToEntity(commentDTORequest);
@@ -62,34 +58,29 @@ public class CommentController {
         Comment commentCreated = commentService.createCommentByPublicationID(id_publication, comment);
 
         CommentDTO commentDTO = commentService.convertToDto(commentCreated);
-  
 
         return ResponseEntity.ok(commentDTO);
     }
 
-
-    //like comment 
+    // like comment
     @PostMapping("like/{id}")
-    public ResponseEntity<CommentDTO> commentLikedByID(@PathVariable long id)
-    {
+    public ResponseEntity<CommentDTO> commentLikedByID(@PathVariable long id) {
 
         Comment comment = commentService.commentLiked(id);
 
         CommentDTO commentDTO = commentService.convertToDto(comment);
 
-        return new  ResponseEntity<>(commentDTO, HttpStatus.ACCEPTED);
+        return new ResponseEntity<>(commentDTO, HttpStatus.ACCEPTED);
     }
 
-
-    //dislike comment
+    // dislike comment
     @PostMapping("dislike/{id}")
-    public ResponseEntity<CommentDTO> dislikeById(@PathVariable long id )
-    {
+    public ResponseEntity<CommentDTO> dislikeById(@PathVariable long id) {
         Comment comment = commentService.commentDisliked(id);
 
         CommentDTO commentDTO = commentService.convertToDto(comment);
 
-        return new  ResponseEntity<>(commentDTO, HttpStatus.ACCEPTED);
+        return new ResponseEntity<>(commentDTO, HttpStatus.ACCEPTED);
     }
 
     // ------------------- CRUD ------------------//
@@ -123,22 +114,20 @@ public class CommentController {
     // update
     @PutMapping("{id}")
     public ResponseEntity<?> updateCommentByID(@PathVariable long id,
-            @RequestBody CommentDTO commentDTORequest) 
-    {
+            @RequestBody CommentDTO commentDTORequest) {
         Comment comment = commentService.updateComment(id, commentService.convertToEntity(commentDTORequest));
 
         CommentDTO commentDTO = commentService.convertToDto(comment);
-        
+
         return ResponseEntity.ok(commentDTO);
     }
 
-    //delete 
+    // delete
     @DeleteMapping("{id}")
-    public ResponseEntity <Map<String, Boolean>> deleteCommentById(@PathVariable long id)
-    {
+    public ResponseEntity<Map<String, Boolean>> deleteCommentById(@PathVariable long id) {
         commentService.deleteById(id);
-        
-        Map<String,Boolean> response = new HashMap<>();
+
+        Map<String, Boolean> response = new HashMap<>();
         response.put("deleted", Boolean.TRUE);
         return ResponseEntity.ok(response);
     }

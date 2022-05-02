@@ -1,6 +1,5 @@
 package com.back.springboot.service;
 
-
 import com.back.springboot.exception.ResourceNotFoundException;
 import com.back.springboot.models.User;
 import com.back.springboot.repository.UserRepository;
@@ -15,21 +14,23 @@ import org.springframework.stereotype.Service;
  * Service SecurityServiceimpl
  */
 @Service
-public class SecurityServiceImpl implements SecurityService{
+public class SecurityServiceImpl implements SecurityService {
 
+    private final UserRepository userRepository;
 
-    @Autowired
-    private UserRepository userRepository;
+    public SecurityServiceImpl(UserRepository userRepository) {
+        this.userRepository = userRepository;
+    }
 
     /**
      * Verification de l'authentification
+     * 
      * @return boolean
      */
     @Override
     public boolean isAuthenticated() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        if (authentication == null || AnonymousAuthenticationToken.class.
-                isAssignableFrom(authentication.getClass())) {
+        if (authentication == null || AnonymousAuthenticationToken.class.isAssignableFrom(authentication.getClass())) {
             return false;
         }
         return authentication.isAuthenticated();
@@ -37,33 +38,31 @@ public class SecurityServiceImpl implements SecurityService{
 
     /**
      * Recupere l'user
+     * 
      * @return user
      */
     @Override
-    public User getUser()
-    {
+    public User getUser() {
 
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 
         String username = authentication.getName();
         User user = userRepository.findByUsername(username)
-        .orElseThrow( () -> new ResourceNotFoundException("cette usernerame " + username+  " ne correspond a aucun user "));
-        
-        
+                .orElseThrow(() -> new ResourceNotFoundException(
+                        "cette usernerame " + username + " ne correspond a aucun user "));
+
         return user;
     }
 
     /**
      * Recupere l'username
+     * 
      * @return string
      */
     @Override
-    public String getUsername()
-    {
+    public String getUsername() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         return authentication.getName();
     }
-
-
 
 }

@@ -1,6 +1,5 @@
 package com.back.springboot.controller;
 
-
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
@@ -11,7 +10,6 @@ import com.back.springboot.dto.EventDTO;
 import com.back.springboot.models.Event;
 import com.back.springboot.service.EventService;
 
-import org.apache.catalina.connector.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -29,83 +27,73 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/api/event/")
 public class EventController {
 
+    private final EventService eventService;
 
+    public EventController(EventService eventService) {
+        this.eventService = eventService;
+    }
 
-    @Autowired
-    private EventService eventService;
-
-    //get By User id_user 
+    // get By User id_user
     @GetMapping("user/{id}")
-    public ResponseEntity<List<EventDTO>> getEventByUserID(@PathVariable long id)
-    {
+    public ResponseEntity<List<EventDTO>> getEventByUserID(@PathVariable long id) {
         List<Event> lEvents = eventService.getEventByUserID(id);
-        List<EventDTO> lDtos  = eventService.convertListEntity(lEvents);
+        List<EventDTO> lDtos = eventService.convertListEntity(lEvents);
 
         return new ResponseEntity<>(lDtos, HttpStatus.ACCEPTED);
     }
 
-    //get event by User 
+    // get event by User
     @GetMapping("user")
-    public ResponseEntity<List<EventDTO>> getEventByUser()
-    {
+    public ResponseEntity<List<EventDTO>> getEventByUser() {
         List<Event> lEvents = eventService.getEventByUser();
-        List<EventDTO> lDtos  = eventService.convertListEntity(lEvents);
+        List<EventDTO> lDtos = eventService.convertListEntity(lEvents);
 
         return new ResponseEntity<>(lDtos, HttpStatus.ACCEPTED);
     }
 
-    //Add User on Event id-event 
+    // Add User on Event id-event
     @PostMapping("add/user/{id}")
-    public ResponseEntity<EventDTO> addUserOnEvent(@PathVariable long id )
-    {
+    public ResponseEntity<EventDTO> addUserOnEvent(@PathVariable long id) {
         Event event = eventService.addUserOnEvent(id);
         EventDTO eventDTO = eventService.convertEntity(event);
 
         return new ResponseEntity<>(eventDTO, HttpStatus.ACCEPTED);
     }
 
-    //delete User on Event id-event
+    // delete User on Event id-event
     @PostMapping("delete/user/{id}")
-    public ResponseEntity<EventDTO> deleteUserOnEvent(@PathVariable long id)
-    {
+    public ResponseEntity<EventDTO> deleteUserOnEvent(@PathVariable long id) {
         Event event = eventService.deleteUserOnEvent(id);
-    
+
         EventDTO eventDTO = eventService.convertEntity(event);
 
         return new ResponseEntity<>(eventDTO, HttpStatus.ACCEPTED);
     }
 
-
-
-    //------------- CRUD 
+    // ------------- CRUD
     @PostMapping()
-    public ResponseEntity<EventDTO> createEvent(@RequestBody EventDTO eventDTORequest )
-    {
+    public ResponseEntity<EventDTO> createEvent(@RequestBody EventDTO eventDTORequest) {
         Event eventRecep = eventService.convertDTO(eventDTORequest);
-       
-       Event  event = eventService.createEvent(eventRecep);
 
-       EventDTO eventDTO = eventService.convertEntity(event);
-       
-       
+        Event event = eventService.createEvent(eventRecep);
+
+        EventDTO eventDTO = eventService.convertEntity(event);
 
         return new ResponseEntity<>(eventDTO, HttpStatus.ACCEPTED);
     }
-    
+
     @GetMapping()
-    public ResponseEntity<List<EventDTO>> getAll()
-    {
+    public ResponseEntity<List<EventDTO>> getAll() {
         List<Event> list = eventService.getAll().stream()
-        .sorted(Comparator.comparing(Event::getDateCreate).reversed())
-        .collect(Collectors.toList());
+                .sorted(Comparator.comparing(Event::getDateCreate).reversed())
+                .collect(Collectors.toList());
 
         List<EventDTO> lDtos = eventService.convertListEntity(list);
         return new ResponseEntity<>(lDtos, HttpStatus.ACCEPTED);
     }
 
     @GetMapping("{id}")
-    public ResponseEntity<EventDTO> getEventById(@PathVariable long id)
-    {
+    public ResponseEntity<EventDTO> getEventById(@PathVariable long id) {
         Event event = eventService.getEventById(id);
 
         EventDTO eventDTO = eventService.convertEntity(event);
@@ -114,24 +102,22 @@ public class EventController {
     }
 
     @DeleteMapping("{id}")
-    public ResponseEntity< Map<String, Boolean>> deleteEventById(@PathVariable long id )
-    {
+    public ResponseEntity<Map<String, Boolean>> deleteEventById(@PathVariable long id) {
         eventService.deleteById(id);
 
-        Map<String,Boolean> response = new HashMap<>();
+        Map<String, Boolean> response = new HashMap<>();
         response.put("deleted", Boolean.TRUE);
         return ResponseEntity.ok(response);
     }
 
     @DeleteMapping("all")
-    public ResponseEntity< Map<String, Boolean>> deleteEventAll( )
-    {
+    public ResponseEntity<Map<String, Boolean>> deleteEventAll() {
         eventService.deleteAll();
 
-        Map<String,Boolean> response = new HashMap<>();
+        Map<String, Boolean> response = new HashMap<>();
         response.put("deleted", Boolean.TRUE);
         return ResponseEntity.ok(response);
     }
 
-    //--------------------- CRUD 
+    // --------------------- CRUD
 }

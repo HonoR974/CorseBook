@@ -12,33 +12,34 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-public class MessageServiceImpl implements MessageService{
+public class MessageServiceImpl implements MessageService {
 
-    @Autowired
-    private ChatRepository chatRepository;
+    private final ChatRepository chatRepository;
 
-    @Autowired
-    private MessageRepository messageRepository;
+    private final MessageRepository messageRepository;
+
+    public MessageServiceImpl(ChatRepository chatRepository, MessageRepository messageRepository) {
+        this.chatRepository = chatRepository;
+        this.messageRepository = messageRepository;
+    }
 
     @Override
     public List<Message> saveAllByIdChat(long id, List<Message> list) {
-        
+
         Chat chat = chatRepository.findById(id)
-        .orElseThrow( () -> new ResourceNotFoundException("le chat avec l'id : "+
-         id + " n'existe pas "));
+                .orElseThrow(() -> new ResourceNotFoundException("le chat avec l'id : " +
+                        id + " n'existe pas "));
 
-         chat.setMessages(list);
+        chat.setMessages(list);
 
-         for(Message message : list)
-         {
-            System.out.println("\n message content : " +  message.getContent());
-             message.setChat(chat);
-         }
+        for (Message message : list) {
+            System.out.println("\n message content : " + message.getContent());
+            message.setChat(chat);
+        }
 
-         messageRepository.saveAll(list);
-         chatRepository.save(chat);
+        messageRepository.saveAll(list);
+        chatRepository.save(chat);
         return list;
     }
-    
-    
+
 }

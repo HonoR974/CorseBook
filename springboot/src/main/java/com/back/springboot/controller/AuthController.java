@@ -1,14 +1,11 @@
 package com.back.springboot.controller;
 
-
-
-
 import javax.servlet.http.HttpServletRequest;
 
-import com.back.springboot.models.JwtRequest;
-import com.back.springboot.models.JwtResponse;
 import com.back.springboot.models.User;
 import com.back.springboot.service.UserService;
+import com.back.springboot.configuration.JwtRequest;
+import com.back.springboot.configuration.JwtResponse;
 import com.back.springboot.configuration.JwtTokenUtil;
 import com.back.springboot.configuration.JwtUserDetailsService;
 import com.back.springboot.dto.UserDTO;
@@ -36,21 +33,25 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/api/auth")
 public class AuthController {
 
-	@Autowired
-	AuthenticationManager authenticationManager;
+    private final AuthenticationManager authenticationManager;
 
-	@Autowired
-	UserService userService;
+    private final UserService userService;
 
-    @Autowired
-    private JwtUserDetailsService jwtUserDetail;
+    private final JwtUserDetailsService jwtUserDetail;
 
-    @Autowired
-    private JwtTokenUtil jwtTokenUtil;
+    private final JwtTokenUtil jwtTokenUtil;
 
+    public AuthController(AuthenticationManager authenticationManager, UserService userService,
+            JwtUserDetailsService jwtUserDetail, JwtTokenUtil jwtTokenUtil) {
+        this.authenticationManager = authenticationManager;
+        this.userService = userService;
+        this.jwtUserDetail = jwtUserDetail;
+        this.jwtTokenUtil = jwtTokenUtil;
+    }
 
-	   /**
+    /**
      * Inscription de l'user
+     * 
      * @param user
      * @param request
      * @param errors
@@ -59,9 +60,8 @@ public class AuthController {
      */
     @PostMapping("/register")
     public ResponseEntity<User> saveUser(@RequestBody UserDTO user,
-                                      HttpServletRequest request,
-                                      Errors errors) throws Exception
-    {
+            HttpServletRequest request,
+            Errors errors) throws Exception {
 
         User registered = userService.save(user);
 
@@ -70,31 +70,30 @@ public class AuthController {
 
     /**
      * Authentifie l'user
+     * 
      * @param authenticationRequest
      * @return jwt
      * @throws Exception
      */
     @RequestMapping(value = "/authenticate", method = RequestMethod.POST)
-    public ResponseEntity<?> createAuthenticationToken(@RequestBody JwtRequest authenticationRequest) throws Exception
-    {
+    public ResponseEntity<?> createAuthenticationToken(@RequestBody JwtRequest authenticationRequest) throws Exception {
 
         authenticate(authenticationRequest.getUsername(), authenticationRequest.getPassword());
 
         final UserDetails userDetails = jwtUserDetail
                 .loadUserByUsername(authenticationRequest.getUsername());
 
-        
         final String token = jwtTokenUtil.generateToken(userDetails);
 
         User user = userService.findByUsername(userDetails.getUsername());
         JwtResponse jwtResponse = new JwtResponse(token, user.getUsername(), user.getEmail());
-     
+
         return ResponseEntity.ok(jwtResponse);
     }
 
-
     /**
      * Verfie l'authentification
+     * 
      * @param username
      * @param password
      * @throws Exception
@@ -110,18 +109,16 @@ public class AuthController {
         }
     }
 
-    
-    
     /**
      * Recupere un user par le jwt
+     * 
      * @param jwt
      * @return user
      */
     @RequestMapping(value = "/token/{jwt}", method = RequestMethod.GET)
-    public ResponseEntity<?> getUserByToken( @PathVariable String jwt)
-    {
+    public ResponseEntity<?> getUserByToken(@PathVariable String jwt) {
 
-        String username= jwtTokenUtil.getUsernameFromToken(jwt);
+        String username = jwtTokenUtil.getUsernameFromToken(jwt);
 
         final UserDetails userDetails = jwtUserDetail.loadUserByUsername(username);
 
@@ -129,8 +126,5 @@ public class AuthController {
 
         return new ResponseEntity<>(user, HttpStatus.ACCEPTED);
     }
-
-   
-
 
 }

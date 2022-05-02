@@ -13,51 +13,41 @@ import { PublicationPublicComponent } from './_components/Accueil/publication-pu
 import { ProfileComponent } from './_components/Espace/profile/profile.component';
 import { CreateEventComponent } from './_components/Evenement/create-event/create-event.component';
 import { UploadFileComponent } from './_components/upload-file/upload-file.component';
-import { ListComponent } from './_components/Nature/list/list.component';
 import { EventListComponent } from './_components/Evenement/event-list/event-list.component';
 import { TableComponent } from './_components/Evenement/table/table.component';
 
-
-
 const routes: Routes = [
-
-  //accueil 
+  //accueil
   { path: 'home', component: HomeComponent },
   { path: '', redirectTo: 'home', pathMatch: 'full' },
 
-  //log 
+  //log
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
 
-  //profile 
+  //profile
   { path: 'profile/:id', component: ProfileComponent },
-  { path :'update-profile/:id', component:UpdatePublicationComponent},
+  { path: 'update-profile/:id', component: UpdatePublicationComponent },
 
   //publication
   { path: 'publication-public', component: PublicationPublicComponent },
   { path: 'update-publication/:id', component: UpdatePublicationComponent },
 
-  //file 
+  //file
   { path: 'uploadFile', component: UploadFileComponent },
 
-  //evenement 
-  { path :'event', component: EventComponent},
-  { path :'create-event', component: CreateEventComponent},
-  { path :'list-event', component:EventListComponent},
-  { path :'table-event', component:TableComponent},
+  //evenement
+  { path: 'event', component: EventComponent },
+  { path: 'create-event', component: CreateEventComponent },
+  { path: 'list-event', component: EventListComponent },
+  { path: 'table-event', component: TableComponent },
 
-  //chat 
-  { path: 'chat/:id', component:ChatComponent},
-
-  //nature 
-  { path :'nature', component:ListComponent}
-
-  
-
+  //chat
+  { path: 'chat/:id', component: ChatComponent },
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}

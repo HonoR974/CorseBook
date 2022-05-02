@@ -1,4 +1,4 @@
-package com.back.springboot.models;
+package com.back.springboot.configuration;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import io.jsonwebtoken.Claims;
@@ -11,8 +11,8 @@ public class JwtResponse {
     private String exceptionType;
     private String jwt;
     private Long id;
-	private String username;
-	private String email;
+    private String username;
+    private String email;
     private Jws<Claims> jws;
 
     public enum Status {
@@ -28,10 +28,10 @@ public class JwtResponse {
     }
 
     public JwtResponse(String accessToken, String username, String email) {
-		this.jwt = accessToken;
-		this.username = username;
-		this.email = email;
-	}
+        this.jwt = accessToken;
+        this.username = username;
+        this.email = email;
+    }
 
     public JwtResponse(Jws<Claims> jws) {
         this.jws = jws;
@@ -102,5 +102,4 @@ public class JwtResponse {
         this.email = email;
     }
 
-    
 }

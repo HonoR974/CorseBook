@@ -6,7 +6,6 @@ import com.back.springboot.dto.ChatDTO;
 import com.back.springboot.models.Chat;
 import com.back.springboot.service.ChatService;
 
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -22,14 +21,14 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/api/chat/")
 public class ChatController {
 
-    @Autowired
-    private ChatService chatService;
+    private final ChatService chatService;
 
-    
+    public ChatController(ChatService chatService) {
+        this.chatService = chatService;
+    }
 
     @GetMapping()
-    public ResponseEntity<List<ChatDTO>> getAllChat()
-    {
+    public ResponseEntity<List<ChatDTO>> getAllChat() {
         List<Chat> list = chatService.getAll();
 
         List<ChatDTO> lChatDTOs = chatService.convertToDtoList(list);
@@ -38,8 +37,7 @@ public class ChatController {
     }
 
     @GetMapping("{id}")
-    public ResponseEntity<ChatDTO> getById(@PathVariable long id)
-    {
+    public ResponseEntity<ChatDTO> getById(@PathVariable long id) {
         Chat chat = chatService.getById(id);
 
         ChatDTO chatDTO = chatService.convertToDTO(chat);
@@ -48,17 +46,15 @@ public class ChatController {
     }
 
     @DeleteMapping("{id}")
-    public ResponseEntity<String> deleteById(@PathVariable long id)
-    {
-        String result =  chatService.deleteById(id);
+    public ResponseEntity<String> deleteById(@PathVariable long id) {
+        String result = chatService.deleteById(id);
 
         return new ResponseEntity<String>(result, HttpStatus.ACCEPTED);
     }
 
     @DeleteMapping("all")
-    public ResponseEntity< List<ChatDTO> > deleteAll()
-    {
- 
+    public ResponseEntity<List<ChatDTO>> deleteAll() {
+
         chatService.deleteAll();
 
         List<Chat> list = chatService.getAll();
@@ -67,18 +63,16 @@ public class ChatController {
 
         return new ResponseEntity<>(lChatDTOs, HttpStatus.ACCEPTED);
     }
-    
 
-    //getTitle For chat 
-    //renvoie le nom de l'event 
-    //ou le nom du contact 
+    // getTitle For chat
+    // renvoie le nom de l'event
+    // ou le nom du contact
     @GetMapping("title/{id}")
-    public ResponseEntity<String> getTitleByIdChat(@PathVariable long id )
-    {
+    public ResponseEntity<String> getTitleByIdChat(@PathVariable long id) {
 
         String title = chatService.getTitleByIdChat(id);
 
         return ResponseEntity.ok(title);
     }
- 
+
 }

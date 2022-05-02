@@ -7,37 +7,39 @@ import { Router } from '@angular/router';
 @Component({
   selector: 'app-contact',
   templateUrl: './contact.component.html',
-  styleUrls: ['./contact.component.css']
+  styleUrls: ['./contact.component.css'],
 })
 export class ContactComponent implements OnInit {
-
-
-  //list Contact 
-  user: User = new User;
+  //list Contact
+  user: User = new User();
 
   listContact: User[] = [];
 
-  //liste demande envoyé   
+  //liste demande envoyé
   lUserInvited: User[] = [];
 
-  //liste invitation recu 
+  //liste invitation recu
   lDemandeInvitation: User[] = [];
 
-  //lien de l'image par default des user 
-  urlIconUser:any = "https://testp12.s3.eu-west-3.amazonaws.com/image/user.png";
+  //lien de l'image par default des user
+  urlIconUser: any =
+    'https://testp12.s3.eu-west-3.amazonaws.com/image/user.png';
 
-  //suggest  
+  //suggest
   listSuggest: User[] = [];
 
-  responsiveOptions : any;
-  constructor(private tokenStorage:TokenStorageService, 
-    private contactService:ContactService,
-    private router : Router) { }
-
-
+  responsiveOptions: any;
+  constructor(
+    private tokenStorage: TokenStorageService,
+    private contactService: ContactService,
+    private router: Router
+  ) {}
 
   ngOnInit(): void {
+    this.start();
+  }
 
+  start() {
     if (this.tokenStorage.getToken()) {
       this.user = this.tokenStorage.getUser();
 
@@ -45,136 +47,85 @@ export class ContactComponent implements OnInit {
       this.getListDemandeContact();
       this.getListDemandeInvitation();
       this.getSuggestContact();
-      console.log("user image ", this.user);
+      console.log('user image ', this.user);
     }
-
   }
 
-    
   //-------------- List Contact --------------------//
-    getListContact()
-    {
-        this.contactService.getContactList().subscribe(
-          data => 
-          {
-            this.listContact = data;
+  getListContact() {
+    this.contactService.getContactList().subscribe((data) => {
+      this.listContact = data;
+    });
+  }
 
-          });
-        
-    }
+  //btn profile
+  getContact(id: any) {
+    this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
+      this.router.navigate(['profile/', id]);
+    });
+  }
 
-    //btn profile 
-    getContact(id:any)
-    {
+  //btn chat
+  contact(id: any) {
+    console.log('btn chat ', id);
 
-      
-      this.router.navigateByUrl('/', {skipLocationChange: true}).then(() => {
-          this.router.navigate(['profile/', id]);
-
-      });
-    }
-
-    //btn chat 
-    contact(id:any)
-    {
-
-      console.log("btn chat ", id);
-
-        this.router.navigate(['chat',id]);
-    }
-
- 
-
+    this.router.navigate(['chat', id]);
+  }
 
   //-------------- Suggest ------------//
 
-  
-  //Suggest List 
-  getSuggestContact()
-  {
-    this.contactService.getSuggestContact().subscribe( data => 
-      {
-        this.listSuggest = data;
-      });
+  //Suggest List
+  getSuggestContact() {
+    this.contactService.getSuggestContact().subscribe((data) => {
+      this.listSuggest = data;
+    });
   }
 
-  //Btn Profile 
-  getUserProfil(id:number)
-  {
+  //Btn Profile
+  getUserProfil(id: number) {
     this.router.navigate(['profile/', id]);
   }
 
-
-  //Btn Add User 
-  addUser(id:number)
-  {
-     this.contactService.addContact(id).subscribe(
-       data => 
-       {
-         this.ngOnInit();
-        
-       }
-     );
-
+  //Btn Add User
+  addUser(id: number) {
+    this.contactService.addContact(id).subscribe((data) => {
+      this.start();
+    });
   }
 
   //-----------List Demande Envoyé --------------//
 
-  getListDemandeContact()
-  {
-    this.contactService.getUserAskList().subscribe ( data => 
-      {
-        this.lUserInvited = data;
-      });
-
+  getListDemandeContact() {
+    this.contactService.getUserAskList().subscribe((data) => {
+      this.lUserInvited = data;
+    });
   }
 
-  
-  //la fonction fonctionne mais genere une 
-  cancelDemande(id:any)
-  {
-    this.contactService.cancelDemande(id).subscribe( 
-      data => 
-      {
-      
-        this.lUserInvited = data;
-      }
-    );
-
+  //la fonction fonctionne mais genere une
+  cancelDemande(id: any) {
+    this.contactService.cancelDemande(id).subscribe((data) => {
+      this.lUserInvited = data;
+    });
   }
-
 
   //----------------- List Invitation Recu ----------------//
 
-  
-   getListDemandeInvitation()
-   {
-     this.contactService.getUserInvited().subscribe ( data => 
-       {
-   
-         this.lDemandeInvitation = data;
-       });
- 
- 
-   }
-
-  acceptDemand(id:any)
-  {
-    this.contactService.acceptDemand(id).subscribe( data => 
-      {
-
-        this.ngOnInit();
-        window.location.reload();
-      });
+  getListDemandeInvitation() {
+    this.contactService.getUserInvited().subscribe((data) => {
+      this.lDemandeInvitation = data;
+    });
   }
 
-  refuseDemande(id:any)
-  {
-    this.contactService.refuseDemande(id).subscribe( data => 
-      {
-
-        this.ngOnInit();
-      });
+  acceptDemand(id: any) {
+    this.contactService.acceptDemand(id).subscribe((data) => {
+      this.start();
+      window.location.reload();
+    });
   }
 
+  refuseDemande(id: any) {
+    this.contactService.refuseDemande(id).subscribe((data) => {
+      this.start();
+    });
+  }
 }

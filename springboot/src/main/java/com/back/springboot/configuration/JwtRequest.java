@@ -1,5 +1,4 @@
-package com.back.springboot.models;
-
+package com.back.springboot.configuration;
 
 import java.io.Serializable;
 
@@ -10,7 +9,7 @@ public class JwtRequest implements Serializable {
     private String username;
     private String password;
 
-    //need default constructor for JSON Parsing
+    // need default constructor for JSON Parsing
     public JwtRequest() {
 
     }

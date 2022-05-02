@@ -13,62 +13,60 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-public class FileServiceImpl implements FileService{
+public class FileServiceImpl implements FileService {
 
-    @Autowired
-    private ModelMapper modelMapper;
+    private final ModelMapper modelMapper;
 
-    @Autowired
-    private FileRepository fileRepository;
+    private final FileRepository fileRepository;
 
-    public File createFile(File file)
-    {
+    public FileServiceImpl(ModelMapper modelMapper, FileRepository fileRepository) {
+        this.modelMapper = modelMapper;
+        this.fileRepository = fileRepository;
+    }
+
+    public File createFile(File file) {
 
         File fileCreated = new File();
         fileCreated.setName(file.getName());
         fileCreated.setUrl(file.getUrl());
-        System.out.println("\n file created " +  fileCreated.toString());
+        System.out.println("\n file created " + fileCreated.toString());
         return fileRepository.save(fileCreated);
     }
 
-    public List<File> getAll()
-    {
+    public List<File> getAll() {
         return fileRepository.findAll();
     }
+
     @Override
     public File getFileById(long id) {
         // TODO Auto-generated method stub
         return fileRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException(
-            "Filet not extist with id : "+ id) ) ;
+                "Filet not extist with id : " + id));
     }
 
+    // ------------- Convert -------------//
 
-    //------------- Convert -------------//
-
-    
     @Override
-	public FileDTO convertToDTO(File file) {
-	
-        FileDTO fileDTO=  modelMapper.map(file, FileDTO.class);
-        if (file.getUser() != null)
-        {
+    public FileDTO convertToDTO(File file) {
+
+        FileDTO fileDTO = modelMapper.map(file, FileDTO.class);
+        if (file.getUser() != null) {
             fileDTO.setUsername(file.getUser().getUsername());
         }
 
-		return fileDTO;
-	}
+        return fileDTO;
+    }
 
-	@Override
-	public List<FileDTO> convertToListeDTO(List<File> lFiles) {
-		
+    @Override
+    public List<FileDTO> convertToListeDTO(List<File> lFiles) {
+
         List<FileDTO> list = new ArrayList();
-        
-        for( File file : lFiles){
+
+        for (File file : lFiles) {
             list.add(convertToDTO(file));
         }
 
-		return list;
-	}
+        return list;
+    }
 
-  
 }

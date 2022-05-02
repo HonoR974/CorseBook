@@ -18,35 +18,32 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-
 @CrossOrigin
 @RestController
 @RequestMapping("/api/message/")
 public class MessageController {
-    
-    @Autowired
-    private ChatService chatService;
 
-    @Autowired
-    private MessageService messageService;
+    private final ChatService chatService;
 
-    //Get Message By Id Chat 
+    private final MessageService messageService;
+
+    public MessageController(ChatService chatService, MessageService messageService) {
+        this.chatService = chatService;
+        this.messageService = messageService;
+    }
+
+    // Get Message By Id Chat
     @GetMapping("chat/{id}")
-    public ResponseEntity<List<Message>> getMessageByIdChat(@PathVariable long id)
-    {
+    public ResponseEntity<List<Message>> getMessageByIdChat(@PathVariable long id) {
         List<Message> messages = chatService.getMessagesByIdChat(id);
 
         return new ResponseEntity<>(messages, HttpStatus.ACCEPTED);
     }
 
-
-
-
-    //save all message by id chat 
+    // save all message by id chat
     @PostMapping("chat/{id}")
     public ResponseEntity<List<Message>> saveAllMessage(@PathVariable long id,
-                                            @RequestBody List<Message> list)
-    {
+            @RequestBody List<Message> list) {
 
         System.out.println("\n list " + list.size());
         List<Message> listMessage = messageService.saveAllByIdChat(id, list);

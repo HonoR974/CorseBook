@@ -1,11 +1,8 @@
 package com.back.springboot.models;
 
-
-
 import java.util.Date;
 import java.util.List;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -14,7 +11,6 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
-
 
 @Entity
 public class Event {
@@ -33,25 +29,24 @@ public class Event {
 
     private String contenu;
 
-    @OneToMany( mappedBy = "event")
+    @OneToMany(mappedBy = "event")
     private List<Marker> listMarkers;
 
-    @OneToMany( mappedBy = "event")
+    @OneToMany(mappedBy = "event")
     private List<File> listFile;
 
     @ManyToMany
     private List<User> listUser;
 
-    @OneToMany( mappedBy = "event")
+    @OneToMany(mappedBy = "event")
     private List<Comment> listComments;
-    
+
     private String nameCreator;
 
-    //chat 
-	@OneToOne
-	@JoinColumn(name = "chat_id", referencedColumnName = "id")
+    // chat
+    @OneToOne
+    @JoinColumn(name = "chat_id", referencedColumnName = "id")
     private Chat chat;
-
 
     public Event() {
     }
@@ -80,7 +75,6 @@ public class Event {
         this.dateFin = dateFin;
     }
 
-   
     public String getName() {
         return name;
     }
@@ -160,9 +154,5 @@ public class Event {
                 + listFile + ", listMarkers=" + listMarkers + ", listUser=" + listUser + ", name=" + name
                 + ", nameCreator=" + nameCreator + "]";
     }
-
-   
-
-    
 
 }

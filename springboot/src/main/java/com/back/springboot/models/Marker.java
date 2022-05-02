@@ -1,23 +1,17 @@
 package com.back.springboot.models;
 
-
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
-
 
 @Entity
-public class Marker 
-{
+public class Marker {
 
-    
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
-
 
     private float latitude;
 
@@ -33,15 +27,11 @@ public class Marker
 
     public Marker() {
     }
-    
-    
 
     public Marker(float latitude, float longitude) {
         this.latitude = latitude;
         this.longitude = longitude;
     }
-
-
 
     public long getId() {
         return id;
@@ -50,8 +40,6 @@ public class Marker
     public void setId(long id) {
         this.id = id;
     }
-
-  
 
     public float getLatitude() {
         return latitude;
@@ -85,22 +73,12 @@ public class Marker
         this.event = event;
     }
 
-
-
     public Publication getPublication() {
         return publication;
     }
-
-
 
     public void setPublication(Publication publication) {
         this.publication = publication;
     }
 
-
-
-
-    
-
-    
 }

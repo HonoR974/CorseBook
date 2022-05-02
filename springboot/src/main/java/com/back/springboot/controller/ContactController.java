@@ -1,7 +1,5 @@
 package com.back.springboot.controller;
 
-
-
 import com.back.springboot.service.ContactService;
 import com.back.springboot.service.UserService;
 
@@ -21,23 +19,22 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-
 @CrossOrigin
 @RestController
 @RequestMapping("/api/contact/")
 public class ContactController {
 
+    private final ContactService contactService;
 
-    @Autowired
-    private ContactService contactService;
+    private final UserService userService;
 
-    @Autowired
-    private UserService userService;
-
+    public ContactController(ContactService contactService, UserService userService) {
+        this.contactService = contactService;
+        this.userService = userService;
+    }
 
     @GetMapping()
-    public ResponseEntity<?> getAllUser()
-    {
+    public ResponseEntity<?> getAllUser() {
         List<User> lUsers = userService.getAllUser();
 
         List<UserDTO> lDtos = userService.convertTolistDto(lUsers);
@@ -47,37 +44,31 @@ public class ContactController {
 
     @GetMapping("{id}")
     public ResponseEntity<?> getUserById(@PathVariable long id) {
-       
-       User user = userService.getUserById(id);
 
-       UserDTO userDTO = userService.convertToDto(user);
-       
+        User user = userService.getUserById(id);
+
+        UserDTO userDTO = userService.convertToDto(user);
+
         return ResponseEntity.ok(userDTO);
     }
-    
 
-    //envoie une demande d'ajout a un user par son id 
-    //renvoie l'user ayant recu l'invitation 
+    // envoie une demande d'ajout a un user par son id
+    // renvoie l'user ayant recu l'invitation
     @PostMapping("{id}")
-    public ResponseEntity<UserDTO> askForAddContactById(@PathVariable long id)
-    {
-        
-        
+    public ResponseEntity<UserDTO> askForAddContactById(@PathVariable long id) {
+
         User userRecevant = contactService.setAskContact(id);
 
         UserDTO userDTO = userService.convertToDto(userRecevant);
 
-
         return new ResponseEntity<UserDTO>(userDTO, HttpStatus.ACCEPTED);
     }
 
-
-    //accepte la demande d'ajout recu 
-    // l'user connécté avec le jwt accepte l'user a l'id envoyé 
-    //renvoie les 2 Users 
+    // accepte la demande d'ajout recu
+    // l'user connécté avec le jwt accepte l'user a l'id envoyé
+    // renvoie les 2 Users
     @PostMapping("/accept/{id}")
-    public ResponseEntity<List<UserDTO>> accepteDemandeByID(@PathVariable long id)
-    {
+    public ResponseEntity<List<UserDTO>> accepteDemandeByID(@PathVariable long id) {
 
         List<User> list = contactService.accepteDemande(id);
 
@@ -87,11 +78,10 @@ public class ContactController {
 
     }
 
-     //refuse la demande d'ajout recu 
-     //refuse la demande de l'user correspondant à l'id envoyé 
+    // refuse la demande d'ajout recu
+    // refuse la demande de l'user correspondant à l'id envoyé
     @PostMapping("/refuse/{id}")
-    public ResponseEntity<UserDTO> refuseDemandeById(@PathVariable long id)
-    {
+    public ResponseEntity<UserDTO> refuseDemandeById(@PathVariable long id) {
         User user = contactService.refuseDemandeById(id);
 
         UserDTO userDTO = userService.convertToDto(user);
@@ -99,91 +89,78 @@ public class ContactController {
         return new ResponseEntity<UserDTO>(userDTO, HttpStatus.ACCEPTED);
     }
 
-     //affiche la list des invitations par le jwt 
-     @GetMapping("/invitations")
-     public ResponseEntity<List<UserDTO>> getInvitationByJwt()
-     {
+    // affiche la list des invitations par le jwt
+    @GetMapping("/invitations")
+    public ResponseEntity<List<UserDTO>> getInvitationByJwt() {
         List<User> list = contactService.getInvitation();
 
         List<UserDTO> lDtos = userService.convertTolistDto(list);
 
         return new ResponseEntity<List<UserDTO>>(lDtos, HttpStatus.ACCEPTED);
-     }
+    }
 
-     
-     //affiche la list des invitations par l'id de l'user 
-     @GetMapping("/invitations/{id}")
-     public ResponseEntity<List<UserDTO>> getInvitationById(@PathVariable long id)
-     {
+    // affiche la list des invitations par l'id de l'user
+    @GetMapping("/invitations/{id}")
+    public ResponseEntity<List<UserDTO>> getInvitationById(@PathVariable long id) {
         List<User> list = contactService.getInvitationById(id);
 
         List<UserDTO> lDtos = userService.convertTolistDto(list);
 
         return new ResponseEntity<List<UserDTO>>(lDtos, HttpStatus.ACCEPTED);
-     }
+    }
 
-
-     //affiche la list de contacte par l'id 
-     @GetMapping("/list/{id}")
-     public ResponseEntity<List<UserDTO>> getContactsById(@PathVariable long id)
-     {
+    // affiche la list de contacte par l'id
+    @GetMapping("/list/{id}")
+    public ResponseEntity<List<UserDTO>> getContactsById(@PathVariable long id) {
 
         List<User> lUsers = contactService.getConctactsById(id);
 
         List<UserDTO> lDtos = userService.convertTolistDto(lUsers);
 
         return new ResponseEntity<List<UserDTO>>(lDtos, HttpStatus.ACCEPTED);
-        
-     }
 
-      //affiche la list de contacte par jwt 
+    }
 
-      @GetMapping("/list")
-      public ResponseEntity<List<UserDTO>> getContatcsByJwt()
-      {
-          
+    // affiche la list de contacte par jwt
+
+    @GetMapping("/list")
+    public ResponseEntity<List<UserDTO>> getContatcsByJwt() {
+
         List<User> lUsers = contactService.getContactsByJwt();
 
         List<UserDTO> lDtos = userService.convertTolistDto(lUsers);
 
         return new ResponseEntity<List<UserDTO>>(lDtos, HttpStatus.ACCEPTED);
-      }
+    }
 
-
-
-   // supprime un contact 
-   // id user qui possede la liste de contact 
-   // idToDeleted user de la liste de contact 
+    // supprime un contact
+    // id user qui possede la liste de contact
+    // idToDeleted user de la liste de contact
     @DeleteMapping("/list/{id}/delete/{idToDelete}")
     public ResponseEntity<String> deleteContactByID(@PathVariable long id,
-                                            @PathVariable long idToDelete)
-    {
+            @PathVariable long idToDelete) {
         contactService.deleteContactById(id, idToDelete);
 
         return new ResponseEntity<String>("Accepted", HttpStatus.ACCEPTED);
     }
 
-
-   // supprime un contact by jwt 
-   // id user de la liste de contact 
-   //return les contacts de l'user au jwt 
-   @DeleteMapping("list/delete/{id}")
-   public ResponseEntity<List<UserDTO>> deleteContactByJwt(@PathVariable long id)
-   {    
+    // supprime un contact by jwt
+    // id user de la liste de contact
+    // return les contacts de l'user au jwt
+    @DeleteMapping("list/delete/{id}")
+    public ResponseEntity<List<UserDTO>> deleteContactByJwt(@PathVariable long id) {
         contactService.deletedContactByJwt(id);
-    
+
         List<User> lUsers = contactService.getContactsByJwt();
 
         List<UserDTO> lDtos = userService.convertTolistDto(lUsers);
 
         return new ResponseEntity<List<UserDTO>>(lDtos, HttpStatus.ACCEPTED);
-    }    
-    
+    }
 
-    //get Suggest Contact 
+    // get Suggest Contact
     @GetMapping("suggest")
-    public ResponseEntity<?> getSuggestContact()
-    {
+    public ResponseEntity<?> getSuggestContact() {
         List<User> list = contactService.getSuggestContact();
 
         List<UserDTO> lDtos = userService.convertTolistDto(list);
@@ -191,44 +168,33 @@ public class ContactController {
         return new ResponseEntity<List<UserDTO>>(lDtos, HttpStatus.ACCEPTED);
     }
 
-
-
-    //get List des invitation envoyé par l'user 
-    //donc ses demandes 
+    // get List des invitation envoyé par l'user
+    // donc ses demandes
     @GetMapping("demandes")
-    public ResponseEntity<List<UserDTO>> getListInvitationByJwt()
-    {
+    public ResponseEntity<List<UserDTO>> getListInvitationByJwt() {
         List<User> list = contactService.getListDemande();
 
-
         List<UserDTO> lDtos = userService.convertTolistDto(list);
-   
 
         return new ResponseEntity<List<UserDTO>>(lDtos, HttpStatus.ACCEPTED);
     }
 
-
-    //supprime une demande envoyé par l'user 
+    // supprime une demande envoyé par l'user
     @PostMapping("demandes/{id}")
-    public  ResponseEntity<List<UserDTO>> cancelDemande(@PathVariable long id)
-    {
+    public ResponseEntity<List<UserDTO>> cancelDemande(@PathVariable long id) {
 
         contactService.cancelDemande(id);
         List<User> list = contactService.getListDemande();
 
-
         List<UserDTO> lDtos = userService.convertTolistDto(list);
-   
 
         return new ResponseEntity<List<UserDTO>>(lDtos, HttpStatus.ACCEPTED);
     }
 
-
-    //supprime tout les contacts et invitations de chaque user 
-    //return tous les users 
+    // supprime tout les contacts et invitations de chaque user
+    // return tous les users
     @DeleteMapping("clean")
-    public ResponseEntity<List<UserDTO>> cleanContact()
-    {
+    public ResponseEntity<List<UserDTO>> cleanContact() {
         contactService.cleanAll();
 
         List<User> lUsers = userService.getAllUser();
