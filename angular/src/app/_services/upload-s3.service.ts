@@ -6,65 +6,48 @@ import { FileAPI } from '../_class/file-api';
 
 const File_API = 'http://localhost:8080/api/file/';
 
-
 const httpOptions = {
-  headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+  headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
 };
-
-
 
 @Injectable({
   providedIn: 'root',
 })
 export class UploadS3Service {
-
   constructor(private http: HttpClient) {}
 
-
   uploadFileS3(file: any, filePath: any) {
-
     return new Promise((resolve, reject) => {
-
       const contentType = file.type;
       const bucket = new S3({
-        accessKeyId: 'AKIA3JCVUBIEDKO2RXC3',// ACCESS_KEY_ID
-        secretAccessKey: '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',// SECRET_ACCESS_KEY
-        region: 'eu-west-3',// BUCKET_REGION
+        accessKeyId: '', // ACCESS_KEY_ID
+        secretAccessKey: '', // SECRET_ACCESS_KEY
+        region: 'eu-west-3', // BUCKET_REGION
       });
 
       const params = {
-        Bucket: 'testp12',//BUCKET_NAME
+        Bucket: 'testp12', //BUCKET_NAME
         Key: filePath,
         Body: file,
         ACL: 'public-read',
         ContentType: contentType,
       };
 
-      bucket.upload(params,  (err: any, data: any) => {
+      bucket.upload(params, (err: any, data: any) => {
         if (err) {
           reject(err);
-        }
-
-        else
-        {
+        } else {
           resolve(data);
         }
-
-
-        });
-
+      });
     });
   }
 
-  uploadFileAPI(file: FileAPI): Observable<any> 
-  {
+  uploadFileAPI(file: FileAPI): Observable<any> {
     return this.http.post(File_API, file);
-  
   }
 
-
-  getAllFileAPI(): Observable<FileAPI[]>
-  {
+  getAllFileAPI(): Observable<FileAPI[]> {
     return this.http.get<FileAPI[]>(File_API);
   }
 }
